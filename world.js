@@ -119,7 +119,7 @@
     for (let k = 0; k < count; k++) {
       html +=
         '<div class="frame" style="background:linear-gradient(' + (135 + k * 40) + "deg," +
-        esc(color) + ", " + ["#efe8db", "#ddd1bb", "#e6ddcb"][k % 3] + ')">Image ' + (k + 1) + "</div>";
+        esc(color) + ", " + ["#efe6d8", "#e5d7c4", "#ddcdb3"][k % 3] + ')">Image ' + (k + 1) + "</div>";
     }
     return html;
   }
@@ -351,11 +351,11 @@
           vec3 p = position;
           p.y = aH * rise;
           float hn = aH / uMaxH;
-          // light olive in the valleys -> olive #767154 -> olive-leather on the ridges; leather is kept for the contours
-          vec3 c = mix(vec3(0.62, 0.60, 0.48), vec3(0.463, 0.443, 0.329), smoothstep(0.1, 0.6, hn));
-          c = mix(c, vec3(0.30, 0.25, 0.19), smoothstep(0.6, 1.0, hn));
+          // pale moss in the valleys -> moss #889063 -> kombu #354024 on the ridges; café noir is kept for the contours
+          vec3 c = mix(vec3(0.66, 0.68, 0.53), vec3(0.533, 0.565, 0.388), smoothstep(0.1, 0.55, hn));
+          c = mix(c, vec3(0.208, 0.251, 0.141), smoothstep(0.55, 1.0, hn));
           float front = 1.0 - clamp(abs(k - 0.5) * 2.0, 0.0, 1.0);
-          c = mix(mix(vec3(0.62, 0.60, 0.48), c, rise), vec3(0.208, 0.149, 0.122), front * 0.8);
+          c = mix(mix(vec3(0.66, 0.68, 0.53), c, rise), vec3(0.298, 0.239, 0.098), front * 0.8);
           vA = grid * aEdge * (0.4 + 0.3 * rise + 0.4 * front);
           vC = c;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
@@ -458,7 +458,7 @@
         }`,
       fragmentShader: `
         varying float vA;
-        void main() { gl_FragColor = vec4(0.208, 0.149, 0.122, vA); } // leather #35261f`,
+        void main() { gl_FragColor = vec4(0.298, 0.239, 0.098, vA); } // café noir #4c3d19`,
     }));
     contours.renderOrder = 3;
     scene.add(contours);
@@ -471,14 +471,14 @@
       const v = (k / 5) * HALF, len = k % 5 === 0 ? 5 : 2.5;
       fp.push(v, 0, -F, v, 0, -F - len, v, 0, F, v, 0, F + len, -F, 0, v, -F - len, 0, v, F, 0, v, F + len, 0, v);
     }
-    const frameMat = new T.LineBasicMaterial({ color: 0x767154, transparent: true, opacity: 0, depthWrite: false });
+    const frameMat = new T.LineBasicMaterial({ color: 0x889063, transparent: true, opacity: 0, depthWrite: false });
     scene.add(new T.LineSegments(new T.BufferGeometry().setAttribute("position", new T.Float32BufferAttribute(fp, 3)), frameMat));
 
     // ---- Summit beacons ---------------------------------------------------
     const beacons = stops.map((s, i) => {
       const grp = new T.Group();
       grp.position.set(s.top.x, s.top.y, s.top.z);
-      const col = s.kind === "about" ? 0x35261f : 0x767154;
+      const col = s.kind === "about" ? 0x4c3d19 : 0x354024;
       const beamMat = new T.LineBasicMaterial({ color: col, transparent: true, opacity: 0, depthWrite: false });
       const beamH = s.kind === "about" ? 16 : 12;
       grp.add(new T.LineSegments(new T.BufferGeometry().setAttribute("position", new T.Float32BufferAttribute([0, 0, 0, 0, beamH, 0], 3)), beamMat));
