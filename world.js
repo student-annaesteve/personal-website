@@ -83,7 +83,7 @@
   $("name").textContent = ABOUT.name || "";
   $("tagline").textContent = ABOUT.tagline || "";
   const hintText = isTouch
-    ? "Drag to look around · Pinch to zoom · Pick a summit"
+    ? "Drag to explore · Tap a summit"
     : "Drag to look around · Scroll to zoom · Pick a summit";
   $("hint").textContent = hintText;
 
@@ -101,7 +101,8 @@
     b.type = "button";
     b.className = "sign" + (s.kind === "about" ? " summit" : "");
     b.innerHTML =
-      '<span class="sign-name">' + esc(s.kind === "about" ? "Summit · About me" : s.data.title) + "</span>" +
+      '<span class="sign-num">' + (s.kind === "about" ? "▲" : String(i + 1).padStart(2, "0")) + "</span>" +
+      '<span class="sign-name">' + esc(s.kind === "about" ? "About me" : s.data.title) + "</span>" +
       '<span class="sign-alt">' + (s.metres ? fmt(s.metres) : "") + "</span>";
     b.addEventListener("click", () => open(i));
     s.signEl = b;
@@ -299,7 +300,7 @@
     `;
 
     // ---- Survey mesh: a jittered triangulated grid ------------------------
-    const N = isSmall() ? 84 : 118;
+    const N = isSmall() ? 120 : 170;
     const verts = [];
     for (let j = 0; j <= N; j++) for (let i = 0; i <= N; i++) {
       let x = (i / N) * WIDTH - HALF, z = (j / N) * WIDTH - HALF;
@@ -351,12 +352,13 @@
           vec3 p = position;
           p.y = aH * rise;
           float hn = aH / uMaxH;
-          // pale moss in the valleys -> moss #889063 -> kombu #354024 on the ridges; café noir is kept for the contours
-          vec3 c = mix(vec3(0.66, 0.68, 0.53), vec3(0.533, 0.565, 0.388), smoothstep(0.1, 0.55, hn));
-          c = mix(c, vec3(0.208, 0.251, 0.141), smoothstep(0.55, 1.0, hn));
+          // elevation ramp through the palette: tan valleys -> moss slopes -> kombu ridges -> café noir summits
+          vec3 c = mix(vec3(0.812, 0.733, 0.600), vec3(0.533, 0.565, 0.388), smoothstep(0.05, 0.4, hn));
+          c = mix(c, vec3(0.208, 0.251, 0.141), smoothstep(0.4, 0.75, hn));
+          c = mix(c, vec3(0.298, 0.239, 0.098), smoothstep(0.75, 1.0, hn));
           float front = 1.0 - clamp(abs(k - 0.5) * 2.0, 0.0, 1.0);
-          c = mix(mix(vec3(0.66, 0.68, 0.53), c, rise), vec3(0.298, 0.239, 0.098), front * 0.8);
-          vA = grid * aEdge * (0.4 + 0.3 * rise + 0.4 * front);
+          c = mix(mix(vec3(0.812, 0.733, 0.600), c, rise), vec3(0.208, 0.251, 0.141), front * 0.8);
+          vA = grid * aEdge * (0.45 + 0.35 * rise + 0.3 * front);
           vC = c;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
         }`,
@@ -538,9 +540,10 @@
       focus = i;
       const s = stops[i];
       want.target.set(s.top.x, s.top.y + 3, s.top.z);
-      want.radius = (s.kind === "about" ? 70 : 54) * (portrait() ? 1.35 : 1);
-      want.theta = nearestAngle(cur.theta, Math.atan2(s.top.x, s.top.z + 60) * 0.6 + 0.25);
-      want.phi = 1.05;
+      want.radius = (s.kind === "about" ? 95 : 85) * (portrait() ? 1.3 : 1);
+      // Look down on the summit from high above, like reading a map, so no ridge can hide it.
+      want.theta = nearestAngle(cur.theta, OVERVIEW.theta + (s.top.x / WIDTH) * 0.6);
+      want.phi = 0.5;
       setOffsets();
       stops.forEach((st, k) => st.tagEl.classList.toggle("dim", k !== i));
       lastInput = performance.now();
