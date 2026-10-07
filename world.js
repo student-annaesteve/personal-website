@@ -299,15 +299,27 @@
       float riseAmt(float k) { return smoothstep(0.0, 1.0, clamp(k, 0.0, 1.0)); }
     `;
 
-    // ---- Survey mesh: a jittered triangulated grid ------------------------
+    // ---- Survey mesh: a jittered triangulated grid, densest at the summit --
+    // The grid is built in a normalised square u,v ∈ [-1, 1] centred on the highest summit, then
+    // pulled towards that centre: r' = r · (0.28 + 0.72 · r). Cells there are ~3.5× smaller than
+    // in a plain grid and grow steadily to ~1.7× larger at the edges of the map.
     const N = isSmall() ? 120 : 170;
+    const peak = terrain.tops[terrain.tops.length - 1];
+    const warpAxis = (u, c) => (u >= 0 ? c + u * (HALF - c) : c + u * (HALF + c));
     const verts = [];
     for (let j = 0; j <= N; j++) for (let i = 0; i <= N; i++) {
-      let x = (i / N) * WIDTH - HALF, z = (j / N) * WIDTH - HALF;
+      let u = (i / N) * 2 - 1, v = (j / N) * 2 - 1;
       if (i > 0 && i < N && j > 0 && j < N) {
-        x += (hash(i, j * 3 + 1) - 0.5) * (WIDTH / N) * 0.55;
-        z += (hash(i, j * 3 + 2) - 0.5) * (WIDTH / N) * 0.55;
+        u += (hash(i, j * 3 + 1) - 0.5) * (2 / N) * 0.55;
+        v += (hash(i, j * 3 + 2) - 0.5) * (2 / N) * 0.55;
       }
+      const r = Math.max(Math.abs(u), Math.abs(v));
+      if (r > 0) {
+        const k = 0.28 + 0.72 * r; // r' / r
+        u *= k;
+        v *= k;
+      }
+      const x = warpAxis(u, peak.x), z = warpAxis(v, peak.z);
       verts.push({ x, z, h: heightAt(x, z) });
     }
     const vid = (i, j) => j * (N + 1) + i;

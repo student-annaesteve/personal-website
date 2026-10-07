@@ -6,7 +6,8 @@ elevation and the summit beacons switch on.
 Every project is a marked summit on the trail; the highest peak is "About me".
 
 - `projects.js`: **your content**. Add, remove or reorder projects here; the range rebuilds itself.
-- `world.js`: the survey map (wireframe mesh, contour lines, summit beacons, build animation, camera)
+- `world.js`: the survey map (wireframe mesh that is densest at the summit and opens up towards the
+  edges, contour lines, summit beacons, build animation, camera)
   and the project panel. Summits are found automatically on the height map.
 - `terrain.js`: a 160×160 height map converted from [“Rugged mountain landscape”](https://sketchfab.com/3d-models/rugged-mountain-landscape-61f68892e8b34f8a9fbd57a5243ea142)
   by [teej_fbx](https://sketchfab.com/Tom.Jansen1), licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
