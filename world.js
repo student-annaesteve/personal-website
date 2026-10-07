@@ -281,11 +281,19 @@
       return (h >>> 0) / 4294967296;
     }
     // The map fades out along a soft, rounded outline (a gently wavy circle) instead of a square.
+    // The outline bulges out towards the first project so its summit has open terrain around it,
+    // but never past the edge of the height map.
+    const first = terrain.tops[0];
+    const firstA = Math.atan2(first.z, first.x);
     const edgeFade = (x, z) => {
       const a = Math.atan2(z, x);
-      const rim = HALF * 0.9 * (1 + 0.05 * Math.sin(3 * a + 1) + 0.035 * Math.sin(5 * a + 2) + 0.02 * Math.sin(9 * a + 0.5));
+      let da = Math.abs(a - firstA);
+      if (da > Math.PI) da = Math.PI * 2 - da;
+      const bulge = 1 + 0.3 * Math.exp(-(da * da) / 0.35);
+      const mapEdge = HALF / Math.max(Math.abs(Math.cos(a)), Math.abs(Math.sin(a)));
+      const rim = Math.min(mapEdge, HALF * 0.9 * bulge * (1 + 0.05 * Math.sin(3 * a + 1) + 0.035 * Math.sin(5 * a + 2) + 0.02 * Math.sin(9 * a + 0.5)));
       const m = Math.hypot(x, z) / rim;
-      const t = Math.min(1, Math.max(0, (1 - m) / 0.3));
+      const t = Math.min(1, Math.max(0, (1 - m) / 0.45));
       return t * t * (3 - 2 * t);
     };
     const sweepAt = (x, z) => (x + HALF) / WIDTH * 0.75 + (HALF - z) / WIDTH * 0.25;
@@ -371,6 +379,7 @@
           vec3 c = mix(vec3(0.812, 0.733, 0.600), vec3(0.533, 0.565, 0.388), smoothstep(0.02, 0.25, hn));
           c = mix(c, vec3(0.208, 0.251, 0.141), smoothstep(0.25, 0.6, hn));
           c = mix(c, vec3(0.298, 0.239, 0.098), smoothstep(0.6, 0.95, hn));
+          c = mix(vec3(0.812, 0.733, 0.600), c, smoothstep(0.15, 0.85, aEdge)); // turn tan towards the map's rim
           float front = 1.0 - clamp(abs(k - 0.5) * 2.0, 0.0, 1.0);
           c = mix(mix(vec3(0.812, 0.733, 0.600), c, rise), vec3(0.208, 0.251, 0.141), front * 0.8);
           vA = grid * aEdge * (0.45 + 0.35 * rise + 0.3 * front);
