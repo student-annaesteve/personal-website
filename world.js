@@ -33,14 +33,18 @@
     const cell = WIDTH / (G - 1);
     const toX = (gx) => gx * cell - WIDTH / 2;
 
+    // Beyond the height map the ground keeps the edge height and eases down into a flat plain.
     function heightAt(x, z) {
-      const fx = (x + WIDTH / 2) / cell, fz = (z + WIDTH / 2) / cell;
-      if (fx < 0 || fz < 0 || fx > G - 1 || fz > G - 1) return 0;
+      let fx = (x + WIDTH / 2) / cell, fz = (z + WIDTH / 2) / cell;
+      const outside = Math.hypot(Math.max(0, -fx, fx - (G - 1)), Math.max(0, -fz, fz - (G - 1))) * cell;
+      fx = Math.min(G - 1, Math.max(0, fx));
+      fz = Math.min(G - 1, Math.max(0, fz));
+      const falloff = outside > 0 ? Math.exp(-outside / 18) : 1;
       const x0 = Math.floor(fx), z0 = Math.floor(fz), x1 = Math.min(G - 1, x0 + 1), z1 = Math.min(G - 1, z0 + 1);
       const tx = fx - x0, tz = fz - z0;
       const h0 = H[z0 * G + x0] * (1 - tx) + H[z0 * G + x1] * tx;
       const h1 = H[z1 * G + x0] * (1 - tx) + H[z1 * G + x1] * tx;
-      return h0 * (1 - tz) + h1 * tz;
+      return (h0 * (1 - tz) + h1 * tz) * falloff;
     }
 
     // Summits: local maxima, well apart, away from the edges.
@@ -256,6 +260,7 @@
     const T = window.THREE;
     const { G, H, HEIGHT, heightAt } = terrain;
     const HALF = WIDTH / 2;
+    const EXT = HALF * 1.4; // the mesh reaches past the height map so the ground can run out into a flat plain
 
     // Build timeline (seconds): grid draws outward → terrain rises in a wave →
     // contours trace by elevation → summit beacons switch on.
@@ -289,8 +294,8 @@
       const a = Math.atan2(z, x);
       let da = Math.abs(a - firstA);
       if (da > Math.PI) da = Math.PI * 2 - da;
-      const bulge = 1 + 0.3 * Math.exp(-(da * da) / 0.35);
-      const mapEdge = HALF / Math.max(Math.abs(Math.cos(a)), Math.abs(Math.sin(a)));
+      const bulge = 1 + 0.6 * Math.exp(-(da * da) / 0.3);
+      const mapEdge = EXT / Math.max(Math.abs(Math.cos(a)), Math.abs(Math.sin(a)));
       const rim = Math.min(mapEdge, HALF * 0.9 * bulge * (1 + 0.05 * Math.sin(3 * a + 1) + 0.035 * Math.sin(5 * a + 2) + 0.02 * Math.sin(9 * a + 0.5)));
       const m = Math.hypot(x, z) / rim;
       const t = Math.min(1, Math.max(0, (1 - m) / 0.45));
@@ -314,9 +319,9 @@
     // The grid is built in a normalised square u,v ∈ [-1, 1] centred on the highest summit, then
     // pulled towards that centre: r' = r · (0.18 + 0.82 · r). Cells there are ~5.5× smaller than
     // in a plain grid and grow steadily to ~1.8× larger at the edges of the map.
-    const N = isSmall() ? 120 : 170;
+    const N = isSmall() ? 140 : 200;
     const peak = terrain.tops[terrain.tops.length - 1];
-    const warpAxis = (u, c) => (u >= 0 ? c + u * (HALF - c) : c + u * (HALF + c));
+    const warpAxis = (u, c) => (u >= 0 ? c + u * (EXT - c) : c + u * (EXT + c));
     const verts = [];
     for (let j = 0; j <= N; j++) for (let i = 0; i <= N; i++) {
       let u = (i / N) * 2 - 1, v = (j / N) * 2 - 1;
@@ -529,7 +534,9 @@
     const baseRadius = WIDTH * 0.8;
     const overviewRadius = () => (portrait() ? baseRadius * Math.pow(innerHeight / innerWidth, 0.6) : baseRadius);
     function fitLens() { camera.fov = portrait() ? 54 : 42; }
-    const OVERVIEW = { target: new T.Vector3(0, HEIGHT * 0.4, 0), radius: overviewRadius(), theta: 0.12, phi: 1.08 };
+    // Frame the whole route: aim at the middle of all the summits, not the middle of the map.
+    const mid = stops.reduce((m, s) => ({ x: m.x + s.top.x / stops.length, z: m.z + s.top.z / stops.length }), { x: 0, z: 0 });
+    const OVERVIEW = { target: new T.Vector3(mid.x, HEIGHT * 0.4, mid.z), radius: overviewRadius(), theta: 0.12, phi: 1.08 };
     fitLens();
     const want = { target: OVERVIEW.target.clone(), radius: OVERVIEW.radius, theta: OVERVIEW.theta, phi: OVERVIEW.phi, offX: 0, offY: 0 };
     const cur = reduceMotion
