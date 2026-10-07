@@ -1,15 +1,21 @@
 /* Layout: a full-screen survey map of the mountain with a trail sign, peak tags and a slide-in project panel.
-   Single look: glowing survey lines on a night background, so colours are set once and work on any host theme. */
+   Single look built from three colours (olive #767154, sand #C1B094, leather #35261F) plus their tints and shades,
+   set once so they work on any host theme. */
 :root {
-  --night: #050a0f;
-  --deep: #0b1a1c;
-  --glass: rgba(6, 14, 18, 0.78);
-  --line: rgba(190, 255, 170, 0.16);
-  --ink: #e8f2e6;
-  --muted: #93aa9c;
-  --sign: #e8ff5a;      /* survey-line yellow: the colour of the contour lines */
-  --sign-ink: #0a1206;
-  --blaze: #d8402f;     /* red trail blaze */
+  /* The three colours */
+  --olive: #767154;
+  --sand: #c1b094;
+  --leather: #35261f;
+  /* Tints and shades of them */
+  --night: #22180f;     /* leather, deepened: page edges */
+  --deep: #3d2c23;      /* leather, lifted: page centre */
+  --glass: rgba(42, 30, 24, 0.84);   /* leather panels */
+  --line: rgba(193, 176, 148, 0.2);  /* sand hairlines */
+  --ink: #ece4d4;       /* sand, lightened: text */
+  --muted: #a99c85;     /* sand, dimmed: secondary text */
+  --sign: var(--sand);  /* accent: trail signs, buttons, altitudes */
+  --sign-ink: var(--leather);
+  --blaze: var(--olive);
 
   --display: "Young Serif", Georgia, serif;
   --body: "Figtree", system-ui, -apple-system, sans-serif;
@@ -70,7 +76,7 @@ a { color: var(--sign); }
   font-weight: 400;
   font-size: clamp(1.7rem, 4vw, 2.6rem);
   line-height: 1.05;
-  text-shadow: 0 2px 18px rgba(5, 10, 15, 0.6);
+  text-shadow: 0 2px 18px rgba(26, 18, 13, 0.6);
 }
 .tagline {
   margin: 6px 0 0;
@@ -81,7 +87,7 @@ a { color: var(--sign); }
   text-transform: uppercase;
   color: var(--ink);
   opacity: 0.85;
-  text-shadow: 0 1px 10px rgba(5, 10, 15, 0.6);
+  text-shadow: 0 1px 10px rgba(26, 18, 13, 0.6);
 }
 
 .about-btn {
@@ -95,7 +101,7 @@ a { color: var(--sign); }
   white-space: nowrap;
   transition: background 0.2s ease;
 }
-.about-btn:hover { background: rgba(6, 14, 18, 0.95); }
+.about-btn:hover { background: var(--olive); }
 
 /* ---------- Trail sign (project list) ---------- */
 .trail {
@@ -115,12 +121,12 @@ a { color: var(--sign); }
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-size: 0.75rem;
-  text-shadow: 0 1px 8px rgba(5, 10, 15, 0.6);
+  text-shadow: 0 1px 8px rgba(26, 18, 13, 0.6);
 }
 .blaze {
   width: 22px;
   height: 12px;
-  background: linear-gradient(var(--blaze) 0 33%, #fff 33% 66%, var(--blaze) 66%);
+  background: linear-gradient(var(--olive) 0 33%, var(--sand) 33% 66%, var(--olive) 66%);
   border-radius: 2px;
 }
 .trail-list {
@@ -162,7 +168,7 @@ a { color: var(--sign); }
   font-size: 0.8rem;
   font-variant-numeric: tabular-nums;
 }
-.sign.summit { background: #fff; }
+.sign.summit { background: var(--ink); }
 .sign.summit .sign-alt::before { content: "▲ "; color: var(--blaze); }
 
 /* ---------- Hint ---------- */
@@ -200,7 +206,7 @@ a { color: var(--sign); }
   color: var(--ink);
   opacity: 0.75;
   text-align: right;
-  text-shadow: 0 1px 6px rgba(5, 10, 15, 0.8);
+  text-shadow: 0 1px 6px rgba(26, 18, 13, 0.8);
 }
 .credit a { color: inherit; }
 
@@ -240,7 +246,7 @@ a { color: var(--sign); }
   border-bottom: 0;
   border-top-color: var(--glass);
 }
-.peak-tag:hover { background: rgba(6, 14, 18, 0.95); }
+.peak-tag:hover { background: var(--leather); }
 .peak-tag .tag-alt {
   font-family: var(--label);
   font-weight: 500;
@@ -336,7 +342,7 @@ a { color: var(--sign); }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--ink);
 }
 
 .panel-link {

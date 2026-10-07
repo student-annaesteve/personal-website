@@ -6,7 +6,7 @@
   images: [{ src: "images/my-poster.jpg", alt: "Short description" }, ...]
           Leave the list empty to show placeholder frames.
   link:   a URL for the full project (Behance, PDF, website…) or "".
-  color:  the colour of the summit flag.
+  color:  the tint of the placeholder frames (keep to the site's olive / sand / leather palette).
 */
 window.PROJECTS = [
   {
@@ -17,7 +17,7 @@ window.PROJECTS = [
       "Placeholder. Describe the brief, what you designed and what came out of it. Two or three sentences are enough.",
     images: [],
     link: "",
-    color: "#d8402f",
+    color: "#767154",
   },
   {
     title: "Project Two",
@@ -27,7 +27,7 @@ window.PROJECTS = [
       "Placeholder. Describe the brief, what you designed and what came out of it. Two or three sentences are enough.",
     images: [],
     link: "",
-    color: "#2f6fd8",
+    color: "#c1b094",
   },
   {
     title: "Project Three",
@@ -37,7 +37,7 @@ window.PROJECTS = [
       "Placeholder. Describe the brief, what you designed and what came out of it. Two or three sentences are enough.",
     images: [],
     link: "",
-    color: "#e09a1f",
+    color: "#8f8766",
   },
   {
     title: "Project Four",
@@ -47,7 +47,7 @@ window.PROJECTS = [
       "Placeholder. Describe the brief, what you designed and what came out of it. Two or three sentences are enough.",
     images: [],
     link: "",
-    color: "#2e9e6a",
+    color: "#a8957a",
   },
 ];
 

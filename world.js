@@ -119,7 +119,7 @@
     for (let k = 0; k < count; k++) {
       html +=
         '<div class="frame" style="background:linear-gradient(' + (135 + k * 40) + "deg," +
-        esc(color) + ", hsl(" + (150 + k * 20) + " 40% 10%))\">Image " + (k + 1) + "</div>";
+        esc(color) + ", " + ["#35261f", "#4a372c", "#2a1e18"][k % 3] + ')">Image ' + (k + 1) + "</div>";
     }
     return html;
   }
@@ -138,7 +138,7 @@
         "<h2>" + esc(d.title) + "</h2>" +
         '<div class="meta">' + (d.year ? "<span>" + esc(d.year) + "</span>" : "") +
         (d.tags || []).map((t) => '<span class="chip">' + esc(t) + "</span>").join("") + "</div>" +
-        '<div class="gallery">' + (imgs || placeholderFrames(d.color || "#2bd47d", 3)) + "</div>" +
+        '<div class="gallery">' + (imgs || placeholderFrames(d.color || "#767154", 3)) + "</div>" +
         "<p>" + esc(d.description) + "</p>" +
         (d.link ? '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">View the full project →</a>' : "");
     } else {
@@ -338,7 +338,7 @@
       uniforms,
       transparent: true,
       depthWrite: false,
-      blending: T.AdditiveBlending,
+      blending: T.NormalBlending,
       vertexShader: RISE_GLSL + `
         attribute float aRad;
         attribute float aEdge;
@@ -351,11 +351,11 @@
           vec3 p = position;
           p.y = aH * rise;
           float hn = aH / uMaxH;
-          vec3 c = mix(vec3(0.04, 0.45, 0.32), vec3(0.30, 0.86, 0.32), smoothstep(0.0, 0.45, hn));
-          c = mix(c, vec3(0.93, 0.98, 0.36), smoothstep(0.45, 0.95, hn));
+          // olive #767154 in the valleys -> sand #c1b094 on the ridges; light sand is kept for the contours
+          vec3 c = mix(vec3(0.463, 0.443, 0.329), vec3(0.757, 0.690, 0.580), smoothstep(0.15, 0.85, hn));
           float front = 1.0 - clamp(abs(k - 0.5) * 2.0, 0.0, 1.0);
-          c = mix(mix(vec3(0.10, 0.45, 0.40), c, rise), vec3(0.95, 1.0, 0.85), front * 0.7);
-          vA = grid * aEdge * (0.22 + 0.5 * rise + 0.6 * front);
+          c = mix(mix(vec3(0.463, 0.443, 0.329), c, rise), vec3(0.96, 0.93, 0.87), front * 0.8);
+          vA = grid * aEdge * (0.35 + 0.35 * rise + 0.5 * front);
           vC = c;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
         }`,
@@ -437,7 +437,7 @@
       uniforms,
       transparent: true,
       depthWrite: false,
-      blending: T.AdditiveBlending,
+      blending: T.NormalBlending,
       vertexShader: `
         uniform float uT;
         uniform float uMaxH;
@@ -457,7 +457,7 @@
         }`,
       fragmentShader: `
         varying float vA;
-        void main() { gl_FragColor = vec4(0.96, 1.0, 0.42, vA); }`,
+        void main() { gl_FragColor = vec4(0.925, 0.894, 0.831, vA); } // light sand`,
     }));
     contours.renderOrder = 3;
     scene.add(contours);
@@ -470,14 +470,14 @@
       const v = (k / 5) * HALF, len = k % 5 === 0 ? 5 : 2.5;
       fp.push(v, 0, -F, v, 0, -F - len, v, 0, F, v, 0, F + len, -F, 0, v, -F - len, 0, v, F, 0, v, F + len, 0, v);
     }
-    const frameMat = new T.LineBasicMaterial({ color: 0x3fb98a, transparent: true, opacity: 0, depthWrite: false });
+    const frameMat = new T.LineBasicMaterial({ color: 0x767154, transparent: true, opacity: 0, depthWrite: false });
     scene.add(new T.LineSegments(new T.BufferGeometry().setAttribute("position", new T.Float32BufferAttribute(fp, 3)), frameMat));
 
     // ---- Summit beacons ---------------------------------------------------
     const beacons = stops.map((s, i) => {
       const grp = new T.Group();
       grp.position.set(s.top.x, s.top.y, s.top.z);
-      const col = s.kind === "about" ? 0xffffff : 0xe8ff5a;
+      const col = s.kind === "about" ? 0xece4d4 : 0xc1b094;
       const beamMat = new T.LineBasicMaterial({ color: col, transparent: true, opacity: 0, depthWrite: false });
       const beamH = s.kind === "about" ? 16 : 12;
       grp.add(new T.LineSegments(new T.BufferGeometry().setAttribute("position", new T.Float32BufferAttribute([0, 0, 0, 0, beamH, 0], 3)), beamMat));
