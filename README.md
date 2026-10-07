@@ -1,9 +1,11 @@
 # Personal website
 
-A minimal projects-showcase site in plain HTML and CSS with no build step.
+A design portfolio drawn as a 3D low-poly mountain range (three.js, no build step).
+Every project is a flagged summit on the trail; the highest peak is "About me".
 
-- `index.html`: the content. Search for `EDIT:` to find the parts to change.
-- `styles.css`: the design. Change the colors and fonts at the top.
+- `projects.js`: **your content**. Add, remove or reorder projects here; the range rebuilds itself.
+- `world.js`: the 3D scene (terrain, trees, clouds, flags, camera) and the project panel.
+- `styles.css`: the interface (trail sign, peak tags, panel). Colours and fonts are at the top.
 - `images/`: put your photo and project images here.
 
 ## Preview locally
