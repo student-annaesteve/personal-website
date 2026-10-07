@@ -301,8 +301,8 @@
 
     // ---- Survey mesh: a jittered triangulated grid, densest at the summit --
     // The grid is built in a normalised square u,v ∈ [-1, 1] centred on the highest summit, then
-    // pulled towards that centre: r' = r · (0.28 + 0.72 · r). Cells there are ~3.5× smaller than
-    // in a plain grid and grow steadily to ~1.7× larger at the edges of the map.
+    // pulled towards that centre: r' = r · (0.18 + 0.82 · r). Cells there are ~5.5× smaller than
+    // in a plain grid and grow steadily to ~1.8× larger at the edges of the map.
     const N = isSmall() ? 120 : 170;
     const peak = terrain.tops[terrain.tops.length - 1];
     const warpAxis = (u, c) => (u >= 0 ? c + u * (HALF - c) : c + u * (HALF + c));
@@ -315,7 +315,7 @@
       }
       const r = Math.max(Math.abs(u), Math.abs(v));
       if (r > 0) {
-        const k = 0.28 + 0.72 * r; // r' / r
+        const k = 0.18 + 0.82 * r; // r' / r
         u *= k;
         v *= k;
       }
@@ -365,9 +365,9 @@
           p.y = aH * rise;
           float hn = aH / uMaxH;
           // elevation ramp through the palette: tan valleys -> moss slopes -> kombu ridges -> café noir summits
-          vec3 c = mix(vec3(0.812, 0.733, 0.600), vec3(0.533, 0.565, 0.388), smoothstep(0.05, 0.4, hn));
-          c = mix(c, vec3(0.208, 0.251, 0.141), smoothstep(0.4, 0.75, hn));
-          c = mix(c, vec3(0.298, 0.239, 0.098), smoothstep(0.75, 1.0, hn));
+          vec3 c = mix(vec3(0.812, 0.733, 0.600), vec3(0.533, 0.565, 0.388), smoothstep(0.02, 0.25, hn));
+          c = mix(c, vec3(0.208, 0.251, 0.141), smoothstep(0.25, 0.6, hn));
+          c = mix(c, vec3(0.298, 0.239, 0.098), smoothstep(0.6, 0.95, hn));
           float front = 1.0 - clamp(abs(k - 0.5) * 2.0, 0.0, 1.0);
           c = mix(mix(vec3(0.812, 0.733, 0.600), c, rise), vec3(0.208, 0.251, 0.141), front * 0.8);
           vA = grid * aEdge * (0.45 + 0.35 * rise + 0.3 * front);
@@ -476,17 +476,6 @@
     }));
     contours.renderOrder = 3;
     scene.add(contours);
-
-    // ---- Survey frame: map border with tick marks -------------------------
-    const fp = [];
-    const F = HALF + 6;
-    fp.push(-F, 0, -F, F, 0, -F, F, 0, -F, F, 0, F, F, 0, F, -F, 0, F, -F, 0, F, -F, 0, -F);
-    for (let k = -5; k <= 5; k++) {
-      const v = (k / 5) * HALF, len = k % 5 === 0 ? 5 : 2.5;
-      fp.push(v, 0, -F, v, 0, -F - len, v, 0, F, v, 0, F + len, -F, 0, v, -F - len, 0, v, F, 0, v, F + len, 0, v);
-    }
-    const frameMat = new T.LineBasicMaterial({ color: 0x889063, transparent: true, opacity: 0, depthWrite: false });
-    scene.add(new T.LineSegments(new T.BufferGeometry().setAttribute("position", new T.Float32BufferAttribute(fp, 3)), frameMat));
 
     // ---- Summit beacons ---------------------------------------------------
     const beacons = stops.map((s, i) => {
@@ -690,7 +679,6 @@
       }
       uniforms.uT.value = buildT;
 
-      frameMat.opacity = 0.55 * Math.min(1, buildT / 0.6);
       beacons.forEach((g, i) => {
         const u = g.userData;
         const on = Math.min(1, Math.max(0, (buildT - u.start) / 0.4));
