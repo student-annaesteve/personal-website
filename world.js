@@ -464,8 +464,8 @@
           float k = (uT - ${CONTOUR_START.toFixed(2)} - aLevel * 1.1 - aSweep * 0.3) / 0.35;
           float on = clamp(k, 0.0, 1.0);
           float flash = 1.0 - clamp(abs(k - 0.6) * 1.6, 0.0, 1.0);
-          float index = mod(floor(aLevel * ${LEVELS}.0 + 0.5), 4.0) < 0.5 ? 0.95 : 0.5; // every 4th line is an index contour
-          vA = aEdge * (on * index + flash * 0.8);
+          float index = mod(floor(aLevel * ${LEVELS}.0 + 0.5), 4.0) < 0.5 ? 0.5 : 0.25; // every 4th line is an index contour
+          vA = aEdge * (on * index + flash * 0.5);
           vec3 p = position;
           p.y = aLevel * uMaxH + 0.35;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
