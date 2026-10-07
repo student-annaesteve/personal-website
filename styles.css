@@ -1,18 +1,19 @@
-/* Layout: a full-screen 3D range with a trail sign, peak tags and a slide-in project panel.
-   Single look: alpine golden hour, so colours are set once and work on any host theme. */
+/* Layout: a full-screen survey map of the mountain with a trail sign, peak tags and a slide-in project panel.
+   Single look: glowing survey lines on a night background, so colours are set once and work on any host theme. */
 :root {
-  --night: #0f1a2b;
-  --glass: rgba(14, 24, 40, 0.74);
-  --line: rgba(243, 239, 230, 0.16);
-  --ink: #f3efe6;
-  --muted: #b3bccb;
-  --sign: #f2c230;      /* Swiss/Pyrenean trail-sign yellow */
-  --sign-ink: #1b1a17;
+  --night: #050a0f;
+  --deep: #0b1a1c;
+  --glass: rgba(6, 14, 18, 0.78);
+  --line: rgba(190, 255, 170, 0.16);
+  --ink: #e8f2e6;
+  --muted: #93aa9c;
+  --sign: #e8ff5a;      /* survey-line yellow: the colour of the contour lines */
+  --sign-ink: #0a1206;
   --blaze: #d8402f;     /* red trail blaze */
 
   --display: "Young Serif", Georgia, serif;
   --body: "Figtree", system-ui, -apple-system, sans-serif;
-  --label: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --label: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   --panel-w: 440px;
   color-scheme: dark;
@@ -24,7 +25,7 @@ html, body {
   height: 100%;
   margin: 0;
   overflow: hidden;
-  background: var(--night);
+  background: radial-gradient(120% 90% at 50% 45%, var(--deep), var(--night) 70%);
   color: var(--ink);
   font-family: var(--body);
   font-size: 16px;
@@ -69,18 +70,18 @@ a { color: var(--sign); }
   font-weight: 400;
   font-size: clamp(1.7rem, 4vw, 2.6rem);
   line-height: 1.05;
-  text-shadow: 0 2px 18px rgba(15, 26, 43, 0.45);
+  text-shadow: 0 2px 18px rgba(5, 10, 15, 0.6);
 }
 .tagline {
   margin: 6px 0 0;
   font-family: var(--label);
-  font-weight: 600;
-  font-size: 0.95rem;
-  letter-spacing: 0.12em;
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink);
   opacity: 0.85;
-  text-shadow: 0 1px 10px rgba(15, 26, 43, 0.5);
+  text-shadow: 0 1px 10px rgba(5, 10, 15, 0.6);
 }
 
 .about-btn {
@@ -94,7 +95,7 @@ a { color: var(--sign); }
   white-space: nowrap;
   transition: background 0.2s ease;
 }
-.about-btn:hover { background: rgba(14, 24, 40, 0.9); }
+.about-btn:hover { background: rgba(6, 14, 18, 0.95); }
 
 /* ---------- Trail sign (project list) ---------- */
 .trail {
@@ -110,11 +111,11 @@ a { color: var(--sign); }
   gap: 8px;
   margin: 0 0 8px;
   font-family: var(--label);
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  font-size: 0.85rem;
-  text-shadow: 0 1px 8px rgba(15, 26, 43, 0.6);
+  font-size: 0.75rem;
+  text-shadow: 0 1px 8px rgba(5, 10, 15, 0.6);
 }
 .blaze {
   width: 22px;
@@ -157,8 +158,8 @@ a { color: var(--sign); }
 }
 .sign-alt {
   font-family: var(--label);
-  font-weight: 700;
-  font-size: 0.95rem;
+  font-weight: 600;
+  font-size: 0.8rem;
   font-variant-numeric: tabular-nums;
 }
 .sign.summit { background: #fff; }
@@ -166,6 +167,9 @@ a { color: var(--sign); }
 
 /* ---------- Hint ---------- */
 .hint {
+  font-family: var(--label);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
   position: fixed;
   left: 50%;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 22px);
@@ -196,7 +200,7 @@ a { color: var(--sign); }
   color: var(--ink);
   opacity: 0.75;
   text-align: right;
-  text-shadow: 0 1px 6px rgba(15, 26, 43, 0.8);
+  text-shadow: 0 1px 6px rgba(5, 10, 15, 0.8);
 }
 .credit a { color: inherit; }
 
@@ -236,11 +240,11 @@ a { color: var(--sign); }
   border-bottom: 0;
   border-top-color: var(--glass);
 }
-.peak-tag:hover { background: rgba(14, 24, 40, 0.92); }
+.peak-tag:hover { background: rgba(6, 14, 18, 0.95); }
 .peak-tag .tag-alt {
   font-family: var(--label);
-  font-weight: 600;
-  font-size: 0.78rem;
+  font-weight: 500;
+  font-size: 0.7rem;
   letter-spacing: 0.08em;
   color: var(--sign);
   font-variant-numeric: tabular-nums;
@@ -290,10 +294,10 @@ a { color: var(--sign); }
   margin: 0;
   padding-right: 44px;
   font-family: var(--label);
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   color: var(--sign);
   font-variant-numeric: tabular-nums;
 }
@@ -329,9 +333,9 @@ a { color: var(--sign); }
   display: grid;
   place-items: center;
   font-family: var(--label);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -359,8 +363,9 @@ a { color: var(--sign); }
   background: none;
   padding: 4px 0;
   font-family: var(--label);
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -395,7 +400,7 @@ a { color: var(--sign); }
 
 /* ---------- No WebGL: the trail sign becomes the whole page ---------- */
 .no-webgl {
-  background: linear-gradient(#1c2b4a, #6b7fa8 60%, #f0b48c);
+  background: radial-gradient(120% 90% at 50% 45%, var(--deep), var(--night) 70%);
 }
 .no-webgl .trail { left: 50%; bottom: 50%; transform: translate(-50%, 50%); }
 .no-webgl .hint { display: none; }
