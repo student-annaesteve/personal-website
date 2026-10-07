@@ -280,9 +280,12 @@
       h ^= h >>> 16;
       return (h >>> 0) / 4294967296;
     }
+    // The map fades out along a soft, rounded outline (a gently wavy circle) instead of a square.
     const edgeFade = (x, z) => {
-      const m = Math.max(Math.abs(x), Math.abs(z)) / HALF;
-      const t = Math.min(1, Math.max(0, (1 - m) / 0.16));
+      const a = Math.atan2(z, x);
+      const rim = HALF * 0.9 * (1 + 0.05 * Math.sin(3 * a + 1) + 0.035 * Math.sin(5 * a + 2) + 0.02 * Math.sin(9 * a + 0.5));
+      const m = Math.hypot(x, z) / rim;
+      const t = Math.min(1, Math.max(0, (1 - m) / 0.3));
       return t * t * (3 - 2 * t);
     };
     const sweepAt = (x, z) => (x + HALF) / WIDTH * 0.75 + (HALF - z) / WIDTH * 0.25;
@@ -464,8 +467,8 @@
           float k = (uT - ${CONTOUR_START.toFixed(2)} - aLevel * 1.1 - aSweep * 0.3) / 0.35;
           float on = clamp(k, 0.0, 1.0);
           float flash = 1.0 - clamp(abs(k - 0.6) * 1.6, 0.0, 1.0);
-          float index = mod(floor(aLevel * ${LEVELS}.0 + 0.5), 4.0) < 0.5 ? 0.5 : 0.25; // every 4th line is an index contour
-          vA = aEdge * (on * index + flash * 0.5);
+          float index = mod(floor(aLevel * ${LEVELS}.0 + 0.5), 4.0) < 0.5 ? 0.32 : 0.15; // every 4th line is an index contour
+          vA = aEdge * (on * index + flash * 0.35);
           vec3 p = position;
           p.y = aLevel * uMaxH + 0.35;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
