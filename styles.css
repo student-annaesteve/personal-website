@@ -6,15 +6,15 @@
   --olive: #767154;
   --sand: #c1b094;
   --leather: #35261f;
-  /* Tints and shades of them */
-  --night: #22180f;     /* leather, deepened: page edges */
-  --deep: #3d2c23;      /* leather, lifted: page centre */
-  --glass: rgba(42, 30, 24, 0.84);   /* leather panels */
-  --line: rgba(193, 176, 148, 0.2);  /* sand hairlines */
-  --ink: #ece4d4;       /* sand, lightened: text */
-  --muted: #a99c85;     /* sand, dimmed: secondary text */
-  --sign: var(--sand);  /* accent: trail signs, buttons, altitudes */
-  --sign-ink: var(--leather);
+  /* Tints and shades of them: a light sand ground, dark olive and leather on top */
+  --night: #d4c6ad;     /* sand, deepened: page edges */
+  --deep: #efe8db;      /* sand, lightened: page centre */
+  --glass: rgba(240, 233, 220, 0.9);  /* light sand panels */
+  --line: rgba(53, 38, 31, 0.18);     /* leather hairlines */
+  --ink: var(--leather);              /* text */
+  --muted: #5f5a41;     /* olive, darkened for readable secondary text */
+  --sign: var(--leather);             /* accent: trail signs, buttons, altitudes */
+  --sign-ink: #efe8db;
   --blaze: var(--olive);
 
   --display: "Young Serif", Georgia, serif;
@@ -22,7 +22,7 @@
   --label: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   --panel-w: 440px;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
@@ -76,7 +76,7 @@ a { color: var(--sign); }
   font-weight: 400;
   font-size: clamp(1.7rem, 4vw, 2.6rem);
   line-height: 1.05;
-  text-shadow: 0 2px 18px rgba(26, 18, 13, 0.6);
+  text-shadow: 0 2px 18px rgba(239, 232, 219, 0.7);
 }
 .tagline {
   margin: 6px 0 0;
@@ -87,7 +87,7 @@ a { color: var(--sign); }
   text-transform: uppercase;
   color: var(--ink);
   opacity: 0.85;
-  text-shadow: 0 1px 10px rgba(26, 18, 13, 0.6);
+  text-shadow: 0 1px 10px rgba(239, 232, 219, 0.7);
 }
 
 .about-btn {
@@ -101,7 +101,7 @@ a { color: var(--sign); }
   white-space: nowrap;
   transition: background 0.2s ease;
 }
-.about-btn:hover { background: var(--olive); }
+.about-btn:hover { background: var(--olive); color: var(--sign-ink); }
 
 /* ---------- Trail sign (project list) ---------- */
 .trail {
@@ -121,7 +121,7 @@ a { color: var(--sign); }
   letter-spacing: 0.12em;
   text-transform: uppercase;
   font-size: 0.75rem;
-  text-shadow: 0 1px 8px rgba(26, 18, 13, 0.6);
+  text-shadow: 0 1px 8px rgba(239, 232, 219, 0.7);
 }
 .blaze {
   width: 22px;
@@ -168,8 +168,8 @@ a { color: var(--sign); }
   font-size: 0.8rem;
   font-variant-numeric: tabular-nums;
 }
-.sign.summit { background: var(--ink); }
-.sign.summit .sign-alt::before { content: "▲ "; color: var(--blaze); }
+.sign.summit { background: var(--olive); color: var(--sign-ink); }
+.sign.summit .sign-alt::before { content: "▲ "; color: var(--sand); }
 
 /* ---------- Hint ---------- */
 .hint {
@@ -206,7 +206,7 @@ a { color: var(--sign); }
   color: var(--ink);
   opacity: 0.75;
   text-align: right;
-  text-shadow: 0 1px 6px rgba(26, 18, 13, 0.8);
+  text-shadow: 0 1px 6px rgba(239, 232, 219, 0.9);
 }
 .credit a { color: inherit; }
 
@@ -246,7 +246,7 @@ a { color: var(--sign); }
   border-bottom: 0;
   border-top-color: var(--glass);
 }
-.peak-tag:hover { background: var(--leather); }
+.peak-tag:hover { background: var(--sand); }
 .peak-tag .tag-alt {
   font-family: var(--label);
   font-weight: 500;

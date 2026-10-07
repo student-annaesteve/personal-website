@@ -119,7 +119,7 @@
     for (let k = 0; k < count; k++) {
       html +=
         '<div class="frame" style="background:linear-gradient(' + (135 + k * 40) + "deg," +
-        esc(color) + ", " + ["#35261f", "#4a372c", "#2a1e18"][k % 3] + ')">Image ' + (k + 1) + "</div>";
+        esc(color) + ", " + ["#efe8db", "#ddd1bb", "#e6ddcb"][k % 3] + ')">Image ' + (k + 1) + "</div>";
     }
     return html;
   }
@@ -351,11 +351,12 @@
           vec3 p = position;
           p.y = aH * rise;
           float hn = aH / uMaxH;
-          // olive #767154 in the valleys -> sand #c1b094 on the ridges; light sand is kept for the contours
-          vec3 c = mix(vec3(0.463, 0.443, 0.329), vec3(0.757, 0.690, 0.580), smoothstep(0.15, 0.85, hn));
+          // light olive in the valleys -> olive #767154 -> olive-leather on the ridges; leather is kept for the contours
+          vec3 c = mix(vec3(0.62, 0.60, 0.48), vec3(0.463, 0.443, 0.329), smoothstep(0.1, 0.6, hn));
+          c = mix(c, vec3(0.30, 0.25, 0.19), smoothstep(0.6, 1.0, hn));
           float front = 1.0 - clamp(abs(k - 0.5) * 2.0, 0.0, 1.0);
-          c = mix(mix(vec3(0.463, 0.443, 0.329), c, rise), vec3(0.96, 0.93, 0.87), front * 0.8);
-          vA = grid * aEdge * (0.35 + 0.35 * rise + 0.5 * front);
+          c = mix(mix(vec3(0.62, 0.60, 0.48), c, rise), vec3(0.208, 0.149, 0.122), front * 0.8);
+          vA = grid * aEdge * (0.4 + 0.3 * rise + 0.4 * front);
           vC = c;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
         }`,
@@ -457,7 +458,7 @@
         }`,
       fragmentShader: `
         varying float vA;
-        void main() { gl_FragColor = vec4(0.925, 0.894, 0.831, vA); } // light sand`,
+        void main() { gl_FragColor = vec4(0.208, 0.149, 0.122, vA); } // leather #35261f`,
     }));
     contours.renderOrder = 3;
     scene.add(contours);
@@ -477,7 +478,7 @@
     const beacons = stops.map((s, i) => {
       const grp = new T.Group();
       grp.position.set(s.top.x, s.top.y, s.top.z);
-      const col = s.kind === "about" ? 0xece4d4 : 0xc1b094;
+      const col = s.kind === "about" ? 0x35261f : 0x767154;
       const beamMat = new T.LineBasicMaterial({ color: col, transparent: true, opacity: 0, depthWrite: false });
       const beamH = s.kind === "about" ? 16 : 12;
       grp.add(new T.LineSegments(new T.BufferGeometry().setAttribute("position", new T.Float32BufferAttribute([0, 0, 0, 0, beamH, 0], 3)), beamMat));
