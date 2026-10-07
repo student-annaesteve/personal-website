@@ -1,16 +1,20 @@
 # Personal website
 
-A design portfolio drawn as a 3D low-poly mountain range (three.js, no build step).
+A design portfolio set in a 3D mountain range (three.js, no build step).
 Every project is a flagged summit on the trail; the highest peak is "About me".
 
 - `projects.js`: **your content**. Add, remove or reorder projects here; the range rebuilds itself.
-- `world.js`: the 3D scene (terrain, trees, clouds, flags, camera) and the project panel.
+- `world.js`: the 3D scene (mountain, clouds, flags, camera) and the project panel. Flags are planted
+  automatically on the highest peaks of the model. If the model can't load, a generated low-poly range is used.
+- `models/mountain.glb`: [“Rugged mountain landscape”](https://sketchfab.com/3d-models/rugged-mountain-landscape-61f68892e8b34f8a9fbd57a5243ea142)
+  by [teej_fbx](https://sketchfab.com/Tom.Jansen1), licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+  Simplified for the web (fewer triangles, unused data removed, textures resized). Keep the credit line on the page.
 - `styles.css`: the interface (trail sign, peak tags, panel). Colours and fonts are at the top.
 - `images/`: put your photo and project images here.
 
 ## Preview locally
 
-Open `index.html` in your browser, or run:
+Browsers block loading the 3D model from a file opened directly, so run a small local server:
 
 ```sh
 python3 -m http.server 8000

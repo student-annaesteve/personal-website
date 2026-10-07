@@ -184,6 +184,22 @@ a { color: var(--sign); }
 }
 .hint.gone { opacity: 0; }
 
+/* ---------- Model credit (CC BY) ---------- */
+.credit {
+  position: fixed;
+  right: 16px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 8px);
+  z-index: 4;
+  margin: 0;
+  max-width: calc(100% - 32px);
+  font-size: 0.72rem;
+  color: var(--ink);
+  opacity: 0.75;
+  text-align: right;
+  text-shadow: 0 1px 6px rgba(15, 26, 43, 0.8);
+}
+.credit a { color: inherit; }
+
 /* ---------- Peak tags floating in 3D ---------- */
 .labels {
   position: fixed;
@@ -401,6 +417,8 @@ a { color: var(--sign); }
     padding: 0 16px;
   }
   .trail-head { display: none; }
+  .trail { bottom: calc(env(safe-area-inset-bottom, 0px) + 40px); }
+  .credit { left: 16px; right: 16px; bottom: calc(env(safe-area-inset-bottom, 0px) + 6px); text-align: left; font-size: 0.66rem; }
   .trail-list {
     flex-direction: row;
     overflow-x: auto;
@@ -411,7 +429,7 @@ a { color: var(--sign); }
   .sign { width: auto; grid-template-columns: auto auto; }
   .sign:hover, .sign[aria-current="true"] { transform: translateY(-3px); }
 
-  .hint { bottom: calc(env(safe-area-inset-bottom, 0px) + 70px); font-size: 0.78rem; }
+  .hint { bottom: calc(env(safe-area-inset-bottom, 0px) + 96px); font-size: 0.78rem; }
 
   .panel {
     top: auto;
