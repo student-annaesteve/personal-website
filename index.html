@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anna Esteve</title>
+  <meta name="description" content="Anna Esteve — projects, about and contact.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <a href="#top" class="logo">Anna Esteve</a>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero container">
+      <p class="eyebrow">Hi, I'm Anna 👋</p>
+      <h1>I build things I care about and share them here.</h1>
+      <p class="lead">
+        <!-- EDIT: one or two sentences about what you do -->
+        Student, maker and curious mind. Below are some of the projects I've worked on.
+      </p>
+      <a href="#projects" class="button">See my projects</a>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section container">
+      <h2>Projects</h2>
+      <div class="projects">
+        <!-- EDIT: copy one <article> block per project.
+             To use an image, replace the <div class="project-thumb ..."></div> with:
+             <img class="project-thumb" src="images/your-image.jpg" alt="Short description"> -->
+        <article class="project">
+          <div class="project-thumb thumb-1"></div>
+          <div class="project-body">
+            <h3>Project One</h3>
+            <p>A short description of what this project is, what you did and what you learned.</p>
+            <ul class="tags">
+              <li>Design</li>
+              <li>Research</li>
+            </ul>
+            <a href="#" class="project-link">View project →</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-thumb thumb-2"></div>
+          <div class="project-body">
+            <h3>Project Two</h3>
+            <p>A short description of what this project is, what you did and what you learned.</p>
+            <ul class="tags">
+              <li>Python</li>
+              <li>Data</li>
+            </ul>
+            <a href="#" class="project-link">View project →</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-thumb thumb-3"></div>
+          <div class="project-body">
+            <h3>Project Three</h3>
+            <p>A short description of what this project is, what you did and what you learned.</p>
+            <ul class="tags">
+              <li>Web</li>
+              <li>HTML/CSS</li>
+            </ul>
+            <a href="#" class="project-link">View project →</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-thumb thumb-4"></div>
+          <div class="project-body">
+            <h3>Project Four</h3>
+            <p>A short description of what this project is, what you did and what you learned.</p>
+            <ul class="tags">
+              <li>Team project</li>
+            </ul>
+            <a href="#" class="project-link">View project →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section container about">
+      <div class="about-photo" aria-hidden="true">AE</div>
+      <!-- EDIT: to use a real photo, replace the div above with:
+           <img class="about-photo" src="images/me.jpg" alt="Photo of Anna Esteve"> -->
+      <div>
+        <h2>About me</h2>
+        <p>
+          <!-- EDIT: write a few sentences about yourself -->
+          I'm a student interested in … I enjoy turning ideas into real projects,
+          learning new tools and working with other people.
+        </p>
+        <p>
+          When I'm not working on projects, you'll find me … (hobbies, interests, what you're learning now).
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section container contact">
+      <h2>Let's talk</h2>
+      <p class="lead">Have a question, an idea or an opportunity? I'd love to hear from you.</p>
+      <a href="mailto:annaesteve193@gmail.com" class="button">annaesteve193@gmail.com</a>
+      <ul class="socials">
+        <!-- EDIT: put your own profile links here -->
+        <li><a href="https://github.com/student-annaesteve">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/">LinkedIn</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <p>© <span id="year"></span> Anna Esteve</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
