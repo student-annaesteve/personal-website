@@ -414,9 +414,13 @@ a { color: var(--sign); }
 .panel-nav button:hover { color: var(--ink); }
 
 .about-photo {
-  width: 120px;
-  height: 120px;
+  width: 200px;
+  height: 200px;
+  max-width: 100%;
   border-radius: 50%;
+  border: 1px solid var(--kombu);
+  padding: 5px;
+  box-shadow: 0 14px 34px rgba(53, 64, 36, 0.16);
   object-fit: cover;
   display: grid;
   place-items: center;
@@ -425,6 +429,7 @@ a { color: var(--sign); }
   font-family: var(--display);
   font-size: 2.6rem;
 }
+img.about-photo { background: #fff; }
 .contact-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .email {
   font-weight: 600;
@@ -631,6 +636,7 @@ a { color: var(--sign); }
   .panel.closing { transform: translateY(105%); }
   .panel-body { padding: 22px 20px calc(env(safe-area-inset-bottom, 0px) + 28px); }
   .panel h2 { font-size: 1.8rem; }
+  .about-photo { width: 160px; height: 160px; }
 
   .no-webgl .trail-list { flex-direction: column-reverse; }
   .no-webgl .trail { left: 0; transform: translateY(50%); }
