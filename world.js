@@ -196,15 +196,28 @@
   // (the screenshot) until it loads, so a missing video file still looks finished.
   function device(m) {
     if (!m) return "";
-    if (!m.src && !m.video) {
-      return '<figure class="photo-slot"><div class="photo-slot-inner"><span>' + esc(m.placeholder || "Photo") + "</span></div></figure>";
+    const ratio = m.ratio ? ' style="aspect-ratio:' + esc(m.ratio) + '"' : "";
+    const cap = m.caption ? "<figcaption>" + esc(m.caption) + "</figcaption>" : "";
+    // No device: a plain photo, or a dashed slot until the photo is added.
+    if (!m.device || m.device === "photo") {
+      return m.src
+        ? '<figure class="photo"><img src="' + esc(m.src) + '" alt="' + esc(m.alt || "") + '" loading="lazy"' + ratio + ">" + cap + "</figure>"
+        : '<figure class="photo-slot"><div class="photo-slot-inner"' + ratio + "><span>" + esc(m.placeholder || "Photo") + "</span></div>" + cap + "</figure>";
     }
     const media = m.video
       ? '<video autoplay muted loop playsinline preload="metadata" poster="' + esc(m.poster || m.src || "") + '" aria-label="' + esc(m.alt || "") + '">' +
         '<source src="' + esc(m.video) + '" type="video/mp4"></video>'
-      : '<img src="' + esc(m.src) + '" alt="' + esc(m.alt || "") + '" loading="lazy">';
-    return '<figure class="device device--' + esc(m.device || "monitor") + '"><div class="device-body"><div class="device-screen">' +
-      media + "</div></div></figure>";
+      : m.src
+        ? '<img src="' + esc(m.src) + '" alt="' + esc(m.alt || "") + '" loading="lazy">'
+        : "<span>" + esc(m.placeholder || "Screen") + "</span>"; // empty screen waiting for its image
+    return '<figure class="device device--' + esc(m.device) + '"><div class="device-body"><div class="device-screen' +
+      (m.src || m.video ? "" : " device-screen--empty") + '">' + media + "</div></div>" + cap + "</figure>";
+  }
+  // A row of mockups and photos; a phone takes a narrow column.
+  function gallery(items, cls) {
+    if (!items || !items.length) return "";
+    const cols = items.map((m) => (m.device === "phone" ? "minmax(0,0.55fr)" : "minmax(0," + (m.span || 1) + "fr)")).join(" ");
+    return '<div class="' + cls + '" style="grid-template-columns:' + cols + '">' + items.map(device).join("") + "</div>";
   }
   function renderCase(d, alt, i) {
     const hero = d.hero || [];
@@ -215,11 +228,12 @@
       (d.subtitle ? '<p class="case-sub">' + esc(d.subtitle) + "</p>" : "") +
       (d.goal ? '<p class="case-goal">' + esc(d.goal) + "</p>" : "") +
       '<p class="case-lead">' + esc(d.description) + "</p>" +
-      (hero.length ? '<div class="mock-hero">' + hero.map(device).join("") + "</div>" : "");
+      gallery(hero, "mock-hero");
     // The levels hang off a small road that runs down the panel: structure, not content.
     h += '<div class="road">' + d.levels.map((L) =>
       '<section class="stop">' +
       '<header class="stop-head"><h3 class="stop-title">' + esc(L.title || "Level " + String(L.code).replace(/^L/i, "")) + "</h3></header>" +
+      gallery(L.gallery, "stop-gallery") +
       '<div class="stop-ps">' +
       '<div><span class="stop-label stop-label--challenge">' + esc((L.labels || [])[0] || "Challenge") + "</span><p>" + esc(L.challenge) + "</p></div>" +
       '<div><span class="stop-label stop-label--solution">' + esc((L.labels || [])[1] || "Our solution") + '</span><p class="stop-solution">' + esc(L.solution) + "</p></div>" +

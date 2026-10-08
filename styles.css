@@ -521,7 +521,41 @@ img.about-photo { background: #fff; }
   margin: 6px -32px 0;
   padding: 22px 18px 26px;
 }
+.mock-hero { display: grid; gap: 22px; align-items: end; }
 .mock-hero .device--laptop { padding: 0 7.5%; }
+
+/* Phone: portrait, rounded, with a small speaker notch */
+.device--phone .device-body { padding: 5%; border-radius: 30px; box-shadow: inset 0 0 0 1px #2c2a27, inset 0 0 0 4px #1b1a18; }
+.device--phone .device-body::before { top: 2.4%; width: 26%; height: 4px; margin-left: -13%; border-radius: 2px; }
+.device--phone .device-screen { aspect-ratio: 9 / 19; border-radius: 20px; }
+
+/* A screen still waiting for its image */
+.device-screen--empty {
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  background: repeating-linear-gradient(135deg, #1c1b19 0 10px, #232220 10px 20px);
+  font-family: var(--label);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: #a39e92;
+}
+
+/* Several mockups or photos side by side inside a stop */
+.stop-gallery { display: grid; gap: 18px; align-items: end; }
+.photo { margin: 0; }
+.photo img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; }
+.device figcaption, .photo figcaption, .photo-slot figcaption {
+  margin-top: 10px;
+  font-family: var(--label);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  text-align: center;
+}
+.device:has(figcaption) { display: flex; flex-direction: column; }
+.device figcaption { order: 2; }
 
 /* The road: a small decorative rail that links the levels */
 .road { position: relative; display: flex; flex-direction: column; gap: 40px; margin-top: 12px; padding-left: 34px; }
@@ -596,6 +630,8 @@ img.about-photo { background: #fff; }
   border: 1px dashed var(--moss);
   border-radius: 10px;
   background: repeating-linear-gradient(135deg, rgba(136, 144, 99, 0.06) 0 10px, transparent 10px 20px);
+  padding: 10px;
+  text-align: center;
   font-family: var(--label);
   font-size: 0.75rem;
   letter-spacing: 0.06em;
@@ -603,6 +639,12 @@ img.about-photo { background: #fff; }
 }
 
 @media (max-width: 560px) {
+  .stop-gallery, .mock-hero { gap: 12px; }
+  .mock-hero:has(.device--phone) { margin: 0; padding: 12px 0 16px; }
+  .device-screen--empty, .photo-slot-inner { font-size: 0.62rem; overflow-wrap: anywhere; }
+  .device--phone .device-body { border-radius: 22px; }
+  .device--phone .device-screen--empty { padding: 3px; font-size: 0.56rem; }
+  .device--phone .device-screen { border-radius: 14px; }
   .mock-hero { margin: 0 -20px; padding: 20px 10px 22px; }
   .road { gap: 30px; padding-left: 26px; }
   .road::before { left: 5px; width: 5px; }
