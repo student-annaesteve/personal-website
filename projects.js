@@ -63,14 +63,43 @@ window.PROJECTS = [
     color: "#cfbb99",
   },
   {
-    title: "Project Three",
+    // Team app project. Its own look (layouts/mysonar.js + .css): black, Sónar yellow and hazard stripes, like the deck.
+    title: "MySónar", // short name for the map and the route list
+    layout: "mysonar",
+    headline: "Your Sónar, planned for you",
+    subtitle: "MySónar · a mobile app that builds a personal Sónar Festival schedule from your taste",
     year: "2025",
-    tags: ["Illustration"],
-    description:
-      "Placeholder. Describe the brief, what you designed and what came out of it. Two or three sentences are enough.",
+    tags: ["Mobile app", "Recommender", "UX / UI"],
+    color: "#f2b40c",
+    problems: [
+      ["Overwhelming", "Hundreds of concerts, talks and activities over three days and nights.", "day", "June 12"],
+      ["Unknown artists", "Most names in the line-up mean nothing to you yet.", "night", "June 13"],
+      ["FOMO", "The fear of missing the show you would have loved.", "day", "June 14"],
+    ],
+    goal: "Help each visitor find their own Sónar: discover artists they don't know yet and leave with a schedule that fits them.",
+    flow: [
+      { src: "images/mysonar/days.jpg", label: "Days", alt: "When will you attend? Choose the days and nights" },
+      { src: "images/mysonar/styles.jpg", label: "Styles", alt: "What defines you best? Pick music styles" },
+      { src: "images/mysonar/activities.jpg", label: "Must-sees", alt: "Search and select the essential activities" },
+      { src: "images/mysonar/swipe.jpg", label: "Swipes", alt: "Swipe through artist videos" },
+      { src: "images/mysonar/profile.jpg", label: "Profile", alt: "Your profile: 74% drone, 86% merengue, 98% sonic fiction" },
+      { src: "images/mysonar/results.jpg", label: "Schedule", alt: "Your personal schedule of results" },
+    ],
+    solution: "Answer a few questions, swipe through 8 short artist videos and get a schedule made for you.",
+    steps: [
+      ["Tags", "An LLM (Gemini) reads each artist's text, images and music and gives them tags."],
+      ["Embedding space", "Every artist becomes a point in the space of tags, so similar artists sit close together."],
+      ["8 swipes", "The swipe artists are chosen to cover the whole space with as few swipes as possible."],
+      ["Schedule", "The closer an activity is to your taste, the higher its priority in your timetable."],
+    ],
+    stack: ["React Native", "Expo", "NativeWind", "FastAPI", "Python", "Docker", "Supabase", "Gemini"],
+    results: {
+      stats: [["70", "people tested it"], ["8", "swipes to know you"], ["65%", "would follow most of the route"]],
+      models: [["LLaMA mini", 85], ["OpenAI", 62]],
+      text: "We tested it with students, teachers and other adults. Most people who know Sónar would follow the route, adding their own changes, and they found the app easy to use and quick to learn.",
+    },
     images: [],
     link: "",
-    color: "#a3a67d",
   },
   {
     // A case study: when `levels` is present the panel opens wide and shows the product first.
