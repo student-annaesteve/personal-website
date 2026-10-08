@@ -271,7 +271,8 @@ a { color: var(--sign); }
   top: 50%;
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  justify-content: space-between;
+  height: 24px; /* same height as the marker */
   white-space: nowrap;
   text-decoration: none;
   text-shadow: 0 0 6px #fff, 0 0 3px #fff;
@@ -281,8 +282,8 @@ a { color: var(--sign); }
   transition: opacity 0.15s ease;
 }
 .peak-tag.active .tag-label { opacity: 1; pointer-events: auto; }
-.tag-label .tag-alt { font-family: var(--label); font-size: 10px; letter-spacing: 0.1em; color: var(--muted); font-variant-numeric: tabular-nums; }
-.tag-label .tag-name { font-family: var(--body); font-size: 14px; font-weight: 600; color: var(--ink); }
+.tag-label .tag-alt { font-family: var(--label); font-size: 8px; line-height: 9px; letter-spacing: 0.1em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tag-label .tag-name { font-family: var(--body); font-size: 12px; line-height: 13px; font-weight: 600; color: var(--ink); }
 .tag-label:hover .tag-name { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- Project panel ---------- */
