@@ -85,7 +85,7 @@
 .panel .ms-steps p { margin-top: 2px; font-size: 0.9rem; line-height: 1.45; color: #f0e6e6; }
 
 .ms-shot { margin: 0; }
-.ms-shot img { display: block; width: 100%; height: auto; border-radius: 14px; }
+.ms-shot img, .ms-shot video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 14px; background: #000; }
 .ms-shot figcaption { margin-top: 8px; font-family: var(--label); font-size: 0.7rem; letter-spacing: 0.04em; color: var(--ms-muted); }
 /* Results */
 .ms-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; }
