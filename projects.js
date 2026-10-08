@@ -68,7 +68,7 @@ window.PROJECTS = [
     layout: "mysonar",
     headline: "Your Sónar, planned for you",
     subtitle: "MySónar · a mobile app that builds a personal Sónar Festival schedule from your taste",
-    year: "2025",
+    year: "",
     tags: ["Mobile app", "Recommender", "UX / UI"],
     color: "#f2b40c",
     problems: [
@@ -92,12 +92,6 @@ window.PROJECTS = [
       ["8 swipes", "The swipe artists are chosen to cover the whole space with as few swipes as possible."],
       ["Schedule", "The closer an activity is to your taste, the higher its priority in your timetable."],
     ],
-    stack: ["React Native", "Expo", "NativeWind", "FastAPI", "Python", "Docker", "Supabase", "Gemini"],
-    results: {
-      stats: [["70", "people tested it"], ["8", "swipes to know you"], ["65%", "would follow most of the route"]],
-      models: [["LLaMA mini", 85], ["OpenAI", 62]],
-      text: "We tested it with students, teachers and other adults. Most people who know Sónar would follow the route, adding their own changes, and they found the app easy to use and quick to learn.",
-    },
     images: [],
     link: "",
   },
