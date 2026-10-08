@@ -50,7 +50,6 @@ window.PROJECTS = [
       diagram: { src: "images/smart-irrigation/logica.png", alt: "System diagram: sensors to NodeMCU, servomotor to the plant, data to ThingSpeak, control from Telegram", caption: "How the system works" },
       row: [
         { src: "images/smart-irrigation/components.png", alt: "Labelled components: temperature sensor, humidity sensor, NodeMCU, LCD I2C screen, servomotor", caption: "Components" },
-        { src: "images/smart-irrigation/prototype.jpg", alt: "Breadboard with the NodeMCU and the LCD showing Sistema iniciat", caption: "System start-up: «Sistema iniciat»" },
         { src: "images/smart-irrigation/final.png", alt: "Final assembly in its 3D-printed case, LCD reading Sistema iniciat", caption: "Final build in a 3D-printed case" },
       ],
     },

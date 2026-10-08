@@ -67,8 +67,8 @@
     // The working-prototype photo sits beside the heading and the text, without a caption.
     h += '<section class="irr-ch" style="--c:#88d671"><div class="irr-intro"><div class="irr-intro-text">' + heading("Prototype") +
       '<p class="irr-text">' + esc(pr.text) + "</p></div>" + fig(Object.assign({}, pr.working, { caption: "" }), esc) + "</div>" +
-      fig(pr.diagram, esc, "irr-wide") +
-      '<div class="irr-row">' + pr.row.map((m) => fig(m, esc)).join("") + "</div></section>";
+      // The system diagram sits large in the middle of the row of photos.
+      '<div class="irr-row">' + fig(pr.row[0], esc) + fig(pr.diagram, esc, "irr-wide") + fig(pr.row[pr.row.length - 1], esc) + "</div></section>";
 
     h += '<p class="irr-close">' + esc(d.conclusion) + "</p>";
 
