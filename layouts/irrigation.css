@@ -1,0 +1,241 @@
+/* "Smart irrigation": its own look, taken from the research report (blues and low-poly triangles). */
+.irr {
+  --irr-navy: #0b2a4a;
+  --irr-deep: #16507f;
+  --irr-blue: #2f7fbf;
+  --irr-sky: #78b4e0;
+  --irr-ice: #d6ebf8;
+  --irr-mist: #eef6fc;
+  --irr-pad: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  color: var(--irr-navy);
+  font-family: var(--body);
+}
+.panel[data-layout="irrigation"] { background: #fff; }
+.panel[data-layout="irrigation"] .panel-close { background: rgba(255, 255, 255, 0.92); border-color: transparent; color: var(--irr-navy, #0b2a4a); }
+.panel[data-layout="irrigation"] .panel-nav button { color: #16507f; }
+
+.irr-poly { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* Hero: a low-poly blue field, the title in white and the prototype photo cut on a diagonal */
+.irr-hero {
+  position: relative;
+  margin: calc(-30px - env(safe-area-inset-top, 0px)) calc(-1 * var(--irr-pad)) 0;
+  padding: 72px var(--irr-pad) 0;
+  overflow: hidden;
+}
+.irr-hero-in { position: relative; display: flex; flex-direction: column; gap: 14px; max-width: 34rem; }
+.irr-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.irr-tags span {
+  padding: 3px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: #fff;
+  background: rgba(11, 42, 74, 0.25);
+}
+.panel .irr-title {
+  margin: 0;
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 2.6rem;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-wrap: balance;
+}
+.panel .irr-sub { color: #d6ebf8; font-size: 1rem; }
+.irr-hero-photo {
+  position: relative;
+  margin: 40px 0 0 auto;
+  width: 78%;
+  aspect-ratio: 16 / 10;
+  clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%);
+  background: #fff;
+}
+.irr-hero-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* Empty photo slot, until the picture is added */
+.irr-slot {
+  display: grid;
+  place-items: center;
+  margin: 0;
+  background: repeating-linear-gradient(135deg, var(--irr-mist) 0 12px, #fff 12px 24px);
+  font-family: var(--label);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  color: var(--irr-deep);
+}
+.irr-slot span { padding: 0 12px; text-align: center; }
+
+/* Section heads: a number inside a triangle */
+.irr-sec { position: relative; display: flex; flex-direction: column; gap: 18px; }
+.irr-head { display: flex; align-items: center; gap: 14px; }
+.irr-num {
+  display: grid;
+  place-items: end center;
+  width: 46px;
+  height: 40px;
+  padding-bottom: 5px;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  background: linear-gradient(160deg, var(--irr-blue), var(--irr-navy));
+  font-family: var(--label);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #fff;
+}
+.irr-head h3 {
+  margin: 0;
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--irr-deep);
+}
+.panel .irr-hook {
+  font-weight: 700;
+  font-size: 1.9rem;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--irr-navy);
+  text-wrap: balance;
+}
+.panel .irr-text { font-size: 1.02rem; line-height: 1.6; color: #2a4560; }
+.panel .irr-text--lead { font-size: 1.15rem; font-weight: 600; color: var(--irr-navy); }
+
+.irr-scene { display: block; width: 100%; height: auto; border-radius: 4px; clip-path: polygon(0 0, 100% 0, 100% 86%, 92% 100%, 0 100%); }
+.irr-rain line { animation: irr-fall 1.4s linear infinite; }
+.irr-rain line:nth-child(3n) { animation-delay: -0.5s; }
+.irr-rain line:nth-child(3n + 1) { animation-delay: -0.9s; }
+@keyframes irr-fall { from { transform: translateY(-14px); opacity: 0; } 30% { opacity: 1; } to { transform: translateY(26px); opacity: 0; } }
+.irr-spray path { animation: irr-spray 0.9s linear infinite; }
+@keyframes irr-spray { to { stroke-dashoffset: -11; } }
+
+/* Sense → decide → water */
+.irr-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 6px 0 0; padding: 0; list-style: none; counter-reset: s; }
+.irr-steps li { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; font-size: 0.9rem; line-height: 1.45; color: #2a4560; }
+.irr-steps li + li::before { /* arrow between steps */
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 26px;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid var(--irr-sky);
+  border-right: 2px solid var(--irr-sky);
+  transform: translateX(-2px) rotate(45deg);
+}
+.irr-steps strong { font-size: 1.05rem; color: var(--irr-navy); }
+.irr-step-tri {
+  display: grid;
+  place-items: end center;
+  width: 70px;
+  height: 60px;
+  padding-bottom: 8px;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  background: linear-gradient(160deg, var(--irr-sky), var(--irr-deep));
+}
+.irr-steps li:nth-child(2) .irr-step-tri { background: linear-gradient(160deg, var(--irr-blue), var(--irr-navy)); }
+.irr-steps li:nth-child(3) .irr-step-tri { background: linear-gradient(160deg, #a9d0ee, var(--irr-blue)); }
+.irr-step-tri svg { width: 24px; height: 24px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Soil humidity scale */
+.irr-scale { margin-top: 8px; }
+.irr-scale-bar { display: flex; height: 40px; overflow: hidden; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
+.irr-scale-bar span { display: grid; place-items: center; padding: 0 8px; text-align: center; line-height: 1.15; color: #fff; }
+.irr-scale-bar span:nth-child(1) { background: var(--irr-navy); }
+.irr-scale-bar span:nth-child(2) { background: var(--irr-blue); }
+.irr-scale-bar span:nth-child(3) { background: var(--irr-ice); color: var(--irr-deep); }
+.irr-scale-ticks { position: relative; height: 18px; font-family: var(--label); font-size: 0.68rem; color: var(--irr-deep); }
+.irr-scale-ticks span { position: absolute; top: 4px; transform: translateX(-50%); }
+.irr-scale-ticks span:first-child { transform: none; }
+.irr-scale-ticks span:last-child { transform: translateX(-100%); }
+.panel .irr-scale-cap { margin-top: 4px; font-family: var(--label); font-size: 0.7rem; letter-spacing: 0.06em; color: #5d7a94; }
+
+/* Laptop with the live chart, and the phone with the bot */
+.irr-devices { display: grid; grid-template-columns: minmax(0, 2.6fr) minmax(0, 1fr); gap: 24px; align-items: end; margin-top: 10px; }
+.irr-devices .device { display: flex; flex-direction: column; filter: drop-shadow(0 22px 26px rgba(11, 42, 74, 0.2)) drop-shadow(0 4px 6px rgba(11, 42, 74, 0.14)); }
+.irr-devices .device--laptop { padding: 0 5%; }
+.irr-devices .device--laptop::after { background: linear-gradient(#f2f6fa, #c9d6e2 70%, #aebdcb); }
+.irr-devices figcaption {
+  order: 2;
+  margin-top: 12px;
+  font-family: var(--label);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: #5d7a94;
+}
+.irr-chart { background: #fff; }
+.irr-chart svg { display: block; width: 100%; height: 100%; }
+.irr-chart-t { font: 600 9px var(--body); fill: var(--irr-navy, #0b2a4a); }
+.irr-chart-a { font: 7px var(--label); fill: #5d7a94; }
+
+.irr-phone .device-body { container-type: inline-size; }
+/* Chat sizes follow the phone width (cqw), so the chat scales with the mockup */
+.tg { display: flex; flex-direction: column; background: #dfeaf4; font-size: 5.6cqw; line-height: 1.3; }
+.tg-top { display: flex; align-items: center; gap: 4cqw; padding: 10cqw 5cqw 4cqw; background: var(--irr-deep); color: #fff; }
+.tg-top b { display: block; font-size: 5.6cqw; }
+.tg-top small { font-size: 4.6cqw; color: var(--irr-ice); }
+.tg-avatar { flex: none; width: 11cqw; height: 10cqw; clip-path: polygon(50% 0, 100% 100%, 0 100%); background: linear-gradient(160deg, var(--irr-sky), #fff); }
+.tg-chat { display: flex; flex-direction: column; gap: 3cqw; padding: 5cqw 4cqw; }
+.tg-msg { max-width: 86%; padding: 3cqw 4.4cqw; border-radius: 5cqw; background: #fff; color: var(--irr-navy); box-shadow: 0 1px 0 rgba(11, 42, 74, 0.08); }
+.tg-me { align-self: flex-end; background: #c9e4f7; font-family: var(--label); font-size: 5cqw; }
+.tg-bot { align-self: flex-start; }
+.tg-keys { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5cqw; }
+.tg-keys span { padding: 2.5cqw; border-radius: 4cqw; background: rgba(22, 80, 127, 0.75); color: #fff; text-align: center; font-weight: 600; }
+
+.irr-build { margin: 8px 0 0; width: 70%; aspect-ratio: 4 / 3; clip-path: polygon(0 0, 100% 0, 86% 100%, 0 100%); }
+.irr-build img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* Results: a pale low-poly field */
+.irr-sec--results {
+  margin: 0 calc(-1 * var(--irr-pad));
+  padding: 40px var(--irr-pad) 48px;
+  overflow: hidden;
+}
+.irr-results-in { position: relative; display: flex; flex-direction: column; gap: 22px; }
+.irr-figs { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 20px; }
+.irr-waffle, .irr-ring {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0;
+  padding: 18px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+}
+.irr-waffle svg { flex: none; width: 128px; height: 128px; }
+.irr-waffle figcaption, .irr-ring figcaption { display: flex; flex-direction: column; gap: 6px; font-size: 0.9rem; color: #2a4560; }
+.irr-waffle b { font-size: 2rem; line-height: 1; color: var(--irr-navy); }
+.irr-waffle figcaption span { display: flex; align-items: center; gap: 8px; }
+.irr-waffle i { flex: none; width: 10px; height: 10px; border-radius: 2px; }
+.irr-ring { flex-direction: column; justify-content: center; text-align: center; gap: 8px; }
+.irr-ring svg { width: 112px; height: 112px; }
+.irr-ring text { font: 700 26px var(--body); fill: var(--irr-navy, #0b2a4a); }
+.irr-results-in .irr-text { padding: 18px; border-radius: 6px; background: rgba(255, 255, 255, 0.9); max-width: none; }
+.panel[data-layout="irrigation"] .panel-nav { margin-top: 0; }
+
+@media (max-width: 720px) {
+  .irr { --irr-pad: 20px; gap: 44px; }
+  .irr-hero { margin-top: -22px; padding-top: 60px; }
+  .panel .irr-title { font-size: 2rem; }
+  .irr-hero-photo { width: 92%; }
+  .panel .irr-hook { font-size: 1.5rem; }
+  .irr-steps { grid-template-columns: 1fr; gap: 16px; }
+  .irr-steps li { display: grid; grid-template-columns: 56px 1fr; column-gap: 14px; row-gap: 2px; }
+  .irr-steps li + li::before { display: none; }
+  .irr-step-tri { grid-row: span 2; width: 56px; height: 48px; padding-bottom: 6px; }
+  .irr-step-tri svg { width: 20px; height: 20px; }
+  .irr-scale-bar { height: 46px; font-size: 0.72rem; }
+  .irr-devices { grid-template-columns: 1fr; gap: 28px; }
+  .irr-devices .irr-phone { width: 52%; margin: 0 auto; }
+  .irr-build { width: 100%; }
+  .irr-figs { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .irr-rain line, .irr-spray path { animation: none; }
+}

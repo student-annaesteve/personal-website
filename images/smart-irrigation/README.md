@@ -1,8 +1,10 @@
 # Smart irrigation images
 
-Put the project's photos and screenshots here, then in `projects.js` replace each
-`placeholder: "…"` with `src: "images/smart-irrigation/<file>.jpg"` and an `alt` text.
+Put the project's photos here, then in `projects.js` (Smart irrigation → `photos`) replace each
+`{ placeholder: "…" }` with `{ src: "images/smart-irrigation/<file>.jpg", alt: "…" }`.
 
-Slots (in order): final prototype, Telegram bot (phone), evapotranspiration diagram,
-survey results chart (laptop), field / interview photo, circuit, 3D-printed case,
-Telegram chat (phone), ThingSpeak dashboard (laptop).
+- `hero`: the final prototype (shown large in the blue header, landscape 16:10 works best)
+- `build`: the 3D-printed case (4:3)
+
+The rain scene, the Telegram chat, the live chart and the survey figures are drawn in
+`layouts/irrigation.js`, so they need no image.

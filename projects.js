@@ -9,71 +9,44 @@
   link:   a URL for the full project (Behance, PDF, website…) or "".
   color:  the tint of the placeholder frames (keep to the site's moss / tan / bone palette).
 
-  Optional case-study fields (see "Mar i Muntanya" and "Smart irrigation"): headline, subtitle, goal, hero, levels.
+  Optional case-study fields (see "Mar i Muntanya"): headline, subtitle, goal, hero, levels.
+  A project with `layout` (see "Smart irrigation") is drawn by its own renderer in layouts/.
   Each level can set its own title, labels, stats, rules and media ({ src } image, { video, poster },
   or { placeholder: "…" } to reserve a photo slot).
   When `levels` is present the panel opens wider and leads with the product mockups.
 */
 window.PROJECTS = [
   {
-    // Research project (batxillerat "treball de recerca"), shown as a visual case study.
-    // Every { placeholder } is an empty slot: replace it with src: "images/smart-irrigation/….jpg"
-    // (keep `device` to show the image inside a laptop / phone, or leave it out for a plain photo).
+    // Research project (batxillerat "treball de recerca"). It has its own look, drawn by
+    // layouts/irrigation.js and layouts/irrigation.css: blues and low-poly triangles, like the report.
+    // Photos: replace a { placeholder } with { src: "images/smart-irrigation/….jpg", alt: "…" }.
     title: "Smart irrigation", // short name for the map and the route list
+    layout: "irrigation",
     headline: "Watering only when the plant needs it",
     subtitle: "Research project · Irrigation in the Cerdanya and an IoT prototype",
     year: "",
     tags: ["Research", "IoT", "Arduino prototype"],
-    color: "#889063",
-    goal: "Sprinklers running in the rain made me ask: are we using irrigation water well, and could a smarter system stop wasting it?",
-    description: "A low-cost device that reads the soil and the air and decides by itself when to water.",
-    hero: [
-      { placeholder: "Final prototype", ratio: "4 / 3", span: 2.2 },
-      { placeholder: "Telegram bot", device: "phone" },
-    ],
-    levels: [
-      {
-        title: "The theory",
-        labels: ["Question", "What I found"],
-        challenge: "What decides how much water a plant needs?",
-        solution: "Evapotranspiration. Sun, heat, humidity and wind change it, so water when it is cool and only at the roots.",
-        gallery: [
-          { placeholder: "Evapotranspiration diagram", ratio: "16 / 9" },
-        ],
-      },
-      {
-        title: "The Cerdanya today",
-        labels: ["Question", "What I found"],
-        challenge: "How does my region water? A survey of 100 people and interviews with farmers, gardeners and golf clubs.",
-        solution: "Everyone knows water is scarce, but smart irrigation is almost absent.",
-        stats: [["100", "people surveyed"], ["49", "use a timer"], ["2", "use sensors"], ["95%", "expect a change"]],
-        gallery: [
-          { placeholder: "Survey results chart", device: "laptop", span: 2 },
-          { placeholder: "Field / interview photo", ratio: "3 / 4" },
-        ],
-      },
-      {
-        title: "The prototype",
-        labels: ["Question", "What I built"],
-        challenge: "Can a cheap sensor system decide on its own?",
-        solution: "A NodeMCU reads the soil and the temperature, opens the water with a servo and reports to ThingSpeak and Telegram.",
-        gallery: [
-          { placeholder: "Circuit · NodeMCU + sensors", ratio: "1 / 1", caption: "Electronics" },
-          { placeholder: "3D-printed case", ratio: "1 / 1", caption: "3D-printed case" },
-          { placeholder: "Telegram chat", device: "phone", caption: "Manual control" },
-        ],
-        rules: {
-          title: "Automatic mode",
-          items: [
-            ["Soil humidity under 20%", "Water now", true],
-            ["20–60% and below 10 °C", "Water now, little is lost to evaporation", true],
-            ["20–60% and 10 °C or warmer", "Wait for a cooler hour", false],
-            ["Over 60%", "No watering needed", false],
-          ],
-        },
-        media: { placeholder: "ThingSpeak dashboard", device: "laptop", caption: "Live data from the sensors" },
-      },
-    ],
+    color: "#2f7fbf",
+    goal: {
+      hook: "It was raining, and the sprinklers were on.",
+      text: "Cycling through the Cerdanya, that scene became my question: are we using irrigation water well, and could a smarter system water only when the plant really needs it?",
+    },
+    solution: {
+      text: "A low-cost device that reads the soil and the air and decides by itself when to water. It can also be controlled from a phone.",
+      steps: [
+        ["Sense", "Soil humidity and air temperature"],
+        ["Decide", "A NodeMCU (ESP8266) compares them with the plant's needs"],
+        ["Water", "A servo opens the tap, only when it is worth it"],
+      ],
+    },
+    results: {
+      survey: { total: 100, timer: 49, sensors: 2, expect: 95 },
+      text: "In the Cerdanya, almost half of the people I surveyed water on a timer and only 2 out of 100 use sensors, yet 95% expect irrigation to change. The prototype shows it can: it waters on its own, at the right moment, and reports every reading to the phone.",
+    },
+    photos: {
+      hero: { placeholder: "Photo of the final prototype" },
+      build: { placeholder: "Photo of the 3D-printed case" },
+    },
     images: [],
     link: "",
   },
