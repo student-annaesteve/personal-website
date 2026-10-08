@@ -49,7 +49,7 @@
       '<div class="ms-flow" tabindex="0" aria-label="The app, screen by screen">' + (d.flow || []).map((m) => phone(m, esc)).join("") + "</div>" +
       '<ol class="ms-steps">' + (d.steps || []).map(([t, x], k) =>
         '<li><span class="ms-step-n">' + (k + 1) + "</span><div><strong>" + esc(t) + "</strong><p>" + esc(x) + "</p></div></li>").join("") + "</ol>" +
-      '<figure class="ms-shot"><video src="videos/mysonar/embeddings.mp4" poster="images/mysonar/embeddings-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Screen recording: swiping artists in the app moves your point through the 3D embedding space of artists"></video><figcaption>Every artist is a point; your swipes find where you are.</figcaption></figure>' +
+      '<figure class="ms-shot"><video src="videos/mysonar/embeddings.mp4" poster="images/mysonar/embeddings-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Screen recording: swiping artists in the app moves your point through the 3D embedding space of artists"></video></figure>' +
       "</section>";
 
     h += '<section class="ms-sec ms-sec--results">' + head("03", "The results") +
