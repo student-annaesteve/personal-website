@@ -18,39 +18,54 @@
 window.PROJECTS = [
   {
     // Research project (batxillerat "treball de recerca"). It has its own look, drawn by
-    // layouts/irrigation.js and layouts/irrigation.css: the cover of the report, with its diamond tiles.
-    // Photos: replace a { placeholder } with { src: "images/smart-irrigation/….jpg", alt: "…" }.
+    // layouts/irrigation.js and layouts/irrigation.css: the report's white paper, sketch and diamond tiles.
     title: "Smart irrigation", // short name for the map and the route list
     layout: "irrigation",
     headline: "Cada gota compta!",
-    subtitle: "Every drop counts: how efficient is irrigation in the Cerdanya, and can a smart device do better?",
     year: "2021",
-    sketch: { src: "images/smart-irrigation/sketch.png", alt: "Pencil drawing of a sprinkler, with arrows to a soil humidity sensor, a temperature sensor and a light sensor" },
-    facts: ["Research project (Treball de recerca)", "INS Pere Borrell, Puigcerdà", "October 2021", "IoT · Arduino prototype"],
     tags: ["Research", "IoT", "Arduino prototype"],
     color: "#3e917e",
-    goal: {
-      hook: "It was raining, and the sprinklers were on.",
-      text: "Cycling through the Cerdanya, that scene became my question: are we using irrigation water well, and could a smarter system water only when the plant really needs it?",
+    sketch: { src: "images/smart-irrigation/sketch.png", alt: "Pencil sketch of a sprinkler with arrows to a soil humidity sensor, a temperature sensor and a light sensor" },
+    goal: "Find the factors that make irrigation more efficient. Starting from the curiosity of how the irrigation systems of the Cerdanya work, the project explains why plants need water, studies how the region waters today, and builds a smart irrigation prototype that decides from sensor data when to water.",
+    // Component photos set inside some of the cover's diamonds (transparent PNGs).
+    tiles: ["images/smart-irrigation/tile-nodemcu.png", "images/smart-irrigation/tile-temperature.png", "images/smart-irrigation/tile-water-sensor.png", "images/smart-irrigation/tile-temperature-diagram.png"],
+    theory: {
+      text: "Plants need water because of evapotranspiration: water evaporates from the soil and transpires from the leaves. Sun, temperature, humidity and wind change how much. Localised irrigation wastes the least, and IoT sensors make precision agriculture possible.",
+      main: { src: "images/smart-irrigation/evapotranspiracio.png", alt: "Diagram of evapotranspiration: evaporation from the soil and transpiration from the leaves", caption: "Evapotranspiration: soil evaporation + leaf transpiration" },
+      factors: [
+        { src: "images/smart-irrigation/et-radiacio.png", alt: "Solar radiation raises evapotranspiration" },
+        { src: "images/smart-irrigation/et-temperatura.png", alt: "Air temperature raises evapotranspiration" },
+        { src: "images/smart-irrigation/et-humitat.png", alt: "Air humidity lowers evapotranspiration" },
+        { src: "images/smart-irrigation/et-vent.png", alt: "Wind raises evapotranspiration" },
+      ],
+      factorsCaption: "Factors that affect evapotranspiration: sun, temperature, humidity and wind",
     },
-    solution: {
-      text: "A low-cost device that reads the soil and the air and decides by itself when to water. It can also be controlled from a phone.",
-      steps: [
-        ["Sense", "Soil humidity and air temperature"],
-        ["Decide", "A NodeMCU (ESP8266) compares them with the plant's needs"],
-        ["Water", "A servo opens the tap, only when it is worth it"],
+    study: {
+      text: "I surveyed 100 people in the Cerdanya and interviewed 5 professionals. Most water on a timer and very few use sensors, but almost everyone thinks irrigation will change.",
+      numbers: [["49%", "water on a timer"], ["2%", "use sensors"], ["95%", "expect irrigation to change"]],
+    },
+    prototype: {
+      text: "A NodeMCU (ESP8266) reads soil humidity and temperature, shows them on an LCD and sends them to ThingSpeak. A servomotor opens the water, in automatic or manual mode, controlled from Telegram.",
+      working: { src: "images/smart-irrigation/working.png", alt: "The prototype working: phone with the Telegram bot in automatic mode, sensors, NodeMCU, servomotor and LCD reading No cal regar", caption: "Automatic mode: «No cal regar»" },
+      diagram: { src: "images/smart-irrigation/logica.png", alt: "System diagram: sensors to NodeMCU, servomotor to the plant, data to ThingSpeak, control from Telegram", caption: "How the system works" },
+      row: [
+        { src: "images/smart-irrigation/components.png", alt: "Labelled components: temperature sensor, humidity sensor, NodeMCU, LCD I2C screen, servomotor", caption: "Components" },
+        { src: "images/smart-irrigation/prototype.jpg", alt: "Breadboard with the NodeMCU and the LCD showing Sistema iniciat", caption: "System start-up: «Sistema iniciat»" },
+        { src: "images/smart-irrigation/final.png", alt: "Final assembly in its 3D-printed case, LCD reading Sistema iniciat", caption: "Final build in a 3D-printed case" },
       ],
     },
-    results: {
-      survey: { total: 100, timer: 49, sensors: 2, expect: 95 },
-      text: "In the Cerdanya, almost half of the people I surveyed water on a timer and only 2 out of 100 use sensors, yet 95% expect irrigation to change. The prototype shows it can: it waters on its own, at the right moment, and reports every reading to the phone.",
-    },
-    photos: {
-      hero: { placeholder: "Photo of the final prototype" }, // shown in "The solution"
-      build: { placeholder: "Photo of the 3D-printed case" },
-    },
+    conclusion: "Irrigation in the Cerdanya can be much more efficient: water at the right moment, use localised systems and let sensors decide. The prototype shows that a cheap, reliable device can already do it.",
+    // Photos toned to warm black and white; cropped square on the page.
+    awards: [
+      { src: "images/smart-irrigation/award-1.jpg", alt: "Receiving the V Premi BDP Software trophy", name: "V Premi BDP Software · 2022" },
+      { src: "images/smart-irrigation/award-2.jpg", alt: "Group photo at the UPC award ceremony", name: "23è Premi UPC · Batxillerat 2022" },
+      { src: "images/smart-irrigation/award-3.jpg", alt: "Award ceremony in Puigcerdà", name: "Premi Sebastià Bosom · Vila de Puigcerdà 2022" },
+      { src: "images/smart-irrigation/award-4.jpg", alt: "Holding the award diploma", name: "Stockholm Junior Water Prize · Spain" },
+    ],
+    link: "https://docs.google.com/document/d/1NoI76e8yccoWwmlpAoMLF0dlqhZdLjtPvQypX51v77Q/edit",
+    linkLabel: "Read the full report (PDF)",
+    linkNote: "Memòria del treball de recerca · 2021",
     images: [],
-    link: "",
   },
   {
     title: "Project Two",

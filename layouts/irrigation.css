@@ -1,249 +1,116 @@
-/* "Smart irrigation": its own look, taken from the cover of the research report
-   (white paper, the pencil sketch, diamond tiles in teal, green and lime). */
+/* "Smart irrigation": its own look, taken from the research report
+   (white paper, the pencil sketch, a strip of diamond tiles in teal, green and lime). */
 .irr {
   --irr-ink: #134f5c;
   --irr-teal: #45818e;
   --irr-green: #3e917e;
   --irr-sky: #87b2bb;
-  --irr-grey: #929ea0;
   --irr-lime: #88d671;
-  --irr-mist: #e3ecee;
+  --irr-line: #dfe8ea;
   --irr-text: #1f2b2e;
+  --irr-muted: #56676a;
   --irr-serif: "Tinos", "Times New Roman", Times, serif;
-  --irr-pad: 32px;
-  /* aliases used further down */
-  --irr-navy: var(--irr-ink);
-  --irr-deep: var(--irr-teal);
-  --irr-blue: var(--irr-green);
-  --irr-ice: var(--irr-mist);
+  --irr-strip: 44px;   /* width of the diamond strip */
+  --irr-gutter: 76px;  /* left padding: strip + gap */
+  --irr-top: 36px;
   display: flex;
   flex-direction: column;
-  gap: 56px;
+  gap: 44px;
+  margin: calc(-30px - env(safe-area-inset-top, 0px)) -32px -32px;
+  padding: var(--irr-top) 36px 40px var(--irr-gutter);
+  background: #fff;
   color: var(--irr-text);
   font-family: var(--body);
+  line-height: 1.55;
 }
 .panel[data-layout="irrigation"] { background: #fff; }
 .panel[data-layout="irrigation"] .panel-close { background: #fff; border-color: rgba(19, 79, 92, 0.2); color: #134f5c; }
 .panel[data-layout="irrigation"] .panel-nav button { color: #134f5c; }
+.irr p { margin: 0; color: var(--irr-text); max-width: 64ch; }
 
-/* Diamond tiles, cut off by the right edge like on the cover */
-.irr-tiles { position: absolute; top: 0; right: 0; height: 100%; width: 210px; display: block; }
-
-/* Hero: the cover of the report */
-.irr-hero {
+/* Cover: title and goal on the left, the pencil sketch on the right, diamonds down the left edge */
+.irr-cover {
   position: relative;
-  margin: calc(-30px - env(safe-area-inset-top, 0px)) calc(-1 * var(--irr-pad)) 0;
-  padding: 44px var(--irr-pad) 28px;
-  overflow: hidden;
-  background: #fff;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  gap: 22px 32px;
+  align-items: start;
 }
-.irr-hero-in { position: relative; display: flex; flex-direction: column; gap: 10px; max-width: calc(100% - 200px); }
+.irr-tiles {
+  position: absolute;
+  top: calc(-1 * var(--irr-top));
+  left: calc(-1 * var(--irr-gutter));
+  width: var(--irr-strip);
+  height: calc(100% + var(--irr-top) + 44px);
+  overflow: hidden;
+}
 .panel .irr-title {
+  grid-column: 1; grid-row: 1;
   margin: 0;
   font-family: var(--irr-serif);
   font-style: italic;
   font-weight: 700;
-  font-size: 3rem;
+  font-size: clamp(1.9rem, 4.4vw, 2.6rem);
   line-height: 1;
-  letter-spacing: -0.01em;
+  white-space: nowrap;
   color: #111;
 }
-.panel .irr-sub { font-family: var(--irr-serif); font-size: 1.2rem; line-height: 1.35; color: #222; max-width: 30ch; }
-.irr-sketch { display: block; width: 78%; max-width: 330px; margin: 10px 0 4px 6%; }
-.irr-facts { display: flex; flex-direction: column; gap: 6px; margin: 4px 0 0; padding: 0; list-style: none; font-family: var(--irr-serif); font-size: 0.98rem; color: #222; }
-.irr-facts li { display: flex; align-items: center; gap: 10px; }
-.irr-facts li::before { content: ""; flex: none; width: 13px; height: 13px; border: 1px solid #1f2b2e; background: var(--irr-green); }
-.irr-facts li:nth-child(1) { font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
-.irr-facts li:nth-child(2)::before { background: var(--irr-ink); }
-.irr-facts li:nth-child(3)::before { background: var(--irr-teal); }
-.irr-facts li:nth-child(4)::before { background: var(--irr-sky); }
+.irr-sketch { grid-column: 2; grid-row: 1 / 3; justify-self: end; width: 100%; max-width: 200px; margin-top: 40px; }
+.panel .irr-lead { grid-column: 1; grid-row: 2; font-family: var(--irr-serif); font-size: 1.08rem; line-height: 1.5; color: #222; max-width: 42ch; }
 
-/* Empty photo slot, until the picture is added */
-.irr-slot {
-  display: grid;
-  place-items: center;
-  margin: 0;
-  background: repeating-linear-gradient(135deg, #eef4f5 0 12px, #fff 12px 24px);
-  font-family: var(--label);
-  font-size: 0.74rem;
-  letter-spacing: 0.06em;
-  color: var(--irr-deep);
-}
-.irr-slot span { padding: 0 12px; text-align: center; }
+/* Chapters, each marked by a small diamond */
+.irr-ch { display: flex; flex-direction: column; gap: 16px; border-top: 1px solid var(--irr-line); padding-top: 26px; }
+.irr-chh { display: flex; align-items: center; gap: 14px; }
+.irr-dia { width: 16px; height: 16px; flex: none; transform: rotate(45deg); background: var(--c, var(--irr-green)); }
+.irr-chh h3 { margin: 0; font-family: var(--irr-serif); font-weight: 700; font-size: 1.2rem; letter-spacing: 0.03em; text-transform: uppercase; color: #111; }
 
-/* Section heads: a number inside a triangle */
-.irr-sec { position: relative; display: flex; flex-direction: column; gap: 18px; }
-.irr-head { display: flex; align-items: center; gap: 14px; }
-.irr-num {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-  background: var(--irr-ink);
-  font-family: var(--label);
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: #fff;
-}
-.irr-head h3 {
-  margin: 0;
-  font-family: var(--body);
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--irr-ink);
-}
-.panel .irr-hook {
-  font-family: var(--irr-serif);
-  font-style: italic;
-  font-weight: 700;
-  font-size: 2rem;
-  line-height: 1.1;
-  color: var(--irr-navy);
-  text-wrap: balance;
-}
-.panel .irr-text { font-size: 1.02rem; line-height: 1.6; color: #33464b; }
-.panel .irr-text--lead { font-size: 1.15rem; font-weight: 600; color: var(--irr-navy); }
+.irr-fig { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.irr-fig img { display: block; max-width: 100%; }
+.irr-fig figcaption, .irr-award figcaption { font-family: var(--irr-serif); font-size: 0.85rem; line-height: 1.4; color: var(--irr-muted); }
 
-.irr-scene { display: block; width: 100%; height: auto; border-radius: 4px; clip-path: polygon(0 0, 100% 0, 100% 86%, 92% 100%, 0 100%); }
-.irr-rain line { animation: irr-fall 1.4s linear infinite; }
-.irr-rain line:nth-child(3n) { animation-delay: -0.5s; }
-.irr-rain line:nth-child(3n + 1) { animation-delay: -0.9s; }
-@keyframes irr-fall { from { transform: translateY(-14px); opacity: 0; } 30% { opacity: 1; } to { transform: translateY(26px); opacity: 0; } }
-.irr-spray path { animation: irr-spray 0.9s linear infinite; }
-@keyframes irr-spray { to { stroke-dashoffset: -11; } }
+/* Theory: the evapotranspiration diagram and its four factors, at the same height */
+.irr-et { --h: 118px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: flex-start; }
+.irr-et .irr-fig { width: min-content; max-width: 100%; }
+.irr-et-main img { height: var(--h); width: auto; max-width: none; }
+.irr-quad { display: grid; grid-template-columns: auto auto; gap: 6px; height: var(--h); width: max-content; max-width: 100%; }
+.irr-quad img { height: calc((var(--h) - 6px) / 2); width: auto; max-width: none; }
 
-/* Sense → decide → water */
-.irr-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 6px 0 0; padding: 0; list-style: none; counter-reset: s; }
-.irr-steps li { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; font-size: 0.9rem; line-height: 1.45; color: #33464b; }
-.irr-steps li + li::before { /* arrow between steps */
-  content: "";
-  position: absolute;
-  left: -14px;
-  top: 27px;
-  width: 10px;
-  height: 10px;
-  border-top: 2px solid var(--irr-lime);
-  border-right: 2px solid var(--irr-lime);
-  transform: translateX(-2px) rotate(45deg);
-}
-.irr-steps strong { font-size: 1.05rem; color: var(--irr-navy); }
-.irr-step-tile {
-  display: grid;
-  place-items: center;
-  width: 64px;
-  height: 64px;
-  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-  background: var(--irr-teal);
-}
-.irr-steps li:nth-child(2) .irr-step-tile { background: var(--irr-ink); }
-.irr-steps li:nth-child(3) .irr-step-tile { background: var(--irr-green); }
-.irr-step-tile svg { width: 24px; height: 24px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+/* Study of the region: three key numbers */
+.irr-nums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.irr-num { display: flex; flex-direction: column; gap: 2px; border-left: 3px solid var(--c); padding-left: 12px; }
+.irr-num b { font-family: var(--irr-serif); font-size: 1.9rem; line-height: 1.1; color: var(--irr-ink); font-variant-numeric: tabular-nums; }
+.irr-num span { font-size: 0.88rem; color: var(--irr-muted); }
 
-/* Soil humidity scale */
-.irr-scale { margin-top: 8px; }
-.irr-scale-bar { display: flex; height: 40px; overflow: hidden; font-size: 0.8rem; font-weight: 600; }
-.irr-scale-bar span { display: grid; place-items: center; padding: 0 8px; text-align: center; line-height: 1.15; color: #fff; }
-.irr-scale-bar span:nth-child(1) { background: var(--irr-navy); }
-.irr-scale-bar span:nth-child(2) { background: var(--irr-blue); }
-.irr-scale-bar span:nth-child(3) { background: var(--irr-mist); color: var(--irr-ink); }
-.irr-scale-ticks { position: relative; height: 18px; font-family: var(--label); font-size: 0.68rem; color: var(--irr-deep); }
-.irr-scale-ticks span { position: absolute; top: 4px; transform: translateX(-50%); }
-.irr-scale-ticks span:first-child { transform: none; }
-.irr-scale-ticks span:last-child { transform: translateX(-100%); }
-.panel .irr-scale-cap { margin-top: 4px; font-family: var(--label); font-size: 0.7rem; letter-spacing: 0.06em; color: #5b6f73; }
+/* Prototype */
+.irr-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 290px); gap: 24px; align-items: center; }
+.irr-intro img { width: 100%; }
+.irr-wide { align-items: center; }
+.irr-wide img { width: auto; max-width: min(100%, 440px); }
+.irr-row { display: grid; grid-template-columns: repeat(3, minmax(0, 180px)); justify-content: center; gap: 22px; align-items: center; }
+.irr-row img { width: 100%; }
 
-/* Laptop with the live chart, and the phone with the bot */
-.irr-devices { display: grid; grid-template-columns: minmax(0, 2.6fr) minmax(0, 1fr); gap: 24px; align-items: end; margin-top: 10px; }
-.irr-devices .device { display: flex; flex-direction: column; filter: drop-shadow(0 22px 26px rgba(19, 79, 92, 0.2)) drop-shadow(0 4px 6px rgba(19, 79, 92, 0.14)); }
-.irr-devices .device--laptop { padding: 0 5%; }
-.irr-devices .device--laptop::after { background: linear-gradient(#f3f6f6, #d3dcdd 70%, #b5c2c4); }
-.irr-devices figcaption {
-  order: 2;
-  margin-top: 12px;
-  font-family: var(--label);
-  font-size: 0.7rem;
-  letter-spacing: 0.04em;
-  text-align: center;
-  color: #5b6f73;
-}
-.irr-chart { background: #fff; }
-.irr-chart svg { display: block; width: 100%; height: 100%; }
-.irr-chart-t { font: 600 9px var(--body); fill: var(--irr-navy, #0b2a4a); }
-.irr-chart-a { font: 7px var(--label); fill: #5d7a94; }
+.panel .irr-close { font-family: var(--irr-serif); font-size: 1rem; line-height: 1.5; color: #333; border-top: 1px solid var(--irr-line); padding-top: 22px; max-width: none; }
 
-.irr-phone .device-body { container-type: inline-size; }
-/* Chat sizes follow the phone width (cqw), so the chat scales with the mockup */
-.tg { display: flex; flex-direction: column; background: #e6eeef; font-size: 5.6cqw; line-height: 1.3; }
-.tg-top { display: flex; align-items: center; gap: 4cqw; padding: 10cqw 5cqw 4cqw; background: var(--irr-ink); color: #fff; }
-.tg-top b { display: block; font-size: 5.6cqw; }
-.tg-top small { font-size: 4.6cqw; color: var(--irr-ice); }
-.tg-avatar { flex: none; width: 11cqw; height: 11cqw; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); background: var(--irr-lime); }
-.tg-chat { display: flex; flex-direction: column; gap: 3cqw; padding: 5cqw 4cqw; }
-.tg-msg { max-width: 86%; padding: 3cqw 4.4cqw; border-radius: 5cqw; background: #fff; color: var(--irr-navy); box-shadow: 0 1px 0 rgba(19, 79, 92, 0.08); }
-.tg-me { align-self: flex-end; background: #d4ecc9; font-family: var(--label); font-size: 5cqw; }
-.tg-bot { align-self: flex-start; }
-.tg-keys { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5cqw; }
-.tg-keys span { padding: 2.5cqw; border-radius: 4cqw; background: var(--irr-teal); color: #fff; text-align: center; font-weight: 600; }
+/* Awards: same-size photos in warm black and white, the prize name below */
+.irr-awards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.irr-award { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.irr-award img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
+.irr-award figcaption { color: var(--irr-text); text-align: center; }
 
-.irr-photos { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 14px; margin-top: 10px; }
-.irr-photo { margin: 0; aspect-ratio: 4 / 3; border: 1px solid var(--irr-mist); }
-.irr-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
-
-/* Results: pale paper with a few diamond tiles at the edge */
-.irr-sec--results {
-  margin: 0 calc(-1 * var(--irr-pad));
-  padding: 40px var(--irr-pad) 48px;
-  overflow: hidden;
-  background: #f3f7f7;
-}
-.irr-sec--results .irr-tiles { width: 120px; }
-.irr-results-in { padding-right: 110px; }
-.irr-results-in { position: relative; display: flex; flex-direction: column; gap: 22px; }
-.irr-figs { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 20px; }
-.irr-waffle, .irr-ring {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  margin: 0;
-  padding: 18px;
-  background: #fff;
-}
-.irr-waffle svg { flex: none; width: 128px; height: 128px; }
-.irr-waffle figcaption, .irr-ring figcaption { display: flex; flex-direction: column; gap: 6px; font-size: 0.9rem; color: #33464b; }
-.irr-waffle b { font-size: 2rem; line-height: 1; color: var(--irr-navy); }
-.irr-waffle figcaption span { display: flex; align-items: center; gap: 8px; }
-.irr-waffle i { flex: none; width: 10px; height: 10px; border-radius: 2px; }
-.irr-ring { flex-direction: column; justify-content: center; text-align: center; gap: 8px; }
-.irr-ring svg { width: 112px; height: 112px; }
-.irr-ring text { font: 700 26px var(--body); fill: var(--irr-navy, #0b2a4a); }
-.irr-results-in .irr-text { max-width: none; }
-.panel[data-layout="irrigation"] .panel-nav { margin-top: 0; }
+/* Full report */
+.irr-report { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; border-top: 1px solid var(--irr-line); padding-top: 22px; }
+.irr-pdf { display: inline-flex; align-items: center; gap: 12px; font-family: var(--irr-serif); font-weight: 700; font-size: 1.02rem; color: var(--irr-ink); text-decoration: none; border: 1px solid var(--irr-ink); padding: 10px 18px; }
+.irr-pdf .irr-dia { --c: var(--irr-green); width: 11px; height: 11px; }
+.irr-pdf:hover, .irr-pdf:focus-visible { background: var(--irr-ink); color: #fff; }
+.irr-note { font-size: 0.86rem; color: var(--irr-muted); }
 
 @media (max-width: 720px) {
-  .irr { --irr-pad: 20px; gap: 44px; }
-  .irr-hero { margin-top: -22px; padding-top: 30px; }
-  .irr-hero-in { max-width: calc(100% - 64px); }
-  .irr-tiles { width: 64px; }
-  .panel .irr-title { font-size: 2.05rem; }
-  .panel .irr-sub { font-size: 1.02rem; }
-  .irr-facts { font-size: 0.86rem; }
-  .panel .irr-hook { font-size: 1.6rem; }
-  .irr-results-in { padding-right: 0; }
-  .irr-sec--results .irr-tiles { display: none; }
-  .irr-steps { grid-template-columns: 1fr; gap: 16px; }
-  .irr-steps li { display: grid; grid-template-columns: 56px 1fr; column-gap: 14px; row-gap: 2px; }
-  .irr-steps li + li::before { display: none; }
-  .irr-step-tile { grid-row: span 2; width: 52px; height: 52px; }
-  .irr-step-tile svg { width: 20px; height: 20px; }
-  .irr-scale-bar { height: 46px; font-size: 0.72rem; }
-  .irr-devices { grid-template-columns: 1fr; gap: 28px; }
-  .irr-devices .irr-phone { width: 52%; margin: 0 auto; }
-  .irr-photos { grid-template-columns: 1fr; }
-  .irr-figs { grid-template-columns: 1fr; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .irr-rain line, .irr-spray path { animation: none; }
+  .irr { --irr-strip: 32px; --irr-gutter: 52px; --irr-top: 26px; margin: -22px -20px -28px; padding-right: 20px; gap: 36px; }
+  .irr-cover { grid-template-columns: 1fr; }
+  .panel .irr-title, .irr-sketch, .panel .irr-lead { grid-column: 1; grid-row: auto; }
+  .irr-sketch { justify-self: center; max-width: 180px; }
+  .irr-et { --h: 92px; }
+  .irr-nums, .irr-intro, .irr-row { grid-template-columns: 1fr; }
+  .irr-awards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
