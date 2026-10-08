@@ -1,7 +1,8 @@
 /*
   Your content lives here. Each project becomes a summit in the range.
-  The route climbs in this order: the first project is the lowest peak,
-  the last one the highest, and the summit at the back is "About me".
+  The route climbs in this order: the first project is the lowest peak and
+  the last one is the main summit. "About me" opens from the round button
+  in the top-right corner.
 
   images: [{ src: "images/my-poster.jpg", alt: "Short description" }, ...]
           Leave the list empty to show placeholder frames.
@@ -79,6 +80,16 @@ window.PROJECTS = [
     ],
     images: [],
     link: "",
+  },
+  {
+    title: "Project Five",
+    year: "2026",
+    tags: ["Design"],
+    description:
+      "Placeholder. Describe the brief, what you designed and what came out of it. Two or three sentences are enough.",
+    images: [],
+    link: "",
+    color: "#4c3d19",
   },
 ];
 

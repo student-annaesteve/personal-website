@@ -3,7 +3,8 @@
 A design portfolio drawn as a survey map of a mountain (three.js, no build step). The map builds itself
 on every visit: a survey grid draws out, the terrain rises in a scanning wave, contour lines trace by
 elevation and the summit beacons switch on.
-Every project is a marked summit on the trail; the highest peak is "About me".
+Every project is a numbered summit on the trail; the last project sits on the main summit. "About me"
+opens from the round button in the top-right corner.
 
 - `projects.js`: **your content**. Add, remove or reorder projects here; the range rebuilds itself.
 - `world.js`: the survey map (wireframe mesh that is densest at the summit and opens up towards the
