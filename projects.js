@@ -175,6 +175,17 @@ window.PROJECTS = [
         challenge: "Nobody drives any more. How do you keep the sense of control, and the CUPRA feeling, without driving?",
         solution: "A multifunctional, immersive space: you plan the whole trip on one screen and change it on the way, adding a stop for lunch or a detour.",
         media: { video: "videos/mar-i-muntanya/l5.mp4", poster: "images/mar-i-muntanya/l5-poster.jpg", device: "tablet", alt: "L5 simulation: defining the journey and changing the route on the way" },
+        screen: {
+          title: "The central screen",
+          text: "The wheel and the cluster disappear: one central screen becomes the link between you, the car and the road. You set the destination and stops, tune how the car drives, see why it decides what it does, and shape the cabin.",
+          frames: [
+            { src: "images/mar-i-muntanya/l5-screen-trip.jpg", caption: "Define the trip" },
+            { src: "images/mar-i-muntanya/l5-screen-route.jpg", caption: "Route and driving preferences" },
+            { src: "images/mar-i-muntanya/l5-screen-cabin.jpg", caption: "Cabin configuration" },
+          ],
+          link: "https://pantallal5.vercel.app/",
+          linkLabel: "Try the L5 screen →",
+        },
         frames: [
           { src: "images/mar-i-muntanya/l5-standard.jpg", caption: "Standard" },
           { src: "images/mar-i-muntanya/l5-social.jpg", caption: "Social" },
@@ -188,6 +199,7 @@ window.PROJECTS = [
     images: [],
     link: "https://seat-catedra.vercel.app/",
     linkLabel: "Open the simulator →",
+    extraLinks: [{ label: "Read the report (PDF) →", url: "docs/mar-i-muntanya-memoria.pdf" }],
   },
   {
     title: "Project Five",

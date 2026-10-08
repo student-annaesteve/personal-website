@@ -198,7 +198,7 @@
         : '<figure class="photo-slot"><div class="photo-slot-inner"' + ratio + "><span>" + esc(m.placeholder || "Photo") + "</span></div>" + cap + "</figure>";
     }
     const media = m.video
-      ? '<video autoplay muted loop playsinline preload="metadata" poster="' + esc(m.poster || m.src || "") + '" aria-label="' + esc(m.alt || "") + '">' +
+      ? '<video controls playsinline preload="metadata" poster="' + esc(m.poster || m.src || "") + '" aria-label="' + esc(m.alt || "") + '">' +
         '<source src="' + esc(m.video) + '" type="video/mp4"></video>'
       : m.src
         ? '<img src="' + esc(m.src) + '" alt="' + esc(m.alt || "") + '" loading="lazy">'
@@ -237,9 +237,13 @@
       '<div><span class="stop-label stop-label--challenge">' + esc((L.labels || [])[0] || "Challenge") + "</span><p>" + esc(L.challenge) + "</p></div>" +
       '<div><span class="stop-label stop-label--solution">' + esc((L.labels || [])[1] || "Our solution") + '</span><p class="stop-solution">' + esc(L.solution) + "</p></div>" +
       "</div>" +
+      (L.screen ? '<div class="stop-screen"><span class="stop-label stop-label--solution">' + esc(L.screen.title) + "</span><p>" + esc(L.screen.text) + "</p>" +
+        '<div class="stop-frames" style="--cols:' + L.screen.frames.length + '">' + L.screen.frames.map((f) => '<figure><img src="' + esc(f.src) + '" alt="' + esc(f.alt || f.caption) + '" loading="lazy"><figcaption>' + esc(f.caption) + "</figcaption></figure>").join("") + "</div>" +
+        (L.screen.link ? '<a class="stop-link" href="' + esc(L.screen.link) + '" target="_blank" rel="noopener">' + esc(L.screen.linkLabel || "Open the screen →") + "</a>" : "") + "</div>" : "") +
       (L.frames ? '<div class="stop-frames" style="--cols:' + (L.frames.length % 3 ? Math.min(L.frames.length, 4) : 3) + '">' + L.frames.map((f) => '<figure><img src="' + esc(f.src) + '" alt="' + esc(f.alt || f.caption) + '" loading="lazy"><figcaption>' + esc(f.caption) + "</figcaption></figure>").join("") + "</div>" : "") +
       "</section>").join("") + "</div>";
     if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">' + esc(d.linkLabel || "Open the simulator →") + "</a>";
+    if (d.extraLinks) h += d.extraLinks.map((l) => '<a class="panel-link panel-link--alt" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a>").join("");
     return h;
   }
 

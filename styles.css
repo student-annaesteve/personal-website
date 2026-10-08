@@ -749,3 +749,12 @@ img.about-photo { background: #fff; }
 .stop-frames img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px; }
 .stop-frames figcaption { margin-top: 5px; font-size: 0.78rem; color: var(--muted); }
 @media (max-width: 560px) { .stop-frames { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* L5: the central screen, with a link to try it */
+.stop-screen { display: flex; flex-direction: column; gap: 10px; }
+.stop-screen > p { margin: 0; font-size: 0.95rem; line-height: 1.55; }
+.stop-link { align-self: flex-start; font-weight: 600; color: var(--kombu); text-underline-offset: 3px; }
+.panel[data-layout="cupra"] .stop-link { color: var(--cu-deep); }
+.panel-link + .panel-link--alt { margin-top: -6px; }
+.panel .panel-link--alt { background: transparent; color: var(--kombu); }
+.panel[data-layout="cupra"] .panel-link--alt { background: transparent; color: var(--cu-deep); }
