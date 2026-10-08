@@ -38,9 +38,8 @@
     '<figure class="irr-fig' + (cls ? " " + cls : "") + '"><img src="' + esc(m.src) + '" alt="' + esc(m.alt || "") + '" loading="lazy">' +
     (m.caption ? "<figcaption>" + esc(m.caption) + "</figcaption>" : "") + "</figure>";
 
-  const chapter = (colour, title, body) =>
-    '<section class="irr-ch" style="--c:' + colour + '"><header class="irr-chh"><span class="irr-dia" aria-hidden="true"></span><h3>' +
-    title + "</h3></header>" + body + "</section>";
+  const heading = (title) => '<header class="irr-chh"><span class="irr-dia" aria-hidden="true"></span><h3>' + title + "</h3></header>";
+  const chapter = (colour, title, body) => '<section class="irr-ch" style="--c:' + colour + '">' + heading(title) + body + "</section>";
 
   window.CASE_LAYOUTS = window.CASE_LAYOUTS || {};
   window.CASE_LAYOUTS.irrigation = function (d, esc) {
@@ -65,10 +64,11 @@
         '<div class="irr-num" style="--c:' + ["#134f5c", "#45818e", "#88d671"][k % 3] + '"><b>' + esc(n) + "</b><span>" + esc(label) + "</span></div>").join("") +
       "</div>");
 
-    h += chapter("#88d671", "Prototype",
-      '<div class="irr-intro"><p class="irr-text">' + esc(pr.text) + "</p>" + fig(pr.working, esc) + "</div>" +
+    // The working-prototype photo sits beside the heading and the text, without a caption.
+    h += '<section class="irr-ch" style="--c:#88d671"><div class="irr-intro"><div class="irr-intro-text">' + heading("Prototype") +
+      '<p class="irr-text">' + esc(pr.text) + "</p></div>" + fig(Object.assign({}, pr.working, { caption: "" }), esc) + "</div>" +
       fig(pr.diagram, esc, "irr-wide") +
-      '<div class="irr-row">' + pr.row.map((m) => fig(m, esc)).join("") + "</div>");
+      '<div class="irr-row">' + pr.row.map((m) => fig(m, esc)).join("") + "</div></section>";
 
     h += '<p class="irr-close">' + esc(d.conclusion) + "</p>";
 
