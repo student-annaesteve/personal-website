@@ -141,7 +141,7 @@
     // A project can bring its own look: `layout` names a renderer in window.CASE_LAYOUTS (see layouts/).
     const layout = s.kind === "project" && d.layout && (window.CASE_LAYOUTS || {})[d.layout];
     panel.classList.toggle("panel--wide", !!(s.kind === "project" && (d.levels || layout)));
-    panel.dataset.layout = layout ? d.layout : "";
+    panel.dataset.layout = layout ? d.layout : (s.kind === "project" && d.theme) || ""; // `theme` recolours the shared case layout
     if (layout) {
       html += layout(d, esc);
     } else if (s.kind === "project" && d.levels) {
