@@ -736,3 +736,9 @@ img.about-photo { background: #fff; }
 .panel[data-layout="cupra"] .stop-solution { color: #111 !important; }
 .panel[data-layout="cupra"] .panel-link { color: var(--cu-deep); border-color: var(--cu); }
 .panel[data-layout="cupra"] .panel-close { border-color: var(--cu); color: var(--cu-deep); }
+/* Level points sit centred on the road (road centre 12px from the rail's left edge, 8px on phones) */
+.panel[data-layout="cupra"] .stop::before { left: -30px; width: 16px; height: 16px; top: 4px; }
+@media (max-width: 560px) {
+  .panel[data-layout="cupra"] .road::before { left: 4px; width: 8px; }
+  .panel[data-layout="cupra"] .stop::before { left: -25px; width: 14px; height: 14px; }
+}
