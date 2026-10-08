@@ -138,8 +138,13 @@
     const d = s.data;
     const alt = s.metres ? "▲ " + fmt(s.metres) : "";
     let html = "";
-    panel.classList.toggle("panel--wide", !!(s.kind === "project" && d.levels));
-    if (s.kind === "project" && d.levels) {
+    // A project can bring its own look: `layout` names a renderer in window.CASE_LAYOUTS (see layouts/).
+    const layout = s.kind === "project" && d.layout && (window.CASE_LAYOUTS || {})[d.layout];
+    panel.classList.toggle("panel--wide", !!(s.kind === "project" && (d.levels || layout)));
+    panel.dataset.layout = layout ? d.layout : "";
+    if (layout) {
+      html += layout(d, esc);
+    } else if (s.kind === "project" && d.levels) {
       html += renderCase(d, alt, i);
     } else if (s.kind === "project") {
       const imgs = (d.images || [])
