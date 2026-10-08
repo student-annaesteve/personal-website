@@ -87,9 +87,9 @@ window.PROJECTS = [
     tags: ["Mobile app", "Recommender", "UX / UI"],
     color: "#f2b40c",
     problems: [
-      ["Overwhelming", "Hundreds of concerts, talks and activities over three days and nights.", "day", "June 12"],
-      ["Unknown artists", "Most names in the line-up mean nothing to you yet.", "night", "June 13"],
-      ["FOMO", "The fear of missing the show you would have loved.", "day", "June 14"],
+      ["Overwhelming", "Hundreds of concerts, talks and activities over three days and nights.", "day"],
+      ["Unknown artists", "Most names in the line-up mean nothing to you yet.", "night"],
+      ["FOMO", "The fear of missing the show you would have loved.", "day"],
     ],
     goal: "Help each visitor find their own Sónar: discover artists they don't know yet and leave with a schedule that fits them.",
     flow: [

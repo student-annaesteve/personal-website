@@ -9,14 +9,14 @@
 
   const head = (n, title) => '<header class="ms-head"><span class="ms-num">' + n + "</span><h3>" + title + "</h3></header>";
 
-  // A problem as one of the app's day/night cards: dots for the day, sun or moon, the date.
-  function card([title, text, when, date], k, esc) {
+  // A problem as one of the app's day/night cards: dots and a sun or moon.
+  function card([title, text, when], k, esc) {
     const dots = [0, 1, 2].map((j) => "<i" + (j <= k ? ' class="on"' : "") + "></i>").join("");
     return (
       '<li class="ms-card' + (k === 0 ? " ms-card--on" : "") + '">' +
       "<strong>" + esc(title) + "</strong><p>" + esc(text) + "</p>" +
       '<div class="ms-card-foot"><span class="ms-pill">' + dots + '<span class="ms-ico">' + (when === "night" ? MOON : SUN) + "</span></span>" +
-      "<span>" + esc(date) + "</span></div></li>"
+      "</div></li>"
     );
   }
 
