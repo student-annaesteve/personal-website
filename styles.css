@@ -761,3 +761,10 @@ img.about-photo { background: #fff; }
 /* Mar i Muntanya: a smaller opening laptop */
 .panel[data-layout="cupra"] .mock-hero .device--laptop { width: 72%; margin: 0 auto; }
 @media (max-width: 560px) { .panel[data-layout="cupra"] .mock-hero .device--laptop { width: 88%; } }
+
+/* Awards at the end of a case study */
+.case-awards { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.case-awards figure { margin: 0; }
+.case-awards img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.case-awards figcaption { margin-top: 8px; font-weight: 600; font-size: 0.92rem; }
+.panel[data-layout="cupra"] .case-awards figcaption { color: var(--cu-deep); }

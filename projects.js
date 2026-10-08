@@ -200,6 +200,9 @@ window.PROJECTS = [
     link: "https://seat-catedra.vercel.app/",
     linkLabel: "Open the simulator →",
     extraLinks: [{ label: "Read the report (PDF) →", url: "docs/mar-i-muntanya-memoria.pdf" }],
+    awards: [
+      { src: "images/mar-i-muntanya/award-second-prize.jpg", caption: "Second prize · SEAT–UPC Chair challenge 2025–2026", alt: "The team and the jury in front of the projected challenge slide in the Aula de Graus, Telecos BCN" },
+    ],
   },
   {
     title: "Project Five",
