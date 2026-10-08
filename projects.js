@@ -9,19 +9,55 @@
   link:   a URL for the full project (Behance, PDF, website…) or "".
   color:  the tint of the placeholder frames (keep to the site's moss / tan / bone palette).
 
-  Optional case-study fields (see "Mar i Muntanya"): headline, subtitle, hero, levels.
+  Optional case-study fields (see "Mar i Muntanya" and "Smart irrigation"): headline, subtitle, goal, hero, levels.
+  Each level can set its own title, labels, stats, rules and media ({ src } image, { video, poster },
+  or { placeholder: "…" } to reserve a photo slot).
   When `levels` is present the panel opens wider and leads with the product mockups.
 */
 window.PROJECTS = [
   {
-    title: "Project One",
-    year: "2026",
-    tags: ["Branding"],
-    description:
-      "Placeholder. Describe the brief, what you designed and what came out of it. Two or three sentences are enough.",
+    // Research project (batxillerat "treball de recerca"), shown as a case study.
+    title: "Smart irrigation", // short name for the map and the route list
+    headline: "Watering only when the plant needs it",
+    subtitle: "Research project · Irrigation in the Cerdanya and an IoT prototype",
+    year: "",
+    tags: ["Research", "IoT", "Arduino prototype"],
+    color: "#889063",
+    goal: "Cycling past a park in the Cerdanya, I got soaked by sprinklers that were running in the rain. That question became my research project: are we really using irrigation water well, and could a smarter system stop wasting it?",
+    description: "A low-cost IoT prototype that reads the soil and the air, and decides by itself when to water.",
+    levels: [
+      {
+        title: "The theory",
+        labels: ["Question", "What I found"],
+        challenge: "Why do plants need water, and what changes how much they need?",
+        solution: "Evapotranspiration sets the need, and sun, temperature, humidity and wind change it. Watering when it is cool, and only where the plant is, wastes the least.",
+      },
+      {
+        title: "The Cerdanya today",
+        labels: ["Question", "What I found"],
+        challenge: "How is irrigation used in my region? I surveyed 100 people with a watering system and interviewed farmers, gardeners and two golf clubs.",
+        solution: "People know water is scarce and expect irrigation to change, but smart systems are still almost absent.",
+        stats: [["100", "people surveyed"], ["49", "use a timer"], ["2", "use sensors"], ["95%", "expect a change"]],
+      },
+      {
+        title: "The prototype",
+        labels: ["Question", "What I built"],
+        challenge: "Can a cheap, sensor-based system decide on its own when to water?",
+        solution: "A NodeMCU (ESP8266) reads soil humidity and temperature, opens the water with a servo, shows its status on an LCD, logs data to ThingSpeak and is controlled from Telegram, in manual or automatic mode, inside a 3D-printed case.",
+        rules: {
+          title: "Automatic mode",
+          items: [
+            ["Soil humidity under 20%", "Water now", true],
+            ["20–60% and below 10 °C", "Water now, little is lost to evaporation", true],
+            ["20–60% and 10 °C or warmer", "Wait for a cooler hour", false],
+            ["Over 60%", "No watering needed", false],
+          ],
+        },
+        media: { placeholder: "Photo of the final prototype", device: "laptop" },
+      },
+    ],
     images: [],
     link: "",
-    color: "#889063",
   },
   {
     title: "Project Two",
