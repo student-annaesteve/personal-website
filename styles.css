@@ -492,8 +492,7 @@ a { color: var(--sign); }
 /* Hero: one large laptop on a soft light gradient, edge to edge in the panel (like slide 3 of the deck) */
 .mock-hero {
   margin: 6px -32px 0;
-  padding: 28px 18px 30px;
-  background: linear-gradient(#ffffff, #e9e2d6 75%, #d9cdb8);
+  padding: 22px 18px 26px;
 }
 .mock-hero .device--laptop { padding: 0 7.5%; }
 

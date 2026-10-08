@@ -52,7 +52,7 @@ window.PROJECTS = [
     color: "#354024",
     // Hero: the simulator's start screen on a laptop.
     hero: [
-      { src: "images/mar-i-muntanya/selector.jpg", alt: "Simulator start screen: Mar i Muntanya, choose the level L3, L4 or L5", device: "laptop" },
+      { src: "images/mar-i-muntanya/selector-hero.jpg", alt: "Simulator start screen: Mar i Muntanya, choose the level L3, L4 or L5", device: "laptop" },
     ],
     description: "A web simulator to live autonomous driving, levels L3 to L5, from the driver's seat.",
     // Each level shows its video in a device. Until the video file exists, the poster image is shown.
