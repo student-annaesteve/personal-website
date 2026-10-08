@@ -534,13 +534,16 @@
     scene.add(contours);
 
     // ---- Summit beacons ---------------------------------------------------
+    // One tag is active at a time: the hovered one, otherwise the selected one.
+    let hovered = -1;
+    function refreshActive() {
+      const a = hovered >= 0 ? hovered : current;
+      stops.forEach((st, k) => st.tagEl && st.tagEl.classList.toggle("active", k === a));
+    }
     const beacons = stops.map((s, i) => {
       const grp = new T.Group();
       grp.position.set(s.top.x, s.top.y, s.top.z);
       const col = s.kind === "about" ? 0x4c3d19 : 0x354024;
-      const beamMat = new T.LineBasicMaterial({ color: col, transparent: true, opacity: 0, depthWrite: false });
-      const beamH = s.kind === "about" ? 16 : 12;
-      grp.add(new T.LineSegments(new T.BufferGeometry().setAttribute("position", new T.Float32BufferAttribute([0, 0, 0, 0, beamH, 0], 3)), beamMat));
       const ringPts = [];
       for (let k = 0; k < 48; k++) {
         const a1 = (k / 48) * Math.PI * 2, a2 = ((k + 1) / 48) * Math.PI * 2;
@@ -550,21 +553,29 @@
       const ringMat = new T.LineBasicMaterial({ color: col, transparent: true, opacity: 0, depthWrite: false });
       const ring = new T.LineSegments(new T.BufferGeometry().setAttribute("position", new T.Float32BufferAttribute(ringPts, 3)), ringMat);
       grp.add(ring);
-      const dot = new T.Mesh(new T.OctahedronGeometry(0.9, 0), new T.MeshBasicMaterial({ color: col, transparent: true, opacity: 0 }));
-      dot.position.y = beamH;
-      grp.add(dot);
-      grp.userData = { beamMat, ringMat, ring, dot, start: BEACON_START + i * 0.12 };
+      grp.userData = { ringMat, ring, start: BEACON_START + i * 0.12 };
       scene.add(grp);
-      s.labelPos = new T.Vector3(s.top.x, s.top.y + beamH + 3, s.top.z);
+      s.labelPos = new T.Vector3(s.top.x, s.top.y, s.top.z);
 
-      const b = document.createElement("button");
-      b.type = "button";
-      b.className = "peak-tag hidden";
-      b.innerHTML = '<span class="tag-alt">▲ ' + fmt(s.metres) + '</span><span class="tag-name">' +
-        esc(s.kind === "about" ? "About me" : s.data.title) + "</span>";
-      b.addEventListener("click", () => open(i));
-      $("labels").appendChild(b);
-      s.tagEl = b;
+      // Marker (always visible) + side label (only while active).
+      const num = s.kind === "about" ? "▲" : String(i + 1).padStart(2, "0");
+      const name = s.kind === "about" ? "About me" : s.data.title;
+      const line1 = (s.kind === "about" ? "SUMMIT" : num) + " — " + fmt(s.metres).toUpperCase();
+      const tag = document.createElement("div");
+      tag.className = "peak-tag hidden";
+      tag.innerHTML =
+        '<button type="button" class="tag-marker" aria-label="' + esc((s.kind === "about" ? "" : num + " ") + name) + '">' +
+        '<span class="tag-num" aria-hidden="true">' + esc(num) + "</span></button>" +
+        '<a class="tag-label" href="#' + esc(s.id) + '" tabindex="-1"><span class="tag-alt">' + esc(line1) + '</span>' +
+        '<span class="tag-name">' + esc(name) + "</span></a>";
+      tag.querySelector(".tag-marker").addEventListener("click", () => open(i));
+      tag.querySelector(".tag-label").addEventListener("click", (e) => { e.preventDefault(); open(i); });
+      tag.addEventListener("pointerenter", () => { hovered = i; refreshActive(); });
+      tag.addEventListener("pointerleave", () => { if (hovered === i) hovered = -1; refreshActive(); });
+      tag.querySelector(".tag-marker").addEventListener("focus", () => { hovered = i; refreshActive(); });
+      tag.querySelector(".tag-marker").addEventListener("blur", () => { if (hovered === i) hovered = -1; refreshActive(); });
+      $("labels").appendChild(tag);
+      s.tagEl = tag;
       return grp;
     });
 
@@ -604,7 +615,7 @@
       want.theta = nearestAngle(cur.theta, OVERVIEW.theta + (s.top.x / WIDTH) * 0.6);
       want.phi = 0.5;
       setOffsets();
-      stops.forEach((st, k) => st.tagEl.classList.toggle("dim", k !== i));
+      refreshActive();
       lastInput = performance.now();
       if (reduceMotion) snap();
     }
@@ -615,7 +626,7 @@
       want.phi = OVERVIEW.phi;
       want.theta = nearestAngle(cur.theta, OVERVIEW.theta);
       setOffsets();
-      stops.forEach((st) => st.tagEl.classList.remove("dim"));
+      refreshActive();
       if (reduceMotion) snap();
     }
     function snap() {
@@ -740,13 +751,10 @@
       beacons.forEach((g, i) => {
         const u = g.userData;
         const on = Math.min(1, Math.max(0, (buildT - u.start) / 0.4));
-        u.beamMat.opacity = on * 0.9;
         u.ringMat.opacity = on * (0.6 + 0.4 * Math.sin(t * 2.4 + i));
-        u.dot.material.opacity = on;
         u.ring.rotation.y = t * 0.6;
         const pulse = 1 + 0.15 * Math.sin(t * 2.4 + i);
         u.ring.scale.set(pulse, 1, pulse);
-        u.dot.rotation.y = t * 1.5;
         stops[i].tagEl.classList.toggle("hidden", on < 0.5 || stops[i].offscreen);
       });
 
@@ -787,7 +795,7 @@
         if (s.offscreen) return;
         const x = (tmp.x * 0.5 + 0.5) * innerWidth;
         const y = (-tmp.y * 0.5 + 0.5) * innerHeight;
-        s.tagEl.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px) translate(-50%, -100%)";
+        s.tagEl.style.transform = "translate(" + (x - 12).toFixed(1) + "px," + (y - 34).toFixed(1) + "px)";
       });
 
       requestAnimationFrame(frame);

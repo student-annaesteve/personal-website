@@ -235,46 +235,55 @@ a { color: var(--sign); }
 }
 .peak-tag {
   position: absolute;
-  border: 1px solid var(--line) !important;
-  box-shadow: 0 6px 18px rgba(53, 64, 36, 0.1);
   left: 0;
   top: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-  padding: 5px 11px 6px;
-  border: 0;
-  border-radius: 6px;
-  background: var(--glass);
-  backdrop-filter: blur(6px);
-  pointer-events: auto;
-  white-space: nowrap;
-  transition: opacity 0.3s ease, background 0.2s ease;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
   will-change: transform;
 }
-.peak-tag::after {
-  content: "";
+.peak-tag.active { z-index: 1; }
+.peak-tag.hidden { opacity: 0; }
+.peak-tag.hidden * { pointer-events: none !important; }
+
+/* Marker: always visible, one per project */
+.tag-marker {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid var(--kombu);
+  border-radius: 3px;
+  background: #fff;
+  color: var(--kombu);
+  pointer-events: auto;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.tag-num { font-family: var(--label); font-size: 11px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+.peak-tag.active .tag-marker { background: var(--kombu); color: var(--bone); }
+
+/* Side label: only for the active project */
+.tag-label {
   position: absolute;
-  left: 50%;
-  bottom: -6px;
-  margin-left: -6px;
-  border: 6px solid transparent;
-  border-bottom: 0;
-  border-top-color: var(--glass);
+  left: 34px;
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  white-space: nowrap;
+  text-decoration: none;
+  text-shadow: 0 0 6px #fff, 0 0 3px #fff;
+  opacity: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: opacity 0.15s ease;
 }
-.peak-tag:hover { background: var(--bone); }
-.peak-tag .tag-alt {
-  font-family: var(--label);
-  font-weight: 500;
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  color: var(--sign);
-  font-variant-numeric: tabular-nums;
-}
-.peak-tag .tag-name { font-weight: 600; font-size: 0.9rem; }
-.peak-tag.dim { opacity: 0.35; }
-.peak-tag.hidden { opacity: 0; pointer-events: none; }
+.peak-tag.active .tag-label { opacity: 1; pointer-events: auto; }
+.tag-label .tag-alt { font-family: var(--label); font-size: 10px; letter-spacing: 0.1em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tag-label .tag-name { font-family: var(--body); font-size: 14px; font-weight: 600; color: var(--ink); }
+.tag-label:hover .tag-name { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- Project panel ---------- */
 .panel {
@@ -618,5 +627,5 @@ a { color: var(--sign); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .panel, .sign, .hint, .peak-tag { transition: none; }
+  .panel, .sign, .hint, .peak-tag, .tag-label, .tag-marker { transition: none; }
 }
