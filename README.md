@@ -1,14 +1,23 @@
 # Personal website
 
-A minimal projects-showcase site in plain HTML and CSS with no build step.
+A design portfolio drawn as a survey map of a mountain (three.js, no build step). The map builds itself
+on every visit: a survey grid draws out, the terrain rises in a scanning wave, contour lines trace by
+elevation and the summit beacons switch on.
+Every project is a marked summit on the trail; the highest peak is "About me".
 
-- `index.html`: the content. Search for `EDIT:` to find the parts to change.
-- `styles.css`: the design. Change the colors and fonts at the top.
+- `projects.js`: **your content**. Add, remove or reorder projects here; the range rebuilds itself.
+- `world.js`: the survey map (wireframe mesh that is densest at the summit and opens up towards the
+  edges, contour lines, summit beacons, build animation, camera)
+  and the project panel. Summits are found automatically on the height map.
+- `terrain.js`: a 160×160 height map converted from [“Rugged mountain landscape”](https://sketchfab.com/3d-models/rugged-mountain-landscape-61f68892e8b34f8a9fbd57a5243ea142)
+  by [teej_fbx](https://sketchfab.com/Tom.Jansen1), licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+  Keep the credit line on the page.
+- `styles.css`: the interface (trail sign, peak tags, panel). Colours and fonts are at the top.
 - `images/`: put your photo and project images here.
 
 ## Preview locally
 
-Open `index.html` in your browser, or run:
+Open `index.html` in your browser, or run a small local server:
 
 ```sh
 python3 -m http.server 8000
