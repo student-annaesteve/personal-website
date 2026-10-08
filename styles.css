@@ -758,3 +758,6 @@ img.about-photo { background: #fff; }
 .panel-link + .panel-link--alt { margin-top: -6px; }
 .panel .panel-link--alt { background: transparent; color: var(--kombu); }
 .panel[data-layout="cupra"] .panel-link--alt { background: transparent; color: var(--cu-deep); }
+/* Mar i Muntanya: a smaller opening laptop */
+.panel[data-layout="cupra"] .mock-hero .device--laptop { width: 72%; margin: 0 auto; }
+@media (max-width: 560px) { .panel[data-layout="cupra"] .mock-hero .device--laptop { width: 88%; } }
