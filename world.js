@@ -236,6 +236,7 @@
         L.rules.items.map(([cond, act, on]) => '<li class="rule' + (on ? " rule--on" : "") + '"><span class="rule-cond">' + esc(cond) + '</span><span class="rule-act">' + esc(act) + "</span></li>").join("") +
         "</ol></div>" : "") +
       device(L.media) +
+      (L.frames ? '<div class="stop-frames" style="--cols:' + (L.frames.length % 3 ? Math.min(L.frames.length, 4) : 3) + '">' + L.frames.map((f) => '<figure><img src="' + esc(f.src) + '" alt="' + esc(f.alt || f.caption) + '" loading="lazy"><figcaption>' + esc(f.caption) + "</figcaption></figure>").join("") + "</div>" : "") +
       "</section>").join("") + "</div>";
     if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">' + esc(d.linkLabel || "Open the simulator →") + "</a>";
     return h;

@@ -734,7 +734,7 @@ img.about-photo { background: #fff; }
 .panel[data-layout="cupra"] .stop-label--solution { color: var(--cu-deep); }
 .panel[data-layout="cupra"] .stop-label--solution::before { background: var(--cu-deep); }
 .panel[data-layout="cupra"] .stop-solution { color: #111 !important; }
-.panel[data-layout="cupra"] .panel-link { color: var(--cu-deep); border-color: var(--cu); }
+.panel[data-layout="cupra"] .panel-link { background: var(--cu); border-color: var(--cu); color: #fff; }
 .panel[data-layout="cupra"] .panel-close { border-color: var(--cu); color: var(--cu-deep); }
 /* Level points sit centred on the road (road centre 12px from the rail's left edge, 8px on phones) */
 .panel[data-layout="cupra"] .stop::before { left: -30px; width: 16px; height: 16px; top: 4px; }
@@ -742,3 +742,10 @@ img.about-photo { background: #fff; }
   .panel[data-layout="cupra"] .road::before { left: 4px; width: 8px; }
   .panel[data-layout="cupra"] .stop::before { left: -25px; width: 14px; height: 14px; }
 }
+
+/* Small captioned stills under a level (key moments of the simulation) */
+.stop-frames { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 12px 10px; }
+.stop-frames figure { margin: 0; }
+.stop-frames img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px; }
+.stop-frames figcaption { margin-top: 5px; font-size: 0.78rem; color: var(--muted); }
+@media (max-width: 560px) { .stop-frames { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
