@@ -13,7 +13,7 @@
   function card([title, text, when], k, esc) {
     const dots = [0, 1, 2].map((j) => "<i" + (j <= k ? ' class="on"' : "") + "></i>").join("");
     return (
-      '<li class="ms-card' + (k === 0 ? " ms-card--on" : "") + '">' +
+      '<li class="ms-card">' +
       "<strong>" + esc(title) + "</strong><p>" + esc(text) + "</p>" +
       '<div class="ms-card-foot"><span class="ms-pill">' + dots + '<span class="ms-ico">' + (when === "night" ? MOON : SUN) + "</span></span>" +
       "</div></li>"
