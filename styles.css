@@ -531,6 +531,18 @@ a { color: var(--sign); }
 .stop-ps > div { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .stop-ps p { margin: 0; font-size: 0.95rem; line-height: 1.55; }
 .stop-solution { color: var(--kombu) !important; font-weight: 500; }
+.stop-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.86rem;
+  color: var(--ink);
+}
+.stop-label::before { content: ""; width: 16px; height: 2px; border-radius: 1px; background: var(--moss); }
+.stop-label--solution { color: var(--kombu); }
+.stop-label--solution::before { background: var(--kombu); }
 .stop .device--laptop { padding: 0 6%; }
 .stop .device--tablet { width: 82%; margin: 0 auto; }
 

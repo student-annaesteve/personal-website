@@ -214,8 +214,8 @@
       '<section class="stop">' +
       '<header class="stop-head"><h3 class="stop-title">Level ' + esc(String(L.code).replace(/^L/i, "")) + "</h3></header>" +
       '<div class="stop-ps">' +
-      '<div><span class="case-h">Challenge</span><p>' + esc(L.challenge) + "</p></div>" +
-      '<div><span class="case-h">Our solution</span><p class="stop-solution">' + esc(L.solution) + "</p></div>" +
+      '<div><span class="stop-label stop-label--challenge">Challenge</span><p>' + esc(L.challenge) + "</p></div>" +
+      '<div><span class="stop-label stop-label--solution">Our solution</span><p class="stop-solution">' + esc(L.solution) + "</p></div>" +
       "</div>" +
       device(L.media) +
       "</section>").join("") + "</div>";
