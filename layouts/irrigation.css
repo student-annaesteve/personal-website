@@ -85,6 +85,7 @@
 /* Prototype */
 .irr-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 290px); gap: 24px; align-items: center; }
 .irr-intro img { width: 100%; }
+.irr-intro-text { display: flex; flex-direction: column; gap: 16px; }
 .irr-wide { align-items: center; }
 .irr-wide img { width: auto; max-width: min(100%, 440px); }
 .irr-row { display: grid; grid-template-columns: repeat(3, minmax(0, 180px)); justify-content: center; gap: 22px; align-items: center; }
