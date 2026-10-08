@@ -721,3 +721,18 @@ img.about-photo { background: #fff; }
 @media (prefers-reduced-motion: reduce) {
   .panel, .sign, .hint, .peak-tag, .tag-label, .tag-marker { transition: none; }
 }
+
+/* Mar i Muntanya: the copper orange of its presentation and simulator */
+.panel[data-layout="cupra"] { --cu: #c8783a; --cu-deep: #9a531f; }
+.panel[data-layout="cupra"] .chip { border-color: var(--cu); color: var(--cu-deep); background: rgba(200, 120, 58, 0.08); }
+.panel[data-layout="cupra"] .case-title .accent, .panel[data-layout="cupra"] .case-lead { color: var(--cu-deep) !important; }
+.panel[data-layout="cupra"] .case-title::after { content: "."; color: var(--cu); }
+.panel[data-layout="cupra"] .road::before { background: repeating-linear-gradient(transparent 0 5px, #fff 5px 10px) center / 1px 100% no-repeat, var(--cu); }
+.panel[data-layout="cupra"] .stop::before { border-color: var(--cu); }
+.panel[data-layout="cupra"] .stop-title { color: var(--cu-deep); }
+.panel[data-layout="cupra"] .stop-label--challenge::before { background: var(--cu); }
+.panel[data-layout="cupra"] .stop-label--solution { color: var(--cu-deep); }
+.panel[data-layout="cupra"] .stop-label--solution::before { background: var(--cu-deep); }
+.panel[data-layout="cupra"] .stop-solution { color: var(--cu-deep) !important; }
+.panel[data-layout="cupra"] .panel-link { color: var(--cu-deep); border-color: var(--cu); }
+.panel[data-layout="cupra"] .panel-close { border-color: var(--cu); color: var(--cu-deep); }
