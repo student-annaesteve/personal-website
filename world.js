@@ -196,6 +196,9 @@
   // (the screenshot) until it loads, so a missing video file still looks finished.
   function device(m) {
     if (!m) return "";
+    if (!m.src && !m.video) {
+      return '<figure class="photo-slot"><div class="photo-slot-inner"><span>' + esc(m.placeholder || "Photo") + "</span></div></figure>";
+    }
     const media = m.video
       ? '<video autoplay muted loop playsinline preload="metadata" poster="' + esc(m.poster || m.src || "") + '" aria-label="' + esc(m.alt || "") + '">' +
         '<source src="' + esc(m.video) + '" type="video/mp4"></video>'
@@ -216,14 +219,18 @@
     // The levels hang off a small road that runs down the panel: structure, not content.
     h += '<div class="road">' + d.levels.map((L) =>
       '<section class="stop">' +
-      '<header class="stop-head"><h3 class="stop-title">Level ' + esc(String(L.code).replace(/^L/i, "")) + "</h3></header>" +
+      '<header class="stop-head"><h3 class="stop-title">' + esc(L.title || "Level " + String(L.code).replace(/^L/i, "")) + "</h3></header>" +
       '<div class="stop-ps">' +
-      '<div><span class="stop-label stop-label--challenge">Challenge</span><p>' + esc(L.challenge) + "</p></div>" +
-      '<div><span class="stop-label stop-label--solution">Our solution</span><p class="stop-solution">' + esc(L.solution) + "</p></div>" +
+      '<div><span class="stop-label stop-label--challenge">' + esc((L.labels || [])[0] || "Challenge") + "</span><p>" + esc(L.challenge) + "</p></div>" +
+      '<div><span class="stop-label stop-label--solution">' + esc((L.labels || [])[1] || "Our solution") + '</span><p class="stop-solution">' + esc(L.solution) + "</p></div>" +
       "</div>" +
+      (L.stats ? '<dl class="stop-stats">' + L.stats.map(([v, k]) => "<div><dt>" + esc(v) + "</dt><dd>" + esc(k) + "</dd></div>").join("") + "</dl>" : "") +
+      (L.rules ? '<div class="rules"><span class="stop-label stop-label--challenge">' + esc(L.rules.title) + '</span><ol class="rules-list">' +
+        L.rules.items.map(([cond, act, on]) => '<li class="rule' + (on ? " rule--on" : "") + '"><span class="rule-cond">' + esc(cond) + '</span><span class="rule-act">' + esc(act) + "</span></li>").join("") +
+        "</ol></div>" : "") +
       device(L.media) +
       "</section>").join("") + "</div>";
-    if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">Open the simulator →</a>';
+    if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">' + esc(d.linkLabel || "Open the simulator →") + "</a>";
     return h;
   }
 

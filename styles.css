@@ -570,6 +570,38 @@ img.about-photo { background: #fff; }
 .stop .device--laptop { padding: 0 6%; }
 .stop .device--tablet { width: 82%; margin: 0 auto; }
 
+/* Key figures inside a stop */
+.stop-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0; }
+.stop-stats > div { min-width: 0; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+.stop-stats dt { font-family: var(--display); font-size: 1.7rem; line-height: 1.1; color: var(--kombu); font-variant-numeric: tabular-nums; }
+.stop-stats dd { margin: 4px 0 0; font-size: 0.82rem; color: var(--muted); }
+
+/* Decision rules of the prototype */
+.rules { display: flex; flex-direction: column; gap: 8px; }
+.rules-list { margin: 0; padding: 0; list-style: none; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; }
+.rule { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 16px; align-items: center; padding: 10px 14px; font-size: 0.92rem; }
+.rule + .rule { border-top: 1px solid var(--line); }
+.rule-cond { font-family: var(--label); font-size: 0.78rem; color: var(--ink); }
+.rule-act { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+.rule-act::before { content: ""; flex: none; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--moss); }
+.rule--on .rule-act { color: var(--kombu); font-weight: 600; }
+.rule--on .rule-act::before { background: var(--kombu); border-color: var(--kombu); }
+
+/* Reserved photo slot, shown until the image is added */
+.photo-slot { margin: 0; }
+.photo-slot-inner {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  border: 1px dashed var(--moss);
+  border-radius: 10px;
+  background: repeating-linear-gradient(135deg, rgba(136, 144, 99, 0.06) 0 10px, transparent 10px 20px);
+  font-family: var(--label);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
 @media (max-width: 560px) {
   .mock-hero { margin: 0 -20px; padding: 20px 10px 22px; }
   .road { gap: 30px; padding-left: 26px; }
@@ -577,6 +609,8 @@ img.about-photo { background: #fff; }
   .stop::before { left: -26px; width: 11px; height: 11px; }
   .stop .device--tablet { width: 100%; }
   .stop-ps { grid-template-columns: 1fr; gap: 14px; }
+  .stop-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rule { grid-template-columns: 1fr; gap: 4px; }
   .device--laptop::after { height: 9px; }
   .device--monitor::after { height: 22px; }
 }
