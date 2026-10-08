@@ -172,19 +172,7 @@
         (d.links || []).map((l) => '<li><a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a></li>").join("") +
         "</ul>";
     }
-    if (s.kind === "project") {
-      const prev = i > 0 ? stops[i - 1] : null;
-      const next = i < stops.length - 1 ? stops[i + 1] : null;
-      html +=
-        '<nav class="panel-nav">' +
-        (prev ? '<button type="button" data-go="' + (i - 1) + '">↓ ' + esc(prev.data.title) + "</button>" : "<span></span>") +
-        (next ? '<button type="button" data-go="' + (i + 1) + '">' + esc(next.data.title) + " ↑</button>" : "") +
-        "</nav>";
-    }
     panelBody.innerHTML = html;
-    panelBody.querySelectorAll("[data-go]").forEach((b) =>
-      b.addEventListener("click", () => open(+b.dataset.go))
-    );
     const copy = $("copy-email");
     if (copy) {
       copy.addEventListener("click", () => {

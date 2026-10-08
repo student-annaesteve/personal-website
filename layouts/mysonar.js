@@ -9,14 +9,14 @@
 
   const head = (n, title) => '<header class="ms-head"><span class="ms-num">' + n + "</span><h3>" + title + "</h3></header>";
 
-  // A problem as one of the app's day/night cards: dots for the day, sun or moon, the date.
-  function card([title, text, when, date], k, esc) {
+  // A problem as one of the app's day/night cards: dots and a sun or moon.
+  function card([title, text, when], k, esc) {
     const dots = [0, 1, 2].map((j) => "<i" + (j <= k ? ' class="on"' : "") + "></i>").join("");
     return (
-      '<li class="ms-card' + (k === 0 ? " ms-card--on" : "") + '">' +
+      '<li class="ms-card">' +
       "<strong>" + esc(title) + "</strong><p>" + esc(text) + "</p>" +
       '<div class="ms-card-foot"><span class="ms-pill">' + dots + '<span class="ms-ico">' + (when === "night" ? MOON : SUN) + "</span></span>" +
-      "<span>" + esc(date) + "</span></div></li>"
+      "</div></li>"
     );
   }
 
@@ -40,7 +40,7 @@
       '<span class="ms-btn" aria-hidden="true">Start now ›</span>' +
       "</section>";
 
-    h += '<section class="ms-sec">' + head("01", "The goal") +
+    h += '<section class="ms-sec">' + head("01", "The problem") +
       '<ol class="ms-cards">' + (d.problems || []).map((p, k) => card(p, k, esc)).join("") + "</ol>" +
       '<p class="ms-lead">' + esc(d.goal) + "</p></section>";
 
@@ -49,17 +49,13 @@
       '<div class="ms-flow" tabindex="0" aria-label="The app, screen by screen">' + (d.flow || []).map((m) => phone(m, esc)).join("") + "</div>" +
       '<ol class="ms-steps">' + (d.steps || []).map(([t, x], k) =>
         '<li><span class="ms-step-n">' + (k + 1) + "</span><div><strong>" + esc(t) + "</strong><p>" + esc(x) + "</p></div></li>").join("") + "</ol>" +
-      '<figure class="ms-shot"><img src="images/mysonar/embeddings.jpg" alt="3D embedding space: every artist is a ball, your taste is a point among them" loading="lazy"><figcaption>Every artist is a point; your swipes find where you are.</figcaption></figure>' +
-      '<ul class="ms-stack">' + (d.stack || []).map((t) => "<li>" + esc(t) + "</li>").join("") + "</ul>" +
-      '<figure class="ms-shot"><img src="images/mysonar/schedule.jpg" alt="Personal schedule screens: Your Sónar journey, Sónar by Day and Sónar by Night with artist cards" loading="lazy"><figcaption>The final schedule, by day and by night.</figcaption></figure>' +
+      '<figure class="ms-shot"><video src="videos/mysonar/embeddings.mp4" poster="images/mysonar/embeddings-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Screen recording: swiping artists in the app moves your point through the 3D embedding space of artists"></video></figure>' +
       "</section>";
 
     h += '<section class="ms-sec ms-sec--results">' + head("03", "The results") +
       '<dl class="ms-stats">' + (r.stats || []).map(([v, k]) => "<div><dt>" + esc(v) + "</dt><dd>" + esc(k) + "</dd></div>").join("") + "</dl>" +
       (r.models ? '<div class="ms-models"><p class="ms-models-t">People who liked their schedule, by embedding model</p>' +
         r.models.map(([n, v]) => '<div class="ms-bar"><span>' + esc(n) + '</span><b style="--v:' + v + '%"><i>' + v + "%</i></b></div>").join("") + "</div>" : "") +
-      '<p class="ms-text">' + esc(r.text || "") + "</p>" +
-      '<figure class="ms-shot"><img src="images/mysonar/testing.jpg" alt="Students testing the app on campus" loading="lazy"></figure>' +
       "</section>";
 
     if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">' + esc(d.linkLabel || "Open the project →") + "</a>";
