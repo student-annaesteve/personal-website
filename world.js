@@ -205,34 +205,28 @@
       x += w;
     });
     return '<div class="route"><svg class="route-road" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true">' + segs +
-      '<line x1="0" y1="7" x2="100" y2="7" class="route-dash"/></svg><div class="route-labels">' + labels + "</div></div>";
+      '<line x1="0" y1="7" x2="100" y2="7" class="route-dash"/></svg>' + (labels ? '<div class="route-labels">' + labels + "</div>" : "") + "</div>";
   }
   function renderCase(d, alt, i) {
+    const hero = d.hero || [];
     let h =
       '<p class="panel-alt">' + alt + " · Summit " + (i + 1) + " of " + n + "</p>" +
       "<h2>" + esc(d.title) + "</h2>" +
       (d.subtitle ? '<p class="case-sub">' + esc(d.subtitle) + "</p>" : "") +
-      '<div class="meta">' + (d.year ? "<span>" + esc(d.year) + "</span>" : "") +
-      (d.tags || []).map((t) => '<span class="chip">' + esc(t) + "</span>").join("") + "</div>" +
-      device(d.cover) +
-      (d.facts ? '<dl class="facts">' + d.facts.map(([k, v]) => "<div><dt>" + esc(k) + "</dt><dd>" + esc(v) + "</dd></div>").join("") + "</dl>" : "") +
-      '<p class="case-lead">' + esc(d.description) + "</p>";
-    if (d.persona) {
-      h += '<section class="case-block"><h3 class="case-h">' + esc(d.persona.label) + '</h3><ul class="persona">' +
-        d.persona.traits.map((t) => "<li>" + esc(t) + "</li>").join("") + "</ul></section>";
-    }
+      (hero.length ? '<div class="mock-hero">' + hero.map(device).join("") + "</div>" : "") +
+      '<p class="case-lead">' + esc(d.description) + "</p>" +
+      '<div class="case-meta">' +
+      (d.meta || []).concat(d.year ? [d.year] : []).map((m) => "<span>" + esc(m) + "</span>").join("") +
+      (d.tags || []).map((t) => '<span class="chip">' + esc(t) + "</span>").join("") + "</div>";
+    h += '<div class="level-cards">' + d.levels.map((L) =>
+      '<div class="level-card"><span class="level-code">' + esc(L.code) + "</span>" +
+      (L.route ? routeStrip(L.route) : "") +
+      '<p class="level-answer">' + esc(L.answer) + "</p></div>").join("") + "</div>";
     h += '<div class="legend" aria-hidden="true"><span><i class="key key--manual"></i>Driver drives</span><span><i class="key key--auto"></i>Car drives</span><span><i class="key key--alert"></i>Car talks to you</span></div>';
-    d.levels.forEach((L) => {
-      h += '<section class="level">' +
-        '<header class="level-head"><span class="level-code">' + esc(L.code) + '</span><span class="level-name">' + esc(L.name) + "</span></header>" +
-        (L.route ? routeStrip(L.route) : "") +
-        '<p class="level-scenario">' + esc(L.scenario) + "</p>" +
-        '<div class="level-ps"><div class="level-problem"><span class="case-h">Problem</span><p>' + esc(L.problem) + "</p></div>" +
-        '<div class="level-solution"><span class="case-h">Solution</span><p class="level-answer">' + esc(L.answer) + "</p>" +
-        '<ul class="level-points">' + (L.points || []).map((p) => "<li>" + esc(p) + "</li>").join("") + "</ul></div></div>" +
-        device(L.shot) +
-        "</section>";
+    (d.gallery || []).forEach((g) => {
+      h += '<div class="mock-shot">' + device(g) + (g.caption ? '<p class="mock-caption">' + esc(g.caption) + "</p>" : "") + "</div>";
     });
+    if (d.persona) h += '<p class="persona-line"><span class="case-h">Designed for</span>' + d.persona.map(esc).join(" · ") + "</p>";
     if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">Open the simulator →</a>';
     return h;
   }

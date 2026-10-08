@@ -546,8 +546,50 @@ a { color: var(--sign); }
 .level-points li { position: relative; padding-left: 16px; font-size: 0.92rem; }
 .level-points li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 8px; height: 2px; background: var(--moss); }
 
+/* Product-first layout */
+.mock-hero {
+  position: relative;
+  margin: 8px -8px 0;
+  padding: 26px 0 30px;
+  background: radial-gradient(70% 70% at 50% 45%, var(--bone), rgba(229, 215, 196, 0) 75%);
+}
+.mock-hero .device--laptop { width: 88%; padding: 0; margin: 0; }
+.mock-hero .device--laptop::after { margin: 0 -3%; }
+.mock-hero .device--laptop { margin-left: 4%; width: 84%; }
+.mock-hero .device--tablet {
+  position: absolute;
+  right: 0;
+  bottom: 6px;
+  width: 42%;
+  padding: 0;
+  margin: 0;
+  filter: drop-shadow(0 18px 30px rgba(53, 64, 36, 0.25));
+}
+.mock-hero .device--tablet .device-screen { padding: 8px; border-radius: 16px; }
+.case-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; color: var(--muted); font-size: 0.88rem; }
+.case-meta > span:not(.chip) + span:not(.chip)::before { content: "·"; margin-right: 14px; color: var(--line); }
+.level-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 6px; }
+.level-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.6);
+}
+.level-card .level-answer { margin: 0; font-size: 0.9rem; line-height: 1.35; }
+.mock-shot { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.mock-caption, .persona-line { margin: 0; font-family: var(--label); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--muted) !important; }
+.persona-line .case-h { display: inline; margin-right: 10px; }
+
 @media (max-width: 560px) {
   .facts, .level-ps { grid-template-columns: 1fr; }
+  .level-cards { grid-template-columns: 1fr; }
+  .level-card { flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .level-card .route { flex: 1 1 60%; }
+  .level-card .level-answer { flex-basis: 100%; }
   .route-labels { height: auto; display: flex; flex-wrap: wrap; gap: 2px 12px; }
   .route-label { position: static; width: auto !important; overflow: visible; }
   .device--laptop, .device--tablet { padding: 0 2%; }
