@@ -414,8 +414,8 @@ a { color: var(--sign); }
 .panel-nav button:hover { color: var(--ink); }
 
 .about-photo {
-  width: 200px;
-  height: 200px;
+  width: 270px;
+  height: 270px;
   max-width: 100%;
   border-radius: 50%;
   border: 1px solid var(--kombu);
@@ -712,7 +712,7 @@ img.about-photo { background: #fff; }
   .panel.closing { transform: translateY(105%); }
   .panel-body { padding: 22px 20px calc(env(safe-area-inset-bottom, 0px) + 28px); }
   .panel h2 { font-size: 1.8rem; }
-  .about-photo { width: 160px; height: 160px; }
+  .about-photo { width: 210px; height: 210px; }
 
   .no-webgl .trail-list { flex-direction: column-reverse; }
   .no-webgl .trail { left: 0; transform: translateY(50%); }
