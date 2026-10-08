@@ -593,7 +593,7 @@
       }
       const ringMat = new T.LineBasicMaterial({ color: col, transparent: true, opacity: 0, depthWrite: false });
       const ring = new T.LineSegments(new T.BufferGeometry().setAttribute("position", new T.Float32BufferAttribute(ringPts, 3)), ringMat);
-      grp.add(ring);
+      ring.visible = false; // no floating rings around the summits
       grp.userData = { ringMat, ring, start: BEACON_START + i * 0.12 };
       scene.add(grp);
       s.labelPos = new T.Vector3(s.top.x, s.top.y, s.top.z);
