@@ -8,7 +8,7 @@
   link:   a URL for the full project (Behance, PDF, website…) or "".
   color:  the tint of the placeholder frames (keep to the site's moss / tan / bone palette).
 
-  Optional case-study fields (see "Mar i Muntanya"): subtitle, meta, hero, persona, levels, gallery.
+  Optional case-study fields (see "Mar i Muntanya"): subtitle, meta, hero, persona, levels.
   When `levels` is present the panel opens wider and leads with the product mockups.
 */
 window.PROJECTS = [
@@ -57,13 +57,23 @@ window.PROJECTS = [
     ],
     description: "A web simulator to live autonomous driving, levels L3 to L5, from the driver's seat.",
     persona: ["45–55", "Family", "Tech follower", "Wants control"],
+    // Each level shows its video in a device. Until the video file exists, the poster image is shown.
     levels: [
-      { code: "L3", answer: "Fast, intuitive handover", route: [["manual", 2], ["auto", 4], ["alert", 2.4], ["manual", 1.6]] },
-      { code: "L4", answer: "Less information, at the right moment", route: [["auto", 3], ["alert", 1.8], ["auto", 2.2], ["manual", 3]] },
-      { code: "L5", answer: "An immersive space you still control", route: [["auto", 3.4], ["alert", 2], ["auto", 4.6]] },
-    ],
-    gallery: [
-      { src: "images/mar-i-muntanya/cockpit.jpg", alt: "L4 simulation from the driver's seat, with the live system states panel", device: "screen", caption: "L4 · In the driver's seat" },
+      {
+        code: "L3",
+        answer: "Fast, intuitive handover",
+        media: { video: "videos/mar-i-muntanya/l3.mp4", poster: "images/mar-i-muntanya/selector.jpg", device: "laptop", alt: "L3 simulation: the car hands control back before a roadworks zone" },
+      },
+      {
+        code: "L4",
+        answer: "Less information, at the right moment",
+        media: { video: "videos/mar-i-muntanya/l4.mp4", poster: "images/mar-i-muntanya/cockpit.jpg", device: "monitor", alt: "L4 simulation from the driver's seat: giving way to an ambulance" },
+      },
+      {
+        code: "L5",
+        answer: "An immersive space you still control",
+        media: { video: "videos/mar-i-muntanya/l5.mp4", poster: "images/mar-i-muntanya/trip.jpg", device: "tablet", alt: "L5 simulation: defining the journey and changing the route on the way" },
+      },
     ],
     images: [],
     link: "",

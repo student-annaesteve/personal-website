@@ -188,24 +188,16 @@
     }
   }
   // ---- Case study layout (projects with `levels`) ---------------------------
-  function device(shot) {
-    if (!shot) return "";
-    return '<figure class="device device--' + esc(shot.device || "screen") + '"><div class="device-screen">' +
-      '<img src="' + esc(shot.src) + '" alt="' + esc(shot.alt || "") + '" loading="lazy"></div></figure>';
-  }
-  // A small road strip, like the slides' route diagrams: dark = you drive, green = the car drives,
-  // tan = the moment the system has to talk to you.
-  function routeStrip(route) {
-    const total = route.reduce((a, r) => a + r[1], 0);
-    let x = 0, segs = "", labels = "";
-    route.forEach(([kind, len, label]) => {
-      const w = (len / total) * 100;
-      segs += '<rect class="seg seg--' + kind + '" x="' + x.toFixed(2) + '%" y="0" width="' + w.toFixed(2) + '%" height="14"/>';
-      if (label) labels += '<span class="route-label route-label--' + kind + '" style="left:' + x.toFixed(2) + '%;width:' + w.toFixed(2) + '%">' + esc(label) + "</span>";
-      x += w;
-    });
-    return '<div class="route"><svg class="route-road" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true">' + segs +
-      '<line x1="0" y1="7" x2="100" y2="7" class="route-dash"/></svg>' + (labels ? '<div class="route-labels">' + labels + "</div>" : "") + "</div>";
+  // A device mockup holding an image or a looping video. A video shows its poster
+  // (the screenshot) until it loads, so a missing video file still looks finished.
+  function device(m) {
+    if (!m) return "";
+    const media = m.video
+      ? '<video autoplay muted loop playsinline preload="metadata" poster="' + esc(m.poster || m.src || "") + '" aria-label="' + esc(m.alt || "") + '">' +
+        '<source src="' + esc(m.video) + '" type="video/mp4"></video>'
+      : '<img src="' + esc(m.src) + '" alt="' + esc(m.alt || "") + '" loading="lazy">';
+    return '<figure class="device device--' + esc(m.device || "monitor") + '"><div class="device-body"><div class="device-screen">' +
+      media + "</div></div></figure>";
   }
   function renderCase(d, alt, i) {
     const hero = d.hero || [];
@@ -218,14 +210,12 @@
       '<div class="case-meta">' +
       (d.meta || []).concat(d.year ? [d.year] : []).map((m) => "<span>" + esc(m) + "</span>").join("") +
       (d.tags || []).map((t) => '<span class="chip">' + esc(t) + "</span>").join("") + "</div>";
-    h += '<div class="level-cards">' + d.levels.map((L) =>
-      '<div class="level-card"><span class="level-code">' + esc(L.code) + "</span>" +
-      (L.route ? routeStrip(L.route) : "") +
-      '<p class="level-answer">' + esc(L.answer) + "</p></div>").join("") + "</div>";
-    h += '<div class="legend" aria-hidden="true"><span><i class="key key--manual"></i>Driver drives</span><span><i class="key key--auto"></i>Car drives</span><span><i class="key key--alert"></i>Car talks to you</span></div>';
-    (d.gallery || []).forEach((g) => {
-      h += '<div class="mock-shot">' + device(g) + (g.caption ? '<p class="mock-caption">' + esc(g.caption) + "</p>" : "") + "</div>";
-    });
+    // The levels hang off a small road that runs down the panel: structure, not content.
+    h += '<div class="road">' + d.levels.map((L) =>
+      '<section class="stop">' +
+      '<header class="stop-head"><span class="stop-code">' + esc(L.code) + '</span><span class="stop-answer">' + esc(L.answer) + "</span></header>" +
+      device(L.media) +
+      "</section>").join("") + "</div>";
     if (d.persona) h += '<p class="persona-line"><span class="case-h">Designed for</span>' + d.persona.map(esc).join(" · ") + "</p>";
     if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">Open the simulator →</a>';
     return h;
