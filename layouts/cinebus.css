@@ -1,0 +1,80 @@
+/* "CineBus": a cinema ticket and a drawn bus map, in TMB red, night blue and paper. */
+.cb {
+  --cb-red: #c8102e;
+  --cb-navy: #1b2a4a;
+  --cb-paper: #f4efe6;
+  --cb-yellow: #f2a900;
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+  color: var(--cb-navy);
+}
+.panel[data-layout="cinebus"] .panel-close { border-color: var(--cb-red, #c8102e); color: #c8102e; }
+.panel .cb p { color: var(--cb-navy); }
+
+/* Ticket header with a perforated stub */
+.cb-ticket { display: grid; grid-template-columns: minmax(0, 1fr) 110px; margin-top: 30px; border-radius: 14px; background: var(--cb-red); color: #fff; overflow: hidden; }
+.cb-ticket-main { display: flex; flex-direction: column; gap: 10px; padding: 24px 26px; }
+.panel .cb .cb-admit { margin: 0; font-family: var(--label); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: #ffd9de; }
+.panel .cb-title { margin: 0; font-family: var(--body); font-weight: 700; font-size: 2rem; line-height: 1.05; letter-spacing: -0.02em; color: #fff; text-wrap: balance; }
+.panel .cb .cb-sub { font-size: 0.98rem; line-height: 1.45; color: #ffe9ec; }
+.cb-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.cb-tags span { padding: 3px 10px; border: 1px solid rgba(255, 255, 255, 0.55); border-radius: 999px; font-size: 0.78rem; }
+.cb-stub {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 12px 8px;
+  border-left: 2px dashed rgba(255, 255, 255, 0.6);
+  background: #a50d25;
+  font-family: var(--label);
+  text-align: center;
+}
+.cb-stub span { font-size: 0.68rem; letter-spacing: 0.14em; }
+.cb-stub b { font-size: 1.7rem; letter-spacing: 0.06em; color: var(--cb-yellow); }
+.cb-stub span:last-child { margin-top: 10px; font-size: 0.62rem; letter-spacing: 0.04em; line-height: 1.3; opacity: 0.85; }
+
+/* Sections */
+.cb-sec { display: flex; flex-direction: column; gap: 16px; }
+.cb-head { display: flex; align-items: center; gap: 12px; }
+.cb-num { display: grid; place-items: center; width: 40px; height: 26px; border-radius: 4px; background: var(--cb-navy); color: #fff; font-family: var(--label); font-size: 0.78rem; font-weight: 600; }
+.cb-head h3 { margin: 0; font-family: var(--body); font-weight: 700; font-size: 1.35rem; color: var(--cb-navy); }
+.panel .cb-lead { font-size: 1.15rem; line-height: 1.45; font-weight: 600; }
+.panel .cb-text { font-size: 1rem; line-height: 1.6; max-width: 62ch; }
+
+/* The route map */
+.cb-map { display: block; width: 100%; height: auto; border-radius: 12px; }
+.cb-label text { font: 600 13px var(--body); fill: var(--cb-navy, #1b2a4a); }
+.cb-bus { stroke-dasharray: 600; stroke-dashoffset: 600; animation: cb-draw 2.4s ease-out forwards; }
+.cb-bus--2 { animation-delay: 1.8s; }
+@keyframes cb-draw { to { stroke-dashoffset: 0; } }
+
+/* Steps as bus stops on a red line */
+.cb-steps { position: relative; display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0 0 0 46px; list-style: none; }
+.cb-steps::before { content: ""; position: absolute; left: 15px; top: 14px; bottom: 14px; width: 6px; border-radius: 3px; background: var(--cb-red); }
+.cb-steps li { position: relative; }
+.cb-step-n { position: absolute; left: -46px; top: 0; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #fff; border: 4px solid var(--cb-red); font-weight: 700; color: var(--cb-red); }
+.cb-steps strong { display: block; font-size: 1.05rem; }
+.panel .cb-steps p { margin-top: 2px; font-size: 0.93rem; line-height: 1.5; }
+.cb-steps em { display: inline-block; margin-top: 6px; padding: 2px 9px; border-radius: 999px; background: var(--cb-paper); font-style: normal; font-family: var(--label); font-size: 0.72rem; }
+
+/* Result */
+.cb-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; }
+.cb-facts > div { padding: 12px 14px; border-radius: 10px; background: var(--cb-paper); border-top: 4px solid var(--cb-red); }
+.cb-facts > div:nth-child(2) { border-top-color: var(--cb-yellow); }
+.cb-facts > div:nth-child(3) { border-top-color: var(--cb-navy); }
+.cb-facts dt { font-weight: 700; font-size: 1.5rem; line-height: 1; }
+.cb-facts dd { margin: 4px 0 0; font-size: 0.82rem; color: #4a5670; }
+.panel .cb-link { align-self: flex-start; background: var(--cb-red); border-color: var(--cb-red); color: #fff; }
+
+@media (max-width: 560px) {
+  .cb-ticket { grid-template-columns: minmax(0, 1fr) 78px; margin-top: 24px; }
+  .cb-ticket-main { padding: 18px; }
+  .panel .cb-title { font-size: 1.6rem; }
+  .cb-stub b { font-size: 1.2rem; }
+  .cb-facts dt { font-size: 1.2rem; }
+}
+@media (prefers-reduced-motion: reduce) { .cb-bus { animation: none; stroke-dashoffset: 0; } }

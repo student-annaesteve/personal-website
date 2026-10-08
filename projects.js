@@ -68,14 +68,28 @@ window.PROJECTS = [
     images: [],
   },
   {
-    title: "Project Two",
-    year: "2025",
-    tags: ["Poster", "Typography"],
-    description:
-      "Placeholder. Describe the brief, what you designed and what came out of it. Two or three sentences are enough.",
+    // Python project (UPC). Its own look (layouts/cinebus.js + .css): a cinema ticket and a bus map.
+    title: "CineBus", // short name for the map and the route list
+    layout: "cinebus",
+    headline: "From the billboard to your seat",
+    subtitle: "CineBus · find a film in Barcelona and the fastest way to get there by bus and on foot",
+    year: "2023",
+    credit: "with Cristina Teixidó",
+    tags: ["Python", "Graphs", "Web scraping"],
+    color: "#c8102e",
+    problem: "Barcelona has dozens of cinemas and hundreds of screenings a day. Choosing a film is one search; working out which cinema you can reach first, and how, is another.",
+    goal: "So the goal was one tool that does both: pick a film you like and get the quickest route to the next screening, walking and taking buses.",
+    steps: [
+      ["Billboard", "Scrapes today's Barcelona billboard: films, cinemas, times and languages.", "BeautifulSoup"],
+      ["Bus graph", "Turns every TMB line and stop into a graph of stops joined by bus routes.", "NetworkX"],
+      ["City graph", "Merges the bus graph with Barcelona's street map, so a trip can mix walking and buses.", "OSMnx"],
+      ["Shortest path", "Finds the fastest route from where you are to the cinema, with as many changes as needed.", "staticmap"],
+    ],
+    facts: [["5 km/h", "walking"], ["20 km/h", "on the bus"], ["4", "Python modules"]],
+    result: "A menu-driven demo that builds the billboard, searches it by title, draws the bus and city graphs over Barcelona, and plots the fastest path to the cinema.",
     images: [],
-    link: "",
-    color: "#cfbb99",
+    link: "https://github.com/annaesteve/CineBus",
+    linkLabel: "View the code on GitHub →",
   },
   {
     // Team app project. Its own look (layouts/mysonar.js + .css): black, Sónar yellow and hazard stripes, like the deck.
