@@ -54,6 +54,7 @@ window.PROJECTS = [
     hero: [
       { src: "images/mar-i-muntanya/selector-hero.jpg", alt: "Simulator start screen: Mar i Muntanya, choose the level L3, L4 or L5", device: "laptop" },
     ],
+    goal: "As cars start to drive themselves, the challenge was to design how a CUPRA talks to the people inside, so that every change between the car and the driver feels clear, calm and still under their control.",
     description: "A web simulator to live autonomous driving, levels L3 to L5, from the driver's seat.",
     // Each level shows its video in a device. Until the video file exists, the poster image is shown.
     levels: [

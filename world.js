@@ -204,8 +204,9 @@
     let h =
       '<h2 class="case-title">' + esc(d.headline || d.title) + "</h2>" +
       (d.subtitle ? '<p class="case-sub">' + esc(d.subtitle) + "</p>" : "") +
-      (hero.length ? '<div class="mock-hero">' + hero.map(device).join("") + "</div>" : "") +
+      (d.goal ? '<p class="case-goal">' + esc(d.goal) + "</p>" : "") +
       '<p class="case-lead">' + esc(d.description) + "</p>" +
+      (hero.length ? '<div class="mock-hero">' + hero.map(device).join("") + "</div>" : "") +
       '<div class="case-meta">' + (d.year ? "<span>" + esc(d.year) + "</span>" : "") +
       (d.tags || []).map((t) => '<span class="chip">' + esc(t) + "</span>").join("") + "</div>";
     // The levels hang off a small road that runs down the panel: structure, not content.
