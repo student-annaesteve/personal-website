@@ -110,7 +110,6 @@ window.PROJECTS = [
     results: {
       stats: [["70", "people tested it"], ["8", "swipes to know you"], ["65%", "would follow most of the route"]],
       models: [["LLaMA mini", 85], ["OpenAI", 62]],
-      text: "We tested it with students, teachers and other adults. Most people who know Sónar would follow the route, adding their own changes, and they found the app easy to use and quick to learn.",
     },
     images: [],
     link: "",
