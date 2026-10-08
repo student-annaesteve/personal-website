@@ -18,15 +18,17 @@
 window.PROJECTS = [
   {
     // Research project (batxillerat "treball de recerca"). It has its own look, drawn by
-    // layouts/irrigation.js and layouts/irrigation.css: blues and low-poly triangles, like the report.
+    // layouts/irrigation.js and layouts/irrigation.css: the cover of the report, with its diamond tiles.
     // Photos: replace a { placeholder } with { src: "images/smart-irrigation/….jpg", alt: "…" }.
     title: "Smart irrigation", // short name for the map and the route list
     layout: "irrigation",
-    headline: "Watering only when the plant needs it",
-    subtitle: "Research project · Irrigation in the Cerdanya and an IoT prototype",
-    year: "",
+    headline: "Cada gota compta!",
+    subtitle: "Every drop counts: how efficient is irrigation in the Cerdanya, and can a smart device do better?",
+    year: "2021",
+    sketch: { src: "images/smart-irrigation/sketch.png", alt: "Pencil drawing of a sprinkler, with arrows to a soil humidity sensor, a temperature sensor and a light sensor" },
+    facts: ["Research project (Treball de recerca)", "INS Pere Borrell, Puigcerdà", "October 2021", "IoT · Arduino prototype"],
     tags: ["Research", "IoT", "Arduino prototype"],
-    color: "#2f7fbf",
+    color: "#3e917e",
     goal: {
       hook: "It was raining, and the sprinklers were on.",
       text: "Cycling through the Cerdanya, that scene became my question: are we using irrigation water well, and could a smarter system water only when the plant really needs it?",
@@ -44,7 +46,7 @@ window.PROJECTS = [
       text: "In the Cerdanya, almost half of the people I surveyed water on a timer and only 2 out of 100 use sensors, yet 95% expect irrigation to change. The prototype shows it can: it waters on its own, at the right moment, and reports every reading to the phone.",
     },
     photos: {
-      hero: { placeholder: "Photo of the final prototype" },
+      hero: { placeholder: "Photo of the final prototype" }, // shown in "The solution"
       build: { placeholder: "Photo of the 3D-printed case" },
     },
     images: [],
