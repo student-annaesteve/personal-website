@@ -29,6 +29,7 @@
 
   window.CASE_LAYOUTS = window.CASE_LAYOUTS || {};
   window.CASE_LAYOUTS.mysonar = function (d, esc) {
+    const r = d.results || {};
     let h =
       '<div class="ms">' +
       '<section class="ms-hero">' +
@@ -49,6 +50,14 @@
       '<ol class="ms-steps">' + (d.steps || []).map(([t, x], k) =>
         '<li><span class="ms-step-n">' + (k + 1) + "</span><div><strong>" + esc(t) + "</strong><p>" + esc(x) + "</p></div></li>").join("") + "</ol>" +
       '<figure class="ms-shot"><img src="images/mysonar/embeddings.jpg" alt="3D embedding space: every artist is a ball, your taste is a point among them" loading="lazy"><figcaption>Every artist is a point; your swipes find where you are.</figcaption></figure>' +
+      "</section>";
+
+    h += '<section class="ms-sec ms-sec--results">' + head("03", "The results") +
+      '<dl class="ms-stats">' + (r.stats || []).map(([v, k]) => "<div><dt>" + esc(v) + "</dt><dd>" + esc(k) + "</dd></div>").join("") + "</dl>" +
+      (r.models ? '<div class="ms-models"><p class="ms-models-t">People who liked their schedule, by embedding model</p>' +
+        r.models.map(([n, v]) => '<div class="ms-bar"><span>' + esc(n) + '</span><b style="--v:' + v + '%"><i>' + v + "%</i></b></div>").join("") + "</div>" : "") +
+      '<p class="ms-text">' + esc(r.text || "") + "</p>" +
+      '<figure class="ms-shot"><img src="images/mysonar/testing.jpg" alt="Students testing the app on campus" loading="lazy"></figure>' +
       "</section>";
 
     if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">' + esc(d.linkLabel || "Open the project →") + "</a>";
