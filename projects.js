@@ -91,7 +91,7 @@ window.PROJECTS = [
       ["Unknown artists", "Most names in the line-up mean nothing to you yet.", "night"],
       ["FOMO", "The fear of missing the show you would have loved.", "day"],
     ],
-    goal: "Help each visitor find their own Sónar: discover artists they don't know yet and leave with a schedule that fits them.",
+    goal: "So the main goal of this project is to help each visitor find their own Sónar: discover artists they don't know yet and leave with a schedule that fits them.",
     flow: [
       { src: "images/mysonar/days.jpg", label: "Days", alt: "When will you attend? Choose the days and nights" },
       { src: "images/mysonar/styles.jpg", label: "Styles", alt: "What defines you best? Pick music styles" },
