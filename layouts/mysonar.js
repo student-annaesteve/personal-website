@@ -40,7 +40,7 @@
       '<span class="ms-btn" aria-hidden="true">Start now ›</span>' +
       "</section>";
 
-    h += '<section class="ms-sec">' + head("01", "The goal") +
+    h += '<section class="ms-sec">' + head("01", "The problem") +
       '<ol class="ms-cards">' + (d.problems || []).map((p, k) => card(p, k, esc)).join("") + "</ol>" +
       '<p class="ms-lead">' + esc(d.goal) + "</p></section>";
 
