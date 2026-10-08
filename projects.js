@@ -117,6 +117,7 @@ window.PROJECTS = [
   {
     // A case study: when `levels` is present the panel opens wide and shows the product first.
     title: "Mar i Muntanya", // short name for the map and the route list
+    theme: "cupra", // copper orange accents, as in the presentation (styles.css)
     headline: "Designing trust in a car that drives itself", // the project's goal, shown as the panel title
     subtitle: "Mar i Muntanya · SEAT–UPC Design Thinking challenge for CUPRA",
     year: "",
