@@ -46,7 +46,7 @@ window.PROJECTS = [
     // A case study: when `levels` is present the panel opens wide and shows the product first.
     title: "Mar i Muntanya", // short name for the map and the route list
     headline: "Designing trust in a car that drives itself", // the project's goal, shown as the panel title
-    subtitle: "Mar i Muntanya · Càtedra SEAT–UPC challenge for CUPRA",
+    subtitle: "Mar i Muntanya · SEAT–UPC Design Thinking challenge for CUPRA",
     year: "",
     tags: ["UX / UI", "Automotive HMI", "Prototype"],
     color: "#354024",
@@ -54,7 +54,7 @@ window.PROJECTS = [
     hero: [
       { src: "images/mar-i-muntanya/selector-hero.jpg", alt: "Simulator start screen: Mar i Muntanya, choose the level L3, L4 or L5", device: "laptop" },
     ],
-    goal: "As cars start to drive themselves, the challenge was to design how a CUPRA talks to the people inside, so that every change between the car and the driver feels clear, calm and still under their control.",
+    goal: "The SEAT–UPC Design Thinking challenge asked us to reimagine the inside of a car for autonomous mobility, without losing what makes it a CUPRA. We focused on how the car talks to the people inside, so that every change between the car and the driver feels clear, calm and still under their control.",
     description: "A web simulator to live autonomous driving, levels L3 to L5, from the driver's seat.",
     // Each level shows its video in a device. Until the video file exists, the poster image is shown.
     levels: [
