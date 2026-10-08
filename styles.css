@@ -92,18 +92,27 @@ a { color: var(--sign); }
   text-shadow: 0 1px 10px rgba(255, 255, 255, 0.8);
 }
 
+/* About me: a round avatar button in the top-right corner */
 .about-btn {
-  border: 1px solid var(--line);
-  background: var(--glass);
-  backdrop-filter: blur(10px);
-  border-radius: 999px;
-  padding: 9px 18px;
-  font-weight: 600;
-  font-size: 0.92rem;
-  white-space: nowrap;
-  transition: background 0.2s ease;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--kombu);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--kombu);
+  font-family: var(--display);
+  font-size: 1.05rem;
+  line-height: 1;
+  box-shadow: 0 6px 18px rgba(53, 64, 36, 0.12);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
-.about-btn:hover { background: var(--kombu); color: var(--sign-ink); }
+.about-btn img { width: 100%; height: 100%; object-fit: cover; }
+.about-btn:hover, .about-btn[aria-current="true"] { background: var(--kombu); color: var(--bone); }
+.about-btn:hover { transform: scale(1.04); }
 
 /* ---------- Route list (projects) ---------- */
 .trail {
@@ -579,7 +588,7 @@ a { color: var(--sign); }
 /* ---------- Phones ---------- */
 @media (max-width: 720px) {
   .top { padding: calc(env(safe-area-inset-top, 0px) + 16px) 16px 28px; }
-  .about-btn { padding: 7px 14px; font-size: 0.85rem; }
+  .about-btn { width: 42px; height: 42px; font-size: 0.95rem; }
   .brand h1 { font-size: 1.6rem; }
   .tagline { font-size: 0.75rem; letter-spacing: 0.08em; max-width: 190px; }
 

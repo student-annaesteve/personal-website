@@ -8,10 +8,10 @@
   const isTouch = matchMedia("(pointer: coarse)").matches;
 
   // ---------------------------------------------------------------------------
-  // Stops on the route: one per project, then the summit (About me).
+  // Stops on the route: one per project. The last project sits on the main summit;
+  // "About me" lives in the round button in the top-right corner.
   // ---------------------------------------------------------------------------
   const stops = PROJECTS.map((p, i) => ({ kind: "project", data: p, id: "peak-" + (i + 1) }));
-  stops.push({ kind: "about", data: ABOUT, id: "summit" });
   const n = PROJECTS.length;
   const fmt = (m) => m.toLocaleString("en-US") + " m";
 
@@ -74,8 +74,8 @@
       const a = (k / stops.length) * Math.PI * 2, x = Math.cos(a) * WIDTH * 0.3, z = Math.sin(a) * WIDTH * 0.3;
       picked.push({ x, z, y: heightAt(x, z) });
     }
-    // Highest = About me; projects climb from lowest to highest.
-    const tops = picked.slice(1).sort((a, b) => a.y - b.y).concat([picked[0]]);
+    // Projects climb from the lowest summit to the highest.
+    const tops = picked.slice().sort((a, b) => a.y - b.y);
     const metres = (y) => Math.round((1200 + (y / HEIGHT) * 3150) / 10) * 10;
     return { G, H, HEIGHT, cell, toX, heightAt, tops, metres };
   })();
@@ -113,11 +113,15 @@
     li.appendChild(b);
     list.appendChild(li);
   });
-  $("about-btn").addEventListener("click", () => open(stops.length - 1));
+  const initials = (ABOUT.name || "").split(/\s+/).map((w) => w[0] || "").join("").slice(0, 2);
+  if (ABOUT.photo) $("about-initials").outerHTML = '<img src="' + esc(ABOUT.photo) + '" alt="">';
+  else $("about-initials").textContent = initials;
+  $("about-btn").addEventListener("click", () => openAbout());
 
   const panel = $("panel");
   const panelBody = $("panel-body");
   let current = -1;
+  let aboutOpen = false;
 
   function placeholderFrames(color, count) {
     let html = "";
@@ -130,7 +134,7 @@
   }
 
   function renderPanel(i) {
-    const s = stops[i];
+    const s = i < 0 ? aboutStop : stops[i];
     const d = s.data;
     const alt = s.metres ? "▲ " + fmt(s.metres) : "";
     let html = "";
@@ -152,7 +156,6 @@
     } else {
       const initials = (d.name || "").split(/\s+/).map((w) => w[0] || "").join("").slice(0, 2);
       html +=
-        '<p class="panel-alt">' + alt + " · The summit</p>" +
         (d.photo
           ? '<img class="about-photo" src="' + esc(d.photo) + '" alt="Photo of ' + esc(d.name) + '">'
           : '<div class="about-photo" aria-hidden="true">' + esc(initials) + "</div>") +
@@ -164,14 +167,15 @@
         (d.links || []).map((l) => '<li><a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a></li>").join("") +
         "</ul>";
     }
-    const prev = i > 0 ? stops[i - 1] : null;
-    const next = i < stops.length - 1 ? stops[i + 1] : null;
-    const label = (st) => (st.kind === "about" ? "Summit" : st.data.title);
-    html +=
-      '<nav class="panel-nav">' +
-      (prev ? '<button type="button" data-go="' + (i - 1) + '">↓ ' + esc(label(prev)) + "</button>" : "<span></span>") +
-      (next ? '<button type="button" data-go="' + (i + 1) + '">' + esc(label(next)) + " ↑</button>" : "") +
-      "</nav>";
+    if (s.kind === "project") {
+      const prev = i > 0 ? stops[i - 1] : null;
+      const next = i < stops.length - 1 ? stops[i + 1] : null;
+      html +=
+        '<nav class="panel-nav">' +
+        (prev ? '<button type="button" data-go="' + (i - 1) + '">↓ ' + esc(prev.data.title) + "</button>" : "<span></span>") +
+        (next ? '<button type="button" data-go="' + (i + 1) + '">' + esc(next.data.title) + " ↑</button>" : "") +
+        "</nav>";
+    }
     panelBody.innerHTML = html;
     panelBody.querySelectorAll("[data-go]").forEach((b) =>
       b.addEventListener("click", () => open(+b.dataset.go))
@@ -237,6 +241,8 @@
   function open(i) {
     clearTimeout(closeTimer);
     current = i;
+    aboutOpen = false;
+    $("about-btn").removeAttribute("aria-current");
     renderPanel(i);
     panel.hidden = false;
     panel.classList.remove("closing");
@@ -246,9 +252,27 @@
     hideHint();
     if (world) world.flyTo(i);
   }
-  function close() {
-    if (current < 0) return;
+  // About me opens in the same panel, from the round button; the map goes back to the overview.
+  const aboutStop = { kind: "about", data: ABOUT, id: "about" };
+  function openAbout() {
+    clearTimeout(closeTimer);
     current = -1;
+    aboutOpen = true;
+    renderPanel(-1);
+    panel.hidden = false;
+    panel.classList.remove("closing");
+    panel.scrollTop = 0;
+    stops.forEach((s) => s.signEl.setAttribute("aria-current", "false"));
+    $("about-btn").setAttribute("aria-current", "true");
+    try { history.replaceState(null, "", "#about"); } catch (e) {}
+    hideHint();
+    if (world) world.overview();
+  }
+  function close() {
+    if (current < 0 && !aboutOpen) return;
+    current = -1;
+    aboutOpen = false;
+    $("about-btn").removeAttribute("aria-current");
     stops.forEach((s) => s.signEl.setAttribute("aria-current", "false"));
     panel.classList.add("closing");
     closeTimer = setTimeout(() => (panel.hidden = true), reduceMotion ? 0 : 450);
@@ -293,6 +317,7 @@
 
   const startIdx = stops.findIndex((s) => s.id === location.hash.slice(1));
   if (startIdx >= 0) open(startIdx);
+  else if (location.hash === "#about") openAbout();
 
   // ---------------------------------------------------------------------------
   function buildWorld() {
