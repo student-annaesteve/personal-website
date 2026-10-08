@@ -134,7 +134,10 @@
     const d = s.data;
     const alt = s.metres ? "▲ " + fmt(s.metres) : "";
     let html = "";
-    if (s.kind === "project") {
+    panel.classList.toggle("panel--wide", !!(s.kind === "project" && d.levels));
+    if (s.kind === "project" && d.levels) {
+      html += renderCase(d, alt, i);
+    } else if (s.kind === "project") {
       const imgs = (d.images || [])
         .map((im) => '<img src="' + esc(im.src) + '" alt="' + esc(im.alt || "") + '" loading="lazy">')
         .join("");
@@ -184,6 +187,56 @@
       });
     }
   }
+  // ---- Case study layout (projects with `levels`) ---------------------------
+  function device(shot) {
+    if (!shot) return "";
+    return '<figure class="device device--' + esc(shot.device || "screen") + '"><div class="device-screen">' +
+      '<img src="' + esc(shot.src) + '" alt="' + esc(shot.alt || "") + '" loading="lazy"></div></figure>';
+  }
+  // A small road strip, like the slides' route diagrams: dark = you drive, green = the car drives,
+  // tan = the moment the system has to talk to you.
+  function routeStrip(route) {
+    const total = route.reduce((a, r) => a + r[1], 0);
+    let x = 0, segs = "", labels = "";
+    route.forEach(([kind, len, label]) => {
+      const w = (len / total) * 100;
+      segs += '<rect class="seg seg--' + kind + '" x="' + x.toFixed(2) + '%" y="0" width="' + w.toFixed(2) + '%" height="14"/>';
+      if (label) labels += '<span class="route-label route-label--' + kind + '" style="left:' + x.toFixed(2) + '%;width:' + w.toFixed(2) + '%">' + esc(label) + "</span>";
+      x += w;
+    });
+    return '<div class="route"><svg class="route-road" viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true">' + segs +
+      '<line x1="0" y1="7" x2="100" y2="7" class="route-dash"/></svg><div class="route-labels">' + labels + "</div></div>";
+  }
+  function renderCase(d, alt, i) {
+    let h =
+      '<p class="panel-alt">' + alt + " · Summit " + (i + 1) + " of " + n + "</p>" +
+      "<h2>" + esc(d.title) + "</h2>" +
+      (d.subtitle ? '<p class="case-sub">' + esc(d.subtitle) + "</p>" : "") +
+      '<div class="meta">' + (d.year ? "<span>" + esc(d.year) + "</span>" : "") +
+      (d.tags || []).map((t) => '<span class="chip">' + esc(t) + "</span>").join("") + "</div>" +
+      device(d.cover) +
+      (d.facts ? '<dl class="facts">' + d.facts.map(([k, v]) => "<div><dt>" + esc(k) + "</dt><dd>" + esc(v) + "</dd></div>").join("") + "</dl>" : "") +
+      '<p class="case-lead">' + esc(d.description) + "</p>";
+    if (d.persona) {
+      h += '<section class="case-block"><h3 class="case-h">' + esc(d.persona.label) + '</h3><ul class="persona">' +
+        d.persona.traits.map((t) => "<li>" + esc(t) + "</li>").join("") + "</ul></section>";
+    }
+    h += '<div class="legend" aria-hidden="true"><span><i class="key key--manual"></i>Driver drives</span><span><i class="key key--auto"></i>Car drives</span><span><i class="key key--alert"></i>Car talks to you</span></div>';
+    d.levels.forEach((L) => {
+      h += '<section class="level">' +
+        '<header class="level-head"><span class="level-code">' + esc(L.code) + '</span><span class="level-name">' + esc(L.name) + "</span></header>" +
+        (L.route ? routeStrip(L.route) : "") +
+        '<p class="level-scenario">' + esc(L.scenario) + "</p>" +
+        '<div class="level-ps"><div class="level-problem"><span class="case-h">Problem</span><p>' + esc(L.problem) + "</p></div>" +
+        '<div class="level-solution"><span class="case-h">Solution</span><p class="level-answer">' + esc(L.answer) + "</p>" +
+        '<ul class="level-points">' + (L.points || []).map((p) => "<li>" + esc(p) + "</li>").join("") + "</ul></div></div>" +
+        device(L.shot) +
+        "</section>";
+    });
+    if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">Open the simulator →</a>';
+    return h;
+  }
+
   function selectEmail() {
     const el = panelBody.querySelector(".email");
     if (!el) return;
@@ -548,7 +601,7 @@
     function setOffsets() {
       if (focus < 0) { want.offX = 0; want.offY = 0; return; }
       if (isSmall()) { want.offX = 0; want.offY = innerHeight * 0.2; }
-      else { want.offX = Math.min(440, innerWidth) / 2; want.offY = 0; }
+      else { want.offX = Math.min($("panel").getBoundingClientRect().width || 440, innerWidth) / 2; want.offY = 0; }
     }
     function nearestAngle(from, to) {
       while (to - from > Math.PI) to -= Math.PI * 2;
