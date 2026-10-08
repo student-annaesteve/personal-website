@@ -8,7 +8,7 @@
   link:   a URL for the full project (Behance, PDF, website…) or "".
   color:  the tint of the placeholder frames (keep to the site's moss / tan / bone palette).
 
-  Optional case-study fields (see "Mar i Muntanya"): subtitle, meta, hero, persona, levels.
+  Optional case-study fields (see "Mar i Muntanya"): headline, subtitle, hero, levels.
   When `levels` is present the panel opens wider and leads with the product mockups.
 */
 window.PROJECTS = [
@@ -44,19 +44,17 @@ window.PROJECTS = [
   },
   {
     // A case study: when `levels` is present the panel opens wide and shows the product first.
-    title: "Mar i Muntanya",
-    subtitle: "Designing trust in a CUPRA that drives itself",
+    title: "Mar i Muntanya", // short name for the map and the route list
+    headline: "Designing trust in a car that drives itself", // the project's goal, shown as the panel title
+    subtitle: "Mar i Muntanya · Càtedra SEAT–UPC challenge for CUPRA",
     year: "",
     tags: ["UX / UI", "Automotive HMI", "Prototype"],
     color: "#354024",
-    meta: ["Càtedra SEAT–UPC", "CUPRA", "Web simulator"],
-    // Hero composition: a laptop with a tablet in front of it.
+    // Hero: the simulator's start screen on a laptop.
     hero: [
       { src: "images/mar-i-muntanya/selector.jpg", alt: "Simulator start screen: Mar i Muntanya, choose the level L3, L4 or L5", device: "laptop" },
-      { src: "images/mar-i-muntanya/trip.jpg", alt: "L5 trip screen: Define your journey, from Palau Reial to Tarragona", device: "tablet" },
     ],
     description: "A web simulator to live autonomous driving, levels L3 to L5, from the driver's seat.",
-    persona: ["45–55", "Family", "Tech follower", "Wants control"],
     // Each level shows its video in a device. Until the video file exists, the poster image is shown.
     levels: [
       {

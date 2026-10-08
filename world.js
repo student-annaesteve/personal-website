@@ -203,20 +203,19 @@
     const hero = d.hero || [];
     let h =
       '<p class="panel-alt">' + alt + " · Summit " + (i + 1) + " of " + n + "</p>" +
-      "<h2>" + esc(d.title) + "</h2>" +
+      "<h2>" + esc(d.headline || d.title) + "</h2>" +
       (d.subtitle ? '<p class="case-sub">' + esc(d.subtitle) + "</p>" : "") +
       (hero.length ? '<div class="mock-hero">' + hero.map(device).join("") + "</div>" : "") +
       '<p class="case-lead">' + esc(d.description) + "</p>" +
-      '<div class="case-meta">' +
-      (d.meta || []).concat(d.year ? [d.year] : []).map((m) => "<span>" + esc(m) + "</span>").join("") +
+      '<div class="case-meta">' + (d.year ? "<span>" + esc(d.year) + "</span>" : "") +
       (d.tags || []).map((t) => '<span class="chip">' + esc(t) + "</span>").join("") + "</div>";
     // The levels hang off a small road that runs down the panel: structure, not content.
     h += '<div class="road">' + d.levels.map((L) =>
       '<section class="stop">' +
-      '<header class="stop-head"><span class="stop-code">' + esc(L.code) + '</span><span class="stop-answer">' + esc(L.answer) + "</span></header>" +
+      '<header class="stop-head"><h3 class="stop-title">Level ' + esc(String(L.code).replace(/^L/i, "")) + '</h3>' +
+      '<p class="stop-answer">' + esc(L.answer) + "</p></header>" +
       device(L.media) +
       "</section>").join("") + "</div>";
-    if (d.persona) h += '<p class="persona-line"><span class="case-h">Designed for</span>' + d.persona.map(esc).join(" · ") + "</p>";
     if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">Open the simulator →</a>';
     return h;
   }

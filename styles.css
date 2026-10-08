@@ -422,7 +422,7 @@ a { color: var(--sign); }
 .socials { display: flex; flex-wrap: wrap; gap: 16px; padding: 0; margin: 0; list-style: none; }
 
 /* ---------- Case study (projects with levels) ---------- */
-.panel.panel--wide { width: min(740px, 100%); }
+.panel.panel--wide { width: min(740px, 100%); overflow-x: hidden; }
 .case-sub { margin-top: -10px !important; font-size: 1.05rem; color: var(--muted) !important; }
 .case-lead { font-size: 1.02rem; line-height: 1.6; }
 .case-h {
@@ -434,9 +434,6 @@ a { color: var(--sign); }
   color: var(--muted);
 }
 .case-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; color: var(--muted); font-size: 0.88rem; }
-.case-meta > span:not(.chip) + span:not(.chip)::before { content: "·"; margin-right: 14px; }
-.persona-line { margin: 0; font-family: var(--label); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--muted) !important; }
-.persona-line .case-h { margin-right: 10px; }
 
 /* Device mockups. Screens are 16:9 media inside a dark bezel. */
 .device { margin: 0; filter: drop-shadow(0 24px 28px rgba(53, 64, 36, 0.16)) drop-shadow(0 4px 6px rgba(53, 64, 36, 0.12)); }
@@ -492,18 +489,13 @@ a { color: var(--sign); }
 .device--tablet .device-body::before { top: 50%; left: 1.6%; margin-top: -2.5px; }
 .device--tablet .device-screen { border-radius: 8px; }
 
-/* Hero composition: laptop with a tablet resting in front of it */
+/* Hero: one large laptop on a soft light gradient, edge to edge in the panel (like slide 3 of the deck) */
 .mock-hero {
-  position: relative;
-  margin: 4px -32px 0;
-  padding: 34px 32px 40px;
-  background:
-    radial-gradient(60% 55% at 46% 52%, rgba(207, 187, 153, 0.45), rgba(229, 215, 196, 0) 70%),
-    linear-gradient(transparent 78%, rgba(207, 187, 153, 0.18));
+  margin: 6px -32px 0;
+  padding: 28px 18px 30px;
+  background: linear-gradient(#ffffff, #e9e2d6 75%, #d9cdb8);
 }
-.mock-hero .device--laptop { width: 86%; }
-.mock-hero .device--tablet { position: absolute; right: 26px; bottom: 26px; width: 40%; }
-.mock-hero .device--tablet .device-body { border-radius: 18px; }
+.mock-hero .device--laptop { padding: 0 7.5%; }
 
 /* The road: a small decorative rail that links the levels */
 .road { position: relative; display: flex; flex-direction: column; gap: 40px; margin-top: 12px; padding-left: 34px; }
@@ -531,19 +523,17 @@ a { color: var(--sign); }
   background: #fff;
   border: 3px solid var(--kombu);
 }
-.stop-head { display: flex; align-items: baseline; gap: 14px; }
-.stop-code { font-family: var(--display); font-size: 1.9rem; line-height: 1; color: var(--kombu); }
-.stop-answer { font-weight: 500; }
+.stop-head { display: flex; flex-direction: column; gap: 2px; }
+.stop-title { margin: 0; font-family: var(--display); font-weight: 400; font-size: 1.6rem; line-height: 1.1; color: var(--kombu); }
+.stop-answer { margin: 0; font-size: 1rem; color: var(--ink); }
 .stop .device--laptop { padding: 0 6%; }
 .stop .device--tablet { width: 82%; margin: 0 auto; }
 
 @media (max-width: 560px) {
-  .mock-hero { margin: 0 -20px; padding: 24px 16px 30px; }
-  .mock-hero .device--tablet { right: 12px; bottom: 18px; }
+  .mock-hero { margin: 0 -20px; padding: 20px 10px 22px; }
   .road { gap: 30px; padding-left: 26px; }
   .road::before { left: 5px; width: 5px; }
   .stop::before { left: -26px; width: 11px; height: 11px; }
-  .stop-head { flex-direction: column; gap: 4px; }
   .stop .device--tablet { width: 100%; }
   .device--laptop::after { height: 9px; }
   .device--monitor::after { height: 22px; }
