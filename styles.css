@@ -423,7 +423,7 @@ a { color: var(--sign); }
 
 /* ---------- Case study (projects with levels) ---------- */
 .panel.panel--wide { width: min(740px, 100%); overflow-x: hidden; }
-.case-title { margin: 0 !important; padding-right: 48px; }
+.case-title { margin: -4px 0 0 !important; padding-right: 48px; }
 .case-sub { margin-top: -10px !important; font-size: 1.05rem; color: var(--muted) !important; }
 .case-goal { font-size: 1.05rem; line-height: 1.6; max-width: 60ch; }
 .case-lead { font-weight: 600; color: var(--kombu) !important; }
@@ -435,6 +435,7 @@ a { color: var(--sign); }
   text-transform: uppercase;
   color: var(--muted);
 }
+.panel--wide .case-meta { padding-right: 48px; }
 .case-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; color: var(--muted); font-size: 0.88rem; }
 
 /* Device mockups. Screens are 16:9 media inside a dark bezel. */
