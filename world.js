@@ -202,8 +202,7 @@
   function renderCase(d, alt, i) {
     const hero = d.hero || [];
     let h =
-      '<p class="panel-alt">' + alt + " · Summit " + (i + 1) + " of " + n + "</p>" +
-      "<h2>" + esc(d.headline || d.title) + "</h2>" +
+      '<h2 class="case-title">' + esc(d.headline || d.title) + "</h2>" +
       (d.subtitle ? '<p class="case-sub">' + esc(d.subtitle) + "</p>" : "") +
       (hero.length ? '<div class="mock-hero">' + hero.map(device).join("") + "</div>" : "") +
       '<p class="case-lead">' + esc(d.description) + "</p>" +

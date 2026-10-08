@@ -423,6 +423,7 @@ a { color: var(--sign); }
 
 /* ---------- Case study (projects with levels) ---------- */
 .panel.panel--wide { width: min(740px, 100%); overflow-x: hidden; }
+.case-title { margin: 0 !important; padding-right: 48px; }
 .case-sub { margin-top: -10px !important; font-size: 1.05rem; color: var(--muted) !important; }
 .case-lead { font-size: 1.02rem; line-height: 1.6; }
 .case-h {
