@@ -212,8 +212,11 @@
     // The levels hang off a small road that runs down the panel: structure, not content.
     h += '<div class="road">' + d.levels.map((L) =>
       '<section class="stop">' +
-      '<header class="stop-head"><h3 class="stop-title">Level ' + esc(String(L.code).replace(/^L/i, "")) + '</h3>' +
-      '<p class="stop-answer">' + esc(L.answer) + "</p></header>" +
+      '<header class="stop-head"><h3 class="stop-title">Level ' + esc(String(L.code).replace(/^L/i, "")) + "</h3></header>" +
+      '<div class="stop-ps">' +
+      '<div><span class="case-h">Challenge</span><p>' + esc(L.challenge) + "</p></div>" +
+      '<div><span class="case-h">Our solution</span><p class="stop-solution">' + esc(L.solution) + "</p></div>" +
+      "</div>" +
       device(L.media) +
       "</section>").join("") + "</div>";
     if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">Open the simulator →</a>';

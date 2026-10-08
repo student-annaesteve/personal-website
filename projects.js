@@ -60,17 +60,20 @@ window.PROJECTS = [
     levels: [
       {
         code: "L3",
-        answer: "Fast, intuitive handover",
+        challenge: "The car drives itself until a roadworks zone, then hands control back. How do you make that handover without the driver feeling unsafe?",
+        solution: "A fast, intuitive handover: a clear visual hierarchy, alerts that build up step by step, and only the essentials on screen.",
         media: { video: "videos/mar-i-muntanya/l3.mp4", poster: "images/mar-i-muntanya/selector.jpg", device: "laptop", alt: "L3 simulation: the car hands control back before a roadworks zone" },
       },
       {
         code: "L4",
-        answer: "Less information, at the right moment",
+        challenge: "In the city the car handles everything, even giving way to an ambulance. How do you build trust without flooding the driver with information?",
+        solution: "Show less, at the right moment: only the information that matters in each situation, plus extra comfort, like offering the wheel on a winding road.",
         media: { video: "videos/mar-i-muntanya/l4.mp4", poster: "images/mar-i-muntanya/cockpit.jpg", device: "monitor", alt: "L4 simulation from the driver's seat: giving way to an ambulance" },
       },
       {
         code: "L5",
-        answer: "An immersive space you still control",
+        challenge: "Nobody drives any more. How do you keep the sense of control, and the CUPRA feeling, without driving?",
+        solution: "A multifunctional, immersive space: you plan the whole trip on one screen and change it on the way, adding a stop for lunch or a detour.",
         media: { video: "videos/mar-i-muntanya/l5.mp4", poster: "images/mar-i-muntanya/trip.jpg", device: "tablet", alt: "L5 simulation: defining the journey and changing the route on the way" },
       },
     ],
