@@ -119,7 +119,7 @@ window.PROJECTS = [
     title: "Mar i Muntanya", // short name for the map and the route list
     theme: "cupra", // copper orange accents, as in the presentation (styles.css)
     headline: "Designing trust in a car that drives itself", // the project's goal, shown as the panel title
-    subtitle: "Mar i Muntanya · SEAT–UPC Design Thinking challenge for CUPRA",
+    subtitle: "Mar i Muntanya · SEAT–UPC Design Thinking challenge for CUPRA · with Aleix Albaiges",
     year: "",
     tags: ["UX / UI", "Automotive HMI", "Prototype"],
     color: "#354024",
@@ -136,22 +136,45 @@ window.PROJECTS = [
         challenge: "The car drives itself until a roadworks zone, then hands control back. How do you make that handover without the driver feeling unsafe?",
         solution: "A fast, intuitive handover: a clear visual hierarchy, alerts that build up step by step, and only the essentials on screen.",
         media: { video: "videos/mar-i-muntanya/l3.mp4", poster: "images/mar-i-muntanya/selector.jpg", device: "laptop", alt: "L3 simulation: the car hands control back before a roadworks zone" },
+        frames: [
+          { src: "images/mar-i-muntanya/l3-manual.jpg", caption: "Manual driving" },
+          { src: "images/mar-i-muntanya/l3-available.jpg", caption: "System available" },
+          { src: "images/mar-i-muntanya/l3-active.jpg", caption: "System active" },
+          { src: "images/mar-i-muntanya/l3-handback.jpg", caption: "Handing back control" },
+          { src: "images/mar-i-muntanya/l3-urgent.jpg", caption: "Urgent takeover" },
+          { src: "images/mar-i-muntanya/l3-safety.jpg", caption: "Safety protocol" },
+        ],
       },
       {
         code: "L4",
         challenge: "In the city the car handles everything, even giving way to an ambulance. How do you build trust without flooding the driver with information?",
         solution: "Show less, at the right moment: only the information that matters in each situation, plus extra comfort, like offering the wheel on a winding road.",
         media: { video: "videos/mar-i-muntanya/l4.mp4", poster: "images/mar-i-muntanya/cockpit.jpg", device: "monitor", alt: "L4 simulation from the driver's seat: giving way to an ambulance" },
+        frames: [
+          { src: "images/mar-i-muntanya/l4-start.jpg", caption: "Trip start" },
+          { src: "images/mar-i-muntanya/l4-sport.jpg", caption: "Sport driving" },
+          { src: "images/mar-i-muntanya/l4-ambulance.jpg", caption: "Handling the unexpected" },
+          { src: "images/mar-i-muntanya/l4-autonomous.jpg", caption: "Autonomous driving" },
+        ],
       },
       {
         code: "L5",
         challenge: "Nobody drives any more. How do you keep the sense of control, and the CUPRA feeling, without driving?",
         solution: "A multifunctional, immersive space: you plan the whole trip on one screen and change it on the way, adding a stop for lunch or a detour.",
         media: { video: "videos/mar-i-muntanya/l5.mp4", poster: "images/mar-i-muntanya/trip.jpg", device: "tablet", alt: "L5 simulation: defining the journey and changing the route on the way" },
+        frames: [
+          { src: "images/mar-i-muntanya/l5-standard.jpg", caption: "Standard" },
+          { src: "images/mar-i-muntanya/l5-social.jpg", caption: "Social" },
+          { src: "images/mar-i-muntanya/l5-cinema.jpg", caption: "Cinema" },
+          { src: "images/mar-i-muntanya/l5-work.jpg", caption: "Work" },
+          { src: "images/mar-i-muntanya/l5-explore.jpg", caption: "Explore" },
+          { src: "images/mar-i-muntanya/l5-night.jpg", caption: "Night" },
+        ],
       },
     ],
     images: [],
-    link: "",
+    link: "https://seat-catedra.vercel.app/",
+    linkLabel: "Open the simulator →",
   },
   {
     title: "Project Five",
