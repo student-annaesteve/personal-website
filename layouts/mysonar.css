@@ -1,0 +1,113 @@
+/* "MySónar": its own look, taken from the deck and the app (black, Sónar yellow, pill cards, hazard stripes). */
+.ms {
+  --ms-y: #ffc20e;
+  --ms-navy: #181634;
+  --ms-grey: #1f1f1f;
+  --ms-text: #f2f2f2;
+  --ms-muted: #b4b4b4;
+  --ms-pad: 32px;
+  --ms-stripes: repeating-linear-gradient(-45deg, var(--ms-y) 0 7px, #000 7px 14px);
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+  margin: calc(-30px - env(safe-area-inset-top, 0px)) calc(-1 * var(--ms-pad)) -32px;
+  padding: 0 var(--ms-pad) 40px;
+  background: #000;
+  color: var(--ms-text);
+  font-family: var(--body);
+}
+.panel[data-layout="mysonar"] { background: #000; }
+.panel[data-layout="mysonar"] .panel-close { background: var(--ms-y, #ffc20e); border-color: transparent; color: #000; }
+.panel[data-layout="mysonar"] .panel-nav { border-color: #333; }
+.panel[data-layout="mysonar"] .panel-nav button { color: #ffc20e; }
+.panel .ms p { color: var(--ms-text); }
+
+/* Hero: the app's welcome screen, under a hazard-stripe rail */
+.ms-hero { position: relative; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 58px 0 6px; text-align: center; }
+.ms-hero::before { content: ""; position: absolute; top: 0; left: calc(-1 * var(--ms-pad)); width: 62%; height: 8px; background: var(--ms-stripes); }
+.ms-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.ms-tags span { padding: 3px 11px; border: 1px solid #444; border-radius: 999px; font-size: 0.8rem; color: var(--ms-muted); }
+.ms-skyline { display: block; width: 100%; max-width: 520px; height: auto; margin: 14px 0 4px; }
+.panel .ms-title { margin: 0; font-family: var(--body); font-weight: 700; font-size: 2.5rem; line-height: 1.05; letter-spacing: -0.02em; color: #fff; text-wrap: balance; }
+.panel .ms-sub { max-width: 34ch; font-size: 1.05rem; line-height: 1.45; color: #d8d8d8; }
+.ms-btn { margin-top: 6px; padding: 9px 22px; border-radius: 12px; background: var(--ms-y); color: #000; font-weight: 700; }
+
+/* Section heads */
+.ms-sec { display: flex; flex-direction: column; gap: 18px; }
+.ms-head { display: flex; align-items: center; gap: 14px; }
+.ms-num { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--ms-y); color: #000; font-family: var(--label); font-size: 0.8rem; font-weight: 600; }
+.ms-head h3 { margin: 0; font-family: var(--body); font-weight: 700; font-size: 1.5rem; color: #fff; }
+.panel .ms-lead { font-size: 1.15rem; line-height: 1.45; font-weight: 600; color: #fff; }
+.panel .ms-text { font-size: 1rem; line-height: 1.6; color: #d0d0d0; max-width: none; }
+
+/* Problems as the app's day/night cards */
+.ms-cards { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.ms-card { display: flex; flex-direction: column; gap: 4px; padding: 16px 20px 14px; border-radius: 22px; background: var(--ms-navy); }
+.ms-card:nth-child(2) { background: var(--ms-grey); }
+.ms-card--on { background: var(--ms-y); }
+.ms-card strong { font-size: 1.7rem; font-weight: 500; line-height: 1.1; color: #fff; }
+.panel .ms-card p { font-size: 0.92rem; color: #c8c8d0; }
+.ms-card--on strong, .panel .ms-card--on p { color: #000; }
+.ms-card-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; font-weight: 300; font-size: 1.05rem; color: #fff; }
+.ms-card--on .ms-card-foot { color: #000; }
+.ms-pill { display: inline-flex; align-items: center; gap: 5px; padding: 3px 3px 3px 12px; border: 1px solid currentColor; border-radius: 999px; }
+.ms-pill i { width: 7px; height: 7px; border-radius: 50%; border: 1.3px solid currentColor; }
+.ms-pill i.on { background: currentColor; }
+.ms-ico { display: grid; place-items: center; width: 24px; height: 24px; margin-left: 4px; border: 1px solid currentColor; border-radius: 50%; }
+.ms-ico svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+
+/* The app, screen by screen: a row of phones that scrolls sideways */
+.ms-flow {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 150px;
+  gap: 14px;
+  margin: 4px calc(-1 * var(--ms-pad)) 0;
+  padding: 6px var(--ms-pad) 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: #ffc20e #111;
+}
+.ms-phone { margin: 0; scroll-snap-align: start; }
+.ms-phone-body { padding: 5px; border-radius: 22px; background: #2a2a2a; box-shadow: inset 0 0 0 1px #3a3a3a; }
+.ms-phone img { display: block; width: 100%; aspect-ratio: 1 / 2; object-fit: cover; border-radius: 17px; }
+.ms-phone figcaption { margin-top: 10px; text-align: center; font-family: var(--label); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ms-y); }
+
+/* How it works: cards hanging from a hazard-stripe rail, like the deck */
+.ms-steps { position: relative; display: flex; flex-direction: column; gap: 12px; margin: 6px 0 0; padding: 0 0 0 30px; list-style: none; }
+.ms-steps::before { content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 12px; background: var(--ms-stripes); border-radius: 2px; }
+.ms-steps li { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: 18px; background: #a8393a; }
+.ms-steps li:nth-child(2) { background: #8f2324; }
+.ms-steps li:nth-child(3) { background: #3f6a2c; }
+.ms-steps li:nth-child(4) { background: #2b4d3a; }
+.ms-step-n { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(0, 0, 0, 0.3); font-weight: 700; color: var(--ms-y); }
+.ms-steps strong { display: block; font-size: 1.1rem; color: #fff; }
+.panel .ms-steps p { margin-top: 2px; font-size: 0.9rem; line-height: 1.45; color: #f0e6e6; }
+
+.ms-shot { margin: 0; }
+.ms-shot img { display: block; width: 100%; height: auto; border-radius: 14px; }
+.ms-shot figcaption { margin-top: 8px; font-family: var(--label); font-size: 0.7rem; letter-spacing: 0.04em; color: var(--ms-muted); }
+.ms-stack { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.ms-stack li { padding: 5px 14px; border-radius: 999px; background: #2f5b5e; color: #fff; font-weight: 600; font-size: 0.86rem; }
+
+/* Results */
+.ms-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; }
+.ms-stats > div { padding: 16px; border-radius: 18px; background: var(--ms-y); color: #000; }
+.ms-stats dt { font-weight: 700; font-size: 2.2rem; line-height: 1; }
+.ms-stats dd { margin: 6px 0 0; font-size: 0.86rem; line-height: 1.3; }
+.ms-models { display: flex; flex-direction: column; gap: 8px; padding: 16px 18px; border-radius: 18px; background: var(--ms-grey); }
+.panel .ms-models-t { font-size: 0.86rem; color: var(--ms-muted); }
+.ms-bar { display: grid; grid-template-columns: 96px 1fr; gap: 10px; align-items: center; font-size: 0.9rem; }
+.ms-bar b { display: block; height: 22px; border-radius: 999px; background: #333; overflow: hidden; }
+.ms-bar i { display: flex; align-items: center; justify-content: flex-end; width: var(--v); height: 100%; padding-right: 8px; border-radius: 999px; background: var(--ms-y); color: #000; font-style: normal; font-size: 0.78rem; }
+
+@media (max-width: 720px) {
+  .ms { --ms-pad: 20px; gap: 42px; margin-top: -22px; margin-bottom: -28px; }
+  .panel .ms-title { font-size: 2rem; }
+  .ms-card strong { font-size: 1.4rem; }
+  .ms-flow { grid-auto-columns: 128px; }
+  .ms-stats { grid-template-columns: 1fr; }
+  .ms-stats > div { display: flex; align-items: baseline; gap: 12px; }
+  .ms-stats dd { margin: 0; }
+}
