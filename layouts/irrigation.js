@@ -4,7 +4,8 @@
 
   The page opens on the header collage (projects.js → banner). Scrolling plays one chapter at a time:
   the collage fades away, one of its pieces stays in colour and moves to its place in the chapter,
-  the chapter's content comes in, and before the next chapter the piece goes back and the collage returns.
+  the chapter's content comes in, and before the next chapter the piece goes back and fades out
+  while the next piece fades in at its banner place (the collage does not come back).
   Chapters: cover → theory → study of the region → prototype → conclusion → awards and full report.
   Texts and images come from projects.js; this file only draws and animates them.
 */
@@ -120,17 +121,18 @@
         const text = [];
         MOVES.forEach((m, i) => {
           const p = (s - HEAD - i * LEN) / LEN;
-          const on = step(p, 0, 0.22) - step(p, 0.86, 1);         // the collage fades, the piece stays
+          const on = step(p, 0, 0.22) - step(p, 0.86, 1);         // the piece fades in and out
           const mv = step(p, 0.18, 0.48) - step(p, 0.8, 0.98);    // the piece travels to its place and back
-          const settled = step(p, 0.3, 0.48) - step(p, 0.8, 0.9); // in place: the collage is gone
           text[i] = step(p, 0.42, 0.58) - step(p, 0.74, 0.84);    // the chapter's content
-          shown = Math.min(shown, Math.max(0, 1 - 0.93 * on - 0.07 * settled));
+          // The collage only shows before the first chapter; between chapters only the pieces move.
+          if (i === 0) shown = 1 - step(p, 0, 0.22);
           const o = objs[i].style;
           o.left = lerp(m.a[0], m.b[0], mv) + "%";
           o.top = lerp(m.a[1], m.b[1], mv) + "%";
           o.width = lerp(m.a[2], m.b[2], mv) + "%";
           if (m.f) o.fontSize = lerp(m.f[0], m.f[1], mv) + "cqw";
-          o.opacity = on > 0.001 ? 1 : 0;
+          // The first piece takes over from the collage; the others fade in and out at their banner place.
+          o.opacity = i === 0 ? (p >= 0 ? 1 - step(p, 0.86, 1) : 0) : on;
         });
         parts.forEach((el) => {
           const t = text[+el.dataset.ch];
