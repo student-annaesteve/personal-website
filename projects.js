@@ -25,6 +25,8 @@ window.PROJECTS = [
     year: "2021",
     tags: ["Research", "IoT", "Arduino prototype"],
     color: "#3e917e",
+    // Header collage. On scroll, each chapter keeps one of its pieces in colour and moves it into place.
+    banner: { src: "images/smart-irrigation/banner.webp", alt: "Smart irrigation collage: diamond tiles, NodeMCU, sensors, the working prototype, plants and the sprinkler sketch" },
     sketch: { src: "images/smart-irrigation/sketch.png", alt: "Pencil sketch of a sprinkler with arrows to a soil humidity sensor, a temperature sensor and a light sensor" },
     goal: "Find the factors that make irrigation more efficient. Starting from the curiosity of how the irrigation systems of the Cerdanya work, the project explains why plants need water, studies how the region waters today, and builds a smart irrigation prototype that decides from sensor data when to water.",
     // Component photos set inside some of the cover's diamonds (transparent PNGs).
