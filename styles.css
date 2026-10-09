@@ -606,7 +606,7 @@ img.about-photo { background: #fff; }
 .stop-label--solution { color: var(--kombu); }
 .stop-label--solution::before { background: var(--kombu); }
 .stop .device--laptop { padding: 0 6%; }
-.stop .device--tablet { width: 82%; margin: 0 auto; }
+.stop .device--tablet { width: 94%; margin: 0 auto; }
 
 /* Key figures inside a stop */
 .stop-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0; }
