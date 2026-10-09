@@ -85,3 +85,38 @@
   .cb-facts dt { font-size: 1.2rem; }
 }
 @media (prefers-reduced-motion: reduce) { .cb-bus { animation: none; stroke-dashoffset: 0; } }
+
+/* ---------- Refined, more professional finish ---------- */
+.cb { gap: 52px; }
+/* Ticket: flatter, quieter, sharper edges */
+.cb-ticket { border-radius: 6px; box-shadow: 0 10px 28px rgba(80, 40, 10, 0.12); }
+.cb-ticket-main { padding: 28px 30px; gap: 12px; }
+.panel .cb-title { font-family: var(--display); font-weight: 400; font-size: 2.3rem; letter-spacing: -0.005em; }
+.panel .cb .cb-sub { max-width: 44ch; }
+.cb-tags { gap: 0; }
+.cb-tags span { padding: 0; border: 0; border-radius: 0; font-family: var(--label); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ffd9de; }
+.cb-tags span + span::before { content: "·"; margin: 0 10px; }
+.cb-stub { background: #9e0c24; }
+.cb-stub b { font-family: var(--display); font-weight: 400; color: #fff; letter-spacing: 0.08em; }
+
+/* Section heads: small numbers, serif titles, a fine rule */
+.cb-head { align-items: baseline; gap: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(27, 42, 74, 0.18); }
+.cb-num { width: auto; height: auto; padding: 0; border-radius: 0; background: none; color: var(--cb-red); font-size: 0.75rem; letter-spacing: 0.1em; }
+.cb-head h3 { font-family: var(--display); font-weight: 400; font-size: 1.6rem; }
+.panel .cb .cb-lead { font-weight: 500; font-size: 1.1rem; line-height: 1.55; }
+
+/* Map: framed like a figure */
+.cb-map { border-radius: 2px; border: 1px solid rgba(27, 42, 74, 0.16); }
+
+/* Steps: thinner line, smaller stops */
+.cb-steps { padding-left: 40px; gap: 18px; }
+.cb-steps::before { left: 13px; width: 2px; border-radius: 0; }
+.cb-step-n { left: -40px; width: 28px; height: 28px; border-width: 2px; font-size: 0.8rem; }
+.cb-steps em { border-radius: 0; background: none; padding: 0; color: #6b5a3a; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.68rem; }
+
+/* Result figures: ruled row instead of coloured cards */
+.cb-facts { gap: 0; border-top: 1px solid rgba(27, 42, 74, 0.25); border-bottom: 1px solid rgba(27, 42, 74, 0.25); }
+.cb-facts > div, .cb-facts > div:nth-child(2), .cb-facts > div:nth-child(3) { border-radius: 0; border-top: 0; background: none; padding: 18px 16px; }
+.cb-facts > div + div { border-left: 1px solid rgba(27, 42, 74, 0.18); }
+.cb-facts dt { font-family: var(--display); font-weight: 400; font-size: 2rem; color: var(--cb-red); }
+.panel .cb-link { border-radius: 2px; padding: 12px 20px; }
