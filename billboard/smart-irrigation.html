@@ -27,29 +27,28 @@
                 linear-gradient(0deg, transparent 49.8%, rgba(0,0,0,.04) 50%, transparent 50.2%); }
 
   svg.tiles, svg.lines { inset: 0; width: 100%; height: 100%; }
-  svg.tiles { z-index: 2; }
+  svg.tiles { z-index: 2; } svg.tiles.front { z-index: 5; }
 
-  /* Title: stacked condensed letters; the first I of IRRIGATION hides behind the photo */
+  /* Title: both words stacked together, bottom right */
   .t { font-family: Anton, Impact, sans-serif; line-height: .8; text-transform: uppercase; letter-spacing: -.01em; margin: 0; color: var(--black); }
-  .t-smart { left: 1440px; top: 70px; font-size: 300px; z-index: 6; }
-  .t-irr { left: 520px; top: 880px; font-size: 300px; z-index: 4; white-space: nowrap; }
+  .title { right: 80px; bottom: 70px; font-size: 240px; line-height: .9; z-index: 6; text-align: right; }
 
-  .photo { left: -150px; top: 400px; width: 820px; z-index: 7; filter: saturate(.8) contrast(1.05); }
-  .sketch { left: 1830px; top: 330px; width: 540px; height: 660px; z-index: 5; mix-blend-mode: multiply;
+  .photo { left: -150px; top: 520px; width: 820px; z-index: 7; filter: saturate(.8) contrast(1.05); }
+  .sketch { left: 1900px; top: 90px; width: 420px; height: 520px; z-index: 5; mix-blend-mode: multiply;
     background: url("../images/smart-irrigation/sketch.png") center top / contain no-repeat; transform: rotate(6deg); }
-  .plant { left: 1180px; top: 566px; width: 520px; z-index: 5; }
+  .plant { left: 640px; top: 600px; width: 640px; z-index: 4; filter: brightness(0); opacity: .9; } /* drawn in black, between the two layers of tiles */
   .comp { z-index: 8; filter: drop-shadow(0 18px 18px rgba(0,0,0,.35)); }
-  .c-node { left: 820px; top: 230px; width: 150px; transform: rotate(-14deg); }
-  .c-temp { left: 1020px; top: 470px; width: 160px; }
-  .c-water { left: 800px; top: 560px; width: 70px; transform: rotate(18deg); }
+  .c-node { left: 760px; top: 120px; width: 150px; transform: rotate(-14deg); }
+  .c-temp { left: 960px; top: 360px; width: 160px; }
+  .c-water { left: 740px; top: 440px; width: 70px; transform: rotate(18deg); }
 </style>
 </head>
 <body>
 <main class="board" id="board" aria-label="Billboard: Smart irrigation">
   <svg class="tiles" id="tiles" viewBox="0 0 2400 1200" aria-hidden="true"></svg>
+  <svg class="tiles front" id="tiles-front" viewBox="0 0 2400 1200" aria-hidden="true"></svg>
 
-  <h1 class="t t-smart">Smart</h1>
-  <p class="t t-irr" aria-label="Irrigation">Irrigation</p>
+  <h1 class="t title">Smart<br>Irrigation</h1>
 
   <img class="photo" src="../images/smart-irrigation/working.png" alt="Prototype working: Telegram bot, sensors, NodeMCU, servo and LCD reading No cal regar">
   <div class="sketch" role="img" aria-label="Pencil sketch of a sprinkler and its sensors"></div>
@@ -68,16 +67,17 @@
   let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
   const dia = (x, y, fill, extra = "") =>
     `<rect x="${-S / 2}" y="${-S / 2}" width="${S}" height="${S}" fill="${fill}" stroke="#efece4" stroke-width="3" transform="translate(${x} ${y}) rotate(45)" ${extra}/>`;
-  let out = "";
+  let out = "", front = "";
   for (let r = 0; r * H < 1300; r++) {
     for (let x = (r % 2) * H; x < 1300; x += 2 * H) {
       const y = r * H, edge = Math.min(1, x / 1450);
       const bulge = Math.abs(y - 560) / 700;            // band follows the middle of the board
-      if (rnd() < 1 - edge * edge * 1.15 - bulge * 0.9) out += dia(x, y, C[Math.floor(rnd() * C.length)]);
+      if (rnd() < 1 - edge * edge * 1.15 - bulge * 0.9) { const d = dia(x, y, C[Math.floor(rnd() * C.length)]); if (rnd() < .3) front += d; else out += d; }
     }
   }
-  out += dia(1660, 420, "#88d671") + dia(2290, 1060, "#45818e") + dia(1320, 160, "#134f5c");
+  out += dia(1660, 420, "#88d671") + dia(1560, 640, "#45818e") + dia(1320, 160, "#134f5c");
   document.getElementById("tiles").innerHTML = out;
+  document.getElementById("tiles-front").innerHTML = front; // these sit over the plant scheme
 
   const fit = () => { const b = document.getElementById("board");
     b.style.transform = `scale(${Math.min(innerWidth / 2400, innerHeight / 1200)})`; };
