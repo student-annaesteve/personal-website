@@ -806,3 +806,7 @@ body.panel-open #world, body.panel-open #labels { opacity: 0.35; }
   .panel { top: auto; bottom: 8px; right: 8px; height: 64%; }
   .panel.panel--wide { width: auto; }
 }
+/* Mar i Muntanya: smaller stills under each level */
+.panel[data-layout="cupra"] .stop-frames { width: 80%; gap: 10px 8px; }
+.panel[data-layout="cupra"] .stop-frames figcaption { font-size: 0.72rem; }
+@media (max-width: 560px) { .panel[data-layout="cupra"] .stop-frames { width: 100%; } }
