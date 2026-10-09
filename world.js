@@ -268,6 +268,7 @@
     renderPanel(i);
     panel.hidden = false;
     panel.classList.remove("closing");
+    document.body.classList.add("panel-open");
     panel.scrollTop = 0;
     stops.forEach((s, k) => s.signEl.setAttribute("aria-current", k === i ? "true" : "false"));
     try { history.replaceState(null, "", "#" + stops[i].id); } catch (e) {}
@@ -283,6 +284,7 @@
     renderPanel(-1);
     panel.hidden = false;
     panel.classList.remove("closing");
+    document.body.classList.add("panel-open");
     panel.scrollTop = 0;
     stops.forEach((s) => s.signEl.setAttribute("aria-current", "false"));
     $("about-btn").setAttribute("aria-current", "true");
@@ -297,6 +299,7 @@
     $("about-btn").removeAttribute("aria-current");
     stops.forEach((s) => s.signEl.setAttribute("aria-current", "false"));
     panel.classList.add("closing");
+    document.body.classList.remove("panel-open");
     closeTimer = setTimeout(() => (panel.hidden = true), reduceMotion ? 0 : 450);
     try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
     if (world) world.overview();

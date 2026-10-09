@@ -795,3 +795,14 @@ img.about-photo { background: #fff; }
   .panel.panel--wide { width: auto; }
   .panel.closing { transform: translateY(calc(100% + 24px)); }
 }
+
+/* Smaller floating panels; the map fades back while one is open */
+:root { --panel-w: 400px; }
+.panel { top: 28px; bottom: 28px; right: 28px; }
+.panel.panel--wide { width: min(660px, calc(100% - 56px)); }
+#world, #labels { transition: opacity 0.4s ease; }
+body.panel-open #world, body.panel-open #labels { opacity: 0.35; }
+@media (max-width: 720px) {
+  .panel { top: auto; bottom: 8px; right: 8px; height: 64%; }
+  .panel.panel--wide { width: auto; }
+}

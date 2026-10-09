@@ -19,12 +19,12 @@
     for (let i = 0, rows = Math.ceil(h / H) + 1; i < rows; i++) {
       const y = i * H;
       for (let x = w - H - (i % 2 ? H : 0); x > -H; x -= 2 * H) {
-        const withPhoto = i % 2 === 0 && i % 6 === 2 && tiles.length && p < tiles.length * 3;
+        const withPhoto = false && i % 2 === 0 && i % 6 === 2 && tiles.length && p < tiles.length * 3;
         const fill = withPhoto ? LIGHT[p % LIGHT.length] : COLOURS[(k * 7) % COLOURS.length];
         k++;
         out += '<rect x="' + -side / 2 + '" y="' + -side / 2 + '" width="' + side + '" height="' + side + '" fill="' + fill +
           '" stroke="#fff" stroke-width="1.5" transform="translate(' + x + " " + y + ') rotate(45)"/>';
-        if (withPhoto) {
+        if (withPhoto && false) { // no drawings on the tiles
           const src = tiles[p++ % tiles.length];
           out += '<image href="' + esc(src) + '" x="' + (x - H * 0.62) + '" y="' + (y - H * 0.62) + '" width="' + H * 1.24 +
             '" height="' + H * 1.24 + '" preserveAspectRatio="xMidYMid meet"/>';
