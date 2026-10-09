@@ -136,7 +136,7 @@ window.PROJECTS = [
     subtitle: "Mar i Muntanya · SEAT–UPC Design Thinking challenge for CUPRA · with Aleix Albaiges",
     year: "",
     tags: ["UX / UI", "Automotive HMI", "Prototype"],
-    color: "#262626",
+    color: "#373736",
     // Hero: the simulator's start screen on a laptop.
     hero: [
       { src: "images/mar-i-muntanya/selector-hero.jpg", alt: "Simulator start screen: Mar i Muntanya, choose the level L3, L4 or L5", device: "laptop" },
@@ -213,7 +213,7 @@ window.PROJECTS = [
       "Placeholder. Describe the brief, what you designed and what came out of it. Two or three sentences are enough.",
     images: [],
     link: "",
-    color: "#8c8c8c",
+    color: "#6e6e6c",
   },
 ];
 
