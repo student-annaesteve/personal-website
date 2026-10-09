@@ -117,3 +117,12 @@
   .irr-nums, .irr-intro, .irr-row { grid-template-columns: 1fr; }
   .irr-awards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* The diamond strip sits on the same left line as the rest of the content (no wide white margin) */
+.irr { --irr-gutter: 36px; }
+.irr-tiles { left: 0; }
+.irr-cover { padding-left: calc(var(--irr-strip) + 24px); }
+@media (max-width: 720px) {
+  .irr { --irr-gutter: 20px; }
+  .irr-cover { padding-left: calc(var(--irr-strip) + 16px); }
+}
