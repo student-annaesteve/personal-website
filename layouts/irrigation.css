@@ -126,3 +126,6 @@
   .irr { --irr-gutter: 20px; }
   .irr-cover { padding-left: calc(var(--irr-strip) + 16px); }
 }
+
+/* Diamonds run from the panel's edge to the content line: only the ones at the edge are cut */
+.irr-tiles { left: calc(-1 * var(--irr-gutter)); width: calc(var(--irr-gutter) + var(--irr-strip)); }
