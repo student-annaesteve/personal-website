@@ -219,8 +219,8 @@ window.PROJECTS = [
 ];
 
 window.ABOUT = {
-  name: "Anna Esteve",
-  tagline: "Design portfolio · a range of projects",
+  name: "Anna Esteve Gallifa",
+  tagline: "",
   bio: [
     "Placeholder. Write a few sentences about who you are, what you study and what kind of design you love making.",
     "Out of the studio I'm usually on a trail somewhere, heading for a summit.",
