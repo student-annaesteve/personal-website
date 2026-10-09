@@ -606,7 +606,7 @@ img.about-photo { background: #fff; }
 .stop-label--solution { color: var(--kombu); }
 .stop-label--solution::before { background: var(--kombu); }
 .stop .device--laptop { padding: 0 6%; }
-.stop .device--tablet { width: 82%; margin: 0 auto; }
+.stop .device--tablet { width: 94%; margin: 0 auto; }
 
 /* Key figures inside a stop */
 .stop-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0; }
@@ -806,3 +806,7 @@ body.panel-open #world, body.panel-open #labels { opacity: 0.35; }
   .panel { top: auto; bottom: 8px; right: 8px; height: 64%; }
   .panel.panel--wide { width: auto; }
 }
+/* Mar i Muntanya: smaller stills under each level */
+.panel[data-layout="cupra"] .stop-frames { width: 80%; gap: 10px 8px; }
+.panel[data-layout="cupra"] .stop-frames figcaption { font-size: 0.72rem; }
+@media (max-width: 560px) { .panel[data-layout="cupra"] .stop-frames { width: 100%; } }
