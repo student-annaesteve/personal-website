@@ -36,7 +36,7 @@
   .photo { left: -150px; top: 520px; width: 820px; z-index: 7; filter: saturate(.8) contrast(1.05); }
   .sketch { left: 1900px; top: 90px; width: 420px; height: 520px; z-index: 5; mix-blend-mode: multiply;
     background: url("../images/smart-irrigation/sketch.png") center top / contain no-repeat; transform: rotate(6deg); }
-  .plant { left: 560px; bottom: -4px; width: 390px; z-index: 4; filter: brightness(0); opacity: .9; } /* drawn in black, between the two layers of tiles */
+  .plant { left: 640px; bottom: -4px; width: 390px; z-index: 4; filter: brightness(0); opacity: .9; } /* drawn in black, between the two layers of tiles */
   .comp { z-index: 8; filter: drop-shadow(0 18px 18px rgba(0,0,0,.35)); }
   .c-node { left: 760px; top: 120px; width: 150px; transform: rotate(-14deg); }
   .c-temp { left: 960px; top: 360px; width: 160px; }
@@ -76,7 +76,7 @@
     }
   }
   out += dia(1660, 420, "#88d671") + dia(1560, 640, "#45818e") + dia(1320, 160, "#134f5c") +
-    dia(2010, 280, "#87b2bb") + dia(2240, 490, "#88d671") + /* behind the sketch */
+    dia(2050, 280, "#87b2bb") + dia(2240, 490, "#88d671") + /* behind the sketch */
     dia(1180, 800, "#929ea0") + dia(1600, 60, "#3e917e");
   document.getElementById("tiles").innerHTML = out;
   document.getElementById("tiles-front").innerHTML = front; // these sit over the plant scheme
