@@ -14,17 +14,19 @@
   function drawTiles(svg, tiles, esc) {
     const w = svg.clientWidth, h = svg.clientHeight;
     if (!w || !h) return;
-    const H = w / 2, side = H * Math.SQRT2;
+    // Diamond size follows the strip width (--irr-strip), not the SVG, which reaches the panel edge.
+    const strip = parseFloat(getComputedStyle(svg).getPropertyValue("--irr-strip")) || w;
+    const H = strip / 2, side = H * Math.SQRT2;
     let out = "", k = 0, p = 0;
     for (let i = 0, rows = Math.ceil(h / H) + 1; i < rows; i++) {
       const y = i * H;
       for (let x = w - H - (i % 2 ? H : 0); x > -H; x -= 2 * H) {
-        const withPhoto = i % 2 === 0 && i % 6 === 2 && tiles.length && p < tiles.length * 3;
+        const withPhoto = false && i % 2 === 0 && i % 6 === 2 && tiles.length && p < tiles.length * 3;
         const fill = withPhoto ? LIGHT[p % LIGHT.length] : COLOURS[(k * 7) % COLOURS.length];
         k++;
         out += '<rect x="' + -side / 2 + '" y="' + -side / 2 + '" width="' + side + '" height="' + side + '" fill="' + fill +
           '" stroke="#fff" stroke-width="1.5" transform="translate(' + x + " " + y + ') rotate(45)"/>';
-        if (withPhoto) {
+        if (withPhoto && false) { // no drawings on the tiles
           const src = tiles[p++ % tiles.length];
           out += '<image href="' + esc(src) + '" x="' + (x - H * 0.62) + '" y="' + (y - H * 0.62) + '" width="' + H * 1.24 +
             '" height="' + H * 1.24 + '" preserveAspectRatio="xMidYMid meet"/>';
@@ -38,9 +40,8 @@
     '<figure class="irr-fig' + (cls ? " " + cls : "") + '"><img src="' + esc(m.src) + '" alt="' + esc(m.alt || "") + '" loading="lazy">' +
     (m.caption ? "<figcaption>" + esc(m.caption) + "</figcaption>" : "") + "</figure>";
 
-  const chapter = (colour, title, body) =>
-    '<section class="irr-ch" style="--c:' + colour + '"><header class="irr-chh"><span class="irr-dia" aria-hidden="true"></span><h3>' +
-    title + "</h3></header>" + body + "</section>";
+  const heading = (title) => '<header class="irr-chh"><span class="irr-dia" aria-hidden="true"></span><h3>' + title + "</h3></header>";
+  const chapter = (colour, title, body) => '<section class="irr-ch" style="--c:' + colour + '">' + heading(title) + body + "</section>";
 
   window.CASE_LAYOUTS = window.CASE_LAYOUTS || {};
   window.CASE_LAYOUTS.irrigation = function (d, esc) {
@@ -65,10 +66,11 @@
         '<div class="irr-num" style="--c:' + ["#134f5c", "#45818e", "#88d671"][k % 3] + '"><b>' + esc(n) + "</b><span>" + esc(label) + "</span></div>").join("") +
       "</div>");
 
-    h += chapter("#88d671", "Prototype",
-      '<div class="irr-intro"><p class="irr-text">' + esc(pr.text) + "</p>" + fig(pr.working, esc) + "</div>" +
-      fig(pr.diagram, esc, "irr-wide") +
-      '<div class="irr-row">' + pr.row.map((m) => fig(m, esc)).join("") + "</div>");
+    // The working-prototype photo sits beside the heading and the text, without a caption.
+    h += '<section class="irr-ch" style="--c:#88d671"><div class="irr-intro"><div class="irr-intro-text">' + heading("Prototype") +
+      '<p class="irr-text">' + esc(pr.text) + "</p></div>" + fig(Object.assign({}, pr.working, { caption: "" }), esc) + "</div>" +
+      // The system diagram sits large in the middle of the row of photos.
+      '<div class="irr-row">' + fig(pr.row[0], esc) + fig(pr.diagram, esc, "irr-wide") + fig(pr.row[pr.row.length - 1], esc) + "</div></section>";
 
     h += '<p class="irr-close">' + esc(d.conclusion) + "</p>";
 

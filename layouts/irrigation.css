@@ -32,8 +32,8 @@
 .irr-cover {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
   gap: 22px 32px;
   align-items: start;
 }
@@ -42,7 +42,7 @@
   top: calc(-1 * var(--irr-top));
   left: calc(-1 * var(--irr-gutter));
   width: var(--irr-strip);
-  height: calc(100% + var(--irr-top) + 44px);
+  height: calc(100% + var(--irr-top));
   overflow: hidden;
 }
 .panel .irr-title {
@@ -56,8 +56,8 @@
   white-space: nowrap;
   color: #111;
 }
-.irr-sketch { grid-column: 2; grid-row: 1 / 3; justify-self: end; width: 100%; max-width: 200px; margin-top: 40px; }
-.panel .irr-lead { grid-column: 1; grid-row: 2; font-family: var(--irr-serif); font-size: 1.08rem; line-height: 1.5; color: #222; max-width: 42ch; }
+.irr-sketch { grid-column: 2; grid-row: 1 / 3; align-self: center; justify-self: end; width: 140px; }
+.panel .irr-lead { grid-column: 1; grid-row: 2; font-family: var(--irr-serif); font-size: 1.08rem; line-height: 1.5; color: #222; max-width: none; }
 
 /* Chapters, each marked by a small diamond */
 .irr-ch { display: flex; flex-direction: column; gap: 16px; border-top: 1px solid var(--irr-line); padding-top: 26px; }
@@ -85,15 +85,18 @@
 /* Prototype */
 .irr-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 290px); gap: 24px; align-items: center; }
 .irr-intro img { width: 100%; }
+.irr-intro-text { display: flex; flex-direction: column; gap: 16px; }
 .irr-wide { align-items: center; }
 .irr-wide img { width: auto; max-width: min(100%, 440px); }
-.irr-row { display: grid; grid-template-columns: repeat(3, minmax(0, 180px)); justify-content: center; gap: 22px; align-items: center; }
+.irr-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; }
+.irr-row .irr-wide { align-items: stretch; }
+.irr-row .irr-fig img, .irr-row .irr-wide img { width: 100%; max-width: 100%; aspect-ratio: 4 / 3; object-fit: contain; }
 .irr-row img { width: 100%; }
 
 .panel .irr-close { font-family: var(--irr-serif); font-size: 1rem; line-height: 1.5; color: #333; border-top: 1px solid var(--irr-line); padding-top: 22px; max-width: none; }
 
 /* Awards: same-size photos in warm black and white, the prize name below */
-.irr-awards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.irr-awards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
 .irr-award { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .irr-award img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
 .irr-award figcaption { color: var(--irr-text); text-align: center; }
@@ -109,8 +112,20 @@
   .irr { --irr-strip: 32px; --irr-gutter: 52px; --irr-top: 26px; margin: -22px -20px -28px; padding-right: 20px; gap: 36px; }
   .irr-cover { grid-template-columns: 1fr; }
   .panel .irr-title, .irr-sketch, .panel .irr-lead { grid-column: 1; grid-row: auto; }
-  .irr-sketch { justify-self: center; max-width: 180px; }
+  .irr-sketch { justify-self: center; max-width: 120px; }
   .irr-et { --h: 92px; }
   .irr-nums, .irr-intro, .irr-row { grid-template-columns: 1fr; }
   .irr-awards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* The diamond strip sits on the same left line as the rest of the content (no wide white margin) */
+.irr { --irr-gutter: 36px; }
+.irr-tiles { left: 0; }
+.irr-cover { padding-left: calc(var(--irr-strip) + 24px); }
+@media (max-width: 720px) {
+  .irr { --irr-gutter: 20px; }
+  .irr-cover { padding-left: calc(var(--irr-strip) + 16px); }
+}
+
+/* Diamonds run from the panel's edge to the content line: only the ones at the edge are cut */
+.irr-tiles { left: calc(-1 * var(--irr-gutter)); width: calc(var(--irr-gutter) + var(--irr-strip)); }

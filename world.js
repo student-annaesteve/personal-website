@@ -128,7 +128,7 @@
     for (let k = 0; k < count; k++) {
       html +=
         '<div class="frame" style="background:linear-gradient(' + (135 + k * 40) + "deg," +
-        esc(color) + ", " + ["#efe6d8", "#e5d7c4", "#ddcdb3"][k % 3] + ')">Image ' + (k + 1) + "</div>";
+        esc(color) + ", " + ["#f7f7f7", "#e0e0e0", "#a6a6a6"][k % 3] + ')">Image ' + (k + 1) + "</div>";
     }
     return html;
   }
@@ -198,7 +198,7 @@
         : '<figure class="photo-slot"><div class="photo-slot-inner"' + ratio + "><span>" + esc(m.placeholder || "Photo") + "</span></div>" + cap + "</figure>";
     }
     const media = m.video
-      ? '<video autoplay muted loop playsinline preload="metadata" poster="' + esc(m.poster || m.src || "") + '" aria-label="' + esc(m.alt || "") + '">' +
+      ? '<video controls playsinline preload="metadata" poster="' + esc(m.poster || m.src || "") + '" aria-label="' + esc(m.alt || "") + '">' +
         '<source src="' + esc(m.video) + '" type="video/mp4"></video>'
       : m.src
         ? '<img src="' + esc(m.src) + '" alt="' + esc(m.alt || "") + '" loading="lazy">'
@@ -227,17 +227,25 @@
       '<section class="stop">' +
       '<header class="stop-head"><h3 class="stop-title">' + esc(L.title || "Level " + String(L.code).replace(/^L/i, "")) + "</h3></header>" +
       gallery(L.gallery, "stop-gallery") +
-      '<div class="stop-ps">' +
-      '<div><span class="stop-label stop-label--challenge">' + esc((L.labels || [])[0] || "Challenge") + "</span><p>" + esc(L.challenge) + "</p></div>" +
-      '<div><span class="stop-label stop-label--solution">' + esc((L.labels || [])[1] || "Our solution") + '</span><p class="stop-solution">' + esc(L.solution) + "</p></div>" +
-      "</div>" +
       (L.stats ? '<dl class="stop-stats">' + L.stats.map(([v, k]) => "<div><dt>" + esc(v) + "</dt><dd>" + esc(k) + "</dd></div>").join("") + "</dl>" : "") +
       (L.rules ? '<div class="rules"><span class="stop-label stop-label--challenge">' + esc(L.rules.title) + '</span><ol class="rules-list">' +
         L.rules.items.map(([cond, act, on]) => '<li class="rule' + (on ? " rule--on" : "") + '"><span class="rule-cond">' + esc(cond) + '</span><span class="rule-act">' + esc(act) + "</span></li>").join("") +
         "</ol></div>" : "") +
       device(L.media) +
+      // Challenge and solution sit between the level's video and its stills.
+      '<div class="stop-ps">' +
+      '<div><span class="stop-label stop-label--challenge">' + esc((L.labels || [])[0] || "Challenge") + "</span><p>" + esc(L.challenge) + "</p></div>" +
+      '<div><span class="stop-label stop-label--solution">' + esc((L.labels || [])[1] || "Our solution") + '</span><p class="stop-solution">' + esc(L.solution) + "</p></div>" +
+      "</div>" +
+      (L.screen ? '<div class="stop-screen"><span class="stop-label stop-label--solution">' + esc(L.screen.title) + "</span><p>" + esc(L.screen.text) + "</p>" +
+        '<div class="stop-frames" style="--cols:' + L.screen.frames.length + '">' + L.screen.frames.map((f) => '<figure><img src="' + esc(f.src) + '" alt="' + esc(f.alt || f.caption) + '" loading="lazy"><figcaption>' + esc(f.caption) + "</figcaption></figure>").join("") + "</div>" +
+        (L.screen.link ? '<a class="stop-link" href="' + esc(L.screen.link) + '" target="_blank" rel="noopener">' + esc(L.screen.linkLabel || "Open the screen →") + "</a>" : "") + "</div>" : "") +
+      (L.frames ? '<div class="stop-frames" style="--cols:' + (L.frames.length % 3 ? Math.min(L.frames.length, 4) : 3) + '">' + L.frames.map((f) => '<figure><img src="' + esc(f.src) + '" alt="' + esc(f.alt || f.caption) + '" loading="lazy"><figcaption>' + esc(f.caption) + "</figcaption></figure>").join("") + "</div>" : "") +
       "</section>").join("") + "</div>";
+    if (d.awards && d.awards.length) h += '<section class="case-awards"><h3 class="stop-title">Awards</h3>' +
+      d.awards.map((w) => '<figure><img src="' + esc(w.src) + '" alt="' + esc(w.alt || w.caption) + '" loading="lazy"><figcaption>' + esc(w.caption) + "</figcaption></figure>").join("") + "</section>";
     if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">' + esc(d.linkLabel || "Open the simulator →") + "</a>";
+    if (d.extraLinks) h += d.extraLinks.map((l) => '<a class="panel-link panel-link--alt" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a>").join("");
     return h;
   }
 
@@ -260,6 +268,7 @@
     renderPanel(i);
     panel.hidden = false;
     panel.classList.remove("closing");
+    document.body.classList.add("panel-open");
     panel.scrollTop = 0;
     stops.forEach((s, k) => s.signEl.setAttribute("aria-current", k === i ? "true" : "false"));
     try { history.replaceState(null, "", "#" + stops[i].id); } catch (e) {}
@@ -275,6 +284,7 @@
     renderPanel(-1);
     panel.hidden = false;
     panel.classList.remove("closing");
+    document.body.classList.add("panel-open");
     panel.scrollTop = 0;
     stops.forEach((s) => s.signEl.setAttribute("aria-current", "false"));
     $("about-btn").setAttribute("aria-current", "true");
@@ -289,6 +299,7 @@
     $("about-btn").removeAttribute("aria-current");
     stops.forEach((s) => s.signEl.setAttribute("aria-current", "false"));
     panel.classList.add("closing");
+    document.body.classList.remove("panel-open");
     closeTimer = setTimeout(() => (panel.hidden = true), reduceMotion ? 0 : 450);
     try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
     if (world) world.overview();
@@ -460,12 +471,12 @@
           float hn = aH / uMaxH;
           // elevation ramp through the palette: tan valleys -> moss slopes -> kombu ridges -> café noir summits
           // Misty coast palette: stone at the rim, umber and charcoal up the slopes, near-black at the summit.
-          vec3 c = mix(vec3(0.725, 0.694, 0.659), vec3(0.561, 0.522, 0.486), smoothstep(0.02, 0.25, hn));
-          c = mix(c, vec3(0.420, 0.380, 0.349), smoothstep(0.25, 0.6, hn));
-          c = mix(c, vec3(0.176, 0.161, 0.157), smoothstep(0.6, 0.95, hn));
-          c = mix(vec3(0.725, 0.694, 0.659), c, smoothstep(0.15, 0.85, aEdge)); // fade to stone towards the map's rim
+          vec3 c = mix(vec3(0.780, 0.780, 0.780), vec3(0.600, 0.600, 0.600), smoothstep(0.02, 0.25, hn));
+          c = mix(c, vec3(0.420, 0.420, 0.420), smoothstep(0.25, 0.6, hn));
+          c = mix(c, vec3(0.200, 0.200, 0.200), smoothstep(0.6, 0.95, hn));
+          c = mix(vec3(0.780, 0.780, 0.780), c, smoothstep(0.15, 0.85, aEdge)); // fade to stone (#a6a6a6) towards the map's rim
           float front = 1.0 - clamp(abs(k - 0.5) * 2.0, 0.0, 1.0);
-          c = mix(mix(vec3(0.725, 0.694, 0.659), c, rise), vec3(0.176, 0.161, 0.157), front * 0.8);
+          c = mix(mix(vec3(0.780, 0.780, 0.780), c, rise), vec3(0.200, 0.200, 0.200), front * 0.8);
           vA = grid * aEdge * (0.45 + 0.35 * rise + 0.3 * front);
           vC = c;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
@@ -568,7 +579,7 @@
         }`,
       fragmentShader: `
         varying float vA;
-        void main() { gl_FragColor = vec4(0.420, 0.380, 0.349, vA); } // umber grey #6b6159`,
+        void main() { gl_FragColor = vec4(0.651, 0.651, 0.651, vA); } // graphite #6b6b6b`,
     }));
     contours.renderOrder = 3;
     scene.add(contours);
@@ -583,7 +594,7 @@
     const beacons = stops.map((s, i) => {
       const grp = new T.Group();
       grp.position.set(s.top.x, s.top.y, s.top.z);
-      const col = s.kind === "about" ? 0x4c3d19 : 0x354024;
+      const col = 0x111111;
       const ringPts = [];
       for (let k = 0; k < 48; k++) {
         const a1 = (k / 48) * Math.PI * 2, a2 = ((k + 1) / 48) * Math.PI * 2;
@@ -592,7 +603,7 @@
       }
       const ringMat = new T.LineBasicMaterial({ color: col, transparent: true, opacity: 0, depthWrite: false });
       const ring = new T.LineSegments(new T.BufferGeometry().setAttribute("position", new T.Float32BufferAttribute(ringPts, 3)), ringMat);
-      grp.add(ring);
+      ring.visible = false; // no floating rings around the summits
       grp.userData = { ringMat, ring, start: BEACON_START + i * 0.12 };
       scene.add(grp);
       s.labelPos = new T.Vector3(s.top.x, s.top.y, s.top.z);
