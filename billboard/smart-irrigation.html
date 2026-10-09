@@ -28,6 +28,7 @@
 
   svg.tiles, svg.lines { inset: 0; width: 100%; height: 100%; }
   svg.tiles { z-index: 2; } svg.tiles.front { z-index: 5; }
+  svg.strokes { inset: 0; width: 100%; height: 100%; z-index: 9; pointer-events: none; }
 
   /* Title: both words stacked together, bottom right */
   .t { font-family: Anton, Impact, sans-serif; line-height: .8; text-transform: uppercase; letter-spacing: -.01em; margin: 0; color: var(--black); }
@@ -36,8 +37,10 @@
   .photo { left: -150px; top: 520px; width: 820px; z-index: 7; filter: saturate(.8) contrast(1.05); }
   .sketch { left: 1900px; top: 90px; width: 420px; height: 520px; z-index: 5; mix-blend-mode: multiply;
     background: url("../images/smart-irrigation/sketch.png") center top / contain no-repeat; transform: rotate(6deg); }
-  .plant { left: 640px; bottom: -4px; width: 390px; z-index: 4; filter: brightness(0); opacity: .9; } /* drawn in black, between the two layers of tiles */
-  .hand { left: 80px; top: 94px; z-index: 1; margin: 0; font-family: Caveat, cursive; font-size: 38px; line-height: 1; color: var(--ink); transform: rotate(-3deg); }
+  .plant { left: 640px; bottom: -4px; width: 390px; z-index: 4; } /* between the two layers of tiles */
+  .title .blue { color: var(--sky); }
+  .title .ghost { color: transparent; -webkit-text-stroke: 5px var(--black); }
+  .hand { left: 360px; top: 30px; z-index: 1; margin: 0; font-family: Caveat, cursive; font-size: 64px; line-height: 1; color: var(--ink); transform: rotate(-3deg); }
   .comp { z-index: 8; filter: drop-shadow(0 18px 18px rgba(0,0,0,.35)); }
   .c-node { left: 760px; top: 120px; width: 150px; transform: rotate(-14deg); }
   .c-temp { left: 960px; top: 360px; width: 160px; }
@@ -49,7 +52,7 @@
   <svg class="tiles" id="tiles" viewBox="0 0 2400 1200" aria-hidden="true"></svg>
   <svg class="tiles front" id="tiles-front" viewBox="0 0 2400 1200" aria-hidden="true"></svg>
 
-  <h1 class="t title">Smart<br>Irrigation</h1>
+  <h1 class="t title">Sm<span class="blue">a</span>rt<br>Irr<span class="ghost">i</span>gation</h1>
 
   <img class="photo" src="../images/smart-irrigation/working.png" alt="Prototype working: Telegram bot, sensors, NodeMCU, servo and LCD reading No cal regar">
   <div class="sketch" role="img" aria-label="Pencil sketch of a sprinkler and its sensors"></div>
@@ -60,6 +63,11 @@
   <img class="comp c-node" src="../images/smart-irrigation/tile-nodemcu.png" alt="NodeMCU board">
   <img class="comp c-temp" src="../images/smart-irrigation/tile-temperature.png" alt="Temperature sensor">
   <img class="comp c-water" src="../images/smart-irrigation/tile-water-sensor.png" alt="Soil humidity sensor">
+
+  <svg class="strokes" viewBox="0 0 2400 1200" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M90 1010 C 260 930, 380 1000, 520 905 S 760 760, 900 820 S 1080 930, 1210 860" stroke="#fff" stroke-width="5"/>
+    <path d="M760 470 C 900 560, 1010 500, 1130 590 S 1300 760, 1420 700 S 1560 600, 1700 650" stroke="#88d671" stroke-width="5"/>
+  </svg>
 
   <div class="fold"></div><div class="grain"></div>
 </main>
@@ -75,7 +83,9 @@
     for (let x = (r % 2) * H; x < 1300; x += 2 * H) {
       const y = r * H, edge = Math.min(1, x / 1450);
       const bulge = Math.abs(y - 560) / 700;            // band follows the middle of the board
-      if (x < 420 || rnd() < 1 - edge * edge * 1.15 - bulge * 0.9) { const d = dia(x, y, C[Math.floor(rnd() * C.length)]); const top = rnd() < .3; if ((y === 140 && (x === 140 || x === 280)) || (y === 70 && x === 210)) continue; /* room for the handwriting */ if (top) front += d; else out += d; }
+      if (x < 420 || rnd() < 1 - edge * edge * 1.15 - bulge * 0.9) { let c = C[Math.floor(rnd() * C.length)];
+        if (x > 560 && x < 1100 && y > 820) c = { "#88d671": "#134f5c", "#3e917e": "#929ea0", "#e3ecee": "#45818e" }[c] || c; // no greens behind the plant
+        const d = dia(x, y, c); if (rnd() < .3) front += d; else out += d; }
     }
   }
   out += dia(1740, 420, "#88d671") + dia(1560, 640, "#45818e") + dia(1320, 160, "#134f5c") +
