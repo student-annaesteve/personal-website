@@ -96,7 +96,7 @@
 .panel .irr-close { font-family: var(--irr-serif); font-size: 1rem; line-height: 1.5; color: #333; border-top: 1px solid var(--irr-line); padding-top: 22px; max-width: none; }
 
 /* Awards: same-size photos in warm black and white, the prize name below */
-.irr-awards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.irr-awards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
 .irr-award { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .irr-award img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
 .irr-award figcaption { color: var(--irr-text); text-align: center; }
