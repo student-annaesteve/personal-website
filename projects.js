@@ -126,7 +126,8 @@ window.PROJECTS = [
       models: [["LLaMA mini", 85], ["OpenAI", 62]],
     },
     images: [],
-    link: "",
+    link: "https://github.com/adriablancafort/mysonar-app",
+    linkLabel: "View the code on GitHub →",
   },
   {
     // A case study: when `levels` is present the panel opens wide and shows the product first.
