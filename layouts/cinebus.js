@@ -13,8 +13,8 @@
     const stop = (x, y) => '<circle cx="' + x + '" cy="' + y + '" r="6" fill="#fff" stroke="#c8102e" stroke-width="3"/>';
     return (
       '<svg class="cb-map" viewBox="0 0 600 260" role="img" aria-label="Route on a map of Barcelona: walk to a bus stop, take two buses with one change, then walk to the cinema">' +
-      '<rect width="600" height="260" fill="#f4efe6"/>' +
-      '<g stroke="#e2d9c8" stroke-width="2">' + grid + "</g>" +
+      '<rect width="600" height="260" fill="#faf3dd"/>' +
+      '<g stroke="#ece0bd" stroke-width="2">' + grid + "</g>" +
       '<path d="M0 230 Q 160 200 300 240 T 600 220 V260 H0Z" fill="#cfe0ea"/>' +
       '<path class="cb-walk" d="M60 70 L 120 92" fill="none" stroke="#1b2a4a" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"/>' +
       '<path class="cb-bus" d="M120 92 C 200 120, 230 60, 310 90 S 380 160, 430 150" fill="none" stroke="#c8102e" stroke-width="6" stroke-linecap="round"/>' +

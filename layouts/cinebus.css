@@ -2,13 +2,19 @@
 .cb {
   --cb-red: #c8102e;
   --cb-navy: #1b2a4a;
-  --cb-paper: #f4efe6;
+  --cb-paper: #faf3dd;  /* lighter cream for cards and the map */
+  --cb-bg: #f1e4bd;     /* old, soft yellow page */
   --cb-yellow: #f2a900;
   display: flex;
   flex-direction: column;
   gap: 44px;
+  margin: calc(-30px - env(safe-area-inset-top, 0px)) -32px -32px;
+  padding: 0 32px 40px;
+  min-height: 100%;
+  background: var(--cb-bg);
   color: var(--cb-navy);
 }
+.panel[data-layout="cinebus"] { background: #f1e4bd; }
 .panel[data-layout="cinebus"] .panel-close { border-color: var(--cb-red, #c8102e); color: #c8102e; }
 .panel .cb p { color: var(--cb-navy); }
 
@@ -70,6 +76,7 @@
 .cb-facts dd { margin: 4px 0 0; font-size: 0.82rem; color: #4a5670; }
 .panel .cb-link { align-self: flex-start; background: var(--cb-red); border-color: var(--cb-red); color: #fff; }
 
+@media (max-width: 720px) { .cb { margin: -22px -20px -28px; padding: 0 20px 36px; } }
 @media (max-width: 560px) {
   .cb-ticket { grid-template-columns: minmax(0, 1fr) 78px; margin-top: 24px; }
   .cb-ticket-main { padding: 18px; }
