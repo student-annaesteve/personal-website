@@ -128,7 +128,7 @@
     for (let k = 0; k < count; k++) {
       html +=
         '<div class="frame" style="background:linear-gradient(' + (135 + k * 40) + "deg," +
-        esc(color) + ", " + ["#efe6d8", "#e5d7c4", "#ddcdb3"][k % 3] + ')">Image ' + (k + 1) + "</div>";
+        esc(color) + ", " + ["#f2efe9", "#e9e5dc", "#bfbfbd"][k % 3] + ')">Image ' + (k + 1) + "</div>";
     }
     return html;
   }
@@ -468,12 +468,12 @@
           float hn = aH / uMaxH;
           // elevation ramp through the palette: tan valleys -> moss slopes -> kombu ridges -> café noir summits
           // Misty coast palette: stone at the rim, umber and charcoal up the slopes, near-black at the summit.
-          vec3 c = mix(vec3(0.725, 0.694, 0.659), vec3(0.561, 0.522, 0.486), smoothstep(0.02, 0.25, hn));
-          c = mix(c, vec3(0.420, 0.380, 0.349), smoothstep(0.25, 0.6, hn));
-          c = mix(c, vec3(0.176, 0.161, 0.157), smoothstep(0.6, 0.95, hn));
-          c = mix(vec3(0.725, 0.694, 0.659), c, smoothstep(0.15, 0.85, aEdge)); // fade to stone towards the map's rim
+          vec3 c = mix(vec3(0.749, 0.749, 0.741), vec3(0.549, 0.549, 0.549), smoothstep(0.02, 0.25, hn));
+          c = mix(c, vec3(0.380, 0.380, 0.380), smoothstep(0.25, 0.6, hn));
+          c = mix(c, vec3(0.149, 0.149, 0.149), smoothstep(0.6, 0.95, hn));
+          c = mix(vec3(0.749, 0.749, 0.741), c, smoothstep(0.15, 0.85, aEdge)); // fade to stone (#bfbfbd) towards the map's rim
           float front = 1.0 - clamp(abs(k - 0.5) * 2.0, 0.0, 1.0);
-          c = mix(mix(vec3(0.725, 0.694, 0.659), c, rise), vec3(0.176, 0.161, 0.157), front * 0.8);
+          c = mix(mix(vec3(0.749, 0.749, 0.741), c, rise), vec3(0.149, 0.149, 0.149), front * 0.8);
           vA = grid * aEdge * (0.45 + 0.35 * rise + 0.3 * front);
           vC = c;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
@@ -576,7 +576,7 @@
         }`,
       fragmentShader: `
         varying float vA;
-        void main() { gl_FragColor = vec4(0.420, 0.380, 0.349, vA); } // umber grey #6b6159`,
+        void main() { gl_FragColor = vec4(0.549, 0.549, 0.549, vA); } // graphite #8c8c8c`,
     }));
     contours.renderOrder = 3;
     scene.add(contours);
@@ -591,7 +591,7 @@
     const beacons = stops.map((s, i) => {
       const grp = new T.Group();
       grp.position.set(s.top.x, s.top.y, s.top.z);
-      const col = s.kind === "about" ? 0x4c3d19 : 0x354024;
+      const col = 0x262626;
       const ringPts = [];
       for (let k = 0; k < 48; k++) {
         const a1 = (k / 48) * Math.PI * 2, a2 = ((k + 1) / 48) * Math.PI * 2;
