@@ -60,6 +60,7 @@ window.PROJECTS = [
       { src: "images/smart-irrigation/award-2.jpg", alt: "Group photo at the UPC award ceremony", name: "23è Premi UPC · Batxillerat 2022" },
       { src: "images/smart-irrigation/award-3.jpg", alt: "Award ceremony in Puigcerdà", name: "Premi Sebastià Bosom · Vila de Puigcerdà 2022" },
       { src: "images/smart-irrigation/award-4.jpg", alt: "Holding the award diploma", name: "Stockholm Junior Water Prize · Spain" },
+      { src: "images/smart-irrigation/award-5.jpg", alt: "Group photo of the prize winners on stage at the award ceremony", name: "Premis Jordi Pujiula · PEHOC, Olot 2022" },
     ],
     link: "https://docs.google.com/document/d/1NoI76e8yccoWwmlpAoMLF0dlqhZdLjtPvQypX51v77Q/edit",
     linkLabel: "Read the full report (PDF)",
