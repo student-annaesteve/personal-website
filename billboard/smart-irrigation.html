@@ -37,7 +37,7 @@
   .sketch { left: 1900px; top: 90px; width: 420px; height: 520px; z-index: 5; mix-blend-mode: multiply;
     background: url("../images/smart-irrigation/sketch.png") center top / contain no-repeat; transform: rotate(6deg); }
   .plant { left: 640px; bottom: -4px; width: 390px; z-index: 4; filter: brightness(0); opacity: .9; } /* drawn in black, between the two layers of tiles */
-  .hand { left: 1760px; bottom: 520px; z-index: 6; margin: 0; font-family: Caveat, cursive; font-size: 62px; color: var(--ink); transform: rotate(-5deg); }
+  .hand { left: 80px; top: 94px; z-index: 1; margin: 0; font-family: Caveat, cursive; font-size: 38px; line-height: 1; color: var(--ink); transform: rotate(-3deg); }
   .comp { z-index: 8; filter: drop-shadow(0 18px 18px rgba(0,0,0,.35)); }
   .c-node { left: 760px; top: 120px; width: 150px; transform: rotate(-14deg); }
   .c-temp { left: 960px; top: 360px; width: 160px; }
@@ -75,10 +75,10 @@
     for (let x = (r % 2) * H; x < 1300; x += 2 * H) {
       const y = r * H, edge = Math.min(1, x / 1450);
       const bulge = Math.abs(y - 560) / 700;            // band follows the middle of the board
-      if (x < 420 || rnd() < 1 - edge * edge * 1.15 - bulge * 0.9) { const d = dia(x, y, C[Math.floor(rnd() * C.length)]); if (rnd() < .3) front += d; else out += d; }
+      if (x < 420 || rnd() < 1 - edge * edge * 1.15 - bulge * 0.9) { const d = dia(x, y, C[Math.floor(rnd() * C.length)]); const top = rnd() < .3; if ((y === 140 && (x === 140 || x === 280)) || (y === 70 && x === 210)) continue; /* room for the handwriting */ if (top) front += d; else out += d; }
     }
   }
-  out += dia(1660, 420, "#88d671") + dia(1560, 640, "#45818e") + dia(1320, 160, "#134f5c") +
+  out += dia(1740, 420, "#88d671") + dia(1560, 640, "#45818e") + dia(1320, 160, "#134f5c") +
     dia(2050, 340, "#87b2bb") + dia(2240, 490, "#88d671") + /* behind the sketch */
     dia(1180, 800, "#929ea0") + dia(1600, 60, "#3e917e");
   document.getElementById("tiles").innerHTML = out;
