@@ -14,7 +14,9 @@
   function drawTiles(svg, tiles, esc) {
     const w = svg.clientWidth, h = svg.clientHeight;
     if (!w || !h) return;
-    const H = w / 2, side = H * Math.SQRT2;
+    // Diamond size follows the strip width (--irr-strip), not the SVG, which reaches the panel edge.
+    const strip = parseFloat(getComputedStyle(svg).getPropertyValue("--irr-strip")) || w;
+    const H = strip / 2, side = H * Math.SQRT2;
     let out = "", k = 0, p = 0;
     for (let i = 0, rows = Math.ceil(h / H) + 1; i < rows; i++) {
       const y = i * H;
