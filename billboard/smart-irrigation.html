@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Irrigation Billboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Tinos:ital@1&display=swap" rel="stylesheet">
+<style>
+  /* Digital billboard for "Smart irrigation" (project 1). Fixed 2400×1200 canvas, scaled to fit. */
+  :root {
+    --paper: #efece4; --ink: #134f5c; --teal: #45818e; --green: #3e917e;
+    --sky: #87b2bb; --lime: #88d671; --pale: #e3ecee; --black: #141816;
+  }
+  html, body { margin: 0; height: 100%; background: #1b1d1c; }
+  body { display: grid; place-items: center; overflow: hidden; }
+  .board {
+    position: relative; width: 2400px; height: 1200px; flex: none; overflow: hidden;
+    background: var(--paper); transform-origin: center; color: var(--black);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  .board > * { position: absolute; }
+  .grain { inset: 0; z-index: 30; pointer-events: none; opacity: .32; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .33 0 0 0 0 .3 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .fold { inset: 0; z-index: 29; pointer-events: none;
+    background: linear-gradient(90deg, transparent 49.9%, rgba(0,0,0,.05) 50%, rgba(255,255,255,.25) 50.1%, transparent 50.3%),
+                linear-gradient(0deg, transparent 49.8%, rgba(0,0,0,.04) 50%, transparent 50.2%); }
+
+  svg.tiles, svg.lines { inset: 0; width: 100%; height: 100%; }
+  svg.tiles { z-index: 2; }
+  svg.lines { z-index: 9; pointer-events: none; }
+  .flow { stroke-dasharray: 2 14; animation: drip 6s linear infinite; }
+  @keyframes drip { to { stroke-dashoffset: -160; } }
+  @media (prefers-reduced-motion: reduce) { .flow { animation: none; } }
+
+  /* Title: stacked condensed letters, one hidden behind the prototype photo */
+  .t { font-family: Anton, Impact, sans-serif; line-height: .8; text-transform: uppercase; letter-spacing: -.01em; margin: 0; }
+  .t-smart { left: 1440px; top: 70px; font-size: 300px; z-index: 6; color: var(--black); }
+  .t-irr { left: 690px; top: 850px; font-size: 300px; z-index: 4; color: var(--black); white-space: nowrap; }
+  .t-irr .ghost { color: transparent; -webkit-text-stroke: 3px var(--ink); }
+  .t-echo { left: 1440px; top: 300px; font-size: 300px; z-index: 3; color: transparent; -webkit-text-stroke: 2px var(--teal); opacity: .55; }
+
+  .photo { left: 1010px; top: 300px; width: 760px; z-index: 7; box-shadow: 0 30px 50px -20px rgba(0,0,0,.45);
+    filter: saturate(.75) contrast(1.05); border: 10px solid #fff; transform: rotate(-2deg); }
+  .photo img { display: block; width: 100%; }
+  .photo figcaption { position: absolute; left: 0; bottom: -44px; font-size: 18px; letter-spacing: .12em; color: var(--ink); }
+
+  .sketch { left: 1880px; top: 330px; width: 420px; height: 520px; z-index: 5; mix-blend-mode: multiply;
+    background: url("../images/smart-irrigation/sketch.png") center top / 420px auto no-repeat; transform: rotate(8deg); opacity: .9; }
+  .logic { left: 230px; top: 700px; width: 340px; z-index: 5; mix-blend-mode: multiply; filter: grayscale(1) contrast(1.2); opacity: .8; }
+  .comp { z-index: 8; filter: drop-shadow(0 18px 18px rgba(0,0,0,.35)); }
+  .c-node { left: 690px; top: 210px; width: 150px; transform: rotate(-14deg); }
+  .c-water { left: 1960px; top: 760px; width: 70px; transform: rotate(22deg); }
+  .c-temp { left: 1790px; top: 120px; width: 150px; z-index: 5; }
+
+  .cards { left: 90px; top: 960px; display: flex; gap: 18px; z-index: 10; }
+  .card { width: 190px; background: #fff; padding: 9px 9px 0; box-shadow: 0 6px 14px rgba(0,0,0,.18); }
+  .card div { height: 150px; background: #fff center / contain no-repeat; }
+  .card p { display: flex; justify-content: space-between; margin: 0; padding: 10px 2px 9px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+
+  .meta { z-index: 11; font-size: 17px; line-height: 1.55; letter-spacing: .1em; text-transform: uppercase; color: var(--black); }
+  .meta b { font-weight: 500; color: var(--ink); }
+  .m-top { left: 90px; top: 70px; }
+  .m-head { left: 90px; top: 140px; font-family: Tinos, serif; font-style: italic; text-transform: none; letter-spacing: 0; font-size: 46px; color: var(--ink); }
+  .pill { display: inline-block; border: 2px solid var(--black); border-radius: 99px; padding: 6px 22px; margin-top: 12px; }
+  .m-soft { left: 2080px; top: 960px; text-align: left; }
+  .m-soft ul { list-style: none; margin: 6px 0 0; padding: 0; }
+  .m-soft li::before { content: "◆ "; color: var(--green); }
+  .tag { z-index: 11; font-size: 22px; font-weight: 500; color: var(--ink); letter-spacing: .04em; }
+  .vert { left: 2330px; top: 120px; z-index: 11; writing-mode: vertical-rl; font-size: 16px; letter-spacing: .3em; color: var(--teal); text-transform: uppercase; }
+  .icons { left: 2310px; top: 560px; z-index: 11; display: grid; gap: 30px; justify-items: center; }
+</style>
+</head>
+<body>
+<main class="board" id="board" aria-label="Billboard: Smart irrigation — Cada gota compta!">
+  <svg class="tiles" id="tiles" viewBox="0 0 2400 1200" aria-hidden="true"></svg>
+
+  <p class="t t-echo" aria-hidden="true">Smart</p>
+  <h1 class="t t-smart">Smart</h1>
+  <p class="t t-irr" aria-label="Irrigation">Irr<span class="ghost">i</span>gation</p>
+
+  <figure class="photo">
+    <img src="../images/smart-irrigation/working.png" alt="Prototype working: Telegram bot in automatic mode, sensors, NodeMCU, servo and LCD reading No cal regar">
+    <figcaption>FIG. 01 — MODE AUTOMÀTIC · «NO CAL REGAR»</figcaption>
+  </figure>
+  <div class="sketch" role="img" aria-label="Pencil sketch of a sprinkler"></div>
+  <img class="logic" src="../images/smart-irrigation/logica.png" alt="">
+  <img class="comp c-node" src="../images/smart-irrigation/tile-nodemcu.png" alt="NodeMCU board">
+  <img class="comp c-water" src="../images/smart-irrigation/tile-water-sensor.png" alt="Soil humidity sensor">
+  <img class="comp c-temp" src="../images/smart-irrigation/tile-temperature.png" alt="Temperature sensor">
+
+  <svg class="lines" viewBox="0 0 2400 1200" aria-hidden="true" fill="none">
+    <g stroke="#134f5c" stroke-width="2">
+      <path d="M-20 520 C 300 430, 520 640, 860 560 S 1500 260, 1900 380 S 2300 640, 2440 560"/>
+      <path d="M-20 556 C 300 466, 520 676, 860 596 S 1500 296, 1900 416 S 2300 676, 2440 596"/>
+      <path d="M-20 600 C 320 520, 540 730, 880 650 S 1500 350, 1900 470 S 2300 730, 2440 650" opacity=".7"/>
+      <path d="M-20 660 C 340 590, 560 800, 900 720 S 1510 420, 1910 540 S 2300 800, 2440 720" opacity=".45"/>
+      <path class="flow" stroke="#88d671" stroke-width="5" stroke-linecap="round" d="M-20 538 C 300 448, 520 658, 860 578 S 1500 278, 1900 398 S 2300 658, 2440 578"/>
+    </g>
+    <g stroke="#141816" stroke-width="1.5" stroke-dasharray="3 7">
+      <path d="M770 300 V 470 H 1010"/>
+      <path d="M1995 900 V 1155 H 2000"/>
+      <path d="M1500 300 V 345 H 1980"/>
+      <path d="M400 700 V 600 H 160"/>
+    </g>
+    <g fill="#134f5c">
+      <rect x="764" y="464" width="12" height="12"/><rect x="1989" y="1149" width="12" height="12"/>
+      <rect x="1494" y="339" width="12" height="12"/><rect x="394" y="694" width="12" height="12"/>
+    </g>
+    <g stroke="#141816" stroke-width="2"><path d="M140 600 h40 M160 580 v40"/><path d="M2190 260 h40 M2210 240 v40"/></g>
+  </svg>
+  <span class="tag" style="left:200px;top:560px">+49% · TIMER</span>
+  <span class="tag" style="left:1990px;top:330px">+2% · SENSORS</span>
+  <span class="tag" style="left:2010px;top:1140px">+95% · CHANGE</span>
+  <span class="tag" style="left:630px;top:430px">NODEMCU · ESP8266</span>
+
+  <div class="meta m-top">Treball de recerca / Cerdanya<br><span class="pill">Prototype · IoT</span>&nbsp;&nbsp;[2021]</div>
+  <div class="meta m-head">Cada gota compta!</div>
+  <div class="meta m-soft"><b>Software</b><ul><li>Arduino IDE</li><li>ThingSpeak</li><li>Telegram bot</li></ul></div>
+  <div class="meta" style="left:90px;top:330px">Coordinates<br>42.4316° N<br>1.9277° E<br>· · · · · · · · · ·<br>Elev. 1202 m</div>
+  <div class="vert">Sensor → NodeMCU → Servo → Plant</div>
+  <div class="icons" aria-hidden="true">
+    <svg width="40" height="56" viewBox="0 0 40 56"><path d="M20 2 C 20 2, 4 26, 4 36 a16 16 0 0 0 32 0 C 36 26, 20 2, 20 2Z" fill="#45818e"/></svg>
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" stroke="#141816" stroke-width="2"><circle cx="22" cy="22" r="20"/><circle cx="22" cy="22" r="12"/><circle cx="22" cy="22" r="4"/></svg>
+    <svg width="40" height="40" viewBox="0 0 40 40"><g fill="#141816"><rect width="10" height="10"/><rect x="20" width="10" height="10"/><rect x="10" y="10" width="10" height="10"/><rect x="30" y="10" width="10" height="10"/><rect y="20" width="10" height="10"/><rect x="20" y="20" width="10" height="10"/><rect x="10" y="30" width="10" height="10"/><rect x="30" y="30" width="10" height="10"/></g></svg>
+    <svg width="34" height="30" viewBox="0 0 34 30"><path d="M0 0 H34 L17 30Z" fill="#141816"/></svg>
+  </div>
+
+  <div class="cards">
+    <figure class="card" style="margin:0"><div style="background-image:url(../images/smart-irrigation/prototype.jpg);background-size:cover"></div><p><span>01.</span><span>Breadboard</span></p></figure>
+    <figure class="card" style="margin:0"><div style="background-image:url(../images/smart-irrigation/final.png);background-size:cover"></div><p><span>02.</span><span>3D case</span></p></figure>
+    <figure class="card" style="margin:0"><div style="background-image:url(../images/smart-irrigation/evapotranspiracio.png)"></div><p><span>03.</span><span>Evapotransp.</span></p></figure>
+  </div>
+
+  <div class="fold"></div><div class="grain"></div>
+</main>
+<script>
+  // Diamond tiles (the project's palette): dense on the left, thinning to the middle, three floating on the right.
+  const C = ["#45818e", "#88d671", "#134f5c", "#3e917e", "#87b2bb", "#e3ecee", "#929ea0"];
+  const H = 70, S = H * Math.SQRT2;
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const dia = (x, y, fill, extra = "") =>
+    `<rect x="${-S / 2}" y="${-S / 2}" width="${S}" height="${S}" fill="${fill}" stroke="#efece4" stroke-width="3" transform="translate(${x} ${y}) rotate(45)" ${extra}/>`;
+  let out = "";
+  for (let r = 0; r * H < 1300; r++) {
+    for (let x = (r % 2) * H; x < 1500; x += 2 * H) {
+      const y = r * H, edge = Math.min(1, x / 1350);
+      const bulge = Math.abs(y - 560) / 700;            // band follows the middle of the board
+      if (rnd() < 1 - edge * edge * 1.15 - bulge * 0.9) out += dia(x, y, C[Math.floor(rnd() * C.length)]);
+    }
+  }
+  out += dia(1960, 280, "#88d671") + dia(2200, 700, "#45818e") + dia(1720, 900, "#134f5c", 'opacity=".9"');
+  document.getElementById("tiles").innerHTML = out;
+
+  const fit = () => { const b = document.getElementById("board");
+    b.style.transform = `scale(${Math.min(innerWidth / 2400, innerHeight / 1200)})`; };
+  addEventListener("resize", fit); fit();
+</script>
+</body>
+</html>
