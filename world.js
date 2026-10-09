@@ -468,12 +468,12 @@
           float hn = aH / uMaxH;
           // elevation ramp through the palette: tan valleys -> moss slopes -> kombu ridges -> café noir summits
           // Misty coast palette: stone at the rim, umber and charcoal up the slopes, near-black at the summit.
-          vec3 c = mix(vec3(0.651, 0.651, 0.651), vec3(0.420, 0.420, 0.420), smoothstep(0.02, 0.25, hn));
-          c = mix(c, vec3(0.290, 0.290, 0.290), smoothstep(0.25, 0.6, hn));
-          c = mix(c, vec3(0.067, 0.067, 0.067), smoothstep(0.6, 0.95, hn));
-          c = mix(vec3(0.651, 0.651, 0.651), c, smoothstep(0.15, 0.85, aEdge)); // fade to stone (#a6a6a6) towards the map's rim
+          vec3 c = mix(vec3(0.780, 0.780, 0.780), vec3(0.600, 0.600, 0.600), smoothstep(0.02, 0.25, hn));
+          c = mix(c, vec3(0.420, 0.420, 0.420), smoothstep(0.25, 0.6, hn));
+          c = mix(c, vec3(0.200, 0.200, 0.200), smoothstep(0.6, 0.95, hn));
+          c = mix(vec3(0.780, 0.780, 0.780), c, smoothstep(0.15, 0.85, aEdge)); // fade to stone (#a6a6a6) towards the map's rim
           float front = 1.0 - clamp(abs(k - 0.5) * 2.0, 0.0, 1.0);
-          c = mix(mix(vec3(0.651, 0.651, 0.651), c, rise), vec3(0.067, 0.067, 0.067), front * 0.8);
+          c = mix(mix(vec3(0.780, 0.780, 0.780), c, rise), vec3(0.200, 0.200, 0.200), front * 0.8);
           vA = grid * aEdge * (0.45 + 0.35 * rise + 0.3 * front);
           vC = c;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
@@ -576,7 +576,7 @@
         }`,
       fragmentShader: `
         varying float vA;
-        void main() { gl_FragColor = vec4(0.420, 0.420, 0.420, vA); } // graphite #6b6b6b`,
+        void main() { gl_FragColor = vec4(0.651, 0.651, 0.651, vA); } // graphite #6b6b6b`,
     }));
     contours.renderOrder = 3;
     scene.add(contours);
