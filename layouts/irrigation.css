@@ -1,131 +1,106 @@
 /* "Smart irrigation": its own look, taken from the research report
-   (white paper, the pencil sketch, a strip of diamond tiles in teal, green and lime). */
+   (white paper, Tinos headings, small diamonds in teal, green and lime).
+   The panel opens full screen: a header collage that plays one chapter per scroll (layouts/irrigation.js). */
+.panel[data-layout="irrigation"] { width: 100%; background: #fff; border-left: 0; }
+.panel[data-layout="irrigation"] .panel-body { padding: 0; gap: 0; }
+.panel[data-layout="irrigation"] .panel-close { background: #fff; border-color: rgba(19, 79, 92, 0.2); color: #134f5c; z-index: 7; }
+.panel[data-layout="irrigation"] .panel-nav { display: none; }
+
 .irr {
   --irr-ink: #134f5c;
-  --irr-teal: #45818e;
-  --irr-green: #3e917e;
-  --irr-sky: #87b2bb;
-  --irr-lime: #88d671;
   --irr-line: #dfe8ea;
   --irr-text: #1f2b2e;
   --irr-muted: #56676a;
   --irr-serif: "Tinos", "Times New Roman", Times, serif;
-  --irr-strip: 44px;   /* width of the diamond strip */
-  --irr-gutter: 76px;  /* left padding: strip + gap */
-  --irr-top: 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 44px;
-  margin: calc(-30px - env(safe-area-inset-top, 0px)) -32px -32px;
-  padding: var(--irr-top) 36px 40px var(--irr-gutter);
+  position: relative;
   background: #fff;
   color: var(--irr-text);
   font-family: var(--body);
   line-height: 1.55;
 }
-.panel[data-layout="irrigation"] { background: #fff; }
-.panel[data-layout="irrigation"] .panel-close { background: #fff; border-color: rgba(19, 79, 92, 0.2); color: #134f5c; }
-.panel[data-layout="irrigation"] .panel-nav button { color: #134f5c; }
-.irr p { margin: 0; color: var(--irr-text); max-width: 64ch; }
-
-/* Cover: title and goal on the left, the pencil sketch on the right, diamonds down the left edge */
-.irr-cover {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-rows: auto auto;
-  gap: 22px 32px;
-  align-items: start;
-}
-.irr-tiles {
-  position: absolute;
-  top: calc(-1 * var(--irr-top));
-  left: calc(-1 * var(--irr-gutter));
-  width: var(--irr-strip);
-  height: calc(100% + var(--irr-top));
+.irr-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
 }
-.panel .irr-title {
-  grid-column: 1; grid-row: 1;
-  margin: 0;
-  font-family: var(--irr-serif);
-  font-style: italic;
-  font-weight: 700;
-  font-size: clamp(1.9rem, 4.4vw, 2.6rem);
-  line-height: 1;
-  white-space: nowrap;
-  color: #111;
-}
-.irr-sketch { grid-column: 2; grid-row: 1 / 3; align-self: center; justify-self: end; width: 140px; }
-.panel .irr-lead { grid-column: 1; grid-row: 2; font-family: var(--irr-serif); font-size: 1.08rem; line-height: 1.5; color: #222; max-width: none; }
+.irr-box { position: relative; width: min(100%, calc((100vh - 40px) * 2)); aspect-ratio: 2 / 1; container-type: inline-size; }
+.irr-banner { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.irr-bar { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: var(--irr-ink); }
 
-/* Chapters, each marked by a small diamond */
-.irr-ch { display: flex; flex-direction: column; gap: 16px; border-top: 1px solid var(--irr-line); padding-top: 26px; }
-.irr-chh { display: flex; align-items: center; gap: 14px; }
-.irr-dia { width: 16px; height: 16px; flex: none; transform: rotate(45deg); background: var(--c, var(--irr-green)); }
+/* Pieces that travel from the banner (position, size and opacity are set on scroll) */
+.irr-obj { position: absolute; display: block; opacity: 0; z-index: 3; will-change: left, top, width; }
+.irr-squares { aspect-ratio: 2 / 1; }
+.irr-squares img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.irr-hand { font-family: "Caveat", cursive; font-weight: 600; color: var(--irr-ink); white-space: nowrap; transform: rotate(-4deg); transform-origin: left; }
+.irr-parts { aspect-ratio: 0.75; }
+.irr-parts img { position: absolute; }
+.irr-p-mcu { left: 5.6%; top: 2%; width: 44%; transform: rotate(-14deg); }
+.irr-p-water { left: 8%; top: 60%; width: 17%; transform: rotate(22deg); }
+.irr-p-temp { left: 56%; top: 44%; width: 39%; }
+
+/* Chapter content, placed in % of the banner box */
+.irr-part { position: absolute; box-sizing: border-box; z-index: 4; opacity: 0; visibility: hidden; }
+.irr p { margin: 0; color: var(--irr-text); max-width: 64ch; }
+.irr-text { font-size: clamp(14px, 1.1cqw, 17px); }
+
+.irr-cover { left: 8%; top: 22%; width: 52%; display: flex; flex-direction: column; gap: 22px; }
+.irr .irr-title { margin: 0; font-family: var(--irr-serif); font-style: italic; font-weight: 700; font-size: clamp(30px, 3.4cqw, 52px); line-height: 1; color: #111; }
+.irr .irr-lead { font-family: var(--irr-serif); font-size: clamp(16px, 1.35cqw, 20px); line-height: 1.5; color: #222; max-width: none; }
+
+.irr-chh { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.irr-dia { width: 16px; height: 16px; flex: none; transform: rotate(45deg); background: var(--c, #3e917e); }
 .irr-chh h3 { margin: 0; font-family: var(--irr-serif); font-weight: 700; font-size: 1.2rem; letter-spacing: 0.03em; text-transform: uppercase; color: #111; }
 
 .irr-fig { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .irr-fig img { display: block; max-width: 100%; }
-.irr-fig figcaption, .irr-award figcaption { font-family: var(--irr-serif); font-size: 0.85rem; line-height: 1.4; color: var(--irr-muted); }
+.irr-fig figcaption, .irr-award figcaption, .irr-cap { font-family: var(--irr-serif); font-size: 0.85rem; line-height: 1.4; color: var(--irr-muted); }
 
-/* Theory: the evapotranspiration diagram and its four factors, at the same height */
-.irr-et { --h: 118px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: flex-start; }
-.irr-et .irr-fig { width: min-content; max-width: 100%; }
-.irr-et-main img { height: var(--h); width: auto; max-width: none; }
-.irr-quad { display: grid; grid-template-columns: auto auto; gap: 6px; height: var(--h); width: max-content; max-width: 100%; }
-.irr-quad img { height: calc((var(--h) - 6px) / 2); width: auto; max-width: none; }
+/* Theory: the whole page */
+.irr-th-text { left: 6%; top: 8%; width: 88%; }
+.irr-th-text .irr-text { font-size: clamp(16px, 1.5cqw, 22px); max-width: 80ch; }
+.irr-th-cap { left: 6%; top: 88%; width: 44%; }
+.irr-th-quad { left: 56%; top: 34%; width: 38%; }
+.irr-quad { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.irr-quad img { width: 100%; display: block; }
 
-/* Study of the region: three key numbers */
+/* Study of the region: the whole page, big numbers */
+.irr-study { left: 6%; top: 16%; width: 52%; }
+.irr-study .irr-text { margin-bottom: 40px; font-size: clamp(17px, 1.7cqw, 26px); line-height: 1.5; }
 .irr-nums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .irr-num { display: flex; flex-direction: column; gap: 2px; border-left: 3px solid var(--c); padding-left: 12px; }
-.irr-num b { font-family: var(--irr-serif); font-size: 1.9rem; line-height: 1.1; color: var(--irr-ink); font-variant-numeric: tabular-nums; }
-.irr-num span { font-size: 0.88rem; color: var(--irr-muted); }
+.irr-num b { font-family: var(--irr-serif); font-size: clamp(40px, 4.4cqw, 68px); line-height: 1.1; color: var(--irr-ink); font-variant-numeric: tabular-nums; }
+.irr-num span { font-size: clamp(14px, 1.2cqw, 18px); color: var(--irr-muted); }
 
 /* Prototype */
-.irr-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 290px); gap: 24px; align-items: center; }
-.irr-intro img { width: 100%; }
-.irr-intro-text { display: flex; flex-direction: column; gap: 16px; }
-.irr-wide { align-items: center; }
-.irr-wide img { width: auto; max-width: min(100%, 440px); }
-.irr-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; }
-.irr-row .irr-wide { align-items: stretch; }
-.irr-row .irr-fig img, .irr-row .irr-wide img { width: 100%; max-width: 100%; aspect-ratio: 4 / 3; object-fit: contain; }
-.irr-row img { width: 100%; }
+.irr-pr-text { left: 6%; top: 12%; width: 48%; }
+.irr-row { left: 4%; top: 52%; width: 92%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; }
+.irr-row img { width: 100%; height: 17cqw; object-fit: contain; }
 
-.panel .irr-close { font-family: var(--irr-serif); font-size: 1rem; line-height: 1.5; color: #333; border-top: 1px solid var(--irr-line); padding-top: 22px; max-width: none; }
+/* Conclusion */
+.irr-concl { left: 8%; top: 44%; width: 70%; }
+.irr .irr-close { font-family: var(--irr-serif); font-size: clamp(16px, 1.35cqw, 20px); line-height: 1.5; color: #333; border-top: 1px solid var(--irr-line); padding-top: 22px; max-width: none; }
 
-/* Awards: same-size photos in warm black and white, the prize name below */
-.irr-awards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+/* Awards and the full report */
+.irr-aw { left: 26%; top: 12%; width: 68%; }
+.irr-awards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 28px; }
 .irr-award { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .irr-award img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
 .irr-award figcaption { color: var(--irr-text); text-align: center; }
-
-/* Full report */
 .irr-report { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; border-top: 1px solid var(--irr-line); padding-top: 22px; }
-.irr-pdf { display: inline-flex; align-items: center; gap: 12px; font-family: var(--irr-serif); font-weight: 700; font-size: 1.02rem; color: var(--irr-ink); text-decoration: none; border: 1px solid var(--irr-ink); padding: 10px 18px; }
-.irr-pdf .irr-dia { --c: var(--irr-green); width: 11px; height: 11px; }
+.irr-pdf { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; box-sizing: border-box; font-family: var(--irr-serif); font-weight: 700; font-size: 1.02rem; color: var(--irr-ink); text-decoration: none; border: 1px solid var(--irr-ink); padding: 0 18px; }
+.irr-pdf .irr-dia { --c: #3e917e; width: 11px; height: 11px; }
 .irr-pdf:hover, .irr-pdf:focus-visible { background: var(--irr-ink); color: #fff; }
 .irr-note { font-size: 0.86rem; color: var(--irr-muted); }
 
-@media (max-width: 720px) {
-  .irr { --irr-strip: 32px; --irr-gutter: 52px; --irr-top: 26px; margin: -22px -20px -28px; padding-right: 20px; gap: 36px; }
-  .irr-cover { grid-template-columns: 1fr; }
-  .panel .irr-title, .irr-sketch, .panel .irr-lead { grid-column: 1; grid-row: auto; }
-  .irr-sketch { justify-self: center; max-width: 120px; }
-  .irr-et { --h: 92px; }
-  .irr-nums, .irr-intro, .irr-row { grid-template-columns: 1fr; }
-  .irr-awards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* Phones: the collage plays at the top, each chapter's content sits in a sheet at the bottom */
+@media (max-width: 760px) {
+  .irr-part { left: 16px !important; right: 16px; width: auto !important; top: auto !important; bottom: 16px; position: fixed; max-height: 55vh; overflow: auto; background: rgba(255, 255, 255, 0.97); padding: 12px 0; }
+  .irr-awards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .irr-row img { height: 28vw; }
 }
-
-/* The diamond strip sits on the same left line as the rest of the content (no wide white margin) */
-.irr { --irr-gutter: 36px; }
-.irr-tiles { left: 0; }
-.irr-cover { padding-left: calc(var(--irr-strip) + 24px); }
-@media (max-width: 720px) {
-  .irr { --irr-gutter: 20px; }
-  .irr-cover { padding-left: calc(var(--irr-strip) + 16px); }
-}
-
-/* Diamonds run from the panel's edge to the content line: only the ones at the edge are cut */
-.irr-tiles { left: calc(-1 * var(--irr-gutter)); width: calc(var(--irr-gutter) + var(--irr-strip)); }
