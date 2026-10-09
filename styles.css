@@ -1,19 +1,19 @@
 /* Layout: a full-screen survey map of the mountain with a trail sign, peak tags and a slide-in project panel.
-   Single look built from five greys (ink, graphite, stone, linen, paper), set once so they work on any host theme. */
+   Single look built from clean black and white with neutral greys, set once so they work on any host theme. */
 :root {
   /* The palette */
-  --cafe: #262626;      /* ink */
-  --kombu: #262626;     /* ink, accent */
-  --moss: #8c8c8c;      /* graphite */
-  --tan: #bfbfbd;       /* stone */
-  --bone: #e9e5dc;      /* linen */
+  --cafe: #111111;      /* black */
+  --kombu: #111111;     /* black, accent */
+  --moss: #6e6e6e;      /* subtle grey */
+  --tan: #8a8a8a;       /* border grey */
+  --bone: #ebebea;      /* light grey */
   /* Roles */
-  --night: #f2efe9;     /* paper: page edges */
+  --night: #f5f5f4;     /* off-white: page edges */
   --deep: #ffffff;      /* page centre */
   --glass: rgba(255, 255, 255, 0.9);   /* panels, route list and tags */
-  --line: rgba(38, 38, 38, 0.13);      /* ink hairlines */
+  --line: #e4e4e2;                     /* light border grey */
   --ink: var(--cafe);                  /* text */
-  --muted: #5e5e5e;     /* graphite, darkened for readable secondary text */
+  --muted: #545454;     /* muted grey: secondary text */
   --sign: var(--kombu); /* accent: trail signs, buttons, altitudes */
   --sign-ink: var(--bone);
   --blaze: var(--kombu);
@@ -21,6 +21,10 @@
   --display: "Young Serif", Georgia, serif;
   --body: "Figtree", system-ui, -apple-system, sans-serif;
   --label: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Dark-theme equivalents, kept for a future dark mode */
+  --dark-bg: #0e0e0e; --dark-surface: #161616; --dark-raised: #1f1f1f; --dark-ink: #f2f2f2;
+  --dark-muted: #a8a8a8; --dark-subtle: #8c8c8c; --dark-border: #6e6e6e; --dark-line: #262626;
 
   --panel-w: 440px;
   color-scheme: light;
@@ -107,7 +111,7 @@ a { color: var(--sign); }
   font-family: var(--display);
   font-size: 1.05rem;
   line-height: 1;
-  box-shadow: 0 6px 18px rgba(38, 38, 38, 0.12);
+  box-shadow: 0 6px 18px rgba(17, 17, 17, 0.12);
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 .about-btn img { width: 100%; height: 100%; object-fit: cover; }
@@ -126,7 +130,7 @@ a { color: var(--sign); }
   backdrop-filter: blur(10px);
   border: 1px solid var(--line);
   border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(38, 38, 38, 0.08);
+  box-shadow: 0 10px 30px rgba(17, 17, 17, 0.08);
 }
 .trail-head {
   display: flex;
@@ -420,7 +424,7 @@ a { color: var(--sign); }
   border-radius: 50%;
   border: 1px solid var(--kombu);
   padding: 5px;
-  box-shadow: 0 14px 34px rgba(38, 38, 38, 0.16);
+  box-shadow: 0 14px 34px rgba(17, 17, 17, 0.16);
   object-fit: cover;
   display: grid;
   place-items: center;
@@ -463,7 +467,7 @@ img.about-photo { background: #fff; }
 .case-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; color: var(--muted); font-size: 0.88rem; }
 
 /* Device mockups. Screens are 16:9 media inside a dark bezel. */
-.device { margin: 0; filter: drop-shadow(0 24px 28px rgba(38, 38, 38, 0.16)) drop-shadow(0 4px 6px rgba(38, 38, 38, 0.12)); }
+.device { margin: 0; filter: drop-shadow(0 24px 28px rgba(17, 17, 17, 0.16)) drop-shadow(0 4px 6px rgba(17, 17, 17, 0.12)); }
 .device-body { position: relative; background: #121110; }
 .device-screen { position: relative; overflow: hidden; background: #050505; aspect-ratio: 16 / 9; }
 .device-screen img, .device-screen video { display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -491,8 +495,8 @@ img.about-photo { background: #fff; }
   margin: 0 -7.5%;
   border-radius: 2px 2px 14px 14px / 2px 2px 10px 10px;
   background:
-    linear-gradient(90deg, transparent 43%, rgba(38, 38, 38, 0.16) 43%, rgba(38, 38, 38, 0.16) 57%, transparent 57%) top / 100% 5px no-repeat,
-    linear-gradient(#f2efe9, #e9e5dc 70%, #bfbfbd);
+    linear-gradient(90deg, transparent 43%, rgba(17, 17, 17, 0.16) 43%, rgba(17, 17, 17, 0.16) 57%, transparent 57%) top / 100% 5px no-repeat,
+    linear-gradient(#f5f5f4, #ebebea 70%, #8a8a8a);
 }
 
 /* Monitor: bezel, slim neck and foot */
@@ -506,8 +510,8 @@ img.about-photo { background: #fff; }
   height: 34px;
   margin: 0 auto;
   background:
-    linear-gradient(#bfbfbd, #e9e5dc) center bottom / 100% 6px no-repeat,
-    linear-gradient(90deg, #bfbfbd, #e9e5dc, #bfbfbd) center top / 26% 28px no-repeat;
+    linear-gradient(#8a8a8a, #ebebea) center bottom / 100% 6px no-repeat,
+    linear-gradient(90deg, #8a8a8a, #ebebea, #8a8a8a) center top / 26% 28px no-repeat;
   border-radius: 0 0 4px 4px;
 }
 
@@ -629,7 +633,7 @@ img.about-photo { background: #fff; }
   aspect-ratio: 16 / 10;
   border: 1px dashed var(--moss);
   border-radius: 10px;
-  background: repeating-linear-gradient(135deg, rgba(140, 140, 140, 0.06) 0 10px, transparent 10px 20px);
+  background: repeating-linear-gradient(135deg, rgba(107, 107, 107, 0.06) 0 10px, transparent 10px 20px);
   padding: 10px;
   text-align: center;
   font-family: var(--label);
@@ -727,8 +731,8 @@ img.about-photo { background: #fff; }
 .panel[data-layout="cupra"] .chip { border-color: var(--cu); color: var(--cu-deep); background: rgba(200, 120, 58, 0.08); }
 .panel[data-layout="cupra"] .case-title .accent, .panel[data-layout="cupra"] .case-lead { color: var(--cu-deep) !important; }
 .panel[data-layout="cupra"] .case-title::after { content: "."; color: var(--cu); }
-.panel[data-layout="cupra"] .road::before { left: 8px; width: 8px; border-radius: 4px; background: repeating-linear-gradient(transparent 0 5px, #fff 5px 10px) center / 1px 100% no-repeat, #6b6b6b; }
-.panel[data-layout="cupra"] .stop::before { border-color: #6b6b6b; }
+.panel[data-layout="cupra"] .road::before { left: 8px; width: 8px; border-radius: 4px; background: repeating-linear-gradient(transparent 0 5px, #fff 5px 10px) center / 1px 100% no-repeat, #6e6e6e; }
+.panel[data-layout="cupra"] .stop::before { border-color: #6e6e6e; }
 .panel[data-layout="cupra"] .stop-title { color: var(--cu-deep); }
 .panel[data-layout="cupra"] .stop-label--challenge::before { background: var(--cu); }
 .panel[data-layout="cupra"] .stop-label--solution { color: var(--cu-deep); }
@@ -777,17 +781,17 @@ img.about-photo { background: #fff; }
   right: 16px;
   bottom: 16px;
   width: min(var(--panel-w), calc(100% - 32px));
-  border: 1px solid rgba(38, 38, 38, 0.22);
+  border: 1px solid rgba(17, 17, 17, 0.22);
   border-radius: 20px;
   background: #fff;
   backdrop-filter: none;
-  box-shadow: 0 24px 60px rgba(38, 38, 38, 0.16), 0 4px 12px rgba(38, 38, 38, 0.08);
+  box-shadow: 0 24px 60px rgba(17, 17, 17, 0.16), 0 4px 12px rgba(17, 17, 17, 0.08);
   overflow-x: hidden;
 }
 .panel.panel--wide { width: min(740px, calc(100% - 32px)); }
 .panel.closing { transform: translateX(calc(100% + 40px)); }
 @media (max-width: 720px) {
-  .panel { top: auto; left: 8px; right: 8px; bottom: 8px; width: auto; height: 68%; border: 1px solid rgba(38, 38, 38, 0.22); border-radius: 18px; }
+  .panel { top: auto; left: 8px; right: 8px; bottom: 8px; width: auto; height: 68%; border: 1px solid rgba(17, 17, 17, 0.22); border-radius: 18px; }
   .panel.panel--wide { width: auto; }
   .panel.closing { transform: translateY(calc(100% + 24px)); }
 }
