@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Smart Irrigation Billboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Tinos:ital@1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500&family=IBM+Plex+Mono:wght@400;500&family=Tinos:ital@1&display=swap" rel="stylesheet">
 <style>
   /* Digital billboard for "Smart irrigation" (project 1). Fixed 2400×1200 canvas, scaled to fit. */
   :root {
@@ -37,6 +37,7 @@
   .sketch { left: 1900px; top: 90px; width: 420px; height: 520px; z-index: 5; mix-blend-mode: multiply;
     background: url("../images/smart-irrigation/sketch.png") center top / contain no-repeat; transform: rotate(6deg); }
   .plant { left: 640px; bottom: -4px; width: 390px; z-index: 4; filter: brightness(0); opacity: .9; } /* drawn in black, between the two layers of tiles */
+  .hand { left: 1760px; bottom: 520px; z-index: 6; margin: 0; font-family: Caveat, cursive; font-size: 62px; color: var(--ink); transform: rotate(-5deg); }
   .comp { z-index: 8; filter: drop-shadow(0 18px 18px rgba(0,0,0,.35)); }
   .c-node { left: 760px; top: 120px; width: 150px; transform: rotate(-14deg); }
   .c-temp { left: 960px; top: 360px; width: 160px; }
@@ -53,6 +54,8 @@
   <img class="photo" src="../images/smart-irrigation/working.png" alt="Prototype working: Telegram bot, sensors, NodeMCU, servo and LCD reading No cal regar">
   <div class="sketch" role="img" aria-label="Pencil sketch of a sprinkler and its sensors"></div>
   <img class="plant" src="../images/smart-irrigation/plant-middle.png" alt="Plant scheme: water transpiring from the leaves">
+
+  <p class="hand">Cada gota compta!</p>
 
   <img class="comp c-node" src="../images/smart-irrigation/tile-nodemcu.png" alt="NodeMCU board">
   <img class="comp c-temp" src="../images/smart-irrigation/tile-temperature.png" alt="Temperature sensor">
@@ -76,7 +79,7 @@
     }
   }
   out += dia(1660, 420, "#88d671") + dia(1560, 640, "#45818e") + dia(1320, 160, "#134f5c") +
-    dia(2050, 280, "#87b2bb") + dia(2240, 490, "#88d671") + /* behind the sketch */
+    dia(2050, 340, "#87b2bb") + dia(2240, 490, "#88d671") + /* behind the sketch */
     dia(1180, 800, "#929ea0") + dia(1600, 60, "#3e917e");
   document.getElementById("tiles").innerHTML = out;
   document.getElementById("tiles-front").innerHTML = front; // these sit over the plant scheme
