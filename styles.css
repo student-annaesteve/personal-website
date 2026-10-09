@@ -96,8 +96,8 @@ a { color: var(--sign); }
 .about-btn {
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
   padding: 0;
   overflow: hidden;
   border: 1px solid var(--kombu);
@@ -669,7 +669,7 @@ img.about-photo { background: #fff; }
 /* ---------- Phones ---------- */
 @media (max-width: 720px) {
   .top { padding: calc(env(safe-area-inset-top, 0px) + 16px) 16px 28px; }
-  .about-btn { width: 42px; height: 42px; font-size: 0.95rem; }
+  .about-btn { width: 54px; height: 54px; font-size: 0.95rem; }
   .brand h1 { font-size: 1.6rem; }
   .tagline { font-size: 0.75rem; letter-spacing: 0.08em; max-width: 190px; }
 
@@ -769,3 +769,25 @@ img.about-photo { background: #fff; }
 @media (max-width: 560px) { .case-awards img { width: 100%; } }
 .case-awards figcaption { margin-top: 8px; font-weight: 600; font-size: 0.92rem; }
 .panel[data-layout="cupra"] .case-awards figcaption { color: var(--cu-deep); }
+
+/* Project and About panels float over the map like a tablet: inset, rounded, outlined, softly shadowed.
+   Each project keeps its own look inside, clipped to the rounded frame. */
+.panel {
+  top: 16px;
+  right: 16px;
+  bottom: 16px;
+  width: min(var(--panel-w), calc(100% - 32px));
+  border: 1px solid rgba(38, 38, 38, 0.22);
+  border-radius: 20px;
+  background: #fff;
+  backdrop-filter: none;
+  box-shadow: 0 24px 60px rgba(38, 38, 38, 0.16), 0 4px 12px rgba(38, 38, 38, 0.08);
+  overflow-x: hidden;
+}
+.panel.panel--wide { width: min(740px, calc(100% - 32px)); }
+.panel.closing { transform: translateX(calc(100% + 40px)); }
+@media (max-width: 720px) {
+  .panel { top: auto; left: 8px; right: 8px; bottom: 8px; width: auto; height: 68%; border: 1px solid rgba(38, 38, 38, 0.22); border-radius: 18px; }
+  .panel.panel--wide { width: auto; }
+  .panel.closing { transform: translateY(calc(100% + 24px)); }
+}
