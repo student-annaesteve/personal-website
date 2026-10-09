@@ -811,28 +811,21 @@ body.panel-open #world, body.panel-open #labels { opacity: 0.35; }
 #labels { display: none; }
 .trail { padding: 0; background: none; border: 0; box-shadow: none; backdrop-filter: none; width: auto; }
 .trail-head { display: none; }
-.trail .trail-list { display: flex; flex-direction: row; gap: 8px; }
+.trail .trail-list { display: flex; flex-direction: column; gap: 6px; }
 .trail .trail-list li + li { border-bottom: 0; }
 .trail .sign {
-  display: flex; flex-direction: column; align-items: flex-start; gap: 3px;
-  width: 92px; height: 64px; padding: 0 10px 8px; overflow: hidden;
-  background: #fff; border: 1px solid var(--line); border-radius: 8px;
-  box-shadow: 0 6px 16px rgba(17, 17, 17, 0.08);
+  display: flex; flex-direction: row; align-items: center; gap: 10px;
+  width: 230px; height: 34px; padding: 0 12px 0 0; overflow: hidden;
+  background: #fff; border: 1px solid var(--line); border-radius: 7px;
+  box-shadow: 0 4px 12px rgba(17, 17, 17, 0.07);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.trail .sign::before { position: static; display: block; width: calc(100% + 20px); height: 14px; margin: 0 -10px 4px; background: var(--c); transform: none; opacity: 0.9; }
-.trail .sign:hover, .trail .sign[aria-current="true"] { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(17, 17, 17, 0.14); color: var(--ink); }
+.trail .sign::before { position: static; display: block; flex: none; width: 6px; height: 100%; margin: 0; background: var(--c); transform: none; opacity: 0.9; border-radius: 0; }
+.trail .sign:hover, .trail .sign[aria-current="true"] { transform: translateX(3px); box-shadow: 0 8px 18px rgba(17, 17, 17, 0.12); color: var(--ink); background: #fff; }
 .trail .sign[aria-current="true"] { border-color: var(--ink); }
-.trail .sign-num { font-size: 0.6rem; }
-.trail .sign-name { font-size: 0.72rem; line-height: 1.15; white-space: normal; text-align: left; }
+.trail .sign-num { flex: none; font-size: 0.66rem; }
+.trail .sign-name { font-size: 0.78rem; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; }
 .trail .sign-alt { display: none; }
-@media (max-width: 720px) {
-  .trail .trail-list { overflow-x: auto; padding-bottom: 4px; }
-  .trail .sign { width: 84px; height: 58px; background: #fff; border-radius: 8px; padding: 0 8px 6px; }
-  .trail .sign::before { display: block; width: calc(100% + 16px); margin: 0 -8px 4px; }
-  .trail .sign[aria-current="true"] { background: #fff; color: var(--ink); }
-}
-.trail .sign { width: 104px; height: auto; min-height: 62px; }
-.trail .sign-name { overflow-wrap: anywhere; }
+@media (max-width: 720px) { .trail .sign { width: 200px; height: 30px; } }
 .hint { left: auto; right: 28px; transform: none; bottom: calc(env(safe-area-inset-bottom, 0px) + 44px); }
-@media (max-width: 720px) { .trail .sign { width: 92px; } .hint { display: none; } }
+@media (max-width: 720px) { .hint { display: none; } }
