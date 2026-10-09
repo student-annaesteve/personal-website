@@ -107,3 +107,4 @@
   .ms-card strong { font-size: 1.2rem; }
   .ms-flow { grid-auto-columns: 128px; }
 }
+.panel .ms .panel-link { align-self: flex-start; background: var(--ms-y); border-color: var(--ms-y); color: #000; }
