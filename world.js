@@ -88,7 +88,7 @@
   $("tagline").textContent = ABOUT.tagline || "";
   const hintText = isTouch
     ? "Drag to explore · Tap a summit"
-    : "Drag to look around · Scroll to zoom · Pick a summit";
+    : "Drag to look around · Scroll to zoom · Pick a project";
   $("hint").textContent = hintText;
 
   const esc = (s) =>
@@ -104,6 +104,7 @@
     const b = document.createElement("button");
     b.type = "button";
     b.className = "sign" + (s.kind === "about" ? " summit" : "");
+    b.style.setProperty("--c", (s.data && s.data.color) || "#111");
     b.innerHTML =
       '<span class="sign-num">' + (s.kind === "about" ? "▲" : String(i + 1).padStart(2, "0")) + "</span>" +
       '<span class="sign-name">' + esc(s.kind === "about" ? "About me" : s.data.title) + "</span>" +
