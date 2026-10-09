@@ -769,8 +769,8 @@ img.about-photo { background: #fff; }
 /* Awards at the end of a case study */
 .case-awards { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
 .case-awards figure { margin: 0; }
-.case-awards img { display: block; width: 60%; height: auto; border-radius: 8px; }
-@media (max-width: 560px) { .case-awards img { width: 100%; } }
+.case-awards img { display: block; width: 45%; height: auto; border-radius: 8px; }
+@media (max-width: 560px) { .case-awards img { width: 80%; } }
 .case-awards figcaption { margin-top: 8px; font-weight: 600; font-size: 0.92rem; }
 .panel[data-layout="cupra"] .case-awards figcaption { color: var(--cu-deep); }
 
