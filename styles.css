@@ -154,14 +154,17 @@ a { color: var(--sign); }
 }
 .trail-list li + li { border-bottom: 1px solid var(--line); }
 /* Each stop sits in its own box: number and name only */
-.trail-head { align-items: center; }
-.trail-fold { display: grid; place-items: center; width: 24px; height: 24px; margin: -4px -6px -4px 0; padding: 0; border: 0; border-radius: 6px; background: none; color: var(--muted); cursor: pointer; }
-.trail-fold:hover, .trail-fold:focus-visible { color: var(--kombu); }
+/* No surrounding box or title: just the project boxes, with an arrow at their side to slide them away */
+.trail { background: none; border: 0; box-shadow: none; backdrop-filter: none; padding: 0; width: 248px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.trail-head { position: absolute; left: 100%; bottom: 0; margin: 0 0 0 8px; }
+.trail-fold { display: grid; place-items: center; width: 28px; height: 38px; padding: 0; border: 1px solid var(--line); border-radius: 8px; background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(8px); color: var(--muted); cursor: pointer; transition: transform 0.35s ease; }
+.trail-fold:hover, .trail-fold:focus-visible { color: var(--kombu); border-color: var(--kombu); }
 .trail-fold svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s ease; }
+.trail-list { transition: transform 0.35s ease, opacity 0.3s ease; }
+.trail.is-closed .trail-list { transform: translateX(calc(-100% - 40px)); opacity: 0; pointer-events: none; }
+.trail.is-closed .trail-fold { transform: translateX(calc(-248px - 36px)); }
 .trail.is-closed .trail-fold svg { transform: rotate(180deg); }
-.trail.is-closed .trail-list { display: none; }
-.trail.is-closed .trail-head { margin-bottom: 0; }
-.trail { padding-bottom: 14px; }
 .trail-list { gap: 6px; }
 .trail-list li + li { border-bottom: 0; }
 .trail .sign { grid-template-columns: 26px 1fr; align-items: center; padding: 0 12px; height: 38px; overflow: hidden; isolation: isolate;
@@ -706,7 +709,7 @@ img.about-photo { background: #fff; }
     padding: 0 16px;
   }
   .trail-head { display: none; }
-  .trail.is-closed .trail-list { display: flex; }
+  .trail.is-closed .trail-list { transform: none; opacity: 1; pointer-events: auto; }
   .trail .sign { height: auto; padding: 7px 12px; border-radius: 999px; background: var(--glass); grid-template-columns: auto auto; }
   .sign.has-banner:hover { height: auto; }
   .trail { bottom: calc(env(safe-area-inset-bottom, 0px) + 40px); background: none; border: 0; box-shadow: none; backdrop-filter: none; }
@@ -747,7 +750,7 @@ img.about-photo { background: #fff; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .panel, .sign, .trail .sign, .sign::after, .trail-fold svg, .hint, .peak-tag, .tag-label, .tag-marker { transition: none; }
+  .panel, .sign, .trail .sign, .sign::after, .trail-fold svg, .trail-fold, .trail-list, .hint, .peak-tag, .tag-label, .tag-marker { transition: none; }
 }
 
 /* Mar i Muntanya: the copper orange of its presentation and simulator */
