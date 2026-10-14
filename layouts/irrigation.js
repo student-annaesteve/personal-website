@@ -110,7 +110,7 @@
       }
       function flyTo() {
         if (!fly) return;
-        const t = ease(Math.min(1, Math.max(0, scroller.scrollTop / (scroller.clientHeight * 0.75))));
+        const t = ease(Math.min(1, Math.max(0, scroller.scrollTop / (scroller.clientHeight * 0.4))));
         const k = 1 - t;
         sketch.style.transform = "translate(" + (fly.dx * k).toFixed(1) + "px," + (fly.dy * k).toFixed(1) + "px) scale(" +
           (fly.s + (1 - fly.s) * t).toFixed(3) + ") rotate(" + (-10 * Math.sin(Math.PI * t)).toFixed(2) + "deg)";
