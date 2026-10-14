@@ -153,6 +153,30 @@ a { color: var(--sign); }
   flex-direction: column-reverse; /* highest summit on top, read upward like a route */
 }
 .trail-list li + li { border-bottom: 1px solid var(--line); }
+/* Each stop sits in its own box: number and name only */
+/* No surrounding box or title: just the project boxes, with an arrow at their side to slide them away */
+.trail { background: none; border: 0; box-shadow: none; backdrop-filter: none; padding: 0; width: 248px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.trail-head { position: absolute; left: 100%; bottom: 0; margin: 0 0 0 8px; }
+.trail-fold { display: grid; place-items: center; width: 28px; height: 38px; padding: 0; border: 1px solid var(--line); border-radius: 8px; background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(8px); color: var(--muted); cursor: pointer; transition: transform 0.35s ease; }
+.trail-fold:hover, .trail-fold:focus-visible { color: var(--kombu); border-color: var(--kombu); }
+.trail-fold svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s ease; }
+.trail-list { transition: transform 0.35s ease, opacity 0.3s ease; }
+.trail.is-closed .trail-list { transform: translateX(calc(-100% - 40px)); opacity: 0; pointer-events: none; }
+.trail.is-closed .trail-fold { transform: translateX(calc(-248px - 36px)); }
+.trail.is-closed .trail-fold svg { transform: rotate(180deg); }
+.trail-list { gap: 6px; }
+.trail-list li + li { border-bottom: 0; }
+.trail .sign { grid-template-columns: 26px 1fr; align-items: center; padding: 0 12px; height: 38px; overflow: hidden; isolation: isolate;
+  border: 1px solid var(--line); border-radius: 8px; background: rgba(255, 255, 255, 0.55); transition: color 0.2s ease, height 0.25s ease, border-color 0.2s ease; }
+.trail .sign::before { display: none; }
+.trail .sign:hover, .trail .sign[aria-current="true"] { border-color: var(--kombu); }
+/* A project with a banner shows it when you pass over its box */
+.sign.has-banner::after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity 0.25s ease;
+  background: linear-gradient(90deg, rgba(17, 17, 17, 0.55), rgba(17, 17, 17, 0.05)), var(--banner) center / cover; }
+.sign.has-banner:hover, .sign.has-banner:focus-visible { height: 64px; color: #fff; }
+.sign.has-banner:hover::after, .sign.has-banner:focus-visible::after { opacity: 1; }
+.sign.has-banner:hover .sign-num, .sign.has-banner:focus-visible .sign-num { color: rgba(255, 255, 255, 0.85); }
 .sign {
   position: relative;
   display: grid;
@@ -685,6 +709,9 @@ img.about-photo { background: #fff; }
     padding: 0 16px;
   }
   .trail-head { display: none; }
+  .trail.is-closed .trail-list { transform: none; opacity: 1; pointer-events: auto; }
+  .trail .sign { height: auto; padding: 7px 12px; border-radius: 999px; background: var(--glass); grid-template-columns: auto auto; }
+  .sign.has-banner:hover { height: auto; }
   .trail { bottom: calc(env(safe-area-inset-bottom, 0px) + 40px); background: none; border: 0; box-shadow: none; backdrop-filter: none; }
   .trail-list { gap: 6px; }
   .trail-list li + li { border-bottom: 0; }
@@ -723,7 +750,7 @@ img.about-photo { background: #fff; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .panel, .sign, .hint, .peak-tag, .tag-label, .tag-marker { transition: none; }
+  .panel, .sign, .trail .sign, .sign::after, .trail-fold svg, .trail-fold, .trail-list, .hint, .peak-tag, .tag-label, .tag-marker { transition: none; }
 }
 
 /* Mar i Muntanya: the copper orange of its presentation and simulator */

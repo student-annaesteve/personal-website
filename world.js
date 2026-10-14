@@ -103,15 +103,26 @@
     const li = document.createElement("li");
     const b = document.createElement("button");
     b.type = "button";
-    b.className = "sign" + (s.kind === "about" ? " summit" : "");
+    // One box per stop: just the number and the name. A project with a banner (for now only the first)
+    // turns into its banner when hovered.
+    const banner = i === 0 && s.kind !== "about" && s.data.banner;
+    b.className = "sign" + (s.kind === "about" ? " summit" : "") + (banner ? " has-banner" : "");
+    if (banner) b.style.setProperty("--banner", "url('" + esc(banner.src) + "')");
     b.innerHTML =
       '<span class="sign-num">' + (s.kind === "about" ? "▲" : String(i + 1).padStart(2, "0")) + "</span>" +
-      '<span class="sign-name">' + esc(s.kind === "about" ? "About me" : s.data.title) + "</span>" +
-      '<span class="sign-alt">' + (s.metres ? fmt(s.metres) : "") + "</span>";
+      '<span class="sign-name">' + esc(s.kind === "about" ? "About me" : s.data.title) + "</span>";
     b.addEventListener("click", () => open(i));
     s.signEl = b;
     li.appendChild(b);
     list.appendChild(li);
+  });
+  // The arrow in the head folds the route list away and back.
+  const trail = document.querySelector(".trail");
+  const fold = $("trail-fold");
+  fold.addEventListener("click", () => {
+    const closed = trail.classList.toggle("is-closed");
+    fold.setAttribute("aria-expanded", String(!closed));
+    fold.setAttribute("aria-label", closed ? "Show the projects" : "Hide the projects");
   });
   const initials = (ABOUT.name || "").split(/\s+/).map((w) => w[0] || "").join("").slice(0, 2);
   if (ABOUT.photo) $("about-initials").outerHTML = '<img src="' + esc(ABOUT.photo) + '" alt="">';
