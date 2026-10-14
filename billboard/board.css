@@ -1,0 +1,19 @@
+/* Shared look of the project billboards (same recipe as the Smart irrigation banner):
+   a 2400×1200 paper board, a field of tiles from the left to the middle with a few floating on the right,
+   the project's pieces on top, two thin drawn lines behind everything, a big Anton title bottom right
+   (one letter in colour, one only outlined) and a small handwritten motto partly hidden by the tiles. */
+* { box-sizing: border-box; margin: 0; }
+body { min-height: 100vh; display: grid; place-items: center; background: #1b1d1c; overflow: hidden; }
+.board { position: relative; width: 2400px; height: 1200px; overflow: hidden; background: #efece4; transform-origin: center; flex: none; }
+.board > * { position: absolute; }
+.lines, .tiles { left: 0; top: 0; width: 2400px; height: 1200px; }
+.lines { z-index: 1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+h1 { right: 80px; bottom: 70px; z-index: 6; font: 240px/0.9 "Anton", sans-serif; letter-spacing: -0.01em; text-transform: uppercase; text-align: right; color: #141816; }
+h1 .ghost { color: transparent; -webkit-text-stroke: 1px var(--ghost, #141816); }
+.hand { z-index: 1; font: 500 64px/1 "Caveat", cursive; white-space: nowrap; }
+.shadow { filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.35)); }
+.fold { inset: 0; z-index: 29; pointer-events: none;
+  background: linear-gradient(90deg, transparent 49.9%, rgba(0,0,0,.05) 50%, rgba(255,255,255,.25) 50.1%, transparent 50.3%),
+              linear-gradient(0deg, transparent 49.8%, rgba(0,0,0,.04) 50%, transparent 50.2%); }
+.grain { inset: 0; z-index: 30; pointer-events: none; opacity: .32; mix-blend-mode: multiply;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .33 0 0 0 0 .3 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E"); }

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Mar i Muntanya billboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="board.css">
+<style>
+/* Idea: trust in a car that drives itself, from the sea to the mountain. The tiles are triangles that
+   build a mountain range in CUPRA copper and black, the road winds through them, and the cockpit
+   moves from L3 (hands on the wheel) to L5 (a living room on wheels). */
+.board { --ghost: #c8783a; }
+.cu { color: #c8783a; }
+.shot { z-index: 8; border-radius: 10px; }
+.hero { left: -170px; top: 470px; width: 820px; z-index: 7; border-radius: 0 14px 14px 0; filter: saturate(.9) contrast(1.05); }
+.l3 { left: 760px; top: 120px; width: 330px; transform: rotate(-8deg); }
+.l4 { left: 1000px; top: 420px; width: 300px; transform: rotate(6deg); }
+.l5 { left: 1860px; top: 70px; width: 440px; transform: rotate(5deg); z-index: 5; }
+.lvl { z-index: 9; font: 600 34px/1 "JetBrains Mono", monospace; color: #fff; background: #141816; padding: 8px 14px; border-radius: 6px; }
+.hand { left: 380px; top: 34px; color: #9a531f; transform: rotate(-3deg); }
+h1 { font-size: 220px; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+</head><body>
+<main class="board">
+  <svg class="lines" viewBox="0 0 2400 1200">
+    <!-- the sea: soft waves at the bottom left -->
+    <path stroke="#fff" stroke-width="2.5" d="M-40 1010 C 260 930, 380 1000, 520 905 S 760 760, 900 820 S 1080 930, 1180 1020 S 1300 1180, 1340 1240"/>
+    <!-- the road up the mountain -->
+    <path stroke="#c8783a" stroke-width="2.5" d="M560 -40 C 600 200, 680 380, 760 470 S 1010 500, 1130 590 S 1300 760, 1420 700 S 1600 560, 1800 620 S 2200 650, 2440 590"/>
+  </svg>
+  <svg class="tiles" id="back" viewBox="0 0 2400 1200" style="z-index:2"></svg>
+  <svg class="tiles" id="front" viewBox="0 0 2400 1200" style="z-index:5"></svg>
+  <img class="hero shadow" src="../images/mar-i-muntanya/selector-hero.jpg" alt="">
+  <img class="shot l3 shadow" src="../images/mar-i-muntanya/l3-handback.jpg" alt="">
+  <img class="shot l4 shadow" src="../images/mar-i-muntanya/l4-ambulance.jpg" alt="">
+  <img class="shot l5 shadow" src="../images/mar-i-muntanya/l5-social.jpg" alt="">
+  <span class="lvl" style="left:770px;top:100px;transform:rotate(-8deg)">L3</span>
+  <span class="lvl" style="left:1250px;top:410px;transform:rotate(6deg)">L4</span>
+  <span class="lvl" style="left:2240px;top:60px;transform:rotate(5deg)">L5</span>
+  <p class="hand">Designing trust</p>
+  <h1>Mar <span class="ghost">i</span><br>M<span class="cu">u</span>ntanya</h1>
+  <div class="fold"></div><div class="grain"></div>
+</main>
+<script src="board.js"></script>
+<script>
+// Mountain triangles, pointing up and down in turn; the sea blue only at the bottom
+const C = ["#c8783a", "#141816", "#3a3a3a", "#9a9a9a", "#e3d3c0", "#9a531f", "#d9a77c"];
+const tri = (x, y, c, rnd) => { const w = 120, h = 104, up = Math.round(x / 60 + y / 104) % 2 === 0;
+  if (y > 900 && rnd() < .45) c = ["#5f7a86", "#9fb3ba", "#3e5560"][Math.floor(rnd() * 3)];
+  return up ? `<path d="M${x} ${y + h}L${x + w / 2} ${y}L${x + w} ${y + h}z" fill="${c}" stroke="#efece4" stroke-width="3"/>`
+            : `<path d="M${x} ${y}L${x + w} ${y}L${x + w / 2} ${y + h}z" fill="${c}" stroke="#efece4" stroke-width="3"/>`; };
+const [back, front] = field({ step: 60, rowStep: 104, offset: false, width: 1300, colours: C, shape: tri, seed: 9 });
+const one = (x, y, c, up) => up ? `<path d="M${x} ${y + 104}L${x + 60} ${y}L${x + 120} ${y + 104}z" fill="${c}"/>` : `<path d="M${x} ${y}L${x + 120} ${y}L${x + 60} ${y + 104}z" fill="${c}"/>`;
+const extra = one(1500, 260, "#c8783a", 1) + one(1380, 780, "#141816", 0) + one(1700, 520, "#9a9a9a", 1) + one(2120, 600, "#9a531f", 0) + one(1560, 40, "#3a3a3a", 0) + one(2000, 360, "#d9a77c", 1);
+document.getElementById("back").innerHTML = back + extra;
+document.getElementById("front").innerHTML = front;
+</script>
+</body></html>
