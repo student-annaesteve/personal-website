@@ -6,12 +6,12 @@
 /* Idea: from the billboard to your seat. The tiles are Barcelona's Eixample blocks, a bus route runs
    through them from a stop to the cinema, and a film strip and a ticket float on top. */
 .board { --ghost: #c8102e; }
-h1 { font-size: 330px; }
+h1 { font-size: 300px; top: 60px; bottom: auto; }
 .red { color: #c8102e; }
 .strip { left: 700px; top: 110px; z-index: 8; transform: rotate(-12deg); }
-.ticket { left: 1010px; top: 470px; z-index: 8; transform: rotate(9deg); }
-.stop { left: 1980px; top: 40px; width: 290px; height: 450px; z-index: 5; transform: rotate(5deg); }
-.hand { left: 330px; top: 34px; color: #7d0a1d; transform: rotate(-3deg); }
+.ticket { left: 980px; top: 640px; z-index: 8; transform: rotate(9deg); }
+.stop { left: 1500px; top: 690px; width: 290px; height: 450px; z-index: 5; transform: rotate(5deg); }
+.hand { left: 440px; top: 1100px; color: #7d0a1d; transform: rotate(-3deg); }
 </style></head><body>
 <main class="board">
   <svg class="lines" viewBox="0 0 2400 1200">
@@ -70,7 +70,7 @@ const C = ["#c8102e", "#141816", "#8f8a84", "#e7d9cf", "#7d0a1d", "#d9c7a7", "#b
 const block = (x, y, c) => { const s = 110, k = 30, h = s / 2;
   return `<path d="M${x - h + k} ${y - h}h${s - 2 * k}l${k} ${k}v${s - 2 * k}l${-k} ${k}h${-(s - 2 * k)}l${-k} ${-k}v${-(s - 2 * k)}z" fill="${c}"/>`; };
 const [back, front] = field({ step: 118, offset: false, width: 1300, colours: C, shape: block, seed: 11 });
-const extra = [[1500, 300, "#c8102e"], [1640, 820, "#141816"], [1380, 120, "#8f8a84"], [2080, 640, "#7d0a1d"], [1240, 860, "#d9c7a7"], [1860, 420, "#e7d9cf"]]
+const extra = [[1500, 300, "#c8102e"], [2150, 820, "#141816"], [1380, 120, "#8f8a84"], [1960, 1040, "#7d0a1d"], [1240, 860, "#d9c7a7"], [1380, 520, "#e7d9cf"]]
   .map(([x, y, c]) => block(x, y, c)).join("");
 document.getElementById("back").innerHTML = back + extra;
 document.getElementById("front").innerHTML = front;
