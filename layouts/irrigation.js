@@ -17,8 +17,8 @@
     { a: [23.5, 74, 22.5], b: [6, 40, 46] },           // theory: the evapotranspiration diagram
     { a: [0, 0, 100], b: [0, 0, 100] },                // study: some of the banner's diamonds stay where they are
     { a: [-5, 42, 33], b: [62, 4, 30] },               // prototype: the working prototype beside the text
-    { a: [16, 2, 30], b: [8, 16, 60], f: [3.6, 8] },   // conclusion: «Cada gota compta!»
-    { a: [30, 8, 18], b: [87, 0, 7] },                 // awards: the components, small at the top right
+    { a: [30, 8, 18], b: [8, 22, 20] },                // conclusion: the components, left of the text
+    { a: [16, 2, 30], b: [4, 34, 22], f: [3.6, 3.4] }, // awards: «Cada gota compta!», left of the awards
   ];
   // Diamonds of the banner shown in the study chapter (centres in banner pixels, 2000 × 1000):
   // only the ones around the content, so they never cover it.
@@ -58,12 +58,12 @@
         (cx + hx) + "% " + cy + "%," + cx + "% " + (cy + hy) + '%)">';
     }).join("") + "</div>";
     h += '<img class="irr-obj" data-ch="3" src="' + esc(pr.working.src) + '" alt="' + esc(pr.working.alt || "") + '">';
-    h += '<div class="irr-obj irr-hand" data-ch="4" aria-hidden="true">' + esc(d.headline) + "</div>";
-    h += '<div class="irr-obj irr-parts" data-ch="5">' +
+    h += '<div class="irr-obj irr-parts" data-ch="4">' +
       '<img class="irr-p-mcu" src="' + esc(tile("nodemcu")) + '" alt="NodeMCU board">' +
       '<img class="irr-p-water" src="' + esc(tile("water-sensor")) + '" alt="Water level sensor">' +
       '<img class="irr-p-temp" src="' + esc(tile("tile-temperature.png")) + '" alt="Temperature sensor">' +
       "</div>";
+    h += '<div class="irr-obj irr-hand" data-ch="5" aria-hidden="true">' + esc(d.headline) + "</div>";
 
     // Cover
     const partsAt = h.length;
@@ -98,7 +98,6 @@
         esc(d.linkLabel || "Read the full report") + "</a>" + (d.linkNote ? '<span class="irr-note">' + esc(d.linkNote) + "</span>" : "") + "</div>";
     }
     h += part(5, "irr-aw", aw);
-    h += part(5, "irr-aw-motto", '<span class="irr-hand">' + esc(d.headline) + "</span>");
     h = h.slice(0, partsAt) + wrap(h.slice(partsAt));
 
     h += '</div><div class="irr-bar"></div></div><div class="irr-spacer"></div></div>';
