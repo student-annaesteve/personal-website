@@ -40,7 +40,7 @@
 
 .irr .irr-title { margin: 0 0 18px; font-family: var(--irr-serif); font-style: italic; font-weight: 700; font-size: clamp(30px, 4vw, 48px); line-height: 1; color: #111; }
 .irr .irr-lead { font-family: var(--irr-serif); font-size: 1.12rem; line-height: 1.55; color: #222; }
-.irr-sketch { position: relative; z-index: 2; width: 100%; max-width: 280px; justify-self: center; transform-origin: 0 0; will-change: transform; }
+.irr-sketch { position: relative; z-index: 2; width: 100%; max-width: 200px; justify-self: center; transform-origin: 0 0; will-change: transform; }
 
 .irr-chh { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
 .irr-dia { width: 16px; height: 16px; flex: none; transform: rotate(45deg); background: var(--c, #3e917e); }
@@ -61,21 +61,21 @@
 .irr-num { display: flex; flex-direction: column; gap: 2px; border-left: 3px solid var(--c); padding-left: 12px; }
 .irr-num b { font-family: var(--irr-serif); font-size: clamp(36px, 4.4vw, 56px); line-height: 1.1; color: var(--irr-ink); font-variant-numeric: tabular-nums; }
 .irr-num span { font-size: 0.92rem; color: var(--irr-muted); }
-.irr-diamonds { position: relative; height: 200px; }
-.irr-diamonds i { position: absolute; width: 56px; height: 56px; background: var(--c); transform: rotate(45deg); }
+.irr-diamonds { position: relative; height: 150px; max-width: 160px; justify-self: center; width: 100%; }
+.irr-diamonds i { position: absolute; width: 40px; height: 40px; background: var(--c); transform: rotate(45deg); }
 .irr-diamonds i:nth-child(1) { left: 20%; top: 4%; }
 .irr-diamonds i:nth-child(2) { left: 52%; top: 36%; }
 .irr-diamonds i:nth-child(3) { left: 14%; top: 66%; }
 
 /* Prototype */
 .irr-pr-top { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 32px; align-items: center; margin-bottom: 32px; }
-.irr-pr-top > img { width: 100%; max-width: 380px; justify-self: end; }
+.irr-pr-top > img { width: 100%; max-width: 270px; justify-self: end; }
 .irr-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; }
-.irr-row img { width: 100%; height: 190px; object-fit: contain; }
+.irr-row img { width: 100%; height: 140px; object-fit: contain; }
 
 /* Conclusion: the components left, the text right */
 .irr-concl { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 40px; align-items: center; }
-.irr-parts { position: relative; aspect-ratio: 0.75; max-width: 240px; }
+.irr-parts { position: relative; aspect-ratio: 0.75; width: 100%; max-width: 170px; justify-self: center; }
 .irr-parts img { position: absolute; }
 .irr-p-mcu { left: 5.6%; top: 2%; width: 44%; transform: rotate(-14deg); }
 .irr-p-water { left: 8%; top: 60%; width: 17%; transform: rotate(22deg); }
@@ -83,9 +83,9 @@
 .irr .irr-close { font-family: var(--irr-serif); font-size: 1.15rem; line-height: 1.55; color: #333; }
 
 /* Awards and the full report */
-.irr-aw-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.irr-aw-head { max-width: 760px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
 .irr-hand { font-family: "Caveat", cursive; font-weight: 600; font-size: 1.6rem; color: var(--irr-ink); white-space: nowrap; margin-bottom: 14px; rotate: 6deg; }
-.irr-awards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 28px; }
+.irr-awards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 28px; max-width: 760px; }
 .irr-award { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .irr-award img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
 .irr-award figcaption { color: var(--irr-text); text-align: center; }
