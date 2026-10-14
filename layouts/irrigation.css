@@ -1,7 +1,7 @@
 /* "Smart irrigation": its own look, taken from the research report
    (white paper, Tinos headings, small diamonds in teal, green and lime).
    The panel opens full screen: a header collage that plays one chapter per scroll (layouts/irrigation.js). */
-.panel[data-layout="irrigation"] { width: 100%; background: #fff; border-left: 0; }
+.panel[data-layout="irrigation"] { left: 48px; right: 48px; width: auto; background: #fff; border-left: 0; }
 .panel[data-layout="irrigation"] .panel-body { padding: 0; gap: 0; }
 .panel[data-layout="irrigation"] .panel-close { background: #fff; border-color: rgba(19, 79, 92, 0.2); color: #134f5c; z-index: 7; }
 .panel[data-layout="irrigation"] .panel-nav { display: none; }
@@ -45,13 +45,14 @@
 .irr-p-temp { left: 56%; top: 44%; width: 39%; }
 
 /* Chapter content, placed in % of the banner box */
+.irr-chapter { display: contents; }
 .irr-part { position: absolute; box-sizing: border-box; z-index: 4; opacity: 0; visibility: hidden; }
 .irr p { margin: 0; color: var(--irr-text); max-width: 64ch; }
-.irr-text { font-size: clamp(14px, 1.1cqw, 17px); }
+.irr-text { font-size: clamp(11px, 1.1cqw, 17px); }
 
 .irr-cover { left: 8%; top: 22%; width: 52%; display: flex; flex-direction: column; gap: 22px; }
-.irr .irr-title { margin: 0; font-family: var(--irr-serif); font-style: italic; font-weight: 700; font-size: clamp(30px, 3.4cqw, 52px); line-height: 1; color: #111; }
-.irr .irr-lead { font-family: var(--irr-serif); font-size: clamp(16px, 1.35cqw, 20px); line-height: 1.5; color: #222; max-width: none; }
+.irr .irr-title { margin: 0; font-family: var(--irr-serif); font-style: italic; font-weight: 700; font-size: clamp(22px, 3.4cqw, 52px); line-height: 1; color: #111; }
+.irr .irr-lead { font-family: var(--irr-serif); font-size: clamp(12px, 1.35cqw, 20px); line-height: 1.5; color: #222; max-width: none; }
 
 .irr-chh { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
 .irr-dia { width: 16px; height: 16px; flex: none; transform: rotate(45deg); background: var(--c, #3e917e); }
@@ -63,7 +64,7 @@
 
 /* Theory: the whole page */
 .irr-th-text { left: 6%; top: 8%; width: 88%; }
-.irr-th-text .irr-text { font-size: clamp(16px, 1.5cqw, 22px); max-width: 80ch; }
+.irr-th-text .irr-text { font-size: clamp(12px, 1.5cqw, 22px); max-width: 80ch; }
 .irr-th-cap { left: 6%; top: 88%; width: 44%; }
 .irr-th-quad { left: 56%; top: 34%; width: 38%; }
 .irr-quad { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
@@ -71,7 +72,7 @@
 
 /* Study of the region: the whole page, big numbers */
 .irr-study { left: 6%; top: 16%; width: 52%; }
-.irr-study .irr-text { margin-bottom: 40px; font-size: clamp(17px, 1.7cqw, 26px); line-height: 1.5; }
+.irr-study .irr-text { margin-bottom: 40px; font-size: clamp(13px, 1.7cqw, 26px); line-height: 1.5; }
 .irr-nums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .irr-num { display: flex; flex-direction: column; gap: 2px; border-left: 3px solid var(--c); padding-left: 12px; }
 .irr-num b { font-family: var(--irr-serif); font-size: clamp(40px, 4.4cqw, 68px); line-height: 1.1; color: var(--irr-ink); font-variant-numeric: tabular-nums; }
@@ -87,7 +88,9 @@
 .irr .irr-close { font-family: var(--irr-serif); font-size: clamp(16px, 1.35cqw, 20px); line-height: 1.5; color: #333; border-top: 1px solid var(--irr-line); padding-top: 22px; max-width: none; }
 
 /* Awards and the full report */
-.irr-aw { left: 26%; top: 12%; width: 68%; }
+.irr-aw-motto { left: auto; right: 5%; top: 4%; }
+.irr-aw-motto .irr-hand { display: block; font-size: 2.2cqw; }
+.irr-aw { left: 28%; top: 14%; width: 66%; }
 .irr-awards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 28px; }
 .irr-award { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .irr-award img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
@@ -100,7 +103,22 @@
 
 /* Phones: the collage plays at the top, each chapter's content sits in a sheet at the bottom */
 @media (max-width: 760px) {
-  .irr-part { left: 16px !important; right: 16px; width: auto !important; top: auto !important; bottom: 16px; position: fixed; max-height: 55vh; overflow: auto; background: rgba(255, 255, 255, 0.97); padding: 12px 0; }
+  .panel[data-layout="irrigation"] { left: 8px; right: 8px; }
+  .irr-aw-motto { display: none; }
+  .irr-stage { height: 64vh; height: 64dvh; align-items: flex-start; }
+  .irr-box { width: 100%; }
+  .irr-chapter { display: flex; flex-direction: column; gap: 16px; position: absolute; left: 16px; right: 16px; top: calc(100% + 12px); max-height: calc(64vh - 50vw - 24px); max-height: calc(64dvh - 50vw - 24px); overflow: auto; pointer-events: none; }
+  .irr-part { position: static; width: auto !important; }
+  .irr-chapter:has(.irr-part[style*="visibility: visible"]) { z-index: 5; }
+  .irr-th-cap { order: 3; }
+  .irr-quad { max-width: 340px; }
+  .irr-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
   .irr-awards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .irr-row img { height: 28vw; }
+}
+
+/* The floating panel is shorter than the window: fit the stage and the banner box to the panel, so nothing is cut */
+@media (min-width: 761px) {
+  .irr-stage { height: calc(100vh - 58px); height: calc(100dvh - 58px); }
+  .irr-box { width: min(100%, calc((100vh - 98px) * 2)); width: min(100%, calc((100dvh - 98px) * 2)); }
 }
