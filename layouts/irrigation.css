@@ -37,7 +37,7 @@
 .irr-obj { position: absolute; display: block; opacity: 0; z-index: 3; will-change: left, top, width; }
 .irr-squares { aspect-ratio: 2 / 1; }
 .irr-squares img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.irr-hand { font-family: "Caveat", cursive; font-weight: 600; color: var(--irr-ink); white-space: nowrap; transform: rotate(-4deg); transform-origin: left; }
+.irr-hand { font-family: "Caveat", cursive; font-weight: 600; color: var(--irr-ink); white-space: nowrap; transform: rotate(6deg); transform-origin: left; }
 .irr-parts { aspect-ratio: 0.75; }
 .irr-parts img { position: absolute; }
 .irr-p-mcu { left: 5.6%; top: 2%; width: 44%; transform: rotate(-14deg); }
@@ -84,13 +84,11 @@
 .irr-row img { width: 100%; height: 17cqw; object-fit: contain; }
 
 /* Conclusion */
-.irr-concl { left: 8%; top: 44%; width: 70%; }
+.irr-concl { left: 36%; top: 36%; width: 56%; }
 .irr .irr-close { font-family: var(--irr-serif); font-size: clamp(16px, 1.35cqw, 20px); line-height: 1.5; color: #333; border-top: 1px solid var(--irr-line); padding-top: 22px; max-width: none; }
 
 /* Awards and the full report */
-.irr-aw-motto { left: auto; right: 5%; top: 4%; }
-.irr-aw-motto .irr-hand { display: block; font-size: 2.2cqw; }
-.irr-aw { left: 28%; top: 14%; width: 66%; }
+.irr-aw { left: 6%; top: 14%; width: 88%; }
 .irr-awards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 28px; }
 .irr-award { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .irr-award img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
@@ -104,7 +102,6 @@
 /* Phones: the collage plays at the top, each chapter's content sits in a sheet at the bottom */
 @media (max-width: 760px) {
   .panel[data-layout="irrigation"] { left: 8px; right: 8px; }
-  .irr-aw-motto { display: none; }
   .irr-stage { height: 64vh; height: 64dvh; align-items: flex-start; }
   .irr-box { width: 100%; }
   .irr-chapter { display: flex; flex-direction: column; gap: 16px; position: absolute; left: 16px; right: 16px; top: calc(100% + 12px); max-height: calc(64vh - 50vw - 24px); max-height: calc(64dvh - 50vw - 24px); overflow: auto; pointer-events: none; }
