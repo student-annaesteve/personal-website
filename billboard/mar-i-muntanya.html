@@ -43,10 +43,10 @@ h1 { left: 80px; right: auto; top: 60px; bottom: auto; text-align: left; font-si
     <defs><path id="road" pathLength="1000" d="M-80 640 C 160 640, 260 560, 420 600 S 720 720, 900 560 S 1100 260, 1320 340 S 1480 700, 1720 700 S 1900 380, 2080 420 S 2300 600, 2480 520"
 /></defs>
     <use href="#road" stroke="#2f3133" stroke-width="96"/>
-    <use href="#road" stroke="#1f8a4c" stroke-width="96" stroke-dasharray="0 140 180 120 1000"/>
-    <use href="#road" stroke="#c8783a" stroke-width="96" stroke-dasharray="0 320 60 1000"/>
-    <use href="#road" stroke="#2f3133" stroke-width="96" stroke-dasharray="0 380 60 1000"/>
-    <use href="#road" stroke="#1f8a4c" stroke-width="96" stroke-dasharray="0 440 560"/>
+    <use href="#road" stroke="#1f8a4c" stroke-width="96" stroke-dasharray="0 120 100 140 1000"/>
+    <use href="#road" stroke="#c8783a" stroke-width="96" stroke-dasharray="0 220 70 1000"/>
+    <use href="#road" stroke="#2f3133" stroke-width="96" stroke-dasharray="0 290 70 1000"/>
+    <use href="#road" stroke="#1f8a4c" stroke-width="96" stroke-dasharray="0 360 640"/>
     <use href="#road" stroke="#efece4" stroke-width="6" stroke-dasharray="7 5"/>
   </svg>
 
@@ -66,16 +66,18 @@ const put = (f, html, dx = 0, dy = 0) => { const p = at(f); return html.replace(
 let h = "", leads = "";
 // Road pieces, small and where they belong: the car setting off, cones on the roadworks,
 // the city around the ambulance, the restaurant at the lunch stop and the viewpoint at the end.
-h += put(0.075, '<img class="on" style="STYLE;width:105px" src="mar-i-muntanya/car.png" alt="">', 0, 18);
-h += put(0.33, '<img class="on" style="STYLE;width:42px" src="mar-i-muntanya/cone.png" alt="">', -14, 12);
-h += put(0.365, '<img class="on" style="STYLE;width:36px" src="mar-i-muntanya/cone.png" alt="">', 14, 12);
-h += put(0.555, '<img class="on" style="STYLE;width:115px" src="mar-i-muntanya/building.png" alt="">', -10, -75);
-h += put(0.62, '<img class="on" style="STYLE;width:95px" src="mar-i-muntanya/ambulance.png" alt="">', 0, 24);
-h += put(0.80, '<img class="on" style="STYLE;width:100px" src="mar-i-muntanya/restaurant.png" alt="">', -10, -70);
-h += put(0.955, '<img class="on" style="STYLE;width:50px" src="mar-i-muntanya/viewpoint.png" alt="">', -20, -50);
+// each piece stands on a flat stretch, its base just over the top edge of the road (half-width 48)
+const E = -28;
+h += put(0.075, '<img class="on" style="STYLE;width:105px" src="mar-i-muntanya/car.png" alt="">', 0, E + 14);
+h += put(0.245, '<img class="on" style="STYLE;width:42px" src="mar-i-muntanya/cone.png" alt="">', 0, E + 10);
+h += put(0.27, '<img class="on" style="STYLE;width:36px" src="mar-i-muntanya/cone.png" alt="">', 0, E + 10);
+h += put(0.47, '<img class="on" style="STYLE;width:115px" src="mar-i-muntanya/building.png" alt="">', 0, E);
+h += put(0.69, '<img class="on" style="STYLE;width:95px" src="mar-i-muntanya/ambulance.png" alt="">', 0, E + 14);
+h += put(0.85, '<img class="on" style="STYLE;width:100px" src="mar-i-muntanya/restaurant.png" alt="">', 0, E);
+h += put(0.95, '<img class="on" style="STYLE;width:50px" src="mar-i-muntanya/viewpoint.png" alt="">', 0, E);
 h += put(0.19, '<span class="lvl" style="STYLE">L3</span>', 0, -80);
-h += put(0.50, '<span class="lvl" style="STYLE">L4</span>', 0, -80);
-h += put(0.86, '<span class="lvl" style="STYLE">L5</span>', 0, -80);
+h += put(0.40, '<span class="lvl" style="STYLE">L4</span>', 80, 0);
+h += put(0.78, '<span class="lvl" style="STYLE">L5</span>', -80, 0);
 // The prototype: a screen of the simulator for each moment, joined to its place on the road
 const screen = (f, x, y, w, src, label) => {
   const p = at(f);
@@ -83,10 +85,10 @@ const screen = (f, x, y, w, src, label) => {
   h += `<div class="scr" style="left:${x}px;top:${y}px;width:${w}px"><img class="shadow" src="../images/mar-i-muntanya/${src}" alt=""><span>${label}</span></div>`;
 };
 screen(0.20, 760, 780, 250, "l3-active.jpg", "system active");
-screen(0.35, 1050, 760, 250, "l3-handback.jpg", "hand back control");
-screen(0.62, 1400, 800, 250, "l4-ambulance.jpg", "make way");
-screen(0.80, 1760, 780, 300, "l5-screen-route.jpg", "plan the trip, add a stop");
-screen(0.93, 2160, 700, 230, "l5-social.jpg", "a living room");
+screen(0.27, 1050, 760, 250, "l3-handback.jpg", "hand back control");
+screen(0.655, 1400, 800, 250, "l4-ambulance.jpg", "make way");
+screen(0.82, 1760, 780, 300, "l5-screen-route.jpg", "plan the trip, add a stop");
+screen(0.90, 2160, 700, 230, "l5-social.jpg", "a living room");
 document.getElementById("leads").innerHTML = leads;
 document.getElementById("on").outerHTML = h;
 </script>
