@@ -24,7 +24,7 @@
   // only the ones around the content, so they never cover it.
   const SQUARES = [[1333, 52], [1450, 350], [1300, 533]];
   const HEAD = 0.5; // screens of scroll on the header before the first chapter
-  const LEN = 1.4;  // screens of scroll per chapter
+  const LEN = 2.2;  // screens of scroll per chapter
 
   const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const step = (p, a, b) => ease(Math.min(1, Math.max(0, (p - a) / (b - a))));
@@ -126,18 +126,18 @@
         const text = [];
         MOVES.forEach((m, i) => {
           const p = (s - HEAD - i * LEN) / LEN;
-          const on = step(p, 0, 0.14) - step(p, 0.9, 1);         // the piece fades in and out
-          const mv = step(p, 0.1, 0.3) - step(p, 0.86, 0.98);    // the piece travels to its place and back
-          text[i] = step(p, 0.26, 0.36) - step(p, 0.8, 0.88);    // the chapter's content
+          const on = step(p, 0, 0.07) - step(p, 0.95, 1);         // the piece fades in and out
+          const mv = step(p, 0.04, 0.15) - step(p, 0.92, 0.99);    // the piece travels to its place and back
+          text[i] = step(p, 0.13, 0.19) - step(p, 0.89, 0.94);    // the chapter's content
           // The collage only shows before the first chapter; between chapters only the pieces move.
-          if (i === 0) shown = 1 - step(p, 0, 0.14);
+          if (i === 0) shown = 1 - step(p, 0, 0.07);
           const o = objs[i].style;
           o.left = lerp(m.a[0], m.b[0], mv) + "%";
           o.top = lerp(m.a[1], m.b[1], mv) + "%";
           o.width = lerp(m.a[2], m.b[2], mv) + "%";
           if (m.f) o.fontSize = lerp(m.f[0], m.f[1], mv) + "cqw";
           // The first piece takes over from the collage; the others fade in and out at their banner place.
-          o.opacity = i === 0 ? (p >= 0 ? 1 - step(p, 0.9, 1) : 0) : on;
+          o.opacity = i === 0 ? (p >= 0 ? 1 - step(p, 0.95, 1) : 0) : on;
         });
         parts.forEach((el) => {
           const t = text[+el.dataset.ch];
