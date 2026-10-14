@@ -18,7 +18,7 @@
     { a: [0, 0, 100], b: [0, 0, 100] },                // study: some of the banner's diamonds stay where they are
     { a: [-5, 42, 33], b: [62, 4, 30] },               // prototype: the working prototype beside the text
     { a: [16, 2, 30], b: [8, 16, 60], f: [3.6, 8] },   // conclusion: «Cada gota compta!»
-    { a: [30, 8, 18], b: [4, 18, 20] },                // awards: the components, left of the awards
+    { a: [30, 8, 18], b: [87, 0, 7] },                 // awards: the components, small at the top right
   ];
   // Diamonds of the banner shown in the study chapter (centres in banner pixels, 2000 × 1000):
   // only the ones around the content, so they never cover it.

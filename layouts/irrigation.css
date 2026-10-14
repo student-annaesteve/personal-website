@@ -88,8 +88,8 @@
 .irr .irr-close { font-family: var(--irr-serif); font-size: clamp(16px, 1.35cqw, 20px); line-height: 1.5; color: #333; border-top: 1px solid var(--irr-line); padding-top: 22px; max-width: none; }
 
 /* Awards and the full report */
-.irr-aw-motto { left: auto; right: 5%; top: 4%; }
-.irr-aw-motto .irr-hand { display: block; font-size: 2.2cqw; }
+.irr-aw-motto { left: 4%; top: 34%; width: 22%; }
+.irr-aw-motto .irr-hand { display: block; font-size: 3.4cqw; white-space: normal; line-height: 1.1; }
 .irr-aw { left: 28%; top: 14%; width: 66%; }
 .irr-awards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 28px; }
 .irr-award { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
