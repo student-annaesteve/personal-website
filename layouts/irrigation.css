@@ -108,3 +108,9 @@
   .irr-awards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .irr-row img { height: 28vw; }
 }
+
+/* The floating panel is shorter than the window: fit the stage and the banner box to the panel, so nothing is cut */
+@media (min-width: 761px) {
+  .irr-stage { height: calc(100vh - 58px); height: calc(100dvh - 58px); }
+  .irr-box { width: min(100%, calc((100vh - 98px) * 2)); width: min(100%, calc((100dvh - 98px) * 2)); }
+}
