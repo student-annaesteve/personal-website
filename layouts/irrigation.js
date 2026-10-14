@@ -9,6 +9,9 @@
   Texts and images come from projects.js; this file only draws and animates them.
 */
 (function () {
+  // Where the sketch sits in the banner: [left, top, width, height] as fractions of the banner.
+  const SKETCH = [0.79, 0.05, 0.18, 0.45];
+  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const fig = (m, esc, cls) =>
     '<figure class="irr-fig' + (cls ? " " + cls : "") + '"><img src="' + esc(m.src) + '" alt="' + esc(m.alt || "") + '" loading="lazy">' +
     (m.caption ? "<figcaption>" + esc(m.caption) + "</figcaption>" : "") + "</figure>";
@@ -22,12 +25,13 @@
     const tile = (name) => (d.tiles || []).find((t) => t.indexOf(name) >= 0);
     let h = '<div class="irr">';
 
-    h += '<div class="irr-banner-wrap"><img class="irr-banner" src="' + esc(d.banner.src) + '" alt="' + esc(d.banner.alt || "") + '"></div>';
+    h += '<div class="irr-banner-wrap"><img class="irr-banner" src="' + esc(d.banner.src) + '" alt="' + esc(d.banner.alt || "") + '">' +
+      '<span class="irr-hole" aria-hidden="true"></span></div>';
 
     // Cover: title and goal, the pencil sketch beside them
     h += chapter("irr-cover",
       '<div class="irr-rv"><h2 class="irr-title">' + esc(d.headline || d.title) + '</h2><p class="irr-lead">' + esc(d.goal) + "</p></div>" +
-      '<img class="irr-piece irr-from-right irr-sketch" src="' + esc(d.sketch.src) + '" alt="' + esc(d.sketch.alt || "") + '">');
+      '<img class="irr-sketch" src="' + esc(d.sketch.src) + '" alt="' + esc(d.sketch.alt || "") + '">');
 
     // Theory: text across, the diagram left, the four factors right
     h += chapter("irr-theory",
@@ -91,10 +95,39 @@
       items.forEach((el) => io.observe(el));
 
       const pieces = root.querySelectorAll(".irr-piece");
+      // The sketch starts at its place in the banner and travels down to the cover as the page scrolls.
+      const sketch = root.querySelector(".irr-sketch");
+      const banner = root.querySelector(".irr-banner");
+      const hole = root.querySelector(".irr-hole");
+      let fly = null;
+      function measure() {
+        sketch.style.transform = "none";
+        const rr = root.getBoundingClientRect(), b = banner.getBoundingClientRect(), n = sketch.getBoundingClientRect();
+        if (!n.width || !b.width) { fly = null; return; }
+        const x0 = b.left + b.width * SKETCH[0] - rr.left, y0 = b.top + b.height * SKETCH[1] - rr.top, w0 = b.width * SKETCH[2];
+        fly = { dx: x0 - (n.left - rr.left), dy: y0 - (n.top - rr.top), s: w0 / n.width };
+        hole.style.cssText = "left:" + SKETCH[0] * 100 + "%;top:" + SKETCH[1] * 100 + "%;width:" + SKETCH[2] * 100 + "%;height:" + SKETCH[3] * 100 + "%";
+      }
+      function flyTo() {
+        if (!fly) return;
+        const t = ease(Math.min(1, Math.max(0, scroller.scrollTop / (scroller.clientHeight * 0.75))));
+        const k = 1 - t;
+        sketch.style.transform = "translate(" + (fly.dx * k).toFixed(1) + "px," + (fly.dy * k).toFixed(1) + "px) scale(" +
+          (fly.s + (1 - fly.s) * t).toFixed(3) + ") rotate(" + (-10 * Math.sin(Math.PI * t)).toFixed(2) + "deg)";
+        // Cross-fade with the drawing printed in the banner as the piece sets off.
+        const f = Math.min(1, t * 5);
+        hole.style.opacity = f;
+        sketch.style.opacity = t < 0.98 ? f : 1;
+      }
+      if (sketch && banner && hole) {
+        root.querySelectorAll("img").forEach((im) => { if (!im.complete) im.addEventListener("load", () => { measure(); flyTo(); }, { once: true }); });
+        measure();
+      }
       let queued = false;
       function drift() {
         queued = false;
         if (!root.isConnected) return off();
+        flyTo();
         const box = scroller.getBoundingClientRect();
         const mid = box.top + box.height / 2;
         pieces.forEach((el) => {
@@ -104,14 +137,15 @@
         });
       }
       const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(drift); } };
+      const onResize = () => { if (sketch && banner && hole) measure(); onScroll(); };
       function off() {
         io.disconnect();
         scroller.removeEventListener("scroll", onScroll);
-        window.removeEventListener("resize", onScroll);
+        window.removeEventListener("resize", onResize);
         scroller._irrOff = null;
       }
       scroller.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll);
+      window.addEventListener("resize", onResize);
       scroller._irrOff = off;
       drift();
     });

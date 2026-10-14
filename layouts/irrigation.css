@@ -20,7 +20,8 @@
   font-family: var(--body);
   line-height: 1.55;
 }
-.irr-banner-wrap { margin: 0 calc(-1 * clamp(20px, 5vw, 64px)); }
+.irr-banner-wrap { position: relative; margin: 0 calc(-1 * clamp(20px, 5vw, 64px)); }
+.irr-hole { position: absolute; background: #e6e3db; opacity: 0; border-radius: 12px; filter: blur(4px); pointer-events: none; }
 .irr-banner { display: block; width: 100%; height: auto; }
 
 /* Small animations: blocks rise in, pieces slide in from the side and drift a little with the scroll */
@@ -39,7 +40,7 @@
 
 .irr .irr-title { margin: 0 0 18px; font-family: var(--irr-serif); font-style: italic; font-weight: 700; font-size: clamp(30px, 4vw, 48px); line-height: 1; color: #111; }
 .irr .irr-lead { font-family: var(--irr-serif); font-size: 1.12rem; line-height: 1.55; color: #222; }
-.irr-sketch { width: 100%; max-width: 280px; justify-self: center; }
+.irr-sketch { position: relative; z-index: 2; width: 100%; max-width: 280px; justify-self: center; transform-origin: 0 0; will-change: transform; }
 
 .irr-chh { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
 .irr-dia { width: 16px; height: 16px; flex: none; transform: rotate(45deg); background: var(--c, #3e917e); }
