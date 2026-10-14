@@ -22,7 +22,7 @@
   --body: "Figtree", system-ui, -apple-system, sans-serif;
   --label: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  --panel-w: 440px;
+  --panel-w: 400px;
   color-scheme: light;
 }
 
@@ -446,7 +446,7 @@ img.about-photo { background: #fff; }
 .socials { display: flex; flex-wrap: wrap; gap: 16px; padding: 0; margin: 0; list-style: none; }
 
 /* ---------- Case study (projects with levels) ---------- */
-.panel.panel--wide { width: min(740px, 100%); overflow-x: hidden; }
+.panel.panel--wide { width: min(660px, 100%); overflow-x: hidden; }
 .case-title { margin: -4px 0 0 !important; padding-right: 48px; }
 .case-sub { margin-top: -10px !important; font-size: 1.05rem; color: var(--muted) !important; }
 .case-goal { font-size: 1.05rem; line-height: 1.6; max-width: 60ch; }
