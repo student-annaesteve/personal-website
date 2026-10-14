@@ -34,13 +34,19 @@
 
 /* Chapters, one under the other */
 .irr-ch { padding: 56px 0; border-top: 1px solid var(--irr-line); }
-.irr-cover { border-top: 0; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+.irr-cover { border-top: 0; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; align-items: center;
+  /* the banner's beige carries on behind the cover and fades out softly */
+  margin: 0 calc(-1 * clamp(20px, 5vw, 64px)); padding: 48px clamp(20px, 5vw, 64px) 96px;
+  background: linear-gradient(to bottom, #e6e3db 0%, #e6e3db 55%, rgba(230, 227, 219, 0) 100%); }
+.irr-cover + .irr-ch { border-top: 0; }
+/* soft left and right edges for the beige of the banner and the cover */
+.irr-banner-wrap, .irr-cover { -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent); }
 .irr p { margin: 0; color: var(--irr-text); max-width: 68ch; }
 .irr-text { font-size: 1rem; margin-bottom: 24px !important; }
 
 .irr .irr-title { margin: 0 0 18px; font-family: var(--irr-serif); font-style: italic; font-weight: 700; font-size: clamp(30px, 4vw, 48px); line-height: 1; color: #111; }
 .irr .irr-lead { font-family: var(--irr-serif); font-size: 1.12rem; line-height: 1.55; color: #222; }
-.irr-sketch { position: relative; z-index: 2; width: 100%; max-width: 200px; justify-self: center; transform-origin: 0 0; will-change: transform; }
+.irr-sketch { position: relative; z-index: 2; width: 100%; max-width: 160px; justify-self: center; transform-origin: 0 0; will-change: transform; }
 
 .irr-chh { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
 .irr-dia { width: 16px; height: 16px; flex: none; transform: rotate(45deg); background: var(--c, #3e917e); }
@@ -100,7 +106,7 @@
   .panel[data-layout="irrigation"] { left: 8px; right: 8px; }
   .irr-ch { padding: 40px 0; }
   .irr-cover, .irr-th-grid, .irr-study, .irr-pr-top, .irr-concl { grid-template-columns: 1fr; gap: 24px; }
-  .irr-sketch { max-width: 200px; }
+  .irr-sketch { max-width: 150px; }
   .irr-diamonds { display: none; }
   .irr-pr-top > img { justify-self: center; max-width: 300px; }
   .irr-row img { height: 28vw; }
