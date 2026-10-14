@@ -35,7 +35,10 @@
     (m.caption ? "<figcaption>" + esc(m.caption) + "</figcaption>" : "") + "</figure>";
   const heading = (colour, title) =>
     '<header class="irr-chh"><span class="irr-dia" aria-hidden="true" style="--c:' + colour + '"></span><h3>' + title + "</h3></header>";
-  const part = (k, cls, body) => '<div class="irr-part ' + cls + '" data-ch="' + k + '">' + body + "</div>";
+  const part = (k, cls, body) => '<!--ch' + k + '--><div class="irr-part ' + cls + '" data-ch="' + k + '">' + body + "</div><!--/ch-->";
+  // Each chapter's parts sit in one wrapper: invisible to layout on wide screens, a column under the collage on phones.
+  const wrap = (html) => { const by = {}; html.replace(/<!--ch(\d)-->([\s\S]*?)<!--\/ch-->/g, (m, k, b) => { by[k] = (by[k] || "") + b; return ""; });
+    return Object.keys(by).map((k) => '<div class="irr-chapter">' + by[k] + "</div>").join(""); };
 
   window.CASE_LAYOUTS = window.CASE_LAYOUTS || {};
   window.CASE_LAYOUTS.irrigation = function (d, esc) {
@@ -43,7 +46,7 @@
     const tile = (name) => (d.tiles || []).find((t) => t.indexOf(name) >= 0);
     const banner = d.banner;
     let h = '<div class="irr"><div class="irr-stage"><div class="irr-box">';
-
+    
     h += '<img class="irr-banner" src="' + esc(banner.src) + '" alt="' + esc(banner.alt || "") + '">';
 
     // The pieces that travel from the banner, one per chapter.
@@ -63,6 +66,7 @@
       "</div>";
 
     // Cover
+    const partsAt = h.length;
     h += part(0, "irr-cover", '<h2 class="irr-title">' + esc(d.headline || d.title) + '</h2><p class="irr-lead">' + esc(d.goal) + "</p>");
 
     // Theory: text across the top, the diagram (the travelling piece) left, the four factors right
@@ -95,6 +99,7 @@
     }
     h += part(5, "irr-aw", aw);
     h += part(5, "irr-aw-motto", '<span class="irr-hand">' + esc(d.headline) + "</span>");
+    h = h.slice(0, partsAt) + wrap(h.slice(partsAt));
 
     h += '</div><div class="irr-bar"></div></div><div class="irr-spacer"></div></div>';
 
