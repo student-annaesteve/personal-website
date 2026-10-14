@@ -104,7 +104,10 @@
 @media (max-width: 760px) {
   .panel[data-layout="irrigation"] { left: 8px; right: 8px; }
   .irr-aw-motto { display: none; }
-  .irr-part { left: 16px !important; right: 16px; width: auto !important; top: auto !important; bottom: 16px; position: fixed; max-height: 55vh; overflow: auto; background: rgba(255, 255, 255, 0.97); padding: 12px 0; }
+  .irr-stage { height: 64vh; height: 64dvh; align-items: flex-start; }
+  .irr-box { width: 100%; }
+  .irr-part { left: 16px !important; right: 16px; width: auto !important; top: calc(100% + 12px) !important; bottom: auto; max-height: calc(64vh - 50vw - 24px); max-height: calc(64dvh - 50vw - 24px); overflow: auto; }
+  .irr-th-cap, .irr-th-quad, .irr-row { display: none; }
   .irr-awards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .irr-row img { height: 28vw; }
 }
