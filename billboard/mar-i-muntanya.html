@@ -68,7 +68,7 @@ let h = "", leads = "";
 // the city around the ambulance, the restaurant at the lunch stop and the viewpoint at the end.
 // each piece stands on a flat stretch, its base just over the top edge of the road (half-width 48)
 const E = -28;
-h += put(0.075, '<img class="on" style="STYLE;width:105px" src="mar-i-muntanya/car.png" alt="">', 0, E + 14);
+h += put(0.155, '<img class="on" style="STYLE;width:105px" src="mar-i-muntanya/car.png" alt="">', 0, E + 14);
 h += put(0.245, '<img class="on" style="STYLE;width:42px" src="mar-i-muntanya/cone.png" alt="">', 0, E + 10);
 h += put(0.27, '<img class="on" style="STYLE;width:36px" src="mar-i-muntanya/cone.png" alt="">', 0, E + 10);
 h += put(0.47, '<img class="on" style="STYLE;width:115px" src="mar-i-muntanya/building.png" alt="">', 0, E);
@@ -81,7 +81,7 @@ h += put(0.78, '<span class="lvl" style="STYLE">L5</span>', -80, 0);
 // The prototype: a screen of the simulator for each moment, joined to its place on the road
 const screen = (f, x, y, w, src, label) => {
   const p = at(f);
-  leads += `<path d="M${p.x} ${p.y + 50} L${x} ${y - 6}"/><circle cx="${p.x}" cy="${p.y}" r="9" fill="#141816" stroke="#efece4" stroke-width="4" stroke-dasharray="none"/>`;
+  leads += `<path d="M${p.x} ${p.y} L${x} ${y - 6}"/><circle cx="${p.x}" cy="${p.y}" r="9" fill="#141816" stroke="#efece4" stroke-width="4" stroke-dasharray="none"/>`;
   h += `<div class="scr" style="left:${x}px;top:${y}px;width:${w}px"><img class="shadow" src="../images/mar-i-muntanya/${src}" alt=""><span>${label}</span></div>`;
 };
 screen(0.20, 760, 780, 250, "l3-active.jpg", "system active");
