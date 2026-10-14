@@ -1,7 +1,7 @@
 /* "Smart irrigation": its own look, taken from the research report
    (white paper, Tinos headings, small diamonds in teal, green and lime).
    One continuous page: the header collage, then the chapters one under the other (layouts/irrigation.js). */
-.panel[data-layout="irrigation"] { left: 48px; right: 48px; width: auto; background: #fff; border-left: 0; }
+.panel[data-layout="irrigation"] { background: #fff; border-left: 0; }
 .panel[data-layout="irrigation"] .panel-body { padding: 0; gap: 0; }
 .panel[data-layout="irrigation"] .panel-close { background: #fff; border-color: rgba(19, 79, 92, 0.2); color: #134f5c; z-index: 7; }
 .panel[data-layout="irrigation"] .panel-nav { display: none; }
@@ -101,7 +101,6 @@
 
 /* Narrow windows and phones: one column */
 @media (max-width: 760px) {
-  .panel[data-layout="irrigation"] { left: 8px; right: 8px; }
   .irr-ch { padding: 40px 0; }
   .irr-cover, .irr-th-grid, .irr-study, .irr-pr-top, .irr-concl { grid-template-columns: 1fr; gap: 24px; }
   .irr-sketch { max-width: 150px; }

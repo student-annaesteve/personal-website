@@ -842,3 +842,12 @@ body.panel-open #world, body.panel-open #labels { opacity: 0.35; }
 .panel[data-layout="cupra"] .stop-frames { width: 80%; gap: 10px 8px; }
 .panel[data-layout="cupra"] .stop-frames figcaption { font-size: 0.72rem; }
 @media (max-width: 560px) { .panel[data-layout="cupra"] .stop-frames { width: 100%; } }
+
+/* Every project page takes half the screen on a computer, beside the map, and the whole screen on a phone. */
+@media (min-width: 721px) {
+  .panel, .panel.panel--wide { left: auto; width: calc(50vw - 16px); }
+}
+@media (max-width: 720px) {
+  .panel, .panel.panel--wide { top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; border: 0; border-radius: 0; }
+  .panel.closing { transform: translateY(100%); }
+}
