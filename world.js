@@ -791,17 +791,17 @@
       beacons.forEach((g, i) => {
         const u = g.userData;
         const on = Math.min(1, Math.max(0, (buildT - u.start) / 0.4));
-        u.ringMat.opacity = on * (0.6 + 0.4 * Math.sin(t * 2.4 + i));
-        u.ring.rotation.y = t * 0.6;
-        const pulse = 1 + 0.15 * Math.sin(t * 2.4 + i);
+        u.ringMat.opacity = on * (0.75 + 0.25 * Math.sin(t * 1.6 + i));
+        u.ring.rotation.y = t * 0.3;
+        const pulse = 1 + 0.07 * Math.sin(t * 1.6 + i);
         u.ring.scale.set(pulse, 1, pulse);
         stops[i].tagEl.classList.toggle("hidden", on < 0.5 || stops[i].offscreen);
       });
 
-      if (!reduceMotion && built && focus < 0 && !pointers.size && now - lastInput > 5000) want.theta += dt * 0.025;
+      if (!reduceMotion && built && focus < 0 && !pointers.size && now - lastInput > 5000) want.theta += dt * 0.012;
 
       // During the build the camera drifts slowly into place; afterwards it follows input briskly.
-      const k = reduceMotion ? 1 : 1 - Math.exp(-dt * (built ? 2.6 : 0.7));
+      const k = reduceMotion ? 1 : 1 - Math.exp(-dt * (built ? 4.2 : 0.7));
       cur.target.lerp(want.target, k);
       cur.radius += (want.radius - cur.radius) * k;
       cur.theta += (want.theta - cur.theta) * k;
