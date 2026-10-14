@@ -136,7 +136,7 @@ window.PROJECTS = [
   {
     // A case study: when `levels` is present the panel opens wide and shows the product first.
     title: "Mar i Muntanya", // short name for the map and the route list
-    banner: { src: "images/mar-i-muntanya/banner.webp", alt: "Mar i Muntanya collage: the road to the horizon, road markings and the simulator screens from L3 to L5" },
+    banner: { src: "images/mar-i-muntanya/banner.webp", alt: "Mar i Muntanya collage: a winding road from L3 roadworks to the L4 city with an ambulance and the L5 restaurant and viewpoint, with the simulator on a laptop" },
     theme: "cupra", // copper orange accents, as in the presentation (styles.css)
     headline: "Designing trust in a car that drives itself", // the project's goal, shown as the panel title
     subtitle: "Mar i Muntanya · SEAT–UPC Design Thinking challenge for CUPRA · with Aleix Albaiges",
