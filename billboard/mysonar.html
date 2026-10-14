@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>MySónar billboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="board.css">
+<style>
+/* Idea: your Sónar, planned for you. The tiles are the slots of a festival timetable (yellow for day,
+   black for night), the app screens float on top as you swipe, the Barcelona skyline sits at the bottom
+   and a dotted line joins the artists you like across the taste space. */
+.board { --ghost: #141816; }
+.yellow { color: #f2b40c; }
+.phone { z-index: 8; width: 230px; border-radius: 26px; border: 8px solid #141816; background: #141816; }
+.p1 { left: -60px; top: 330px; width: 330px; transform: rotate(-6deg); z-index: 7; }
+.p2 { left: 780px; top: 120px; transform: rotate(-10deg); }
+.p3 { left: 1080px; top: 330px; transform: rotate(7deg); }
+.sky { left: 120px; bottom: -6px; width: 1050px; z-index: 6; filter: invert(1); mix-blend-mode: multiply; }
+.hand { right: 120px; top: 70px; color: #141816; transform: rotate(-3deg); }
+h1 { left: 1180px; right: auto; bottom: 60px; text-align: left; font-size: 250px; }
+</style></head><body>
+<main class="board">
+  <svg class="lines" viewBox="0 0 2400 1200">
+    <path stroke="#fff" stroke-width="2.5" d="M-40 1000 C 260 930, 380 990, 540 900 S 780 760, 920 820 S 1100 930, 1200 1020 S 1320 1180, 1360 1240"/>
+    <path stroke="#f2b40c" stroke-width="2.5" d="M600 -40 C 640 200, 720 380, 800 470 S 1050 500, 1170 590 S 1340 760, 1460 700 S 1640 560, 1840 620 S 2220 650, 2440 590"/>
+  </svg>
+  <svg class="tiles" id="back" viewBox="0 0 2400 1200" style="z-index:2"></svg>
+  <svg class="tiles" id="front" viewBox="0 0 2400 1200" style="z-index:5"></svg>
+  <!-- the taste space: artists as dots, the ones you like joined -->
+  <svg class="tiles" viewBox="0 0 2400 1200" style="z-index:3">
+    <g fill="#141816" opacity=".85" id="dots"></g>
+    <path d="M1560 260 L1700 360 L1660 520 L1830 470 L1960 600" fill="none" stroke="#141816" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/>
+    <g fill="#f2b40c" stroke="#141816" stroke-width="3"><circle cx="1560" cy="260" r="13"/><circle cx="1700" cy="360" r="13"/><circle cx="1660" cy="520" r="13"/><circle cx="1830" cy="470" r="13"/><circle cx="1960" cy="600" r="13"/></g>
+  </svg>
+  <img class="phone p1 shadow" src="../images/mysonar/results.jpg" alt="">
+  <img class="phone p2 shadow" src="../images/mysonar/swipe.jpg" alt="">
+  <img class="phone p3 shadow" src="../images/mysonar/profile.jpg" alt="">
+  <img class="sky" src="../images/mysonar/skyline.png" alt="">
+  <p class="hand">Your Sónar, planned for you</p>
+  <h1>My S<span class="yellow">ó</span>n<span class="ghost">a</span>r</h1>
+  <div class="fold"></div><div class="grain"></div>
+</main>
+<script src="board.js"></script>
+<script>
+// Timetable slots: rounded bars of one, two or three hours on rows like a festival schedule
+const C = ["#f2b40c", "#141816", "#5e5e5e", "#f7e3a1", "#e8833a", "#c9c4b8", "#f2b40c"];
+// Walk each row, laying slots end to end so they never overlap; dense on the left, thinning to the middle
+const rnd0 = seeded(5); let back = "", front = "";
+for (let y = 0; y < 1200; y += 76) {
+  for (let x = -40 + rnd0() * 60; x < 1250;) {
+    const w = [92, 92, 196, 300][Math.floor(rnd0() * 4)], edge = Math.min(1, x / 1400), bulge = Math.abs(y - 560) / 700;
+    if (x < 360 || rnd0() < 1 - edge * edge * 1.15 - bulge * 0.9) {
+      const t = `<rect x="${x}" y="${y}" width="${w}" height="60" rx="30" fill="${C[Math.floor(rnd0() * C.length)]}"/>`;
+      if (rnd0() < .3) front += t; else back += t;
+    }
+    x += w + 12;
+  }
+}
+const extra = [[1480, 160, 196, "#141816"], [2060, 300, 92, "#f2b40c"], [1380, 820, 300, "#f7e3a1"], [1720, 760, 92, "#e8833a"], [2200, 120, 196, "#5e5e5e"]]
+  .map(([x, y, w, c]) => `<rect x="${x}" y="${y}" width="${w}" height="60" rx="30" fill="${c}"/>`).join("");
+document.getElementById("back").innerHTML = back + extra;
+document.getElementById("front").innerHTML = front;
+const rnd = seeded(3); let d = "";
+for (let i = 0; i < 70; i++) d += `<circle cx="${1440 + rnd() * 620}" cy="${160 + rnd() * 520}" r="${2 + rnd() * 4}"/>`;
+document.getElementById("dots").innerHTML = d;
+</script>
+</body></html>

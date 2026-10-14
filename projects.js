@@ -72,6 +72,7 @@ window.PROJECTS = [
   {
     // Python project (UPC). Its own look (layouts/cinebus.js + .css): a cinema ticket and a bus map.
     title: "CineBus", // short name for the map and the route list
+    banner: { src: "images/cinebus/banner.webp", alt: "CineBus collage: Eixample blocks, a film strip, a cinema ticket, a bus route and a bus stop" },
     layout: "cinebus",
     headline: "From the billboard to your seat",
     subtitle: "CineBus · find a film in Barcelona and the fastest way to get there by bus and on foot",
@@ -96,6 +97,7 @@ window.PROJECTS = [
   {
     // Team app project. Its own look (layouts/mysonar.js + .css): black, Sónar yellow and hazard stripes, like the deck.
     title: "MySónar", // short name for the map and the route list
+    banner: { src: "images/mysonar/banner.webp", alt: "MySónar collage: festival timetable slots, the app screens, the Barcelona skyline and the taste space" },
     layout: "mysonar",
     headline: "Your Sónar, planned for you",
     subtitle: "MySónar · a mobile app that builds a personal Sónar Festival schedule from your taste",
@@ -134,6 +136,7 @@ window.PROJECTS = [
   {
     // A case study: when `levels` is present the panel opens wide and shows the product first.
     title: "Mar i Muntanya", // short name for the map and the route list
+    banner: { src: "images/mar-i-muntanya/banner.webp", alt: "Mar i Muntanya collage: the road to the horizon, road markings and the simulator screens from L3 to L5" },
     theme: "cupra", // copper orange accents, as in the presentation (styles.css)
     headline: "Designing trust in a car that drives itself", // the project's goal, shown as the panel title
     subtitle: "Mar i Muntanya · SEAT–UPC Design Thinking challenge for CUPRA · with Aleix Albaiges",

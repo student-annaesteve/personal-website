@@ -103,9 +103,8 @@
     const li = document.createElement("li");
     const b = document.createElement("button");
     b.type = "button";
-    // One box per stop: just the number and the name. A project with a banner (for now only the first)
-    // turns into its banner when hovered.
-    const banner = i === 0 && s.kind !== "about" && s.data.banner;
+    // One box per stop: just the number and the name. A project with a banner turns into it when hovered.
+    const banner = s.kind !== "about" && s.data.banner;
     b.className = "sign" + (s.kind === "about" ? " summit" : "") + (banner ? " has-banner" : "");
     if (banner) b.style.setProperty("--banner", "url('" + esc(banner.src) + "')");
     b.innerHTML =
@@ -131,6 +130,7 @@
 
   const panel = $("panel");
   const panelBody = $("panel-body");
+  const panelBanner = $("panel-banner");
   let current = -1;
   let aboutOpen = false;
 
@@ -183,6 +183,10 @@
         (d.links || []).map((l) => '<li><a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a></li>").join("") +
         "</ul>";
     }
+    // The project's banner heads the panel (Smart irrigation draws its own, with the travelling sketch).
+    const banner = s.kind === "project" && d.banner && d.layout !== "irrigation";
+    panelBanner.hidden = !banner;
+    if (banner) { panelBanner.src = d.banner.src; panelBanner.alt = d.banner.alt || ""; }
     panelBody.innerHTML = html;
     const copy = $("copy-email");
     if (copy) {

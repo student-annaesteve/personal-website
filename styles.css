@@ -685,6 +685,11 @@ img.about-photo { background: #fff; }
   .device--monitor::after { height: 22px; }
 }
 
+/* A project's banner across the top of its panel, fading into the page below */
+.panel-banner { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: cover; flex: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 88%, transparent); mask-image: linear-gradient(to bottom, #000 88%, transparent); }
+.panel-banner[hidden] { display: none; }
+
 /* ---------- No WebGL: the trail sign becomes the whole page ---------- */
 .no-webgl {
   background: radial-gradient(120% 90% at 50% 45%, var(--deep), var(--night) 70%);
