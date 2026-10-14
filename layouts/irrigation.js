@@ -15,8 +15,8 @@
   const fig = (m, esc, cls) =>
     '<figure class="irr-fig' + (cls ? " " + cls : "") + '"><img src="' + esc(m.src) + '" alt="' + esc(m.alt || "") + '" loading="lazy">' +
     (m.caption ? "<figcaption>" + esc(m.caption) + "</figcaption>" : "") + "</figure>";
-  const heading = (colour, title) =>
-    '<header class="irr-chh irr-rv"><span class="irr-dia" aria-hidden="true" style="--c:' + colour + '"></span><h3>' + title + "</h3></header>";
+  const heading = (colour, title) => // colour kept for the call sites; the headings no longer show a diamond
+    '<header class="irr-chh irr-rv"><h3>' + title + "</h3></header>";
   const chapter = (cls, body) => '<section class="irr-ch ' + cls + '">' + body + "</section>";
 
   window.CASE_LAYOUTS = window.CASE_LAYOUTS || {};
@@ -110,7 +110,7 @@
       }
       function flyTo() {
         if (!fly) return;
-        const t = ease(Math.min(1, Math.max(0, scroller.scrollTop / (scroller.clientHeight * 0.75))));
+        const t = ease(Math.min(1, Math.max(0, scroller.scrollTop / (scroller.clientHeight * 0.4))));
         const k = 1 - t;
         sketch.style.transform = "translate(" + (fly.dx * k).toFixed(1) + "px," + (fly.dy * k).toFixed(1) + "px) scale(" +
           (fly.s + (1 - fly.s) * t).toFixed(3) + ") rotate(" + (-10 * Math.sin(Math.PI * t)).toFixed(2) + "deg)";
