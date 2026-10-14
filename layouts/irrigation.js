@@ -126,18 +126,18 @@
         const text = [];
         MOVES.forEach((m, i) => {
           const p = (s - HEAD - i * LEN) / LEN;
-          const on = step(p, 0, 0.07) - step(p, 0.95, 1);         // the piece fades in and out
-          const mv = step(p, 0.04, 0.15) - step(p, 0.92, 0.99);    // the piece travels to its place and back
-          text[i] = step(p, 0.13, 0.19) - step(p, 0.89, 0.94);    // the chapter's content
+          const on = step(p, 0, 0.035) - step(p, 0.975, 1);         // the piece fades in and out
+          const mv = step(p, 0.02, 0.075) - step(p, 0.96, 0.995);    // the piece travels to its place and back
+          text[i] = step(p, 0.065, 0.095) - step(p, 0.945, 0.97);    // the chapter's content
           // The collage only shows before the first chapter; between chapters only the pieces move.
-          if (i === 0) shown = 1 - step(p, 0, 0.07);
+          if (i === 0) shown = 1 - step(p, 0, 0.035);
           const o = objs[i].style;
           o.left = lerp(m.a[0], m.b[0], mv) + "%";
           o.top = lerp(m.a[1], m.b[1], mv) + "%";
           o.width = lerp(m.a[2], m.b[2], mv) + "%";
           if (m.f) o.fontSize = lerp(m.f[0], m.f[1], mv) + "cqw";
           // The first piece takes over from the collage; the others fade in and out at their banner place.
-          o.opacity = i === 0 ? (p >= 0 ? 1 - step(p, 0.95, 1) : 0) : on;
+          o.opacity = i === 0 ? (p >= 0 ? 1 - step(p, 0.975, 1) : 0) : on;
         });
         parts.forEach((el) => {
           const t = text[+el.dataset.ch];
