@@ -1,7 +1,7 @@
 /* "Smart irrigation": its own look, taken from the research report
    (white paper, Tinos headings, small diamonds in teal, green and lime).
    The panel opens full screen: a header collage that plays one chapter per scroll (layouts/irrigation.js). */
-.panel[data-layout="irrigation"] { width: 100%; background: #fff; border-left: 0; }
+.panel[data-layout="irrigation"] { left: 100px; right: 100px; width: auto; background: #fff; border-left: 0; }
 .panel[data-layout="irrigation"] .panel-body { padding: 0; gap: 0; }
 .panel[data-layout="irrigation"] .panel-close { background: #fff; border-color: rgba(19, 79, 92, 0.2); color: #134f5c; z-index: 7; }
 .panel[data-layout="irrigation"] .panel-nav { display: none; }
@@ -87,7 +87,9 @@
 .irr .irr-close { font-family: var(--irr-serif); font-size: clamp(16px, 1.35cqw, 20px); line-height: 1.5; color: #333; border-top: 1px solid var(--irr-line); padding-top: 22px; max-width: none; }
 
 /* Awards and the full report */
-.irr-aw { left: 26%; top: 12%; width: 68%; }
+.irr-aw-motto { left: auto; right: 5%; top: 4%; }
+.irr-aw-motto .irr-hand { display: block; font-size: 2.2cqw; }
+.irr-aw { left: 28%; top: 14%; width: 66%; }
 .irr-awards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 28px; }
 .irr-award { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .irr-award img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
@@ -100,6 +102,8 @@
 
 /* Phones: the collage plays at the top, each chapter's content sits in a sheet at the bottom */
 @media (max-width: 760px) {
+  .panel[data-layout="irrigation"] { left: 8px; right: 8px; }
+  .irr-aw-motto { display: none; }
   .irr-part { left: 16px !important; right: 16px; width: auto !important; top: auto !important; bottom: 16px; position: fixed; max-height: 55vh; overflow: auto; background: rgba(255, 255, 255, 0.97); padding: 12px 0; }
   .irr-awards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .irr-row img { height: 28vw; }

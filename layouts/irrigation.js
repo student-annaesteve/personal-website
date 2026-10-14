@@ -18,13 +18,13 @@
     { a: [0, 0, 100], b: [0, 0, 100] },                // study: some of the banner's diamonds stay where they are
     { a: [-5, 42, 33], b: [62, 4, 30] },               // prototype: the working prototype beside the text
     { a: [16, 2, 30], b: [8, 16, 60], f: [3.6, 8] },   // conclusion: «Cada gota compta!»
-    { a: [30, 8, 18], b: [6, 14, 16] },                // awards: the components
+    { a: [30, 8, 18], b: [4, 18, 20] },                // awards: the components, left of the awards
   ];
   // Diamonds of the banner shown in the study chapter (centres in banner pixels, 2000 × 1000):
   // only the ones around the content, so they never cover it.
   const SQUARES = [[1333, 52], [1450, 350], [1300, 533]];
   const HEAD = 0.5; // screens of scroll on the header before the first chapter
-  const LEN = 1.8;  // screens of scroll per chapter
+  const LEN = 1.4;  // screens of scroll per chapter
 
   const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const step = (p, a, b) => ease(Math.min(1, Math.max(0, (p - a) / (b - a))));
@@ -94,6 +94,7 @@
         esc(d.linkLabel || "Read the full report") + "</a>" + (d.linkNote ? '<span class="irr-note">' + esc(d.linkNote) + "</span>" : "") + "</div>";
     }
     h += part(5, "irr-aw", aw);
+    h += part(5, "irr-aw-motto", '<span class="irr-hand">' + esc(d.headline) + "</span>");
 
     h += '</div><div class="irr-bar"></div></div><div class="irr-spacer"></div></div>';
 
@@ -121,23 +122,23 @@
         const text = [];
         MOVES.forEach((m, i) => {
           const p = (s - HEAD - i * LEN) / LEN;
-          const on = step(p, 0, 0.22) - step(p, 0.86, 1);         // the piece fades in and out
-          const mv = step(p, 0.18, 0.48) - step(p, 0.8, 0.98);    // the piece travels to its place and back
-          text[i] = step(p, 0.42, 0.58) - step(p, 0.74, 0.84);    // the chapter's content
+          const on = step(p, 0, 0.14) - step(p, 0.9, 1);         // the piece fades in and out
+          const mv = step(p, 0.1, 0.3) - step(p, 0.86, 0.98);    // the piece travels to its place and back
+          text[i] = step(p, 0.26, 0.36) - step(p, 0.8, 0.88);    // the chapter's content
           // The collage only shows before the first chapter; between chapters only the pieces move.
-          if (i === 0) shown = 1 - step(p, 0, 0.22);
+          if (i === 0) shown = 1 - step(p, 0, 0.14);
           const o = objs[i].style;
           o.left = lerp(m.a[0], m.b[0], mv) + "%";
           o.top = lerp(m.a[1], m.b[1], mv) + "%";
           o.width = lerp(m.a[2], m.b[2], mv) + "%";
           if (m.f) o.fontSize = lerp(m.f[0], m.f[1], mv) + "cqw";
           // The first piece takes over from the collage; the others fade in and out at their banner place.
-          o.opacity = i === 0 ? (p >= 0 ? 1 - step(p, 0.86, 1) : 0) : on;
+          o.opacity = i === 0 ? (p >= 0 ? 1 - step(p, 0.9, 1) : 0) : on;
         });
         parts.forEach((el) => {
           const t = text[+el.dataset.ch];
           el.style.opacity = t;
-          el.style.transform = "translateY(" + (1 - t) * 24 + "px)";
+          el.style.transform = "translateY(" + (1 - t) * 10 + "px)";
           el.style.pointerEvents = t > 0.5 ? "auto" : "none";
           el.style.visibility = t > 0.001 ? "visible" : "hidden";
         });
