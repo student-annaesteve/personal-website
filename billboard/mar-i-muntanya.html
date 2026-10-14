@@ -66,14 +66,13 @@ const put = (f, html, dx = 0, dy = 0) => { const p = at(f); return html.replace(
 let h = "", leads = "";
 // Road pieces, small and where they belong: the car setting off, cones on the roadworks,
 // the city around the ambulance, the restaurant at the lunch stop and the viewpoint at the end.
-h += put(0.075, '<img class="on" style="STYLE;width:140px" src="mar-i-muntanya/car.png" alt="">', 0, 18);
-h += put(0.33, '<img class="on" style="STYLE;width:58px" src="mar-i-muntanya/cone.png" alt="">', -14, 12);
-h += put(0.365, '<img class="on" style="STYLE;width:50px" src="mar-i-muntanya/cone.png" alt="">', 14, 12);
-h += put(0.555, '<img class="on" style="STYLE;width:150px" src="mar-i-muntanya/building.png" alt="">', -10, -75);
-h += put(0.60, '<img class="on" style="STYLE;width:120px" src="mar-i-muntanya/building.png" alt="">', 150, -10);
-h += put(0.62, '<img class="on" style="STYLE;width:130px" src="mar-i-muntanya/ambulance.png" alt="">', 0, 24);
-h += put(0.80, '<img class="on" style="STYLE;width:130px" src="mar-i-muntanya/restaurant.png" alt="">', -10, -70);
-h += put(0.955, '<img class="on" style="STYLE;width:64px" src="mar-i-muntanya/viewpoint.png" alt="">', -20, -50);
+h += put(0.075, '<img class="on" style="STYLE;width:105px" src="mar-i-muntanya/car.png" alt="">', 0, 18);
+h += put(0.33, '<img class="on" style="STYLE;width:42px" src="mar-i-muntanya/cone.png" alt="">', -14, 12);
+h += put(0.365, '<img class="on" style="STYLE;width:36px" src="mar-i-muntanya/cone.png" alt="">', 14, 12);
+h += put(0.555, '<img class="on" style="STYLE;width:115px" src="mar-i-muntanya/building.png" alt="">', -10, -75);
+h += put(0.62, '<img class="on" style="STYLE;width:95px" src="mar-i-muntanya/ambulance.png" alt="">', 0, 24);
+h += put(0.80, '<img class="on" style="STYLE;width:100px" src="mar-i-muntanya/restaurant.png" alt="">', -10, -70);
+h += put(0.955, '<img class="on" style="STYLE;width:50px" src="mar-i-muntanya/viewpoint.png" alt="">', -20, -50);
 h += put(0.19, '<span class="lvl" style="STYLE">L3</span>', 0, -80);
 h += put(0.50, '<span class="lvl" style="STYLE">L4</span>', 0, -80);
 h += put(0.86, '<span class="lvl" style="STYLE">L5</span>', 0, -80);
