@@ -19,7 +19,7 @@
   --blaze: var(--kombu);
 
   --display: "Young Serif", Georgia, serif;
-  --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --body: "Public Sans", system-ui, -apple-system, sans-serif;
   --label: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   /* Dark-theme equivalents, kept for a future dark mode */
