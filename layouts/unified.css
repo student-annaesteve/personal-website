@@ -52,7 +52,7 @@
    The layouts' own tag rows are hidden so the tags show once, here. */
 .panel[data-layout] .p-intro, .panel .p-intro { display: grid; gap: 10px; margin: 0 0 8px; }
 .panel[data-layout="irrigation"] .p-intro { margin: 22px 0 0; }
-.panel[data-layout] .panel-body .p-intro p.p-origin, .panel .panel-body .p-intro p.p-origin { margin: 0; font-family: "Mulish", var(--body) !important; font-style: italic; font-weight: 300 !important; font-size: 13px !important; line-height: 1.6 !important; color: #111 !important; letter-spacing: .01em; max-width: 52ch; }
+.panel[data-layout] .panel-body .p-intro p.p-origin, .panel .panel-body .p-intro p.p-origin { margin: 0; font-family: "Source Sans 3", var(--body) !important; font-style: italic; font-weight: 300 !important; font-size: 14px !important; line-height: 1.6 !important; color: #111 !important; letter-spacing: .01em; max-width: 52ch; }
 .panel .p-tags { display: flex; flex-wrap: wrap; gap: 4px; }
 .panel .p-tags span { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 8.5px; letter-spacing: .14em; text-transform: uppercase; color: #111 !important;
   border: 1px solid rgba(17, 17, 17, 0.25); border-radius: 999px; padding: 2px 7px; }
