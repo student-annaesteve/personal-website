@@ -143,7 +143,6 @@ window.PROJECTS = [
     banner: { src: "images/mar-i-muntanya/banner.webp", alt: "Mar i Muntanya collage: a winding road from L3 roadworks to the L4 city with an ambulance and the L5 restaurant and viewpoint, with the simulator on a laptop" },
     theme: "cupra", // copper orange accents, as in the presentation (styles.css)
     headline: "Designing trust in a car that drives itself", // the project's goal, shown as the panel title
-    subtitle: "Mar i Muntanya · SEAT–UPC Design Thinking challenge for CUPRA · with Aleix Albaiges",
     year: "",
     tags: ["UX / UI", "Automotive HMI", "Prototype"],
     color: "#111111",
