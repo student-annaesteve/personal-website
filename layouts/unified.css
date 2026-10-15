@@ -65,3 +65,8 @@
 .panel .p-docs a:focus-visible { outline: 1px solid #111; outline-offset: 3px; }
 .panel :is(.panel-link, .irr-report) { display: none !important; }
 .panel .panel-body p.p-docs--inline { margin: 6px 0 0; }
+
+/* Mar i Muntanya's award set like Smart irrigation's: a smaller photo, a short centred caption in regular body type */
+.panel .case-awards figure { width: 32%; min-width: 160px; display: flex; flex-direction: column; gap: 6px; }
+.panel .case-awards img { width: 100% !important; border-radius: 0; }
+.panel .panel-body .case-awards figcaption { margin: 0; font-family: var(--body) !important; font-weight: 400 !important; font-size: 0.85rem !important; line-height: 1.4 !important; text-align: center; color: #111 !important; }
