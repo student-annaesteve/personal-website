@@ -144,6 +144,21 @@
     return html;
   }
 
+  // "Read the full report (PDF) ↗, open the simulator ↗ or view the code on GitHub ↗."
+  function docsSentence(d) {
+    const links = [];
+    if (d.link) links.push([d.link, d.linkLabel || "View the full project"]);
+    (d.extraLinks || []).forEach((l) => links.push([l.url, l.label]));
+    if (!links.length) return "";
+    const parts = links.map(([url, label], k) => {
+      let t = String(label).replace(/\s*[→↗]\s*$/, "").trim();
+      if (k) t = t.charAt(0).toLowerCase() + t.slice(1);
+      return '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(t) + " ↗</a>";
+    });
+    const text = parts.length > 1 ? parts.slice(0, -1).join(", ") + " or " + parts[parts.length - 1] : parts[0];
+    return '<p class="p-docs">' + text + ".</p>";
+  }
+
   function renderPanel(i) {
     const s = i < 0 ? aboutStop : stops[i];
     const d = s.data;
@@ -192,6 +207,9 @@
       ? '<div class="p-intro">' + (d.origin ? '<p class="p-origin">' + esc(d.origin) + "</p>" : "") +
         '<div class="p-tags">' + (d.tags || []).map((t) => "<span>" + esc(t) + "</span>").join("") + "</div></div>"
       : "";
+    // The project's documents close the page as one sentence of underlined links (no title).
+    const docs = s.kind === "project" ? docsSentence(d) : "";
+    if (docs) html = /<\/div>\s*$/.test(html) ? html.replace(/<\/div>\s*$/, docs + "</div>") : html + docs;
     if (intro && d.layout === "irrigation") html = html.replace('<!--intro-->', intro);
     else html = intro + html;
     panelBody.innerHTML = html;
