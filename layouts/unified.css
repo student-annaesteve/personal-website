@@ -70,3 +70,8 @@
 .panel .case-awards figure { width: 32%; min-width: 160px; display: flex; flex-direction: column; gap: 6px; }
 .panel .case-awards img { width: 100% !important; border-radius: 0; }
 .panel .panel-body .case-awards figcaption { margin: 0; font-family: var(--body) !important; font-weight: 400 !important; font-size: 0.85rem !important; line-height: 1.4 !important; text-align: center; color: #111 !important; }
+
+/* CineBus: no ticket box; the title and subtitle open the page like the others */
+.panel[data-layout] .panel-body .cb-ticket { display: block !important; border: 0 !important; border-radius: 0 !important; margin-top: 20px !important; }
+.panel[data-layout] .cb-ticket-main { padding: 0 !important; }
+.panel[data-layout] :is(.cb-stub, .cb-admit) { display: none !important; }
