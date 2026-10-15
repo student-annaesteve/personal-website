@@ -153,7 +153,9 @@
     const parts = links.map(([url, label], k) => {
       let t = String(label).replace(/\s*[→↗]\s*$/, "").trim();
       if (k) t = t.charAt(0).toLowerCase() + t.slice(1);
-      return '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(t) + " ↗</a>";
+      // the verb stays plain; only what it points to is the underlined link
+      const m = t.match(/^(\S+)\s+(.+)$/);
+      return (m ? esc(m[1]) + " " : "") + '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(m ? m[2] : t) + " ↗</a>";
     });
     const text = parts.length > 1 ? parts.slice(0, -1).join(", ") + " or " + parts[parts.length - 1] : parts[0];
     return '<p class="p-docs">' + text + ".</p>";
