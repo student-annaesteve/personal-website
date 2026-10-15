@@ -26,7 +26,7 @@
     let h = '<div class="irr">';
 
     h += '<div class="irr-banner-wrap"><img class="irr-banner" src="' + esc(d.banner.src) + '" alt="' + esc(d.banner.alt || "") + '">' +
-      '<span class="irr-hole" aria-hidden="true"></span></div>';
+      '<span class="irr-hole" aria-hidden="true"></span></div><!--intro-->';
 
     // Cover: the goal, the pencil sketch beside it
     h += chapter("irr-cover",
