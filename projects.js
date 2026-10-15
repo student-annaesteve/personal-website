@@ -20,6 +20,7 @@ window.PROJECTS = [
     // Research project (batxillerat "treball de recerca"). It has its own look, drawn by
     // layouts/irrigation.js and layouts/irrigation.css: the report's white paper, sketch and diamond tiles.
     title: "Smart irrigation", // short name for the map and the route list
+    origin: "Batxillerat research project (treball de recerca) in the Cerdanya, 2021.", // where the project comes from: a soft line above the tags
     layout: "irrigation",
     headline: "Cada gota compta!",
     year: "2021",
@@ -72,6 +73,7 @@ window.PROJECTS = [
   {
     // Python project (UPC). Its own look (layouts/cinebus.js + .css): a cinema ticket and a bus map.
     title: "CineBus", // short name for the map and the route list
+    origin: "Python project at the UPC, made with Cristina Teixidó, 2023.", // where the project comes from: a soft line above the tags
     banner: { src: "images/cinebus/banner.webp", alt: "CineBus collage: Eixample blocks, a film strip, a cinema ticket, a bus route and a bus stop" },
     layout: "cinebus",
     headline: "From the billboard to your seat",
@@ -97,6 +99,7 @@ window.PROJECTS = [
   {
     // Team app project. Its own look (layouts/mysonar.js + .css): black, Sónar yellow and hazard stripes, like the deck.
     title: "MySónar", // short name for the map and the route list
+    origin: "Team project: a mobile app designed for the Sónar Festival in Barcelona.", // where the project comes from: a soft line above the tags
     banner: { src: "images/mysonar/banner.webp", alt: "MySónar collage: festival timetable slots, the app screens, the Barcelona skyline and the taste space" },
     layout: "mysonar",
     headline: "Your Sónar, planned for you",
@@ -136,6 +139,7 @@ window.PROJECTS = [
   {
     // A case study: when `levels` is present the panel opens wide and shows the product first.
     title: "Mar i Muntanya", // short name for the map and the route list
+    origin: "SEAT–UPC Design Thinking challenge for CUPRA, made with Aleix Albaiges. Second prize.", // where the project comes from: a soft line above the tags
     banner: { src: "images/mar-i-muntanya/banner.webp", alt: "Mar i Muntanya collage: a winding road from L3 roadworks to the L4 city with an ambulance and the L5 restaurant and viewpoint, with the simulator on a laptop" },
     theme: "cupra", // copper orange accents, as in the presentation (styles.css)
     headline: "Designing trust in a car that drives itself", // the project's goal, shown as the panel title

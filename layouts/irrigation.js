@@ -26,11 +26,11 @@
     let h = '<div class="irr">';
 
     h += '<div class="irr-banner-wrap"><img class="irr-banner" src="' + esc(d.banner.src) + '" alt="' + esc(d.banner.alt || "") + '">' +
-      '<span class="irr-hole" aria-hidden="true"></span></div>';
+      '<span class="irr-hole" aria-hidden="true"></span></div><!--intro-->';
 
-    // Cover: title and goal, the pencil sketch beside them
+    // Cover: the goal, the pencil sketch beside it
     h += chapter("irr-cover",
-      '<div class="irr-rv"><h2 class="irr-title">' + esc(d.headline || d.title) + '</h2><p class="irr-lead">' + esc(d.goal) + "</p></div>" +
+      '<div class="irr-rv"><p class="irr-lead">' + esc(d.goal) + "</p></div>" +
       '<img class="irr-sketch" src="' + esc(d.sketch.src) + '" alt="' + esc(d.sketch.alt || "") + '">');
 
     // Theory: text across, the diagram left, the four factors right
