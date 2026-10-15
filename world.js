@@ -150,15 +150,17 @@
     if (d.link) links.push([d.link, d.linkLabel || "View the full project"]);
     (d.extraLinks || []).forEach((l) => links.push([l.url, l.label]));
     if (!links.length) return "";
-    const parts = links.map(([url, label], k) => {
-      let t = String(label).replace(/\s*[→↗]\s*$/, "").trim();
-      if (k) t = t.charAt(0).toLowerCase() + t.slice(1);
-      // the verb (and its "the") stay plain; only what it points to is the underlined link
-      const m = t.match(/^(\S+(?:\s+(?:the|a|an))?)\s+(.+)$/i);
-      return (m ? esc(m[1]) + " " : "") + '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(m ? m[2] : t) + " ↗</a>";
-    });
+    const parts = links.map(([url, label], k) => linkPhrase(url, label, k > 0));
     const text = parts.length > 1 ? parts.slice(0, -1).join(", ") + " or " + parts[parts.length - 1] : parts[0];
     return '<p class="p-docs">' + text + ".</p>";
+  }
+
+  // One link in the documents style: the verb (and its "the") stay plain, only what it points to is underlined.
+  function linkPhrase(url, label, lower) {
+    let t = String(label).replace(/\s*[→↗]\s*$/, "").trim();
+    if (lower) t = t.charAt(0).toLowerCase() + t.slice(1);
+    const m = t.match(/^(\S+(?:\s+(?:the|a|an))?)\s+(.+)$/i);
+    return (m ? esc(m[1]) + " " : "") + '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(m ? m[2] : t) + " ↗</a>";
   }
 
   function renderPanel(i) {
@@ -281,7 +283,7 @@
       "</div>" +
       (L.screen ? '<div class="stop-screen"><span class="stop-label stop-label--solution">' + esc(L.screen.title) + "</span><p>" + esc(L.screen.text) + "</p>" +
         '<div class="stop-frames" style="--cols:' + L.screen.frames.length + '">' + L.screen.frames.map((f) => '<figure><img src="' + esc(f.src) + '" alt="' + esc(f.alt || f.caption) + '" loading="lazy"><figcaption>' + esc(f.caption) + "</figcaption></figure>").join("") + "</div>" +
-        (L.screen.link ? '<a class="stop-link" href="' + esc(L.screen.link) + '" target="_blank" rel="noopener">' + esc(L.screen.linkLabel || "Open the screen →") + "</a>" : "") + "</div>" : "") +
+        (L.screen.link ? '<p class="p-docs p-docs--inline">' + linkPhrase(L.screen.link, L.screen.linkLabel || "Open the screen") + ".</p>" : "") + "</div>" : "") +
       (L.frames ? '<div class="stop-frames" style="--cols:' + (L.frames.length % 3 ? Math.min(L.frames.length, 4) : 3) + '">' + L.frames.map((f) => '<figure><img src="' + esc(f.src) + '" alt="' + esc(f.alt || f.caption) + '" loading="lazy"><figcaption>' + esc(f.caption) + "</figcaption></figure>").join("") + "</div>" : "") +
       "</section>").join("") + "</div>";
     if (d.awards && d.awards.length) h += '<section class="case-awards"><h3 class="stop-title">Awards</h3>' +

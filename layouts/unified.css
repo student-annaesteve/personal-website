@@ -64,3 +64,4 @@
 .panel .p-docs a:hover { border-bottom-style: dashed; }
 .panel .p-docs a:focus-visible { outline: 1px solid #111; outline-offset: 3px; }
 .panel :is(.panel-link, .irr-report) { display: none !important; }
+.panel .panel-body p.p-docs--inline { margin: 6px 0 0; }
