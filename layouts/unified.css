@@ -75,3 +75,6 @@
 .panel[data-layout] .panel-body .cb-ticket { display: block !important; border: 0 !important; border-radius: 0 !important; margin-top: 20px !important; }
 .panel[data-layout] .cb-ticket-main { padding: 0 !important; }
 .panel[data-layout] :is(.cb-stub, .cb-admit) { display: none !important; }
+
+/* CineBus: no extra horizontal lines; only the short rule under each section title stays */
+.panel[data-layout] :is(.cb-head, .cb-facts) { border-top: 0 !important; border-bottom: 0 !important; padding-bottom: 0 !important; }
