@@ -78,3 +78,6 @@
 
 /* CineBus: no extra horizontal lines; only the short rule under each section title stays */
 .panel[data-layout] :is(.cb-head, .cb-facts) { border-top: 0 !important; border-bottom: 0 !important; padding-bottom: 0 !important; }
+
+/* No numbers in front of the section titles */
+.panel[data-layout] :is(.cb-num, .ms-num) { display: none !important; }
