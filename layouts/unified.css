@@ -125,3 +125,26 @@
 /* No horizontal lines between sections; space alone separates them */
 .panel[data-layout] :is(.irr-ch, .cb-sec, .ms-sec, .stop, .case-awards, .irr-report) { border-top: 0 !important; border-bottom: 0 !important; }
 .panel[data-layout] hr { display: none !important; }
+
+/* MySónar, simpler: no striped bars, the problems as a plain list, steps as two plain columns,
+   and the results as yellow bars with their text inside */
+.panel[data-layout="mysonar"] .ms-hero::before, .panel[data-layout="mysonar"] .ms-steps::before, .panel[data-layout="mysonar"] .ms-step-n { display: none !important; }
+.panel[data-layout="mysonar"] .ms-hero { padding-top: 12px !important; }
+.panel[data-layout="mysonar"] .ms-cards { display: grid !important; gap: 14px !important; padding: 0 !important; margin: 0 0 18px !important; list-style: none; }
+.panel[data-layout="mysonar"] .ms-card { border: 0 !important; background: none !important; padding: 0 !important; border-radius: 0 !important; display: grid !important; grid-template-columns: 9.5em 1fr; column-gap: 20px; }
+.panel[data-layout="mysonar"] .ms-card strong { grid-row: span 2; font-family: var(--body) !important; font-size: 13px !important; text-transform: none !important; letter-spacing: normal !important; font-weight: 600 !important; }
+.panel[data-layout="mysonar"] .ms-card-foot, .panel[data-layout="mysonar"] .ms-ico { display: none !important; }
+.panel[data-layout="mysonar"] .ms-steps { padding: 0 !important; margin: 24px 0 !important; gap: 0 !important; }
+.panel[data-layout="mysonar"] .ms-steps li { display: block !important; border: 0 !important; background: none !important; padding: 0 !important; margin: 0 0 16px !important; border-radius: 0 !important; }
+.panel[data-layout="mysonar"] .ms-steps li > div { display: grid; grid-template-columns: 9.5em 1fr; column-gap: 20px; }
+.panel[data-layout="mysonar"] .ms-stats { display: grid !important; grid-template-columns: 1fr !important; gap: 8px !important; margin: 0 0 14px !important; }
+.panel[data-layout="mysonar"] .ms-stats > div { display: flex !important; align-items: baseline; gap: 10px; background: #ffc20e !important; border: 0 !important; border-radius: 0 !important; padding: 8px 12px !important; }
+.panel[data-layout="mysonar"] .ms-stats dt { font-family: var(--body) !important; font-size: 13px !important; font-weight: 600 !important; text-transform: none !important; letter-spacing: normal !important; }
+.panel[data-layout="mysonar"] .ms-stats dd { margin: 0 !important; }
+.panel[data-layout="mysonar"] .ms-models { background: none !important; padding: 0 !important; border-radius: 0 !important; gap: 8px !important; }
+.panel[data-layout="mysonar"] .ms-bar { display: block !important; width: var(--v); background: #ffc20e; padding: 8px 12px; }
+@media (max-width: 560px) {
+  .panel[data-layout="mysonar"] :is(.ms-card, .ms-steps li > div) { grid-template-columns: 1fr; }
+}
+.panel[data-layout="mysonar"] .panel-body .ms-cards .ms-card { border: 0 !important; background: transparent !important; }
+.panel[data-layout="mysonar"] .panel-body .ms-cards .ms-card strong { font-family: var(--body) !important; font-size: 13px !important; text-transform: none !important; letter-spacing: normal !important; font-weight: 600 !important; line-height: 1.7 !important; }

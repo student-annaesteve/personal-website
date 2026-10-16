@@ -34,7 +34,6 @@
       '<div class="ms">' +
       '<section class="ms-hero">' +
       '<div class="ms-tags">' + (d.year ? "<span>" + esc(d.year) + "</span>" : "") + (d.tags || []).map((t) => "<span>" + esc(t) + "</span>").join("") + "</div>" +
-      '<img class="ms-skyline" src="images/mysonar/skyline.png" alt="Line drawing of the Barcelona skyline with music pins">' +
       '<h2 class="ms-title">' + esc(d.headline || d.title) + "</h2>" +
       (d.subtitle ? '<p class="ms-sub">' + esc(d.subtitle) + "</p>" : "") +
       '<span class="ms-btn" aria-hidden="true">Start now ›</span>' +
@@ -55,7 +54,7 @@
     h += '<section class="ms-sec ms-sec--results">' + head("03", "The results") +
       '<dl class="ms-stats">' + (r.stats || []).map(([v, k]) => "<div><dt>" + esc(v) + "</dt><dd>" + esc(k) + "</dd></div>").join("") + "</dl>" +
       (r.models ? '<div class="ms-models"><p class="ms-models-t">People who liked their schedule, by embedding model</p>' +
-        r.models.map(([n, v]) => '<div class="ms-bar"><span>' + esc(n) + '</span><b style="--v:' + v + '%"><i>' + v + "%</i></b></div>").join("") + "</div>" : "") +
+        r.models.map(([n, v]) => '<div class="ms-bar" style="--v:' + v + '%"><span>' + esc(n) + " · " + v + "%</span></div>").join("") + "</div>" : "") +
       "</section>";
 
     if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">' + esc(d.linkLabel || "Open the project →") + "</a>";
