@@ -268,7 +268,7 @@
       gallery(hero, "mock-hero");
     // The levels hang off a small road that runs down the panel: structure, not content.
     h += '<div class="road">' + d.levels.map((L) =>
-      '<section class="stop">' +
+      '<section class="stop" data-code="' + esc(L.code || "") + '">' +
       '<header class="stop-head"><h3 class="stop-title">' + esc(L.title || "Level " + String(L.code).replace(/^L/i, "")) + "</h3></header>" +
       gallery(L.gallery, "stop-gallery") +
       (L.stats ? '<dl class="stop-stats">' + L.stats.map(([v, k]) => "<div><dt>" + esc(v) + "</dt><dd>" + esc(k) + "</dd></div>").join("") + "</dl>" : "") +
@@ -281,7 +281,9 @@
       '<div><span class="stop-label stop-label--challenge">' + esc((L.labels || [])[0] || "Challenge") + "</span><p>" + esc(L.challenge) + "</p></div>" +
       '<div><span class="stop-label stop-label--solution">' + esc((L.labels || [])[1] || "Our solution") + '</span><p class="stop-solution">' + esc(L.solution) + "</p></div>" +
       "</div>" +
-      (L.screen ? '<div class="stop-screen"><span class="stop-label stop-label--solution">' + esc(L.screen.title) + "</span><p>" + esc(L.screen.text) + "</p>" +
+      (L.screen ? '<div class="stop-screen"><div class="stop-screen-text"><span class="stop-label stop-label--solution">' + esc(L.screen.title) + "</span><p>" + esc(L.screen.text) + "</p></div>" +
+        // a vertical prototype of the central screen: its three views stacked in one portrait display
+        '<figure class="screen-proto" aria-label="Vertical prototype of the central screen">' + L.screen.frames.map((f) => '<img src="' + esc(f.src) + '" alt="' + esc(f.alt || f.caption) + '" loading="lazy">').join("") + "</figure>" +
         '<div class="stop-frames" style="--cols:' + L.screen.frames.length + '">' + L.screen.frames.map((f) => '<figure><img src="' + esc(f.src) + '" alt="' + esc(f.alt || f.caption) + '" loading="lazy"><figcaption>' + esc(f.caption) + "</figcaption></figure>").join("") + "</div>" +
         (L.screen.link ? '<p class="p-docs p-docs--inline">' + linkPhrase(L.screen.link, L.screen.linkLabel || "Open the screen") + ".</p>" : "") + "</div>" : "") +
       (L.frames ? '<div class="stop-frames" style="--cols:' + (L.frames.length % 3 ? Math.min(L.frames.length, 4) : 3) + '">' + L.frames.map((f) => '<figure><img src="' + esc(f.src) + '" alt="' + esc(f.alt || f.caption) + '" loading="lazy"><figcaption>' + esc(f.caption) + "</figcaption></figure>").join("") + "</div>" : "") +

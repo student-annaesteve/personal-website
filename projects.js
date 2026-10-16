@@ -22,6 +22,7 @@ window.PROJECTS = [
     title: "Smart irrigation", // short name for the map and the route list
     origin: "Batxillerat research project (treball de recerca) in the Cerdanya, 2021.", // where the project comes from: a soft line above the tags
     layout: "irrigation",
+    introTitle: "Water only when the plant needs it", // title line above the introduction
     year: "2021",
     tags: ["Research", "IoT", "Arduino prototype"],
     color: "#3e917e",
@@ -195,14 +196,6 @@ window.PROJECTS = [
           link: "https://pantallal5.vercel.app/",
           linkLabel: "Try the L5 screen →",
         },
-        frames: [
-          { src: "images/mar-i-muntanya/l5-standard.jpg", caption: "Standard" },
-          { src: "images/mar-i-muntanya/l5-social.jpg", caption: "Social" },
-          { src: "images/mar-i-muntanya/l5-cinema.jpg", caption: "Cinema" },
-          { src: "images/mar-i-muntanya/l5-work.jpg", caption: "Work" },
-          { src: "images/mar-i-muntanya/l5-explore.jpg", caption: "Explore" },
-          { src: "images/mar-i-muntanya/l5-night.jpg", caption: "Night" },
-        ],
       },
     ],
     images: [],

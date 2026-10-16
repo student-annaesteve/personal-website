@@ -67,8 +67,9 @@
       "</ol></section>";
 
     h += '<section class="cb-sec">' + head("03", "The result") +
-      '<dl class="cb-facts">' + (d.facts || []).map(([v, k]) => "<div><dt>" + esc(v) + "</dt><dd>" + esc(k) + "</dd></div>").join("") + "</dl>" +
-      '<p class="cb-text">' + esc(d.result) + "</p></section>";
+      '<p class="cb-text">' + esc(d.result) + "</p>" +
+      (d.demo ? '<ol class="cb-demo">' + d.demo.map(([t, x]) => "<li><strong>" + esc(t) + "</strong><span>" + esc(x) + "</span></li>").join("") + "</ol>" : "") +
+      '<dl class="cb-facts">' + (d.facts || []).map(([v, k]) => "<div><dt>" + esc(v) + "</dt><dd>" + esc(k) + "</dd></div>").join("") + "</dl></section>";
 
     if (d.link) h += '<a class="panel-link cb-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">' + esc(d.linkLabel || "View the code →") + "</a>";
     return h + "</div>";

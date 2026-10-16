@@ -164,3 +164,65 @@
 .panel[data-layout="mysonar"] .ms-hero > * { max-width: none !important; }
 .panel[data-layout="irrigation"] :is(.irr-cover, .irr-study, .irr-pr-top, .irr-concl) { grid-template-columns: 1fr !important; }
 .panel[data-layout="irrigation"] :is(.irr-cover, .irr-study, .irr-pr-top, .irr-concl) > * { grid-column: 1 !important; grid-row: auto !important; }
+/* MySónar results in rounded yellow boxes */
+.panel[data-layout="mysonar"] .ms-stats > div, .panel[data-layout="mysonar"] .ms-bar { border-radius: 12px !important; }
+/* Section titles: bigger, grey and bolder */
+.panel[data-layout] .panel-body :is(.irr-title, .cb-title, .ms-title, .case-title, .irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3),
+.panel .panel-body :is(.case-title, .case-awards h3) { font-size: 19px !important; font-weight: 700 !important; color: #6b6b6b !important; }
+/* Section titles in a Swiss grotesk: big, bold, tight, sentence case, grey (after the Brut reference) */
+.panel[data-layout] .panel-body :is(.irr-title, .cb-title, .ms-title, .case-title, .irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3),
+.panel .panel-body :is(.case-title, .case-awards h3) {
+  font-family: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif !important; font-weight: 700 !important;
+  font-size: clamp(28px, 3.2vw, 40px) !important; line-height: 1 !important; letter-spacing: -0.035em !important;
+  text-transform: none !important; color: #6b6b6b !important; }
+.panel[data-layout] :is(.irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3)::after { display: none !important; }
+/* Section titles black and smaller; the opening line above the introduction big and light grey, like the reference */
+.panel[data-layout] .panel-body :is(.irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3),
+.panel .panel-body .case-awards h3 { font-size: clamp(22px, 2.2vw, 26px) !important; color: #111 !important; }
+.panel[data-layout] .panel-body :is(.cb-title, .ms-title, .case-title, .irr-cover .irr-chh h3),
+.panel .panel-body .case-title { font-size: clamp(34px, 4vw, 52px) !important; color: #d6d6d6 !important; }
+/* CineBus result: the demo's options as a clean list, then the figures as rounded tiles */
+.panel[data-layout="cinebus"] .cb-demo { list-style: none; margin: 18px 0 22px; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.panel[data-layout="cinebus"] .cb-demo li { display: grid; gap: 4px; padding: 14px 16px; border-radius: 12px; background: #fff; border: 1px solid #1111111f; }
+.panel[data-layout="cinebus"] .cb-demo strong { font-weight: 600; font-size: 13px; color: #111; }
+.panel[data-layout="cinebus"] .cb-demo span { font-size: 13px; line-height: 1.6; color: #111; }
+.panel[data-layout="cinebus"] .cb-facts { background: none !important; padding: 0 !important; gap: 8px !important; margin: 0 !important; }
+.panel[data-layout="cinebus"] .cb-facts > div { background: #ecebe8 !important; border-radius: 12px !important; padding: 16px !important; border: 0 !important; }
+.panel[data-layout="cinebus"] .cb-facts > div + div { border-left: 0 !important; }
+@media (max-width: 520px) { .panel[data-layout="cinebus"] .cb-demo { grid-template-columns: 1fr; } }
+.panel[data-layout="cinebus"] .cb-demo li { align-content: start; }
+.panel[data-layout="cinebus"] .panel-body .cb-facts dt { font-family: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif !important; font-weight: 700 !important; font-size: 26px !important; letter-spacing: -0.03em !important; text-transform: none !important; line-height: 1.1 !important; color: #111 !important; }
+.panel .stop-label::before, .panel[data-layout] .stop-label::before { display: none !important; }
+/* CineBus result, simplest: options as plain label/text rows, figures as plain numbers */
+.panel[data-layout="cinebus"] .cb-demo { grid-template-columns: 1fr !important; gap: 10px !important; }
+.panel[data-layout="cinebus"] .cb-demo li { grid-template-columns: 9.5em 1fr; gap: 16px; padding: 0 !important; border: 0 !important; background: none !important; border-radius: 0 !important; }
+.panel[data-layout="cinebus"] .cb-facts > div { background: none !important; padding: 0 !important; border-radius: 0 !important; }
+/* A full stop in the project's colour closes each opening line */
+.panel .panel-body :is(.irr-cover .irr-chh h3, .cb-title, .ms-title, .case-title)::after {
+  content: "." !important; display: inline !important; width: auto !important; margin: 0 !important; border: 0 !important; color: var(--p-dot, #111); }
+.panel[data-layout="irrigation"] { --p-dot: #3e917e; }
+.panel[data-layout="cinebus"] { --p-dot: #c8102e; }
+.panel[data-layout="mysonar"] { --p-dot: #ffc20e; }
+.panel[data-layout="cupra"] { --p-dot: #c8783a; }
+/* Mar i Muntanya: the central screen text beside a vertical prototype of the screen */
+.panel .stop-screen { display: grid !important; grid-template-columns: minmax(0, 1fr) 190px; column-gap: 24px; row-gap: 14px; align-items: start; }
+.panel .stop-screen > :not(.stop-screen-text):not(.screen-proto) { grid-column: 1 / -1; }
+.panel .stop-screen-text { display: grid; gap: 8px; }
+.panel .stop-screen-text p { margin: 0; }
+.panel .screen-proto { grid-column: 2; grid-row: 1 / span 3; margin: 0; width: 190px; box-sizing: border-box; display: grid; gap: 3px; align-content: start; border-radius: 22px; background: #111; padding: 22px 7px; box-shadow: 0 14px 30px #1111112a; }
+.panel .screen-proto img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 4px; }
+@media (max-width: 520px) { .panel .stop-screen { grid-template-columns: 1fr; } .panel .screen-proto { grid-column: 1; justify-self: center; } }
+
+/* Mar i Muntanya road: an asphalt lane with a dashed centre line; each level a copper milestone with its code */
+.panel[data-layout="cupra"] .road { padding-left: 52px !important; }
+.panel[data-layout="cupra"] .road::before { left: 13px !important; width: 12px !important; border-radius: 6px !important;
+  background: repeating-linear-gradient(#fff 0 7px, transparent 7px 15px) center / 2px 100% no-repeat, linear-gradient(#cfcfcf, #6e6e6e 12%, #6e6e6e 88%, #cfcfcf) !important; }
+.panel[data-layout="cupra"] .stop::before { content: attr(data-code) !important; left: -52px !important; top: -2px !important; width: 38px !important; height: 38px !important;
+  display: grid !important; place-items: center; border-radius: 50% !important; background: #c8783a !important; border: 4px solid #f5f5f4 !important; box-sizing: border-box;
+  color: #fff; font: 700 12px/1 "Inter Tight", "Helvetica Neue", Arial, sans-serif; letter-spacing: -0.02em; box-shadow: 0 0 0 1px #c8783a55; }
+@media (max-width: 520px) { .panel[data-layout="cupra"] .road { padding-left: 44px !important; } .panel[data-layout="cupra"] .road::before { left: 11px !important; } .panel[data-layout="cupra"] .stop::before { left: -44px !important; width: 34px !important; height: 34px !important; } }
+
+/* The name in the same grotesk as the section titles */
+.brand h1#name { font-family: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif !important; font-weight: 700 !important; letter-spacing: -0.04em !important; }
+.panel .stop-screen > .stop-frames { display: none !important; }
+.panel .stop-screen > .p-docs { grid-column: 1 !important; grid-row: 2; }
