@@ -555,7 +555,7 @@
       polygonOffset: true,
       polygonOffsetFactor: 1,
       polygonOffsetUnits: 2,
-      transparent: true, // painted a soft light grey (like the big grey type of the titles), fading out at the rim
+      transparent: true, // painted a soft, grained light grey (like the big grey type of the titles), fading out at the rim
       vertexShader: RISE_GLSL + `
         attribute float aEdge;
         varying float vA;
@@ -571,54 +571,16 @@
       fragmentShader: `
         varying float vA;
         varying float vH;
-        void main() { gl_FragColor = vec4(mix(vec3(0.905), vec3(0.86), smoothstep(0.1, 0.9, vH)), 0.95 * vA); }`,
+        float grain(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
+        void main() {
+          // soft grey with a fine film grain, a touch deeper towards the summits
+          vec3 c = mix(vec3(0.93), vec3(0.895), smoothstep(0.1, 0.9, vH));
+          c += (grain(floor(gl_FragCoord.xy)) - 0.5) * 0.07;
+          gl_FragColor = vec4(c, 0.75 * vA);
+        }`,
     }));
     surface.renderOrder = 1;
     scene.add(surface);
-
-    // Round dots on the mesh's nodes, so the survey reads as points joined by lines.
-    const dp = [], dh = [], ds = [], dr = [], de = [];
-    verts.forEach((v) => { dp.push(v.x, 0, v.z); dh.push(v.h); ds.push(sweepAt(v.x, v.z)); dr.push(Math.hypot(v.x, v.z) / (HALF * 1.42)); de.push(edgeFade(v.x, v.z)); });
-    const dotGeo = new T.BufferGeometry();
-    dotGeo.setAttribute("position", new T.Float32BufferAttribute(dp, 3));
-    dotGeo.setAttribute("aH", new T.Float32BufferAttribute(dh, 1));
-    dotGeo.setAttribute("aSweep", new T.Float32BufferAttribute(ds, 1));
-    dotGeo.setAttribute("aRad", new T.Float32BufferAttribute(dr, 1));
-    dotGeo.setAttribute("aEdge", new T.Float32BufferAttribute(de, 1));
-    const dots = new T.Points(dotGeo, new T.ShaderMaterial({
-      uniforms: Object.assign({ uPx: { value: Math.min(window.devicePixelRatio || 1, 2) } }, uniforms),
-      transparent: true,
-      depthWrite: false,
-      vertexShader: RISE_GLSL + `
-        uniform float uPx;
-        attribute float aRad;
-        attribute float aEdge;
-        varying float vA;
-        varying float vH;
-        void main() {
-          float grid = clamp((uT - aRad * ${GRID_END.toFixed(2)}) / 0.3, 0.0, 1.0);
-          vec3 p = position;
-          float rise = riseAmt(riseK());
-          p.y = aH * rise;
-          vH = aH / uMaxH;
-          vA = grid * aEdge * (0.35 + 0.55 * rise);
-          vec4 mv = modelViewMatrix * vec4(p, 1.0);
-          gl_PointSize = clamp(420.0 / -mv.z, 2.4, 5.0) * uPx;
-          gl_Position = projectionMatrix * mv;
-        }`,
-      fragmentShader: `
-        varying float vA;
-        varying float vH;
-        void main() {
-          vec2 c = gl_PointCoord - 0.5;
-          float d = length(c);
-          if (d > 0.5) discard;
-          vec3 col = mix(vec3(0.55), vec3(0.15), smoothstep(0.1, 0.9, vH));
-          gl_FragColor = vec4(col, vA * smoothstep(0.5, 0.35, d));
-        }`,
-    }));
-    dots.renderOrder = 3;
-    scene.add(dots);
 
     // ---- Contour lines (marching squares on the height map) ---------------
     const LEVELS = 16;
