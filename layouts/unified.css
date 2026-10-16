@@ -169,3 +169,10 @@
 /* Section titles: bigger, grey and bolder */
 .panel[data-layout] .panel-body :is(.irr-title, .cb-title, .ms-title, .case-title, .irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3),
 .panel .panel-body :is(.case-title, .case-awards h3) { font-size: 19px !important; font-weight: 700 !important; color: #6b6b6b !important; }
+/* Section titles in a Swiss grotesk: big, bold, tight, sentence case, grey (after the Brut reference) */
+.panel[data-layout] .panel-body :is(.irr-title, .cb-title, .ms-title, .case-title, .irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3),
+.panel .panel-body :is(.case-title, .case-awards h3) {
+  font-family: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif !important; font-weight: 700 !important;
+  font-size: clamp(28px, 3.2vw, 40px) !important; line-height: 1 !important; letter-spacing: -0.035em !important;
+  text-transform: none !important; color: #6b6b6b !important; }
+.panel[data-layout] :is(.irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3)::after { display: none !important; }
