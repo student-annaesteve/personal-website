@@ -200,7 +200,7 @@
         "<h2>About me</h2>" +
         (d.bio || []).map((p) => "<p>" + esc(p) + "</p>").join("") +
         '<div class="contact-row"><span class="email">' + esc(d.email) + "</span>" +
-        '<button type="button" class="copy-btn" id="copy-email">Copy email</button></div>' +
+        '<button type="button" class="copy-btn" id="copy-email" aria-label="Copy email" title="Copy email"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="2"/><path d="M10.5 3.2 V3 a1.5 1.5 0 0 0-1.5-1.5 H4 A1.5 1.5 0 0 0 2.5 3 v5 A1.5 1.5 0 0 0 4 9.5 h.3"/></svg></button></div>' +
         '<ul class="socials">' +
         (d.links || []).map((l) => '<li><a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a></li>").join("") +
         "</ul>";
@@ -224,7 +224,7 @@
     if (copy) {
       copy.addEventListener("click", () => {
         try {
-          navigator.clipboard.writeText(d.email).then(() => (copy.textContent = "Copied"), selectEmail);
+          navigator.clipboard.writeText(d.email).then(() => (copy.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5 l3 3 6-7"/></svg>', copy.title = "Copied"), selectEmail);
         } catch (e) {
           selectEmail();
         }

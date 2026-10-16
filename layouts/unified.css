@@ -302,3 +302,8 @@
 /* The photo button: bigger, no border */
 .about-btn { width: 84px !important; height: 84px !important; border: 0 !important; }
 @media (max-width: 720px) { .about-btn { width: 64px !important; height: 64px !important; } }
+/* Copy email: a small soft icon instead of the text button */
+.copy-btn { display: inline-grid !important; place-items: center; width: 28px !important; height: 28px !important; padding: 0 !important;
+  border: 0 !important; border-radius: 50% !important; background: none !important; color: #11111180 !important; cursor: pointer; transition: color .2s ease, background .2s ease; }
+.copy-btn:hover, .copy-btn:focus-visible { color: #111 !important; background: #1111110d !important; }
+.copy-btn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
