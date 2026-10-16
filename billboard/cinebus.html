@@ -9,14 +9,14 @@
 h1 { font-size: 300px; top: 60px; bottom: auto; }
 .red { color: #c8102e; }
 .ticket { left: 1880px; top: 760px; z-index: 8; transform: rotate(7deg); }
-.bus { left: -230px; top: 560px; width: 800px; z-index: 9; }
+.bus { left: -200px; top: 400px; width: 660px; z-index: 9; }
 .hand { left: 760px; top: 1100px; color: #7d0a1d; transform: rotate(-3deg); }
 </style></head><body>
 <main class="board">
   <svg class="lines" viewBox="0 0 2400 1200">
     <path stroke="#fff" stroke-width="2.5" d="M-40 980 C 240 900, 420 990, 600 900 S 860 760, 1000 820 S 1200 960, 1320 1240"/>
     <!-- the bus route: stops along the way, ending at the cinema pin -->
-    <path stroke="#c8102e" stroke-width="2.5" stroke-dasharray="1 14" stroke-width="6" d="M560 990 C 900 1080, 1300 1000, 1500 900 S 1800 860, 1900 900"/>
+    <path stroke="#c8102e" stroke-width="2.5" stroke-dasharray="1 14" stroke-width="6" d="M460 760 C 800 900, 1200 1000, 1500 900 S 1800 860, 1900 900"/>
   </svg>
   <svg class="tiles" id="back" viewBox="0 0 2400 1200" style="z-index:2"></svg>
   <svg class="tiles" id="front" viewBox="0 0 2400 1200" style="z-index:5"></svg>
