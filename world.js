@@ -658,7 +658,7 @@
       const num = s.kind === "about" ? "▲" : String(i + 1);
       const name = s.kind === "about" ? "About me" : s.data.title;
       const yr = s.kind === "about" ? "" : (s.data.year || "");
-      const line1 = (s.kind === "about" ? "SUMMIT" : num) + (yr ? " — " + yr : ""); // the project's year instead of the altitude
+      const line1 = s.kind === "about" ? "SUMMIT" : yr; // just the project's year
       const tag = document.createElement("div");
       tag.className = "peak-tag hidden";
       tag.innerHTML =
