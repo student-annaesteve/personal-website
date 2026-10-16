@@ -176,3 +176,8 @@
   font-size: clamp(28px, 3.2vw, 40px) !important; line-height: 1 !important; letter-spacing: -0.035em !important;
   text-transform: none !important; color: #6b6b6b !important; }
 .panel[data-layout] :is(.irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3)::after { display: none !important; }
+/* Section titles black and smaller; the opening line above the introduction big and light grey, like the reference */
+.panel[data-layout] .panel-body :is(.irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3),
+.panel .panel-body .case-awards h3 { font-size: clamp(22px, 2.2vw, 26px) !important; color: #111 !important; }
+.panel[data-layout] .panel-body :is(.cb-title, .ms-title, .case-title, .irr-cover .irr-chh h3),
+.panel .panel-body .case-title { font-size: clamp(34px, 4vw, 52px) !important; color: #d6d6d6 !important; }
