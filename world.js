@@ -537,7 +537,8 @@
 
     // Dark surface under the lines so the far side of the mountain doesn't show through.
     const sp = [], sh = [], ss = [], idx = [];
-    verts.forEach((v) => { sp.push(v.x, 0, v.z); sh.push(v.h); ss.push(sweepAt(v.x, v.z)); });
+    const se = [];
+    verts.forEach((v) => { sp.push(v.x, 0, v.z); sh.push(v.h); ss.push(sweepAt(v.x, v.z)); se.push(edgeFade(v.x, v.z)); });
     for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
       const a = vid(i, j), b = vid(i + 1, j), c = vid(i + 1, j + 1), d = vid(i, j + 1);
       if (hash(i, j + 999) > 0.5) idx.push(a, d, c, a, c, b);
@@ -547,23 +548,77 @@
     surfGeo.setAttribute("position", new T.Float32BufferAttribute(sp, 3));
     surfGeo.setAttribute("aH", new T.Float32BufferAttribute(sh, 1));
     surfGeo.setAttribute("aSweep", new T.Float32BufferAttribute(ss, 1));
+    surfGeo.setAttribute("aEdge", new T.Float32BufferAttribute(se, 1));
     surfGeo.setIndex(idx);
     const surface = new T.Mesh(surfGeo, new T.ShaderMaterial({
       uniforms,
       polygonOffset: true,
       polygonOffsetFactor: 1,
       polygonOffsetUnits: 2,
-      colorWrite: false, // only fills the depth buffer: the lines behind it disappear
+      transparent: true, // painted a soft light grey (like the big grey type of the titles), fading out at the rim
       vertexShader: RISE_GLSL + `
+        attribute float aEdge;
+        varying float vA;
+        varying float vH;
         void main() {
           vec3 p = position;
-          p.y = aH * riseAmt(riseK()) - 0.25;
+          float rise = riseAmt(riseK());
+          p.y = aH * rise - 0.25;
+          vA = aEdge * rise;
+          vH = aH / uMaxH;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
         }`,
-      fragmentShader: `void main() { gl_FragColor = vec4(0.0); }`,
+      fragmentShader: `
+        varying float vA;
+        varying float vH;
+        void main() { gl_FragColor = vec4(mix(vec3(0.905), vec3(0.86), smoothstep(0.1, 0.9, vH)), 0.95 * vA); }`,
     }));
     surface.renderOrder = 1;
     scene.add(surface);
+
+    // Round dots on the mesh's nodes, so the survey reads as points joined by lines.
+    const dp = [], dh = [], ds = [], dr = [], de = [];
+    verts.forEach((v) => { dp.push(v.x, 0, v.z); dh.push(v.h); ds.push(sweepAt(v.x, v.z)); dr.push(Math.hypot(v.x, v.z) / (HALF * 1.42)); de.push(edgeFade(v.x, v.z)); });
+    const dotGeo = new T.BufferGeometry();
+    dotGeo.setAttribute("position", new T.Float32BufferAttribute(dp, 3));
+    dotGeo.setAttribute("aH", new T.Float32BufferAttribute(dh, 1));
+    dotGeo.setAttribute("aSweep", new T.Float32BufferAttribute(ds, 1));
+    dotGeo.setAttribute("aRad", new T.Float32BufferAttribute(dr, 1));
+    dotGeo.setAttribute("aEdge", new T.Float32BufferAttribute(de, 1));
+    const dots = new T.Points(dotGeo, new T.ShaderMaterial({
+      uniforms: Object.assign({ uPx: { value: Math.min(window.devicePixelRatio || 1, 2) } }, uniforms),
+      transparent: true,
+      depthWrite: false,
+      vertexShader: RISE_GLSL + `
+        uniform float uPx;
+        attribute float aRad;
+        attribute float aEdge;
+        varying float vA;
+        varying float vH;
+        void main() {
+          float grid = clamp((uT - aRad * ${GRID_END.toFixed(2)}) / 0.3, 0.0, 1.0);
+          vec3 p = position;
+          float rise = riseAmt(riseK());
+          p.y = aH * rise;
+          vH = aH / uMaxH;
+          vA = grid * aEdge * (0.35 + 0.55 * rise);
+          vec4 mv = modelViewMatrix * vec4(p, 1.0);
+          gl_PointSize = clamp(420.0 / -mv.z, 2.4, 5.0) * uPx;
+          gl_Position = projectionMatrix * mv;
+        }`,
+      fragmentShader: `
+        varying float vA;
+        varying float vH;
+        void main() {
+          vec2 c = gl_PointCoord - 0.5;
+          float d = length(c);
+          if (d > 0.5) discard;
+          vec3 col = mix(vec3(0.55), vec3(0.15), smoothstep(0.1, 0.9, vH));
+          gl_FragColor = vec4(col, vA * smoothstep(0.5, 0.35, d));
+        }`,
+    }));
+    dots.renderOrder = 3;
+    scene.add(dots);
 
     // ---- Contour lines (marching squares on the height map) ---------------
     const LEVELS = 16;
