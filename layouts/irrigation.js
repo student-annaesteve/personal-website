@@ -30,7 +30,8 @@
 
     // Cover: the goal, the pencil sketch beside it
     h += chapter("irr-cover",
-      '<div class="irr-rv"><p class="irr-lead">' + esc(d.goal) + "</p></div>" +
+      '<div>' + (d.introTitle ? heading("#134f5c", esc(d.introTitle)) : "") +
+      '<div class="irr-rv"><p class="irr-lead">' + esc(d.goal) + "</p></div></div>" +
       '<img class="irr-sketch" src="' + esc(d.sketch.src) + '" alt="' + esc(d.sketch.alt || "") + '">');
 
     // Theory: text across, the diagram left, the four factors right
