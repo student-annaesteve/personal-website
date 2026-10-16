@@ -253,3 +253,95 @@
 .panel[data-layout="irrigation"] .irr-num i { display: block; height: 4px; border-radius: 2px; margin-top: 4px;
   background: linear-gradient(90deg, #3e917e var(--v), #1111111a var(--v)); }
 .panel[data-layout="irrigation"] .irr-num b { order: 0; } .panel[data-layout="irrigation"] .irr-num i { order: 1; margin: 2px 0 4px !important; } .panel[data-layout="irrigation"] .irr-num span { order: 2; }
+
+/* The arrow that hides the project list: like the close cross, just a soft white mark, half transparent, no box */
+.trail-fold { border: 0 !important; background: none !important; backdrop-filter: none !important; border-radius: 0 !important;
+  color: #fff !important; opacity: 0.6; filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 1px rgba(0, 0, 0, 0.7));
+  transition: transform 0.35s ease, opacity 0.2s ease !important; }
+.trail-fold svg { width: 18px !important; height: 18px !important; stroke-width: 2 !important; }
+.trail-fold:hover, .trail-fold:focus-visible { opacity: 1; color: #fff !important; }
+/* When a box opens onto its banner, its number sits whole in the middle of the taller box */
+.sign.has-banner:hover .sign-num, .sign.has-banner:focus-visible .sign-num { align-self: center !important; line-height: 1 !important; transform: none !important; }
+.trail .sign .sign-name { font-weight: 600 !important; }
+.trail .sign, .trail .sign:hover, .trail .sign[aria-current="true"] { border-color: transparent !important; }
+
+/* MySónar results, two looks: the study as three big figures in a row; the models as a yellow bar chart on a light track */
+.panel[data-layout="mysonar"] .ms-stats { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 24px !important; margin: 6px 0 36px !important; }
+.panel[data-layout="mysonar"] .ms-stats > div { display: grid !important; gap: 6px; background: none !important; border-radius: 0 !important; padding: 0 0 0 14px !important; border-left: 4px solid #ffc20e !important; }
+.panel[data-layout="mysonar"] .panel-body .ms-stats dt { font-family: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif !important; font-weight: 700 !important;
+  font-size: clamp(34px, 4vw, 48px) !important; letter-spacing: -0.04em !important; line-height: 1 !important; color: #111 !important; }
+.panel[data-layout="mysonar"] .ms-stats dd { font-size: 13px; line-height: 1.5; }
+.panel[data-layout="mysonar"] .ms-models { display: grid !important; gap: 12px !important; }
+.panel[data-layout="mysonar"] .ms-models-t { margin: 0 0 4px !important; font-weight: 600; }
+.panel[data-layout="mysonar"] .ms-bar { position: relative; width: 100% !important; background: #11111110 !important; border-radius: 999px !important; padding: 0 !important; height: 34px; }
+.panel[data-layout="mysonar"] .ms-bar::before { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--v); background: #ffc20e; border-radius: 999px; }
+.panel[data-layout="mysonar"] .ms-bar span { position: relative; display: flex; align-items: center; height: 100%; padding: 0 16px; font-size: 13px; font-weight: 600; color: #111; }
+@media (max-width: 520px) { .panel[data-layout="mysonar"] .ms-stats { grid-template-columns: 1fr !important; } }
+.panel[data-layout="mysonar"] .ms-models-t { font-weight: 600 !important; }
+/* MySónar figures like Smart irrigation's: big number, a thin bar (filled to the share when it is a percentage), the label */
+.panel[data-layout="mysonar"] .ms-stats > div { border-left: 0 !important; padding: 0 !important; gap: 6px !important; }
+.panel[data-layout="mysonar"] .ms-stats i { display: block; height: 4px; border-radius: 2px; margin: 2px 0 4px; background: linear-gradient(90deg, #ffc20e var(--v), #1111111a var(--v)); }
+.panel .panel-body .p-intro::after { content: none !important; display: none !important; }
+
+/* Section titles (the black ones): a bit bigger, and running off the page's left edge so the edge cuts them */
+.panel { overflow-x: hidden; }
+.panel[data-layout] .panel-body :is(.irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3),
+.panel .panel-body .case-awards h3 { font-size: clamp(28px, 3vw, 36px) !important; margin-left: -2.05em !important; }
+.panel[data-layout] .panel-body .irr-cover .irr-chh h3 { margin-left: 0 !important; }
+@media (max-width: 720px) { .panel[data-layout] .panel-body :is(.irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3), .panel .panel-body .case-awards h3 { margin-left: -0.8em !important; } }
+/* The cut is the same on every page: past each layout's own side padding, then about a quarter of a letter */
+.panel[data-layout] .panel-body :is(.irr-chh h3, .stop-title) { margin-left: calc(-64px - 0.28em) !important; }
+.panel[data-layout] .panel-body :is(.cb-sec h3, .ms-sec h3, .case-awards h3), .panel .panel-body .case-awards h3 { margin-left: calc(-33px - 0.28em) !important; }
+.panel[data-layout] .panel-body .irr-cover .irr-chh h3 { margin-left: 0 !important; }
+@media (max-width: 720px) { .panel[data-layout] .panel-body :is(.irr-chh h3, .stop-title, .cb-sec h3, .ms-sec h3, .case-awards h3), .panel .panel-body .case-awards h3 { margin-left: -0.8em !important; } }
+.panel .p-building { min-height: 60vh; display: grid; place-items: center start; padding: 0 8px; }
+.panel .panel-body .p-building .case-title::after { content: none !important; }
+/* Section titles back in line with the text (no cut); the name in the same light grey as the big opening lines */
+.panel[data-layout] .panel-body :is(.irr-chh h3, .stop-title, .cb-sec h3, .ms-sec h3, .case-awards h3), .panel .panel-body .case-awards h3 { margin-left: 0 !important; }
+.brand h1#name { color: #d6d6d6 !important; }
+/* The photo button: bigger, no border */
+.about-btn { width: 84px !important; height: 84px !important; border: 0 !important; }
+@media (max-width: 720px) { .about-btn { width: 64px !important; height: 64px !important; } }
+/* Copy email: a small soft icon instead of the text button */
+.copy-btn { display: inline-grid !important; place-items: center; width: 28px !important; height: 28px !important; padding: 0 !important;
+  border: 0 !important; border-radius: 50% !important; background: none !important; color: #11111180 !important; cursor: pointer; transition: color .2s ease, background .2s ease; }
+.copy-btn:hover, .copy-btn:focus-visible { color: #111 !important; background: #1111110d !important; }
+.copy-btn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+/* GitHub and LinkedIn as soft icons in the email row, like the copy icon */
+.contact-row { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.contact-row .email { margin-right: 6px; }
+.social-ico { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; color: #11111180 !important; text-decoration: none !important; border: 0 !important; transition: color .2s ease, background .2s ease; }
+.social-ico:hover, .social-ico:focus-visible { color: #111 !important; background: #1111110d; }
+.social-ico svg { width: 15px; height: 15px; fill: currentColor; }
+/* "About me" floats as a small line of text right under the photo button */
+.about-label { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 112px); right: var(--about-right, 28px); width: 84px; text-align: center; pointer-events: none;
+  font-size: 12px; font-weight: 600; color: #111; letter-spacing: .01em; }
+@media (max-width: 720px) { .about-label { top: calc(env(safe-area-inset-top, 0px) + 84px); width: 64px; right: 16px; font-size: 11px; } }
+/* In the About panel, GitHub and LinkedIn sit at the right end of the email row */
+.contact-row .copy-btn + .social-ico { margin-left: auto; }
+/* About me drops down under the photo button as floating text; the old label is gone */
+.about-label { display: none !important; }
+.about-pop { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 116px); right: 28px; width: min(380px, calc(100vw - 32px));
+  pointer-events: auto; padding: 14px 16px; border-radius: 14px; background: rgba(251, 251, 250, 0.82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  font-size: 13px; line-height: 1.65; color: #111; animation: about-in .25s ease; }
+.about-pop[hidden] { display: none; }
+.about-pop h2 { margin: 0 0 6px; font-size: 13px; font-weight: 600; }
+.about-pop p { margin: 0 0 8px; }
+.about-pop .contact-row { margin-top: 4px; }
+.about-pop .email { font-weight: 600; }
+@keyframes about-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@media (max-width: 720px) { .about-pop { top: calc(env(safe-area-inset-top, 0px) + 88px); right: 16px; } }
+@media (prefers-reduced-motion: reduce) { .about-pop { animation: none; } }
+/* About me floats straight on the page: no box, tighter */
+.about-pop { padding: 0 !important; background: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-radius: 0 !important;
+  width: min(300px, calc(100vw - 32px)) !important; line-height: 1.5 !important; text-align: right; }
+.about-pop p { margin: 0 0 6px !important; }
+.about-pop .contact-row { justify-content: flex-end; margin-top: 2px !important; }
+.about-pop .contact-row .copy-btn + .social-ico { margin-left: 0 !important; }
+/* About me as one compact block: the two lines run together, the email smaller */
+.about-pop p { display: inline; margin: 0 !important; }
+.about-pop p + p::before { content: " "; }
+.about-pop .contact-row { margin-top: 6px !important; }
+.about-pop .email { font-size: 11.5px; }
+/* Tags first, in grey */
+.panel .panel-body .p-tags span, .panel[data-layout] .panel-body .p-tags span { color: #8a8a8a !important; border-color: #11111126 !important; }

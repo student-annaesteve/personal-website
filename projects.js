@@ -74,7 +74,7 @@ window.PROJECTS = [
     // Python project (UPC). Its own look (layouts/cinebus.js + .css): a cinema ticket and a bus map.
     title: "CineBus", // short name for the map and the route list
     origin: "Python project at the UPC, made with Cristina Teixidó, 2023.", // where the project comes from: a soft line above the tags
-    banner: { src: "images/cinebus/banner.webp", alt: "CineBus collage: Eixample blocks, a film strip, a cinema ticket, a bus route and a bus stop" },
+    banner: { src: "images/cinebus/banner.webp", alt: "CineBus collage: rows of red cinema seats with gaps, a clapperboard, and a real TMB bus driving in from the left along a dotted route to a cinema ticket" },
     layout: "cinebus",
     headline: "From the billboard to your seat",
     subtitle: "CineBus · find a film in Barcelona and the fastest way to get there by bus and on foot",
@@ -138,9 +138,9 @@ window.PROJECTS = [
   },
   {
     // A case study: when `levels` is present the panel opens wide and shows the product first.
-    title: "Mar i Muntanya", // short name for the map and the route list
-    origin: "SEAT–UPC Design Thinking challenge for CUPRA, made with Aleix Albaiges.", // where the project comes from: a soft line above the tags
-    banner: { src: "images/mar-i-muntanya/banner.webp", alt: "Mar i Muntanya collage: a winding road from L3 roadworks to the L4 city with an ambulance and the L5 restaurant and viewpoint, with the simulator on a laptop" },
+    title: "Trusting autonomy", // short name for the map and the route list (the simulator itself is called Mar i Muntanya)
+    origin: "SEAT–UPC Design Thinking challenge, made with Aleix Albaiges, 2026.", // where the project comes from: a soft line above the tags
+    banner: { src: "images/mar-i-muntanya/banner.webp", alt: "Trusting autonomy collage: a winding road from L3 roadworks to the L4 city with an ambulance and the L5 restaurant and viewpoint, with the simulator on a laptop" },
     theme: "cupra", // copper orange accents, as in the presentation (styles.css)
     headline: "Designing trust in a car that drives itself", // the project's goal, shown as the panel title
     year: "2026",
@@ -150,7 +150,7 @@ window.PROJECTS = [
     hero: [
       { src: "images/mar-i-muntanya/selector-hero.jpg", alt: "Simulator start screen: Mar i Muntanya, choose the level L3, L4 or L5", device: "laptop" },
     ],
-    goal: "The SEAT–UPC Design Thinking challenge asked us to reimagine the inside of a car for autonomous mobility, without losing what makes it a CUPRA. We focused on how the car talks to the people inside, so that every change between the car and the driver feels clear, calm and still under their control.",
+    goal: "The SEAT–UPC Design Thinking challenge asked us to reimagine the inside of a car for autonomous mobility, without losing what makes it special to drive. We focused on how the car talks to the people inside, so that every change between the car and the driver feels clear, calm and still under their control.",
     description: "A web simulator to live autonomous driving, levels L3 to L5, from the driver's seat.",
     // Each level shows its video in a device. Until the video file exists, the poster image is shown.
     levels: [
@@ -168,7 +168,7 @@ window.PROJECTS = [
       },
       {
         code: "L5",
-        challenge: "Nobody drives any more. How do you keep the sense of control, and the CUPRA feeling, without driving?",
+        challenge: "Nobody drives any more. How do you keep the sense of control, and the joy of the car, without driving?",
         solution: "A multifunctional, immersive space: you plan the whole trip on one screen and change it on the way, adding a stop for lunch or a detour.",
         media: { video: "videos/mar-i-muntanya/l5.mp4", poster: "images/mar-i-muntanya/l5-poster.jpg", device: "tablet", alt: "L5 simulation: defining the journey and changing the route on the way" },
         screen: {
@@ -193,11 +193,11 @@ window.PROJECTS = [
     ],
   },
   {
-    title: "Project Five",
-    year: "2026",
-    tags: ["Design"],
-    description:
-      "Placeholder. Describe the brief, what you designed and what came out of it. Two or three sentences are enough.",
+    title: "…", // the next project: still under construction
+    year: "",
+    tags: [],
+    construction: "In construction…", // its page shows only this line
+    description: "",
     images: [],
     link: "",
     color: "#6b6b6b",
@@ -208,8 +208,8 @@ window.ABOUT = {
   name: "Anna Esteve Gallifa",
   tagline: "",
   bio: [
-    "Placeholder. Write a few sentences about who you are, what you study and what kind of design you love making.",
-    "Out of the studio I'm usually on a trail somewhere, heading for a summit.",
+    "I'm a Data Science and Engineering Physics student at the UPC.",
+    "I love sport: running, playing tennis and volleyball, and hiking up a mountain whenever I can. I also enjoy playing the piano.",
   ],
   photo: "images/me.jpg",
   email: "annaesteve193@gmail.com",

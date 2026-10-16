@@ -1,39 +1,29 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><title>CineBus billboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter+Tight:wght@700&family=Caveat:wght@500&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="board.css">
 <style>
-/* Idea: from the billboard to your seat. The tiles are Barcelona's Eixample blocks, a bus route runs
-   through them from a stop to the cinema, and a film strip and a ticket float on top. */
+/* Idea: from the billboard to your seat. The tiles are Barcelona's Eixample blocks; the clapperboard is the film you
+   picked; a TMB bus drives the dotted route out of the city, and the route ends at your ticket. */
 .board { --ghost: #c8102e; }
 h1 { font-size: 300px; top: 60px; bottom: auto; }
 .red { color: #c8102e; }
-.strip { left: 700px; top: 110px; z-index: 8; transform: rotate(-12deg); }
-.ticket { left: 980px; top: 640px; z-index: 8; transform: rotate(9deg); }
-.stop { left: 1500px; top: 690px; width: 290px; height: 450px; z-index: 5; transform: rotate(5deg); }
-.hand { left: 440px; top: 1100px; color: #7d0a1d; transform: rotate(-3deg); }
+.ticket { left: 1880px; top: 760px; z-index: 8; transform: rotate(7deg); }
+.bus { left: 10px; top: 400px; width: 660px; z-index: 9; }
+.hand { left: 1180px; top: 600px; color: #7d0a1d; transform: rotate(-3deg); }
 </style></head><body>
 <main class="board">
   <svg class="lines" viewBox="0 0 2400 1200">
     <path stroke="#fff" stroke-width="2.5" d="M-40 980 C 240 900, 420 990, 600 900 S 860 760, 1000 820 S 1200 960, 1320 1240"/>
     <!-- the bus route: stops along the way, ending at the cinema pin -->
-    <path stroke="#c8102e" stroke-width="2.5" stroke-dasharray="1 14" stroke-width="6" d="M520 -40 C 560 220, 700 400, 860 450 S 1150 470, 1260 600 S 1500 720, 1700 640 S 2100 540, 2440 600"/>
+    <path stroke="#c8102e" stroke-width="2.5" stroke-dasharray="1 14" stroke-width="6" d="M670 760 C 900 900, 1200 1000, 1500 900 S 1800 860, 1900 900"/>
   </svg>
   <svg class="tiles" id="back" viewBox="0 0 2400 1200" style="z-index:2"></svg>
   <svg class="tiles" id="front" viewBox="0 0 2400 1200" style="z-index:5"></svg>
   <svg class="tiles" viewBox="0 0 2400 1200" style="z-index:3">
     <g fill="#c8102e" stroke="#efece4" stroke-width="5">
-      <circle cx="1260" cy="600" r="11"/><circle cx="1700" cy="640" r="11"/><circle cx="860" cy="450" r="11"/>
+      <circle cx="1500" cy="900" r="11"/><circle cx="1900" cy="900" r="11"/>
     </g>
-  </svg>
-
-  <!-- film strip -->
-  <svg class="strip shadow" width="300" height="430" viewBox="0 0 300 430">
-    <rect width="300" height="430" rx="6" fill="#141816"/>
-    <g fill="#efece4"><rect x="14" y="16" width="20" height="26" rx="4"/><rect x="14" y="76" width="20" height="26" rx="4"/><rect x="14" y="136" width="20" height="26" rx="4"/><rect x="14" y="196" width="20" height="26" rx="4"/><rect x="14" y="256" width="20" height="26" rx="4"/><rect x="14" y="316" width="20" height="26" rx="4"/><rect x="14" y="376" width="20" height="26" rx="4"/>
-      <rect x="266" y="16" width="20" height="26" rx="4"/><rect x="266" y="76" width="20" height="26" rx="4"/><rect x="266" y="136" width="20" height="26" rx="4"/><rect x="266" y="196" width="20" height="26" rx="4"/><rect x="266" y="256" width="20" height="26" rx="4"/><rect x="266" y="316" width="20" height="26" rx="4"/><rect x="266" y="376" width="20" height="26" rx="4"/></g>
-    <rect x="50" y="20" width="200" height="120" fill="#c8102e"/><rect x="50" y="155" width="200" height="120" fill="#e7d9cf"/><rect x="50" y="290" width="200" height="120" fill="#7d0a1d"/>
-    <path d="M90 250 l40-55 30 35 20-20 40 40z" fill="#8f8a84"/><circle cx="210" cy="185" r="14" fill="#c8102e"/>
   </svg>
 
   <!-- ticket -->
@@ -48,16 +38,46 @@ h1 { font-size: 300px; top: 60px; bottom: auto; }
     </g>
   </svg>
 
-  <!-- bus stop sign, drawn in pencil -->
-  <svg class="stop" width="360" height="560" viewBox="0 0 360 560" fill="none" stroke="#2b2b2b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M180 200 L182 548"/><path d="M174 200 L176 548" stroke-width="1.5"/>
-    <rect x="70" y="20" width="220" height="180" rx="18"/><rect x="74" y="24" width="214" height="174" rx="16" stroke-width="1.2"/>
-    <path d="M110 70 h140 v70 h-140 z M120 140 v20 M240 140 v20 M110 100 h140" />
-    <circle cx="130" cy="165" r="10"/><circle cx="230" cy="165" r="10"/>
-    <path d="M100 300 l-40 40 M260 300 l40 40" stroke-width="2"/>
-    <text x="180" y="340" font-family="Caveat, cursive" font-size="44" stroke="none" fill="#2b2b2b" text-anchor="middle">H12 · V15</text>
-    <path d="M120 548 h120" />
+  <svg class="pieces" viewBox="0 0 2400 1200" style="left:0;top:0;width:2400px;height:1200px;z-index:7">
+  <defs>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fffdf6" stop-opacity=".85"/><stop offset="1" stop-color="#fffdf6" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#000" flood-opacity=".33"/></filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="10"/></filter>
+  </defs>
+  <!-- clapperboard -->
+  <g transform="translate(1020 230) rotate(-6)" filter="url(#sh)">
+    <rect x="0" y="62" width="250" height="170" rx="8" fill="#141816"/>
+    <g transform="rotate(-16 0 58)">
+      <rect x="0" y="22" width="250" height="40" rx="5" fill="#141816"/>
+      <g fill="#efece4"><path d="M24 22 h30 l-22 40 h-30z"/><path d="M84 22 h30 l-22 40 h-30z"/><path d="M144 22 h30 l-22 40 h-30z"/><path d="M204 22 h30 l-22 40 h-30z"/></g>
+    </g>
+    <rect x="0" y="62" width="250" height="38" fill="#141816"/>
+    <g fill="#efece4"><path d="M24 62 h30 l-22 38 h-30z"/><path d="M84 62 h30 l-22 38 h-30z"/><path d="M144 62 h30 l-22 38 h-30z"/><path d="M204 62 h30 l-22 38 h-30z"/></g>
+    <g stroke="#efece4" stroke-width="2" opacity=".8"><path d="M14 148 h222 M14 190 h222 M125 110 v120"/></g>
+    <g font-family="DejaVu Sans Mono, monospace" font-weight="700" fill="#efece4">
+      <text x="20" y="138" font-size="20" letter-spacing="2">SCENE</text><text x="138" y="138" font-size="20" letter-spacing="2">TAKE</text>
+      <text x="20" y="180" font-size="28" fill="#c8102e">H12</text><text x="138" y="180" font-size="28">01</text>
+      <text x="20" y="220" font-size="16" letter-spacing="2" opacity=".8">CINEBUS · BCN</text>
+    </g>
+  </g>
+
   </svg>
+
+  <!-- a row of cinema seats rising from the bottom edge: the trip ends in your seat -->
+  <svg class="seats" viewBox="0 0 2400 1200" style="left:0;top:0;width:2400px;height:1200px;z-index:8">
+    <g transform="translate(932 1050)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(1056 1050)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(1180 1050)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(1304 1050)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(1428 1050)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(1552 1050)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(1676 1050)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+  </svg>
+
+  <!-- the real TMB bus from the photo, cut out, driving in from the left edge -->
+  <img class="bus shadow" src="cinebus-bus.png" alt="">
 
   <p class="hand">From the billboard to your seat</p>
   <h1>Cine<br>B<span class="red">u</span><span class="ghost">s</span></h1>
@@ -65,12 +85,15 @@ h1 { font-size: 300px; top: 60px; bottom: auto; }
 </main>
 <script src="board.js"></script>
 <script>
-// Eixample blocks: squares with cut corners, on a straight grid
-const C = ["#c8102e", "#141816", "#8f8a84", "#e7d9cf", "#7d0a1d", "#d9c7a7", "#b9b2aa"];
-const block = (x, y, c) => { const s = 110, k = 30, h = s / 2;
-  return `<path d="M${x - h + k} ${y - h}h${s - 2 * k}l${k} ${k}v${s - 2 * k}l${-k} ${k}h${-(s - 2 * k)}l${-k} ${-k}v${-(s - 2 * k)}z" fill="${c}"/>`; };
+// Cinema seats seen from behind, in rows, some of them missing: they fill the left like the theatre
+const C = ["#c8102e", "#c8102e", "#a50d26", "#7d0a1d", "#c8102e", "#a50d26"];
+const block = (x, y, c) => `<g transform="translate(${x - 52} ${y - 50})">
+  <path d="M8 18 q0-18 22-18 h44 q22 0 22 18 v70 h-88z" fill="${c}"/>
+  <path d="M8 18 q0-18 22-18 h44 q22 0 22 18 v4 h-88z" fill="#d9c7a7"/>
+  <rect x="0" y="40" width="10" height="56" rx="4" fill="#5a0716"/><rect x="94" y="40" width="10" height="56" rx="4" fill="#5a0716"/>
+  <path d="M14 88 h76" stroke="#141816" stroke-opacity=".25" stroke-width="4"/></g>`;
 const [back, front] = field({ step: 118, offset: false, width: 1300, colours: C, shape: block, seed: 11 });
-const extra = [[1500, 300, "#c8102e"], [2150, 820, "#141816"], [1380, 120, "#8f8a84"], [1960, 1040, "#7d0a1d"], [1240, 860, "#d9c7a7"], [1380, 520, "#e7d9cf"]]
+const extra = [[1500, 300, "#c8102e"], [2150, 820, "#7d0a1d"], [1380, 120, "#a50d26"], [1240, 860, "#c8102e"], [1380, 520, "#a50d26"]]
   .map(([x, y, c]) => block(x, y, c)).join("");
 document.getElementById("back").innerHTML = back + extra;
 document.getElementById("front").innerHTML = front;

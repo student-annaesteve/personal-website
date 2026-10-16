@@ -126,7 +126,7 @@
   const initials = (ABOUT.name || "").split(/\s+/).map((w) => w[0] || "").join("").slice(0, 2);
   if (ABOUT.photo) $("about-initials").outerHTML = '<img src="' + esc(ABOUT.photo) + '" alt="">';
   else $("about-initials").textContent = initials;
-  $("about-btn").addEventListener("click", () => openAbout());
+  $("about-btn").addEventListener("click", () => toggleAbout());
 
   const panel = $("panel");
   const panelBody = $("panel-body");
@@ -176,6 +176,9 @@
       html += layout(d, esc);
     } else if (s.kind === "project" && d.levels) {
       html += renderCase(d, alt, i);
+    } else if (s.kind === "project" && d.construction) {
+      // A project still being made: one line of body text, nothing else
+      html += '<div class="p-building"><p>' + esc(d.construction) + "</p></div>";
     } else if (s.kind === "project") {
       const imgs = (d.images || [])
         .map((im) => '<img src="' + esc(im.src) + '" alt="' + esc(im.alt || "") + '" loading="lazy">')
@@ -189,27 +192,16 @@
         "<p>" + esc(d.description) + "</p>" +
         (d.link ? '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">View the full project →</a>' : "");
     } else {
-      const initials = (d.name || "").split(/\s+/).map((w) => w[0] || "").join("").slice(0, 2);
-      html +=
-        (d.photo
-          ? '<img class="about-photo" src="' + esc(d.photo) + '" alt="Photo of ' + esc(d.name) + '">'
-          : '<div class="about-photo" aria-hidden="true">' + esc(initials) + "</div>") +
-        "<h2>About me</h2>" +
-        (d.bio || []).map((p) => "<p>" + esc(p) + "</p>").join("") +
-        '<div class="contact-row"><span class="email">' + esc(d.email) + "</span>" +
-        '<button type="button" class="copy-btn" id="copy-email">Copy email</button></div>' +
-        '<ul class="socials">' +
-        (d.links || []).map((l) => '<li><a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a></li>").join("") +
-        "</ul>";
+      html += aboutHTML(d);
     }
     // The project's banner heads the panel (Smart irrigation draws its own, with the travelling sketch).
     const banner = s.kind === "project" && d.banner && d.layout !== "irrigation";
     panelBanner.hidden = !banner;
     if (banner) { panelBanner.src = d.banner.src; panelBanner.alt = d.banner.alt || ""; }
-    // Every project opens the same way: a soft line on where it comes from, then its tags, then the content.
+    // Every project opens the same way: its tags in grey, a soft line on where it comes from, then the content.
     const intro = s.kind === "project" && (d.origin || (d.tags || []).length)
-      ? '<div class="p-intro">' + (d.origin ? '<p class="p-origin">' + esc(d.origin) + "</p>" : "") +
-        '<div class="p-tags">' + (d.tags || []).map((t) => "<span>" + esc(t) + "</span>").join("") + "</div></div>"
+      ? '<div class="p-intro"><div class="p-tags">' + (d.tags || []).map((t) => "<span>" + esc(t) + "</span>").join("") + "</div>" +
+        (d.origin ? '<p class="p-origin">' + esc(d.origin) + "</p>" : "") + "</div>"
       : "";
     // The project's documents close the page as one sentence of underlined links (no title).
     const docs = s.kind === "project" ? docsSentence(d) : "";
@@ -217,16 +209,31 @@
     if (intro && d.layout === "irrigation") html = html.replace('<!--intro-->', intro);
     else html = intro + html;
     panelBody.innerHTML = html;
+    wireCopy(d);
+  }
+  function wireCopy(d) {
     const copy = $("copy-email");
-    if (copy) {
-      copy.addEventListener("click", () => {
-        try {
-          navigator.clipboard.writeText(d.email).then(() => (copy.textContent = "Copied"), selectEmail);
-        } catch (e) {
-          selectEmail();
-        }
-      });
-    }
+    if (!copy) return;
+    copy.addEventListener("click", () => {
+      try {
+        navigator.clipboard.writeText(d.email).then(() => (copy.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5 l3 3 6-7"/></svg>', copy.title = "Copied"), selectEmail);
+      } catch (e) {
+        selectEmail();
+      }
+    });
+  }
+  // About me: text, then email · copy · GitHub · LinkedIn in one row.
+  function aboutHTML(d) {
+    let html = "";
+    // No photo here: the round photo button already shows it. Email, copy, GitHub and LinkedIn sit in one row.
+    const icon = (label) => /github/i.test(label) ? '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5a6.5 6.5 0 0 0-2.06 12.67c.33.06.44-.14.44-.31v-1.1c-1.8.39-2.18-.87-2.18-.87-.3-.75-.72-.95-.72-.95-.59-.4.04-.39.04-.39.65.05 1 .67 1 .67.58 1 1.52.71 1.89.54.06-.42.23-.71.41-.87-1.44-.16-2.95-.72-2.95-3.2 0-.71.25-1.29.67-1.74-.07-.17-.29-.83.06-1.72 0 0 .55-.18 1.79.66a6.2 6.2 0 0 1 3.26 0c1.24-.84 1.79-.66 1.79-.66.35.89.13 1.55.06 1.72.42.45.67 1.03.67 1.74 0 2.49-1.52 3.04-2.96 3.2.23.2.44.6.44 1.21v1.79c0 .17.11.38.45.31A6.5 6.5 0 0 0 8 1.5z"/></svg>' : /linkedin/i.test(label) ? '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 1.75a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM1.2 6h2.6v8.5H1.2zM6 6h2.5v1.2c.36-.66 1.24-1.4 2.56-1.4 2.7 0 3.2 1.78 3.2 4.1v4.6h-2.6v-4.1c0-1-.02-2.27-1.38-2.27-1.38 0-1.6 1.08-1.6 2.2v4.17H6z"/></svg>' : esc(label);
+    html +=
+    (d.bio || []).map((p) => "<p>" + esc(p) + "</p>").join("") +
+    '<div class="contact-row"><span class="email">' + esc(d.email) + "</span>" +
+    '<button type="button" class="copy-btn" id="copy-email" aria-label="Copy email" title="Copy email"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="2"/><path d="M10.5 3.2 V3 a1.5 1.5 0 0 0-1.5-1.5 H4 A1.5 1.5 0 0 0 2.5 3 v5 A1.5 1.5 0 0 0 4 9.5 h.3"/></svg></button>' +
+    (d.links || []).map((l) => '<a class="social-ico" href="' + esc(l.url) + '" target="_blank" rel="noopener" aria-label="' + esc(l.label) + '" title="' + esc(l.label) + '">' + icon(l.label) + "</a>").join("") +
+    "</div>";
+    return html;
   }
   // ---- Case study layout (projects with `levels`) ---------------------------
   // A device mockup holding an image or a looping video. A video shows its poster
@@ -259,7 +266,7 @@
   function renderCase(d, alt, i) {
     const hero = d.hero || [];
     let h =
-      '<div class="case-meta">' + (d.year ? "<span>" + esc(d.year) + "</span>" : "") +
+      '<div class="case-meta">' +
       (d.tags || []).map((t) => '<span class="chip">' + esc(t) + "</span>").join("") + "</div>" +
       '<h2 class="case-title">' + esc(d.headline || d.title) + "</h2>" +
       (d.subtitle ? '<p class="case-sub">' + esc(d.subtitle) + "</p>" : "") +
@@ -321,23 +328,17 @@
     hideHint();
     if (world) world.flyTo(i);
   }
-  // About me opens in the same panel, from the round button; the map goes back to the overview.
-  const aboutStop = { kind: "about", data: ABOUT, id: "about" };
-  function openAbout() {
-    clearTimeout(closeTimer);
-    current = -1;
-    aboutOpen = true;
-    renderPanel(-1);
-    panel.hidden = false;
-    panel.classList.remove("closing");
-    document.body.classList.add("panel-open");
-    panel.scrollTop = 0;
-    stops.forEach((s) => s.signEl.setAttribute("aria-current", "false"));
-    $("about-btn").setAttribute("aria-current", "true");
-    try { history.replaceState(null, "", "#about"); } catch (e) {}
-    hideHint();
-    if (world) world.overview();
+  // About me drops down right under the round photo button; pressing it again folds it away.
+  const aboutPop = $("about-pop");
+  function toggleAbout(force) {
+    const show = force === undefined ? aboutPop.hidden : force;
+    if (show && !aboutPop.dataset.ready) { aboutPop.innerHTML = aboutHTML(ABOUT); wireCopy(ABOUT); aboutPop.dataset.ready = "1"; }
+    aboutPop.hidden = !show;
+    $("about-btn").setAttribute("aria-expanded", String(show));
+    if (show) $("about-btn").setAttribute("aria-current", "true"); else $("about-btn").removeAttribute("aria-current");
   }
+  function openAbout() { toggleAbout(true); }
+  const aboutStop = { kind: "about", data: ABOUT, id: "about" };
   function close() {
     if (current < 0 && !aboutOpen) return;
     current = -1;
@@ -352,7 +353,7 @@
   }
   $("panel-close").addEventListener("click", close);
   addEventListener("keydown", (e) => {
-    if (e.key === "Escape") close();
+    if (e.key === "Escape") { close(); toggleAbout(false); }
     if (current >= 0 && (e.key === "ArrowRight" || e.key === "ArrowUp") && current < stops.length - 1) open(current + 1);
     if (current >= 0 && (e.key === "ArrowLeft" || e.key === "ArrowDown") && current > 0) open(current - 1);
   });
@@ -537,7 +538,8 @@
 
     // Dark surface under the lines so the far side of the mountain doesn't show through.
     const sp = [], sh = [], ss = [], idx = [];
-    verts.forEach((v) => { sp.push(v.x, 0, v.z); sh.push(v.h); ss.push(sweepAt(v.x, v.z)); });
+    const se = [];
+    verts.forEach((v) => { sp.push(v.x, 0, v.z); sh.push(v.h); ss.push(sweepAt(v.x, v.z)); se.push(edgeFade(v.x, v.z)); });
     for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
       const a = vid(i, j), b = vid(i + 1, j), c = vid(i + 1, j + 1), d = vid(i, j + 1);
       if (hash(i, j + 999) > 0.5) idx.push(a, d, c, a, c, b);
@@ -547,20 +549,37 @@
     surfGeo.setAttribute("position", new T.Float32BufferAttribute(sp, 3));
     surfGeo.setAttribute("aH", new T.Float32BufferAttribute(sh, 1));
     surfGeo.setAttribute("aSweep", new T.Float32BufferAttribute(ss, 1));
+    surfGeo.setAttribute("aEdge", new T.Float32BufferAttribute(se, 1));
     surfGeo.setIndex(idx);
     const surface = new T.Mesh(surfGeo, new T.ShaderMaterial({
       uniforms,
       polygonOffset: true,
       polygonOffsetFactor: 1,
       polygonOffsetUnits: 2,
-      colorWrite: false, // only fills the depth buffer: the lines behind it disappear
+      transparent: true, // painted a soft, grained light grey (like the big grey type of the titles), fading out at the rim
       vertexShader: RISE_GLSL + `
+        attribute float aEdge;
+        varying float vA;
+        varying float vH;
         void main() {
           vec3 p = position;
-          p.y = aH * riseAmt(riseK()) - 0.25;
+          float rise = riseAmt(riseK());
+          p.y = aH * rise - 0.25;
+          vA = aEdge * rise;
+          vH = aH / uMaxH;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
         }`,
-      fragmentShader: `void main() { gl_FragColor = vec4(0.0); }`,
+      fragmentShader: `
+        varying float vA;
+        varying float vH;
+        float grain(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
+        void main() {
+          // soft grey with a fine film grain, a touch deeper towards the summits
+          vec3 c = vec3(0.875); // a softer take on the light grey of the name
+          float g = grain(floor(gl_FragCoord.xy / 1.5)) - 0.5;
+          c += g * 0.22;
+          gl_FragColor = vec4(c, 0.75 * vA);
+        }`,
     }));
     surface.renderOrder = 1;
     scene.add(surface);
@@ -841,8 +860,8 @@
         if (buildT >= BUILD_END) { buildT = BUILD_END; built = true; }
         const stage = buildT < RISE_START ? "Laying out the survey grid" : buildT < CONTOUR_START ? "Mapping the terrain" : buildT < BEACON_START ? "Tracing contour lines" : "Marking summits";
         if (!hintGone) hintEl.textContent = stage + " · " + Math.round((buildT / BUILD_END) * 100) + "%";
-      } else if (!hintGone && hintEl.textContent !== hintText) {
-        hintEl.textContent = hintText;
+      } else if (!hintEl.classList.contains("gone")) {
+        hintEl.classList.add("gone"); // once the mountain is built the hint goes away: no "drag to look around" line
       }
       uniforms.uT.value = buildT;
 
