@@ -242,5 +242,5 @@
 .trail .sign { grid-template-columns: 34px 1fr !important; }
 .trail .sign .sign-num { align-self: end; justify-self: start; font-family: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   font-weight: 700 !important; font-size: 46px !important; line-height: 0.72 !important; letter-spacing: -0.06em !important; color: #111 !important;
-  transform: translateY(9px); transition: transform 0.25s ease; }
-.sign.has-banner:hover .sign-num, .sign.has-banner:focus-visible .sign-num { color: #fff !important; transform: translateY(6px); }
+  transform: translateY(4px); transition: transform 0.25s ease; }
+.sign.has-banner:hover .sign-num, .sign.has-banner:focus-visible .sign-num { color: #fff !important; transform: translateY(3px); }
