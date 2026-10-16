@@ -281,3 +281,4 @@
 /* MySónar figures like Smart irrigation's: big number, a thin bar (filled to the share when it is a percentage), the label */
 .panel[data-layout="mysonar"] .ms-stats > div { border-left: 0 !important; padding: 0 !important; gap: 6px !important; }
 .panel[data-layout="mysonar"] .ms-stats i { display: block; height: 4px; border-radius: 2px; margin: 2px 0 4px; background: linear-gradient(90deg, #ffc20e var(--v), #1111111a var(--v)); }
+.panel .panel-body .p-intro::after { content: none !important; display: none !important; }
