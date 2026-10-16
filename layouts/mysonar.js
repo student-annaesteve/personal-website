@@ -51,7 +51,7 @@
       "</section>";
 
     h += '<section class="ms-sec ms-sec--results">' + head("03", "The results") +
-      '<dl class="ms-stats">' + (r.stats || []).map(([v, k]) => "<div><dt>" + esc(v) + "</dt><dd>" + esc(k) + "</dd></div>").join("") + "</dl>" +
+      '<dl class="ms-stats">' + (r.stats || []).map(([v, k]) => '<div style="--v:' + (/%$/.test(v) ? parseFloat(v) : 100) + '%"><dt>' + esc(v) + '</dt><i aria-hidden="true"></i><dd>' + esc(k) + "</dd></div>").join("") + "</dl>" +
       (r.models ? '<div class="ms-models"><p class="ms-models-t">People who liked their schedule, by embedding model</p>' +
         r.models.map(([n, v]) => '<div class="ms-bar" style="--v:' + v + '%"><span>' + esc(n) + " · " + v + "%</span></div>").join("") + "</div>" : "") +
       "</section>";
