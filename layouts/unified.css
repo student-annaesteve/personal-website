@@ -332,3 +332,9 @@
 @keyframes about-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 @media (max-width: 720px) { .about-pop { top: calc(env(safe-area-inset-top, 0px) + 88px); right: 16px; } }
 @media (prefers-reduced-motion: reduce) { .about-pop { animation: none; } }
+/* About me floats straight on the page: no box, tighter */
+.about-pop { padding: 0 !important; background: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-radius: 0 !important;
+  width: min(300px, calc(100vw - 32px)) !important; line-height: 1.5 !important; text-align: right; }
+.about-pop p { margin: 0 0 6px !important; }
+.about-pop .contact-row { justify-content: flex-end; margin-top: 2px !important; }
+.about-pop .contact-row .copy-btn + .social-ico { margin-left: 0 !important; }

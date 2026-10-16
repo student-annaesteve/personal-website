@@ -138,7 +138,7 @@ window.PROJECTS = [
   },
   {
     // A case study: when `levels` is present the panel opens wide and shows the product first.
-    title: "CUPRA HMI", // short name for the map and the route list (the simulator itself is called Mar i Muntanya)
+    title: "Trusting autonomy", // short name for the map and the route list (the simulator itself is called Mar i Muntanya)
     origin: "SEAT–UPC Design Thinking challenge, made with Aleix Albaiges, 2026.", // where the project comes from: a soft line above the tags
     banner: { src: "images/mar-i-muntanya/banner.webp", alt: "Mar i Muntanya collage: a winding road from L3 roadworks to the L4 city with an ambulance and the L5 restaurant and viewpoint, with the simulator on a laptop" },
     theme: "cupra", // copper orange accents, as in the presentation (styles.css)
