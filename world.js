@@ -192,18 +192,15 @@
         "<p>" + esc(d.description) + "</p>" +
         (d.link ? '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">View the full project →</a>' : "");
     } else {
-      const initials = (d.name || "").split(/\s+/).map((w) => w[0] || "").join("").slice(0, 2);
+      // No photo here: the round photo button already shows it. Email, copy, GitHub and LinkedIn sit in one row.
+      const icon = (label) => /github/i.test(label) ? '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5a6.5 6.5 0 0 0-2.06 12.67c.33.06.44-.14.44-.31v-1.1c-1.8.39-2.18-.87-2.18-.87-.3-.75-.72-.95-.72-.95-.59-.4.04-.39.04-.39.65.05 1 .67 1 .67.58 1 1.52.71 1.89.54.06-.42.23-.71.41-.87-1.44-.16-2.95-.72-2.95-3.2 0-.71.25-1.29.67-1.74-.07-.17-.29-.83.06-1.72 0 0 .55-.18 1.79.66a6.2 6.2 0 0 1 3.26 0c1.24-.84 1.79-.66 1.79-.66.35.89.13 1.55.06 1.72.42.45.67 1.03.67 1.74 0 2.49-1.52 3.04-2.96 3.2.23.2.44.6.44 1.21v1.79c0 .17.11.38.45.31A6.5 6.5 0 0 0 8 1.5z"/></svg>' : /linkedin/i.test(label) ? '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 1.75a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM1.2 6h2.6v8.5H1.2zM6 6h2.5v1.2c.36-.66 1.24-1.4 2.56-1.4 2.7 0 3.2 1.78 3.2 4.1v4.6h-2.6v-4.1c0-1-.02-2.27-1.38-2.27-1.38 0-1.6 1.08-1.6 2.2v4.17H6z"/></svg>' : esc(label);
       html +=
-        (d.photo
-          ? '<img class="about-photo" src="' + esc(d.photo) + '" alt="Photo of ' + esc(d.name) + '">'
-          : '<div class="about-photo" aria-hidden="true">' + esc(initials) + "</div>") +
         "<h2>About me</h2>" +
         (d.bio || []).map((p) => "<p>" + esc(p) + "</p>").join("") +
         '<div class="contact-row"><span class="email">' + esc(d.email) + "</span>" +
-        '<button type="button" class="copy-btn" id="copy-email" aria-label="Copy email" title="Copy email"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="2"/><path d="M10.5 3.2 V3 a1.5 1.5 0 0 0-1.5-1.5 H4 A1.5 1.5 0 0 0 2.5 3 v5 A1.5 1.5 0 0 0 4 9.5 h.3"/></svg></button></div>' +
-        '<ul class="socials">' +
-        (d.links || []).map((l) => '<li><a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a></li>").join("") +
-        "</ul>";
+        '<button type="button" class="copy-btn" id="copy-email" aria-label="Copy email" title="Copy email"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="2"/><path d="M10.5 3.2 V3 a1.5 1.5 0 0 0-1.5-1.5 H4 A1.5 1.5 0 0 0 2.5 3 v5 A1.5 1.5 0 0 0 4 9.5 h.3"/></svg></button>' +
+        (d.links || []).map((l) => '<a class="social-ico" href="' + esc(l.url) + '" target="_blank" rel="noopener" aria-label="' + esc(l.label) + '" title="' + esc(l.label) + '">' + icon(l.label) + "</a>").join("") +
+        "</div>";
     }
     // The project's banner heads the panel (Smart irrigation draws its own, with the travelling sketch).
     const banner = s.kind === "project" && d.banner && d.layout !== "irrigation";

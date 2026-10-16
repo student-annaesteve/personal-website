@@ -307,3 +307,9 @@
   border: 0 !important; border-radius: 50% !important; background: none !important; color: #11111180 !important; cursor: pointer; transition: color .2s ease, background .2s ease; }
 .copy-btn:hover, .copy-btn:focus-visible { color: #111 !important; background: #1111110d !important; }
 .copy-btn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+/* GitHub and LinkedIn as soft icons in the email row, like the copy icon */
+.contact-row { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.contact-row .email { margin-right: 6px; }
+.social-ico { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; color: #11111180 !important; text-decoration: none !important; border: 0 !important; transition: color .2s ease, background .2s ease; }
+.social-ico:hover, .social-ico:focus-visible { color: #111 !important; background: #1111110d; }
+.social-ico svg { width: 15px; height: 15px; fill: currentColor; }
