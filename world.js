@@ -574,10 +574,10 @@
         float grain(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
         void main() {
           // soft grey with a fine film grain, a touch deeper towards the summits
-          vec3 c = mix(vec3(0.945), vec3(0.92), smoothstep(0.1, 0.9, vH));
+          vec3 c = vec3(0.839); // the light grey of the name (#d6d6d6)
           float g = grain(floor(gl_FragCoord.xy / 1.5)) - 0.5;
           c += g * 0.22;
-          gl_FragColor = vec4(c, 0.6 * vA);
+          gl_FragColor = vec4(c, 0.9 * vA);
         }`,
     }));
     surface.renderOrder = 1;
