@@ -91,13 +91,6 @@ window.PROJECTS = [
       ["Shortest path", "Finds the fastest route from where you are to the cinema, with as many changes as needed.", "staticmap"],
     ],
     facts: [["5 km/h", "walking"], ["20 km/h", "on the bus"], ["4", "Python modules"]],
-    // What the demo lets you do, menu option by menu option.
-    demo: [
-      ["Billboard", "See every film showing today, by cinema and time."],
-      ["Search", "Find a film by title and list its screenings."],
-      ["Maps", "Draw the bus network and the city graph over Barcelona."],
-      ["Route", "Get the fastest walk-and-bus path to the next screening."],
-    ],
     result: "A menu-driven demo that builds the billboard, searches it by title, draws the bus and city graphs over Barcelona, and plots the fastest path to the cinema.",
     images: [],
     link: "https://github.com/annaesteve/CineBus",
