@@ -1,6 +1,6 @@
 /*
   "CineBus" has its own look: a cinema ticket for the header and a drawn bus map of the route,
-  in TMB red, night blue and paper; the solution is shown as the Eixample from above with the bus on its route. Texts come from projects.js; this file only draws them.
+  in TMB red, night blue and paper; the solution opens with a photo of a TMB bus on a Barcelona avenue. Texts come from projects.js; this file only draws them.
 */
 (function () {
   const head = (n, title) => '<header class="cb-head"><span class="cb-num">' + n + "</span><h3>" + title + "</h3></header>";
@@ -60,7 +60,8 @@
       '<p class="cb-lead">' + esc(d.problem) + "</p>" +
       '<p class="cb-text">' + esc(d.goal) + "</p></section>";
 
-    h += '<section class="cb-sec">' + head("02", "The solution") + routeMap() +
+    h += '<section class="cb-sec">' + head("02", "The solution") +
+      '<img class="cb-photo" src="images/cinebus/bus-street.webp" alt="A red and white articulated TMB bus on a wide Barcelona avenue with a red bus lane, seen from above" loading="lazy">' +
       '<ol class="cb-steps">' + (d.steps || []).map(([t, x, tool], k) =>
         '<li><span class="cb-step-n">' + (k + 1) + '</span><div><strong>' + esc(t) + "</strong><p>" + esc(x) + '</p><em>' + esc(tool) + "</em></div></li>").join("") +
       "</ol></section>";
