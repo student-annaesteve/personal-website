@@ -198,10 +198,10 @@
     const banner = s.kind === "project" && d.banner && d.layout !== "irrigation";
     panelBanner.hidden = !banner;
     if (banner) { panelBanner.src = d.banner.src; panelBanner.alt = d.banner.alt || ""; }
-    // Every project opens the same way: a soft line on where it comes from, then its tags, then the content.
+    // Every project opens the same way: its tags in grey, a soft line on where it comes from, then the content.
     const intro = s.kind === "project" && (d.origin || (d.tags || []).length)
-      ? '<div class="p-intro">' + (d.origin ? '<p class="p-origin">' + esc(d.origin) + "</p>" : "") +
-        '<div class="p-tags">' + (d.tags || []).map((t) => "<span>" + esc(t) + "</span>").join("") + "</div></div>"
+      ? '<div class="p-intro"><div class="p-tags">' + (d.tags || []).map((t) => "<span>" + esc(t) + "</span>").join("") + "</div>" +
+        (d.origin ? '<p class="p-origin">' + esc(d.origin) + "</p>" : "") + "</div>"
       : "";
     // The project's documents close the page as one sentence of underlined links (no title).
     const docs = s.kind === "project" ? docsSentence(d) : "";

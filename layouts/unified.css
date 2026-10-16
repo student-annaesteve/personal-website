@@ -343,3 +343,5 @@
 .about-pop p + p::before { content: " "; }
 .about-pop .contact-row { margin-top: 6px !important; }
 .about-pop .email { font-size: 11.5px; }
+/* Tags first, in grey */
+.panel .panel-body .p-tags span, .panel[data-layout] .panel-body .p-tags span { color: #8a8a8a !important; border-color: #11111126 !important; }
