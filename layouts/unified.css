@@ -226,7 +226,8 @@
 .brand h1#name { font-family: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif !important; font-weight: 700 !important; letter-spacing: -0.04em !important; }
 .panel .stop-screen > .stop-frames { display: none !important; }
 .panel .stop-screen > .p-docs { grid-column: 1 !important; grid-row: 2; }
-/* Shorter screen prototype */
+/* Shorter screen prototype, with room above it */
+.panel .stop-screen { margin-top: 28px !important; }
 .panel .stop-screen { grid-template-columns: minmax(0, 1fr) 160px !important; }
 .panel .screen-proto { width: 160px !important; padding: 12px 6px !important; border-radius: 16px !important; gap: 2px !important; }
 .panel .screen-proto img { aspect-ratio: 16 / 9 !important; }
