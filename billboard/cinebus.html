@@ -3,37 +3,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="board.css">
 <style>
-/* Idea: from the billboard to your seat. The tiles are Barcelona's Eixample blocks, a bus route runs
-   through them from a stop to the cinema, and a film strip and a ticket float on top. */
+/* Idea: from the billboard to your seat. The tiles are Barcelona's Eixample blocks; the clapperboard is the film you
+   picked; a TMB bus drives the dotted route out of the city, and the route ends at your ticket. */
 .board { --ghost: #c8102e; }
 h1 { font-size: 300px; top: 60px; bottom: auto; }
 .red { color: #c8102e; }
-.strip { left: 700px; top: 110px; z-index: 8; transform: rotate(-12deg); }
-.ticket { left: 980px; top: 640px; z-index: 8; transform: rotate(9deg); }
-.stop { left: 1500px; top: 690px; width: 290px; height: 450px; z-index: 5; transform: rotate(5deg); }
+.ticket { left: 1880px; top: 760px; z-index: 8; transform: rotate(7deg); }
 .hand { left: 440px; top: 1100px; color: #7d0a1d; transform: rotate(-3deg); }
 </style></head><body>
 <main class="board">
   <svg class="lines" viewBox="0 0 2400 1200">
     <path stroke="#fff" stroke-width="2.5" d="M-40 980 C 240 900, 420 990, 600 900 S 860 760, 1000 820 S 1200 960, 1320 1240"/>
     <!-- the bus route: stops along the way, ending at the cinema pin -->
-    <path stroke="#c8102e" stroke-width="2.5" stroke-dasharray="1 14" stroke-width="6" d="M520 -40 C 560 220, 700 400, 860 450 S 1150 470, 1260 600 S 1500 720, 1700 640 S 2100 540, 2440 600"/>
+    <path stroke="#c8102e" stroke-width="2.5" stroke-dasharray="1 14" stroke-width="6" d="M560 -40 C 600 260, 640 520, 760 640 S 900 1010, 1100 1030 H 1700 C 1820 1030, 1860 960, 1900 900"/>
   </svg>
   <svg class="tiles" id="back" viewBox="0 0 2400 1200" style="z-index:2"></svg>
   <svg class="tiles" id="front" viewBox="0 0 2400 1200" style="z-index:5"></svg>
   <svg class="tiles" viewBox="0 0 2400 1200" style="z-index:3">
     <g fill="#c8102e" stroke="#efece4" stroke-width="5">
-      <circle cx="1260" cy="600" r="11"/><circle cx="1700" cy="640" r="11"/><circle cx="860" cy="450" r="11"/>
+      <circle cx="760" cy="640" r="11"/><circle cx="1900" cy="900" r="11"/>
     </g>
-  </svg>
-
-  <!-- film strip -->
-  <svg class="strip shadow" width="300" height="430" viewBox="0 0 300 430">
-    <rect width="300" height="430" rx="6" fill="#141816"/>
-    <g fill="#efece4"><rect x="14" y="16" width="20" height="26" rx="4"/><rect x="14" y="76" width="20" height="26" rx="4"/><rect x="14" y="136" width="20" height="26" rx="4"/><rect x="14" y="196" width="20" height="26" rx="4"/><rect x="14" y="256" width="20" height="26" rx="4"/><rect x="14" y="316" width="20" height="26" rx="4"/><rect x="14" y="376" width="20" height="26" rx="4"/>
-      <rect x="266" y="16" width="20" height="26" rx="4"/><rect x="266" y="76" width="20" height="26" rx="4"/><rect x="266" y="136" width="20" height="26" rx="4"/><rect x="266" y="196" width="20" height="26" rx="4"/><rect x="266" y="256" width="20" height="26" rx="4"/><rect x="266" y="316" width="20" height="26" rx="4"/><rect x="266" y="376" width="20" height="26" rx="4"/></g>
-    <rect x="50" y="20" width="200" height="120" fill="#c8102e"/><rect x="50" y="155" width="200" height="120" fill="#e7d9cf"/><rect x="50" y="290" width="200" height="120" fill="#7d0a1d"/>
-    <path d="M90 250 l40-55 30 35 20-20 40 40z" fill="#8f8a84"/><circle cx="210" cy="185" r="14" fill="#c8102e"/>
   </svg>
 
   <!-- ticket -->
@@ -48,21 +37,63 @@ h1 { font-size: 300px; top: 60px; bottom: auto; }
     </g>
   </svg>
 
-  <!-- bus stop sign, drawn in pencil -->
-  <svg class="stop" width="360" height="560" viewBox="0 0 360 560" fill="none" stroke="#2b2b2b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M180 200 L182 548"/><path d="M174 200 L176 548" stroke-width="1.5"/>
-    <rect x="70" y="20" width="220" height="180" rx="18"/><rect x="74" y="24" width="214" height="174" rx="16" stroke-width="1.2"/>
-    <path d="M110 70 h140 v70 h-140 z M120 140 v20 M240 140 v20 M110 100 h140" />
-    <circle cx="130" cy="165" r="10"/><circle cx="230" cy="165" r="10"/>
-    <path d="M100 300 l-40 40 M260 300 l40 40" stroke-width="2"/>
-    <text x="180" y="340" font-family="Caveat, cursive" font-size="44" stroke="none" fill="#2b2b2b" text-anchor="middle">H12 · V15</text>
-    <path d="M120 548 h120" />
+  <svg class="pieces" viewBox="0 0 2400 1200" style="left:0;top:0;width:2400px;height:1200px;z-index:7">
+  <defs>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fffdf6" stop-opacity=".85"/><stop offset="1" stop-color="#fffdf6" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#000" flood-opacity=".33"/></filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="10"/></filter>
+  </defs>
+  <!-- clapperboard -->
+  <g transform="translate(1020 230) rotate(-6)" filter="url(#sh)">
+    <rect x="0" y="62" width="250" height="170" rx="8" fill="#141816"/>
+    <g transform="rotate(-16 0 58)">
+      <rect x="0" y="22" width="250" height="40" rx="5" fill="#141816"/>
+      <g fill="#efece4"><path d="M24 22 h30 l-22 40 h-30z"/><path d="M84 22 h30 l-22 40 h-30z"/><path d="M144 22 h30 l-22 40 h-30z"/><path d="M204 22 h30 l-22 40 h-30z"/></g>
+    </g>
+    <rect x="0" y="62" width="250" height="38" fill="#141816"/>
+    <g fill="#efece4"><path d="M24 62 h30 l-22 38 h-30z"/><path d="M84 62 h30 l-22 38 h-30z"/><path d="M144 62 h30 l-22 38 h-30z"/><path d="M204 62 h30 l-22 38 h-30z"/></g>
+    <g stroke="#efece4" stroke-width="2" opacity=".8"><path d="M14 148 h222 M14 190 h222 M125 110 v120"/></g>
+    <g font-family="DejaVu Sans Mono, monospace" font-weight="700" fill="#efece4">
+      <text x="20" y="138" font-size="20" letter-spacing="2">SCENE</text><text x="138" y="138" font-size="20" letter-spacing="2">TAKE</text>
+      <text x="20" y="180" font-size="28" fill="#c8102e">H12</text><text x="138" y="180" font-size="28">01</text>
+      <text x="20" y="220" font-size="16" letter-spacing="2" opacity=".8">CINEBUS · BCN</text>
+    </g>
+  </g>
+
+  <!-- articulated TMB bus, side view, heading right to the stop -->
+  <g transform="translate(900 860)" filter="url(#sh)">
+    <path d="M0 150 h880" stroke="#2b2b2b" stroke-width="2" opacity=".35"/>
+    <!-- rear coach -->
+    <path d="M10 18 q0-18 18-18 h372 v136 h-380 q-10 0-10-10z" fill="#f7f5ef"/>
+    <!-- front coach -->
+    <path d="M430 0 h392 q36 0 46 34 l8 92 q0 10-10 10 h-436z" fill="#f7f5ef"/>
+    <!-- bellows -->
+    <rect x="398" y="6" width="34" height="128" fill="#3a3a3a"/><g stroke="#5a5a5a" stroke-width="3"><path d="M406 10 v120 M415 10 v120 M424 10 v120"/></g>
+    <!-- red skirts and red front -->
+    <path d="M0 106 h400 v30 h-380 q-20 0-20-10z" fill="#c8102e"/><path d="M430 106 h446 v20 q0 10-10 10 h-436z" fill="#c8102e"/>
+    <path d="M820 0 q36 0 46 34 l10 92 h-60z" fill="#c8102e"/>
+    <path d="M10 8 h390 M430 8 h390" stroke="#c8102e" stroke-width="5"/>
+    <!-- windows -->
+    <g fill="#1c2329"><rect x="28" y="22" width="360" height="56" rx="5"/><rect x="444" y="22" width="300" height="56" rx="5"/><path d="M758 22 h52 q20 0 26 20 l8 62 h-86z"/></g>
+    <g stroke="#f7f5ef" stroke-width="6"><path d="M118 22 v56 M208 22 v56 M298 22 v56 M534 22 v56 M624 22 v56"/></g>
+    <g fill="#ffffff" opacity=".18"><path d="M40 26 h40 l-20 48 h-40z"/><path d="M460 26 h40 l-20 48 h-40z"/></g>
+    <!-- doors -->
+    <g fill="#2a3138"><rect x="214" y="22" width="78" height="104" rx="3"/><rect x="540" y="22" width="78" height="104" rx="3"/><rect x="760" y="80" width="0" height="0"/></g>
+    <g stroke="#f7f5ef" stroke-width="3"><path d="M253 22 v104 M579 22 v104"/></g>
+    <!-- destination display -->
+    <rect x="790" y="4" width="70" height="14" rx="2" fill="#141816"/><text x="825" y="15" font-family="DejaVu Sans Mono, monospace" font-size="11" font-weight="700" fill="#ffb000" text-anchor="middle">V15 CINEMA</text>
+    <!-- wheels -->
+    <g fill="#141816"><circle cx="90" cy="138" r="26"/><circle cx="330" cy="138" r="26"/><circle cx="500" cy="138" r="26"/><circle cx="800" cy="138" r="26"/></g>
+    <g fill="#8f8a84"><circle cx="90" cy="138" r="10"/><circle cx="330" cy="138" r="10"/><circle cx="500" cy="138" r="10"/><circle cx="800" cy="138" r="10"/></g>
+    <!-- headlight and TMB dot -->
+    <circle cx="866" cy="112" r="6" fill="#ffe7a8"/><circle cx="700" cy="96" r="9" fill="#f7f5ef"/><circle cx="700" cy="96" r="5" fill="#c8102e"/>
+  </g>
   </svg>
 
   <p class="hand">From the billboard to your seat</p>
   <h1>Cine<br>B<span class="red">u</span><span class="ghost">s</span></h1>
-  <!-- added later: the articulated TMB bus, a clapperboard and the projector beam -->
-  <img src="cinebus-layer.svg" alt="" style="left:0;top:0;width:2400px;height:1200px;z-index:7">
   <div class="fold"></div><div class="grain"></div>
 </main>
 <script src="board.js"></script>
