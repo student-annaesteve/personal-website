@@ -296,3 +296,6 @@
 @media (max-width: 720px) { .panel[data-layout] .panel-body :is(.irr-chh h3, .stop-title, .cb-sec h3, .ms-sec h3, .case-awards h3), .panel .panel-body .case-awards h3 { margin-left: -0.8em !important; } }
 .panel .p-building { min-height: 60vh; display: grid; place-items: center start; padding: 0 8px; }
 .panel .panel-body .p-building .case-title::after { content: none !important; }
+/* Section titles back in line with the text (no cut); the name in the same light grey as the big opening lines */
+.panel[data-layout] .panel-body :is(.irr-chh h3, .stop-title, .cb-sec h3, .ms-sec h3, .case-awards h3), .panel .panel-body .case-awards h3 { margin-left: 0 !important; }
+.brand h1#name { color: #d6d6d6 !important; }
