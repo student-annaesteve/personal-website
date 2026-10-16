@@ -282,10 +282,15 @@
 .panel[data-layout="mysonar"] .ms-stats > div { border-left: 0 !important; padding: 0 !important; gap: 6px !important; }
 .panel[data-layout="mysonar"] .ms-stats i { display: block; height: 4px; border-radius: 2px; margin: 2px 0 4px; background: linear-gradient(90deg, #ffc20e var(--v), #1111111a var(--v)); }
 .panel .panel-body .p-intro::after { content: none !important; display: none !important; }
-/* The big grey opening line: a bit bigger, and running off the page's left edge so the edge cuts it */
+
+/* Section titles (the black ones): a bit bigger, and running off the page's left edge so the edge cuts them */
 .panel { overflow-x: hidden; }
-.panel[data-layout] .panel-body :is(.cb-title, .ms-title, .case-title, .irr-cover .irr-chh h3),
-.panel .panel-body .case-title { font-size: clamp(44px, 5.2vw, 66px) !important; margin-left: -0.32em !important; }
-.panel[data-layout] .panel-body :is(.cb-title, .ms-title, .case-title, .irr-cover .irr-chh h3),
-.panel .panel-body .case-title { margin-left: -1.2em !important; }
-@media (max-width: 720px) { .panel[data-layout] .panel-body :is(.cb-title, .ms-title, .case-title, .irr-cover .irr-chh h3), .panel .panel-body .case-title { margin-left: -0.62em !important; } }
+.panel[data-layout] .panel-body :is(.irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3),
+.panel .panel-body .case-awards h3 { font-size: clamp(28px, 3vw, 36px) !important; margin-left: -2.05em !important; }
+.panel[data-layout] .panel-body .irr-cover .irr-chh h3 { margin-left: 0 !important; }
+@media (max-width: 720px) { .panel[data-layout] .panel-body :is(.irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3), .panel .panel-body .case-awards h3 { margin-left: -0.8em !important; } }
+/* The cut is the same on every page: past each layout's own side padding, then about a quarter of a letter */
+.panel[data-layout] .panel-body :is(.irr-chh h3, .stop-title) { margin-left: calc(-64px - 0.28em) !important; }
+.panel[data-layout] .panel-body :is(.cb-sec h3, .ms-sec h3, .case-awards h3), .panel .panel-body .case-awards h3 { margin-left: calc(-33px - 0.28em) !important; }
+.panel[data-layout] .panel-body .irr-cover .irr-chh h3 { margin-left: 0 !important; }
+@media (max-width: 720px) { .panel[data-layout] .panel-body :is(.irr-chh h3, .stop-title, .cb-sec h3, .ms-sec h3, .case-awards h3), .panel .panel-body .case-awards h3 { margin-left: -0.8em !important; } }
