@@ -104,7 +104,7 @@ window.PROJECTS = [
     layout: "mysonar",
     headline: "Your Sónar, planned for you",
     subtitle: "MySónar · a mobile app that builds a personal Sónar Festival schedule from your taste",
-    year: "",
+    year: "2024",
     tags: ["Mobile app", "Recommender", "UX / UI"],
     color: "#f2b40c",
     problems: [
