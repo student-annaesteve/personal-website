@@ -204,3 +204,25 @@
 .panel[data-layout="cinebus"] { --p-dot: #c8102e; }
 .panel[data-layout="mysonar"] { --p-dot: #ffc20e; }
 .panel[data-layout="cupra"] { --p-dot: #c8783a; }
+/* Mar i Muntanya: the central screen text beside a vertical prototype of the screen */
+.panel .stop-screen { display: grid !important; grid-template-columns: minmax(0, 1fr) 190px; column-gap: 24px; row-gap: 14px; align-items: start; }
+.panel .stop-screen > :not(.stop-screen-text):not(.screen-proto) { grid-column: 1 / -1; }
+.panel .stop-screen-text { display: grid; gap: 8px; }
+.panel .stop-screen-text p { margin: 0; }
+.panel .screen-proto { grid-column: 2; grid-row: 1 / span 3; margin: 0; width: 190px; box-sizing: border-box; display: grid; gap: 3px; align-content: start; border-radius: 22px; background: #111; padding: 22px 7px; box-shadow: 0 14px 30px #1111112a; }
+.panel .screen-proto img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 4px; }
+@media (max-width: 520px) { .panel .stop-screen { grid-template-columns: 1fr; } .panel .screen-proto { grid-column: 1; justify-self: center; } }
+
+/* Mar i Muntanya road: an asphalt lane with a dashed centre line; each level a copper milestone with its code */
+.panel[data-layout="cupra"] .road { padding-left: 52px !important; }
+.panel[data-layout="cupra"] .road::before { left: 13px !important; width: 12px !important; border-radius: 6px !important;
+  background: repeating-linear-gradient(#fff 0 7px, transparent 7px 15px) center / 2px 100% no-repeat, linear-gradient(#cfcfcf, #6e6e6e 12%, #6e6e6e 88%, #cfcfcf) !important; }
+.panel[data-layout="cupra"] .stop::before { content: attr(data-code) !important; left: -52px !important; top: -2px !important; width: 38px !important; height: 38px !important;
+  display: grid !important; place-items: center; border-radius: 50% !important; background: #c8783a !important; border: 4px solid #f5f5f4 !important; box-sizing: border-box;
+  color: #fff; font: 700 12px/1 "Inter Tight", "Helvetica Neue", Arial, sans-serif; letter-spacing: -0.02em; box-shadow: 0 0 0 1px #c8783a55; }
+@media (max-width: 520px) { .panel[data-layout="cupra"] .road { padding-left: 44px !important; } .panel[data-layout="cupra"] .road::before { left: 11px !important; } .panel[data-layout="cupra"] .stop::before { left: -44px !important; width: 34px !important; height: 34px !important; } }
+
+/* The name in the same grotesk as the section titles */
+.brand h1#name { font-family: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif !important; font-weight: 700 !important; letter-spacing: -0.04em !important; }
+.panel .stop-screen > .stop-frames { display: none !important; }
+.panel .stop-screen > .p-docs { grid-column: 1 !important; grid-row: 2; }
