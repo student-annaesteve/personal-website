@@ -99,12 +99,12 @@ window.PROJECTS = [
   {
     // Team app project. Its own look (layouts/mysonar.js + .css): black, Sónar yellow and hazard stripes, like the deck.
     title: "MySónar", // short name for the map and the route list
-    origin: "Team project: a mobile app designed for the Sónar Festival in Barcelona.", // where the project comes from: a soft line above the tags
+    origin: "Team project for a university course: a mobile app designed for the Sónar Festival in Barcelona.", // where the project comes from: a soft line above the tags
     banner: { src: "images/mysonar/banner.webp", alt: "MySónar collage: festival timetable slots, the app screens, the Barcelona skyline and the taste space" },
     layout: "mysonar",
     headline: "Your Sónar, planned for you",
     subtitle: "MySónar · a mobile app that builds a personal Sónar Festival schedule from your taste",
-    year: "",
+    year: "2024",
     tags: ["Mobile app", "Recommender", "UX / UI"],
     color: "#f2b40c",
     problems: [
@@ -143,7 +143,7 @@ window.PROJECTS = [
     banner: { src: "images/mar-i-muntanya/banner.webp", alt: "Mar i Muntanya collage: a winding road from L3 roadworks to the L4 city with an ambulance and the L5 restaurant and viewpoint, with the simulator on a laptop" },
     theme: "cupra", // copper orange accents, as in the presentation (styles.css)
     headline: "Designing trust in a car that drives itself", // the project's goal, shown as the panel title
-    year: "",
+    year: "2026",
     tags: ["UX / UI", "Automotive HMI", "Prototype"],
     color: "#111111",
     // Hero: the simulator's start screen on a laptop.
@@ -159,26 +159,12 @@ window.PROJECTS = [
         challenge: "The car drives itself until a roadworks zone, then hands control back. How do you make that handover without the driver feeling unsafe?",
         solution: "A fast, intuitive handover: a clear visual hierarchy, alerts that build up step by step, and only the essentials on screen.",
         media: { video: "videos/mar-i-muntanya/l3.mp4", poster: "images/mar-i-muntanya/l3-poster.jpg", device: "tablet", alt: "L3 simulation: the car hands control back before a roadworks zone" },
-        frames: [
-          { src: "images/mar-i-muntanya/l3-manual.jpg", caption: "Manual driving" },
-          { src: "images/mar-i-muntanya/l3-available.jpg", caption: "System available" },
-          { src: "images/mar-i-muntanya/l3-active.jpg", caption: "System active" },
-          { src: "images/mar-i-muntanya/l3-handback.jpg", caption: "Handing back control" },
-          { src: "images/mar-i-muntanya/l3-urgent.jpg", caption: "Urgent takeover" },
-          { src: "images/mar-i-muntanya/l3-safety.jpg", caption: "Safety protocol" },
-        ],
       },
       {
         code: "L4",
         challenge: "In the city the car handles everything, even giving way to an ambulance. How do you build trust without flooding the driver with information?",
         solution: "Show less, at the right moment: only the information that matters in each situation, plus extra comfort, like offering the wheel on a winding road.",
         media: { video: "videos/mar-i-muntanya/l4.mp4", poster: "images/mar-i-muntanya/l4-poster.jpg", device: "tablet", alt: "L4 simulation from the driver's seat: giving way to an ambulance" },
-        frames: [
-          { src: "images/mar-i-muntanya/l4-start.jpg", caption: "Trip start" },
-          { src: "images/mar-i-muntanya/l4-sport.jpg", caption: "Sport driving" },
-          { src: "images/mar-i-muntanya/l4-ambulance.jpg", caption: "Handling the unexpected" },
-          { src: "images/mar-i-muntanya/l4-autonomous.jpg", caption: "Autonomous driving" },
-        ],
       },
       {
         code: "L5",
@@ -203,7 +189,7 @@ window.PROJECTS = [
     linkLabel: "Open the simulator →",
     extraLinks: [{ label: "Read the report (PDF) →", url: "docs/mar-i-muntanya-memoria.pdf" }],
     awards: [
-      { src: "images/mar-i-muntanya/award-second-prize.jpg", caption: "Second prize · SEAT–UPC Chair challenge 2025–2026", alt: "The team and the jury in front of the projected challenge slide in the Aula de Graus, Telecos BCN" },
+      { src: "images/mar-i-muntanya/award-second-prize.jpg", caption: "Second prize · SEAT–UPC challenge 2025–2026", alt: "The team and the jury in front of the projected challenge slide in the Aula de Graus, Telecos BCN" },
     ],
   },
   {

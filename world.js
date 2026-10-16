@@ -108,7 +108,7 @@
     b.className = "sign" + (s.kind === "about" ? " summit" : "") + (banner ? " has-banner" : "");
     if (banner) b.style.setProperty("--banner", "url('" + esc(banner.src) + "')");
     b.innerHTML =
-      '<span class="sign-num">' + (s.kind === "about" ? "▲" : String(i + 1).padStart(2, "0")) + "</span>" +
+      '<span class="sign-num">' + (s.kind === "about" ? "▲" : String(i + 1)) + "</span>" +
       '<span class="sign-name">' + esc(s.kind === "about" ? "About me" : s.data.title) + "</span>";
     b.addEventListener("click", () => open(i));
     s.signEl = b;
@@ -166,7 +166,7 @@
   function renderPanel(i) {
     const s = i < 0 ? aboutStop : stops[i];
     const d = s.data;
-    const alt = s.metres ? "▲ " + fmt(s.metres) : "";
+    const alt = d.year ? esc(d.year) : ""; // the project's year instead of the altitude
     let html = "";
     // A project can bring its own look: `layout` names a renderer in window.CASE_LAYOUTS (see layouts/).
     const layout = s.kind === "project" && d.layout && (window.CASE_LAYOUTS || {})[d.layout];
@@ -288,7 +288,7 @@
         (L.screen.link ? '<p class="p-docs p-docs--inline">' + linkPhrase(L.screen.link, L.screen.linkLabel || "Open the screen") + ".</p>" : "") + "</div>" : "") +
       (L.frames ? '<div class="stop-frames" style="--cols:' + (L.frames.length % 3 ? Math.min(L.frames.length, 4) : 3) + '">' + L.frames.map((f) => '<figure><img src="' + esc(f.src) + '" alt="' + esc(f.alt || f.caption) + '" loading="lazy"><figcaption>' + esc(f.caption) + "</figcaption></figure>").join("") + "</div>" : "") +
       "</section>").join("") + "</div>";
-    if (d.awards && d.awards.length) h += '<section class="case-awards"><h3 class="stop-title">Awards</h3>' +
+    if (d.awards && d.awards.length) h += '<section class="case-awards"><h3 class="stop-title">Award</h3>' +
       d.awards.map((w) => '<figure><img src="' + esc(w.src) + '" alt="' + esc(w.alt || w.caption) + '" loading="lazy"><figcaption>' + esc(w.caption) + "</figcaption></figure>").join("") + "</section>";
     if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">' + esc(d.linkLabel || "Open the simulator →") + "</a>";
     if (d.extraLinks) h += d.extraLinks.map((l) => '<a class="panel-link panel-link--alt" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a>").join("");
@@ -655,9 +655,10 @@
       s.labelPos = new T.Vector3(s.top.x, s.top.y, s.top.z);
 
       // Marker (always visible) + side label (only while active).
-      const num = s.kind === "about" ? "▲" : String(i + 1).padStart(2, "0");
+      const num = s.kind === "about" ? "▲" : String(i + 1);
       const name = s.kind === "about" ? "About me" : s.data.title;
-      const line1 = (s.kind === "about" ? "SUMMIT" : num) + " — " + fmt(s.metres).toUpperCase();
+      const yr = s.kind === "about" ? "" : (s.data.year || "");
+      const line1 = s.kind === "about" ? "SUMMIT" : yr; // just the project's year
       const tag = document.createElement("div");
       tag.className = "peak-tag hidden";
       tag.innerHTML =
