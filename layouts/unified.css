@@ -282,3 +282,10 @@
 .panel[data-layout="mysonar"] .ms-stats > div { border-left: 0 !important; padding: 0 !important; gap: 6px !important; }
 .panel[data-layout="mysonar"] .ms-stats i { display: block; height: 4px; border-radius: 2px; margin: 2px 0 4px; background: linear-gradient(90deg, #ffc20e var(--v), #1111111a var(--v)); }
 .panel .panel-body .p-intro::after { content: none !important; display: none !important; }
+/* The big grey opening line: a bit bigger, and running off the page's left edge so the edge cuts it */
+.panel { overflow-x: hidden; }
+.panel[data-layout] .panel-body :is(.cb-title, .ms-title, .case-title, .irr-cover .irr-chh h3),
+.panel .panel-body .case-title { font-size: clamp(44px, 5.2vw, 66px) !important; margin-left: -0.32em !important; }
+.panel[data-layout] .panel-body :is(.cb-title, .ms-title, .case-title, .irr-cover .irr-chh h3),
+.panel .panel-body .case-title { margin-left: -1.2em !important; }
+@media (max-width: 720px) { .panel[data-layout] .panel-body :is(.cb-title, .ms-title, .case-title, .irr-cover .irr-chh h3), .panel .panel-body .case-title { margin-left: -0.62em !important; } }
