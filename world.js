@@ -859,8 +859,8 @@
         if (buildT >= BUILD_END) { buildT = BUILD_END; built = true; }
         const stage = buildT < RISE_START ? "Laying out the survey grid" : buildT < CONTOUR_START ? "Mapping the terrain" : buildT < BEACON_START ? "Tracing contour lines" : "Marking summits";
         if (!hintGone) hintEl.textContent = stage + " · " + Math.round((buildT / BUILD_END) * 100) + "%";
-      } else if (!hintGone && hintEl.textContent !== hintText) {
-        hintEl.textContent = hintText;
+      } else if (!hintEl.classList.contains("gone")) {
+        hintEl.classList.add("gone"); // once the mountain is built the hint goes away: no "drag to look around" line
       }
       uniforms.uT.value = buildT;
 
