@@ -259,7 +259,7 @@
   function renderCase(d, alt, i) {
     const hero = d.hero || [];
     let h =
-      '<div class="case-meta">' + (d.year ? "<span>" + esc(d.year) + "</span>" : "") +
+      '<div class="case-meta">' +
       (d.tags || []).map((t) => '<span class="chip">' + esc(t) + "</span>").join("") + "</div>" +
       '<h2 class="case-title">' + esc(d.headline || d.title) + "</h2>" +
       (d.subtitle ? '<p class="case-sub">' + esc(d.subtitle) + "</p>" : "") +
@@ -574,10 +574,10 @@
         float grain(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
         void main() {
           // soft grey with a fine film grain, a touch deeper towards the summits
-          vec3 c = vec3(0.839); // the light grey of the name (#d6d6d6)
+          vec3 c = vec3(0.875); // a softer take on the light grey of the name
           float g = grain(floor(gl_FragCoord.xy / 1.5)) - 0.5;
           c += g * 0.22;
-          gl_FragColor = vec4(c, 0.9 * vA);
+          gl_FragColor = vec4(c, 0.75 * vA);
         }`,
     }));
     surface.renderOrder = 1;
