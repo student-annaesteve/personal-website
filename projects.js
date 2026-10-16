@@ -99,7 +99,7 @@ window.PROJECTS = [
   {
     // Team app project. Its own look (layouts/mysonar.js + .css): black, Sónar yellow and hazard stripes, like the deck.
     title: "MySónar", // short name for the map and the route list
-    origin: "Team project: a mobile app designed for the Sónar Festival in Barcelona.", // where the project comes from: a soft line above the tags
+    origin: "Team project for a university course: a mobile app designed for the Sónar Festival in Barcelona.", // where the project comes from: a soft line above the tags
     banner: { src: "images/mysonar/banner.webp", alt: "MySónar collage: festival timetable slots, the app screens, the Barcelona skyline and the taste space" },
     layout: "mysonar",
     headline: "Your Sónar, planned for you",
