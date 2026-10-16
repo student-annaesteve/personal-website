@@ -81,3 +81,70 @@
 
 /* No numbers in front of the section titles */
 .panel[data-layout] :is(.cb-num, .ms-num) { display: none !important; }
+
+/* Only three kinds of text on every project page:
+   1. body text  2. the soft inclined "where" line  3. section titles (uppercase typewriter).
+   Everything else (page titles, labels, captions, numbers, tags, step names) takes one of these. */
+.panel[data-layout] .panel-body :is(h1, h2, h4, h5, p, li, span, b, strong, em, small, figcaption, dt, dd, a, label, div, td, th, button):not(.ms-phone *) {
+  font-family: var(--body) !important; font-size: 13px !important; line-height: 1.7 !important;
+  letter-spacing: normal !important; text-transform: none !important; font-style: normal !important;
+}
+.panel[data-layout] .panel-body :is(h1, h2, h4, h5, b, strong):not(.ms-phone *) { font-weight: 600 !important; }
+/* titles and big numbers use the section title style */
+.panel[data-layout] .panel-body :is(.irr-title, .cb-title, .ms-title, .case-title, .irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3, .irr-num b, .cb-facts dt, .ms-stats dt, .ms-card strong) {
+  font-family: var(--u-mono) !important; font-weight: 500 !important; font-size: 15px !important; line-height: 1.45 !important;
+  letter-spacing: .02em !important; text-transform: uppercase !important; font-style: normal !important;
+}
+/* the "where" line keeps its own soft style */
+.panel[data-layout] .panel-body .p-intro p.p-origin { font-family: "Source Sans 3", var(--body) !important; font-style: italic !important; font-weight: 300 !important; font-size: 14px !important; line-height: 1.6 !important; }
+/* tags read as body text in their thin pills */
+.panel[data-layout] .panel-body .p-tags span { font-size: 13px !important; line-height: 1.4 !important; padding: 1px 9px !important; }
+.panel[data-layout] .panel-body :is(p, li, dd, figcaption, td):not(.ms-phone *) { font-weight: 400 !important; }
+
+/* CineBus, tidied with the taste rules that fit this site's look:
+   more air between sections than inside them, no rails, circles or divider lines,
+   steps as a plain two-column list, the result figures on one flat tone step, the map square and full width. */
+.panel[data-layout="cinebus"] .cb-sec { padding: 0 !important; margin-top: 72px !important; border: 0 !important; }
+.panel[data-layout="cinebus"] .cb-map { border-radius: 0 !important; border: 0 !important; box-shadow: none !important; margin: 4px 0 28px !important; }
+.panel[data-layout="cinebus"] .cb-map svg, .panel[data-layout="cinebus"] .cb-map img { border-radius: 0 !important; }
+.panel[data-layout="cinebus"] .cb-steps { padding: 0 !important; margin: 0 !important; gap: 0 !important; counter-reset: none; }
+.panel[data-layout="cinebus"] .cb-steps::before, .panel[data-layout="cinebus"] .cb-step-n { display: none !important; }
+.panel[data-layout="cinebus"] .cb-steps li { display: block !important; padding: 0 !important; margin: 0 0 18px !important; }
+.panel[data-layout="cinebus"] .cb-steps li > div { display: grid !important; grid-template-columns: 9.5em 1fr; column-gap: 20px; }
+.panel[data-layout="cinebus"] .cb-steps li strong { grid-row: span 2; }
+.panel[data-layout="cinebus"] .cb-steps li em { color: rgba(17, 17, 17, 0.55) !important; }
+.panel[data-layout="cinebus"] .cb-facts { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 !important; background: #ecebe8; padding: 20px 4px !important; margin: 4px 0 18px !important; }
+.panel[data-layout="cinebus"] .cb-facts > div { border: 0 !important; background: none !important; padding: 0 16px !important; }
+.panel[data-layout="cinebus"] .cb-lead { font-weight: 400 !important; }
+@media (max-width: 560px) {
+  .panel[data-layout="cinebus"] .cb-steps li > div { grid-template-columns: 1fr; }
+  .panel[data-layout="cinebus"] .cb-steps li strong { grid-row: auto; }
+}
+.panel[data-layout="cinebus"] .cb-photo { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; margin: 4px 0 28px; }
+
+/* No horizontal lines between sections; space alone separates them */
+.panel[data-layout] :is(.irr-ch, .cb-sec, .ms-sec, .stop, .case-awards, .irr-report) { border-top: 0 !important; border-bottom: 0 !important; }
+.panel[data-layout] hr { display: none !important; }
+
+/* MySónar, simpler: no striped bars, the problems as a plain list, steps as two plain columns,
+   and the results as yellow bars with their text inside */
+.panel[data-layout="mysonar"] .ms-hero::before, .panel[data-layout="mysonar"] .ms-steps::before, .panel[data-layout="mysonar"] .ms-step-n { display: none !important; }
+.panel[data-layout="mysonar"] .ms-hero { padding-top: 12px !important; }
+.panel[data-layout="mysonar"] .ms-cards { display: grid !important; gap: 14px !important; padding: 0 !important; margin: 0 0 18px !important; list-style: none; }
+.panel[data-layout="mysonar"] .ms-card { border: 0 !important; background: none !important; padding: 0 !important; border-radius: 0 !important; display: grid !important; grid-template-columns: 9.5em 1fr; column-gap: 20px; }
+.panel[data-layout="mysonar"] .ms-card strong { grid-row: span 2; font-family: var(--body) !important; font-size: 13px !important; text-transform: none !important; letter-spacing: normal !important; font-weight: 600 !important; }
+.panel[data-layout="mysonar"] .ms-card-foot, .panel[data-layout="mysonar"] .ms-ico { display: none !important; }
+.panel[data-layout="mysonar"] .ms-steps { padding: 0 !important; margin: 24px 0 !important; gap: 0 !important; }
+.panel[data-layout="mysonar"] .ms-steps li { display: block !important; border: 0 !important; background: none !important; padding: 0 !important; margin: 0 0 16px !important; border-radius: 0 !important; }
+.panel[data-layout="mysonar"] .ms-steps li > div { display: grid; grid-template-columns: 9.5em 1fr; column-gap: 20px; }
+.panel[data-layout="mysonar"] .ms-stats { display: grid !important; grid-template-columns: 1fr !important; gap: 8px !important; margin: 0 0 14px !important; }
+.panel[data-layout="mysonar"] .ms-stats > div { display: flex !important; align-items: baseline; gap: 10px; background: #ffc20e !important; border: 0 !important; border-radius: 0 !important; padding: 8px 12px !important; }
+.panel[data-layout="mysonar"] .ms-stats dt { font-family: var(--body) !important; font-size: 13px !important; font-weight: 600 !important; text-transform: none !important; letter-spacing: normal !important; }
+.panel[data-layout="mysonar"] .ms-stats dd { margin: 0 !important; }
+.panel[data-layout="mysonar"] .ms-models { background: none !important; padding: 0 !important; border-radius: 0 !important; gap: 8px !important; }
+.panel[data-layout="mysonar"] .ms-bar { display: block !important; width: var(--v); background: #ffc20e; padding: 8px 12px; }
+@media (max-width: 560px) {
+  .panel[data-layout="mysonar"] :is(.ms-card, .ms-steps li > div) { grid-template-columns: 1fr; }
+}
+.panel[data-layout="mysonar"] .panel-body .ms-cards .ms-card { border: 0 !important; background: transparent !important; }
+.panel[data-layout="mysonar"] .panel-body .ms-cards .ms-card strong { font-family: var(--body) !important; font-size: 13px !important; text-transform: none !important; letter-spacing: normal !important; font-weight: 600 !important; line-height: 1.7 !important; }
