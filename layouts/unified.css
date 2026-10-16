@@ -192,3 +192,4 @@
 @media (max-width: 520px) { .panel[data-layout="cinebus"] .cb-demo { grid-template-columns: 1fr; } }
 .panel[data-layout="cinebus"] .cb-demo li { align-content: start; }
 .panel[data-layout="cinebus"] .panel-body .cb-facts dt { font-family: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif !important; font-weight: 700 !important; font-size: 26px !important; letter-spacing: -0.03em !important; text-transform: none !important; line-height: 1.1 !important; color: #111 !important; }
+.panel .stop-label::before, .panel[data-layout] .stop-label::before { display: none !important; }
