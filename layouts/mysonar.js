@@ -36,7 +36,6 @@
       '<div class="ms-tags">' + (d.year ? "<span>" + esc(d.year) + "</span>" : "") + (d.tags || []).map((t) => "<span>" + esc(t) + "</span>").join("") + "</div>" +
       '<h2 class="ms-title">' + esc(d.headline || d.title) + "</h2>" +
       (d.subtitle ? '<p class="ms-sub">' + esc(d.subtitle) + "</p>" : "") +
-      '<span class="ms-btn" aria-hidden="true">Start now ›</span>' +
       "</section>";
 
     h += '<section class="ms-sec">' + head("01", "The problem") +

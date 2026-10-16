@@ -164,3 +164,5 @@
 .panel[data-layout="mysonar"] .ms-hero > * { max-width: none !important; }
 .panel[data-layout="irrigation"] :is(.irr-cover, .irr-study, .irr-pr-top, .irr-concl) { grid-template-columns: 1fr !important; }
 .panel[data-layout="irrigation"] :is(.irr-cover, .irr-study, .irr-pr-top, .irr-concl) > * { grid-column: 1 !important; grid-row: auto !important; }
+/* MySónar results in rounded yellow boxes */
+.panel[data-layout="mysonar"] .ms-stats > div, .panel[data-layout="mysonar"] .ms-bar { border-radius: 12px !important; }
