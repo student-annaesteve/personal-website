@@ -262,3 +262,4 @@
 .trail-fold:hover, .trail-fold:focus-visible { opacity: 1; color: #fff !important; }
 /* When a box opens onto its banner, its number sits whole in the middle of the taller box */
 .sign.has-banner:hover .sign-num, .sign.has-banner:focus-visible .sign-num { align-self: center !important; line-height: 1 !important; transform: none !important; }
+.trail .sign .sign-name { font-weight: 600 !important; }
