@@ -177,8 +177,8 @@
     } else if (s.kind === "project" && d.levels) {
       html += renderCase(d, alt, i);
     } else if (s.kind === "project" && d.construction) {
-      // A project still being made: one big grey line, nothing else
-      html += '<div class="p-building"><h2 class="case-title">' + esc(d.construction) + "</h2></div>";
+      // A project still being made: one line of body text, nothing else
+      html += '<div class="p-building"><p>' + esc(d.construction) + "</p></div>";
     } else if (s.kind === "project") {
       const imgs = (d.images || [])
         .map((im) => '<img src="' + esc(im.src) + '" alt="' + esc(im.alt || "") + '" loading="lazy">')
