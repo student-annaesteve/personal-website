@@ -181,3 +181,14 @@
 .panel .panel-body .case-awards h3 { font-size: clamp(22px, 2.2vw, 26px) !important; color: #111 !important; }
 .panel[data-layout] .panel-body :is(.cb-title, .ms-title, .case-title, .irr-cover .irr-chh h3),
 .panel .panel-body .case-title { font-size: clamp(34px, 4vw, 52px) !important; color: #d6d6d6 !important; }
+/* CineBus result: the demo's options as a clean list, then the figures as rounded tiles */
+.panel[data-layout="cinebus"] .cb-demo { list-style: none; margin: 18px 0 22px; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.panel[data-layout="cinebus"] .cb-demo li { display: grid; gap: 4px; padding: 14px 16px; border-radius: 12px; background: #fff; border: 1px solid #1111111f; }
+.panel[data-layout="cinebus"] .cb-demo strong { font-weight: 600; font-size: 13px; color: #111; }
+.panel[data-layout="cinebus"] .cb-demo span { font-size: 13px; line-height: 1.6; color: #111; }
+.panel[data-layout="cinebus"] .cb-facts { background: none !important; padding: 0 !important; gap: 8px !important; margin: 0 !important; }
+.panel[data-layout="cinebus"] .cb-facts > div { background: #ecebe8 !important; border-radius: 12px !important; padding: 16px !important; border: 0 !important; }
+.panel[data-layout="cinebus"] .cb-facts > div + div { border-left: 0 !important; }
+@media (max-width: 520px) { .panel[data-layout="cinebus"] .cb-demo { grid-template-columns: 1fr; } }
+.panel[data-layout="cinebus"] .cb-demo li { align-content: start; }
+.panel[data-layout="cinebus"] .panel-body .cb-facts dt { font-family: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif !important; font-weight: 700 !important; font-size: 26px !important; letter-spacing: -0.03em !important; text-transform: none !important; line-height: 1.1 !important; color: #111 !important; }
