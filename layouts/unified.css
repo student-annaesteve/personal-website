@@ -153,3 +153,6 @@
 .panel[data-layout] .panel-body .p-intro, .panel .panel-body .p-intro { margin-bottom: 56px !important; }
 .panel[data-layout="irrigation"] .panel-body .p-intro { margin-top: 22px !important; }
 .panel[data-layout="mysonar"] .ms-hero { align-items: flex-start !important; text-align: left !important; padding-top: 0 !important; }
+/* Centred typed mark between the opening and the content */
+.panel[data-layout] .panel-body .p-intro, .panel .panel-body .p-intro { margin-bottom: 30px !important; }
+.panel .panel-body .p-intro::after { content: "· · ·"; justify-self: center; margin-top: 26px; font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 18px; font-weight: 500; letter-spacing: .3em; line-height: 1; color: #111; }
