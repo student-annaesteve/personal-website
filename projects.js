@@ -193,11 +193,11 @@ window.PROJECTS = [
     ],
   },
   {
-    title: "Project Five",
-    year: "2026",
-    tags: ["Design"],
-    description:
-      "Placeholder. Describe the brief, what you designed and what came out of it. Two or three sentences are enough.",
+    title: "…", // the next project: still under construction
+    year: "",
+    tags: [],
+    construction: "In construction…", // its page shows only this line
+    description: "",
     images: [],
     link: "",
     color: "#6b6b6b",
@@ -208,8 +208,8 @@ window.ABOUT = {
   name: "Anna Esteve Gallifa",
   tagline: "",
   bio: [
-    "Placeholder. Write a few sentences about who you are, what you study and what kind of design you love making.",
-    "Out of the studio I'm usually on a trail somewhere, heading for a summit.",
+    "I'm a Data Science and Engineering Physics student at the UPC.",
+    "I love sport: running, playing tennis and volleyball, and hiking up a mountain whenever I can. I also enjoy playing the piano.",
   ],
   photo: "images/me.jpg",
   email: "annaesteve193@gmail.com",

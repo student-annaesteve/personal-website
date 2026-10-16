@@ -294,3 +294,5 @@
 .panel[data-layout] .panel-body :is(.cb-sec h3, .ms-sec h3, .case-awards h3), .panel .panel-body .case-awards h3 { margin-left: calc(-33px - 0.28em) !important; }
 .panel[data-layout] .panel-body .irr-cover .irr-chh h3 { margin-left: 0 !important; }
 @media (max-width: 720px) { .panel[data-layout] .panel-body :is(.irr-chh h3, .stop-title, .cb-sec h3, .ms-sec h3, .case-awards h3), .panel .panel-body .case-awards h3 { margin-left: -0.8em !important; } }
+.panel .p-building { min-height: 60vh; display: grid; place-items: center start; padding: 0 8px; }
+.panel .panel-body .p-building .case-title::after { content: none !important; }
