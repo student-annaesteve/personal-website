@@ -9,14 +9,14 @@
 h1 { font-size: 300px; top: 60px; bottom: auto; }
 .red { color: #c8102e; }
 .ticket { left: 1880px; top: 760px; z-index: 8; transform: rotate(7deg); }
-.bus { left: -200px; top: 400px; width: 660px; z-index: 9; }
-.hand { left: 760px; top: 1100px; color: #7d0a1d; transform: rotate(-3deg); }
+.bus { left: -90px; top: 400px; width: 660px; z-index: 9; }
+.hand { left: 700px; top: 1010px; color: #7d0a1d; transform: rotate(-3deg); }
 </style></head><body>
 <main class="board">
   <svg class="lines" viewBox="0 0 2400 1200">
     <path stroke="#fff" stroke-width="2.5" d="M-40 980 C 240 900, 420 990, 600 900 S 860 760, 1000 820 S 1200 960, 1320 1240"/>
     <!-- the bus route: stops along the way, ending at the cinema pin -->
-    <path stroke="#c8102e" stroke-width="2.5" stroke-dasharray="1 14" stroke-width="6" d="M460 760 C 800 900, 1200 1000, 1500 900 S 1800 860, 1900 900"/>
+    <path stroke="#c8102e" stroke-width="2.5" stroke-dasharray="1 14" stroke-width="6" d="M570 760 C 850 900, 1200 1000, 1500 900 S 1800 860, 1900 900"/>
   </svg>
   <svg class="tiles" id="back" viewBox="0 0 2400 1200" style="z-index:2"></svg>
   <svg class="tiles" id="front" viewBox="0 0 2400 1200" style="z-index:5"></svg>
@@ -63,6 +63,25 @@ h1 { font-size: 300px; top: 60px; bottom: auto; }
     </g>
   </g>
 
+  </svg>
+
+  <!-- a row of cinema seats rising from the bottom edge: the trip ends in your seat -->
+  <svg class="seats" viewBox="0 0 2400 1200" style="left:0;top:0;width:2400px;height:1200px;z-index:8">
+    <g transform="translate(560 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(684 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(808 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(932 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(1056 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(1180 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(1304 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(1428 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(1552 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(1676 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(1800 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(1924 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(2048 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(2172 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
+    <g transform="translate(2296 1112)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
   </svg>
 
   <!-- the real TMB bus from the photo, cut out, driving in from the left edge -->
