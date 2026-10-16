@@ -100,3 +100,23 @@
 /* tags read as body text in their thin pills */
 .panel[data-layout] .panel-body .p-tags span { font-size: 13px !important; line-height: 1.4 !important; padding: 1px 9px !important; }
 .panel[data-layout] .panel-body :is(p, li, dd, figcaption, td):not(.ms-phone *) { font-weight: 400 !important; }
+
+/* CineBus, tidied with the taste rules that fit this site's look:
+   more air between sections than inside them, no rails, circles or divider lines,
+   steps as a plain two-column list, the result figures on one flat tone step, the map square and full width. */
+.panel[data-layout="cinebus"] .cb-sec { padding: 0 !important; margin-top: 72px !important; border: 0 !important; }
+.panel[data-layout="cinebus"] .cb-map { border-radius: 0 !important; border: 0 !important; box-shadow: none !important; margin: 4px 0 28px !important; }
+.panel[data-layout="cinebus"] .cb-map svg, .panel[data-layout="cinebus"] .cb-map img { border-radius: 0 !important; }
+.panel[data-layout="cinebus"] .cb-steps { padding: 0 !important; margin: 0 !important; gap: 0 !important; counter-reset: none; }
+.panel[data-layout="cinebus"] .cb-steps::before, .panel[data-layout="cinebus"] .cb-step-n { display: none !important; }
+.panel[data-layout="cinebus"] .cb-steps li { display: block !important; padding: 0 !important; margin: 0 0 18px !important; }
+.panel[data-layout="cinebus"] .cb-steps li > div { display: grid !important; grid-template-columns: 9.5em 1fr; column-gap: 20px; }
+.panel[data-layout="cinebus"] .cb-steps li strong { grid-row: span 2; }
+.panel[data-layout="cinebus"] .cb-steps li em { color: rgba(17, 17, 17, 0.55) !important; }
+.panel[data-layout="cinebus"] .cb-facts { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 !important; background: #ecebe8; padding: 20px 4px !important; margin: 4px 0 18px !important; }
+.panel[data-layout="cinebus"] .cb-facts > div { border: 0 !important; background: none !important; padding: 0 16px !important; }
+.panel[data-layout="cinebus"] .cb-lead { font-weight: 400 !important; }
+@media (max-width: 560px) {
+  .panel[data-layout="cinebus"] .cb-steps li > div { grid-template-columns: 1fr; }
+  .panel[data-layout="cinebus"] .cb-steps li strong { grid-row: auto; }
+}
