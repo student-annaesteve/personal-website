@@ -299,3 +299,6 @@
 /* Section titles back in line with the text (no cut); the name in the same light grey as the big opening lines */
 .panel[data-layout] .panel-body :is(.irr-chh h3, .stop-title, .cb-sec h3, .ms-sec h3, .case-awards h3), .panel .panel-body .case-awards h3 { margin-left: 0 !important; }
 .brand h1#name { color: #d6d6d6 !important; }
+/* The photo button: bigger, no border */
+.about-btn { width: 84px !important; height: 84px !important; border: 0 !important; }
+@media (max-width: 720px) { .about-btn { width: 64px !important; height: 64px !important; } }
