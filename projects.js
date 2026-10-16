@@ -74,7 +74,7 @@ window.PROJECTS = [
     // Python project (UPC). Its own look (layouts/cinebus.js + .css): a cinema ticket and a bus map.
     title: "CineBus", // short name for the map and the route list
     origin: "Python project at the UPC, made with Cristina Teixidó, 2023.", // where the project comes from: a soft line above the tags
-    banner: { src: "images/cinebus/banner.webp", alt: "CineBus collage: Eixample blocks, a clapperboard, and a real TMB bus driving in from the left along a dotted route to a cinema ticket" },
+    banner: { src: "images/cinebus/banner.webp", alt: "CineBus collage: rows of red cinema seats with gaps, a clapperboard, and a real TMB bus driving in from the left along a dotted route to a cinema ticket" },
     layout: "cinebus",
     headline: "From the billboard to your seat",
     subtitle: "CineBus · find a film in Barcelona and the fastest way to get there by bus and on foot",

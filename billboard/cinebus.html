@@ -85,12 +85,15 @@ h1 { font-size: 300px; top: 60px; bottom: auto; }
 </main>
 <script src="board.js"></script>
 <script>
-// Eixample blocks: squares with cut corners, on a straight grid
-const C = ["#c8102e", "#141816", "#8f8a84", "#e7d9cf", "#7d0a1d", "#d9c7a7", "#b9b2aa"];
-const block = (x, y, c) => { const s = 110, k = 30, h = s / 2;
-  return `<path d="M${x - h + k} ${y - h}h${s - 2 * k}l${k} ${k}v${s - 2 * k}l${-k} ${k}h${-(s - 2 * k)}l${-k} ${-k}v${-(s - 2 * k)}z" fill="${c}"/>`; };
+// Cinema seats seen from behind, in rows, some of them missing: they fill the left like the theatre
+const C = ["#c8102e", "#c8102e", "#a50d26", "#7d0a1d", "#c8102e", "#a50d26"];
+const block = (x, y, c) => `<g transform="translate(${x - 52} ${y - 50})">
+  <path d="M8 18 q0-18 22-18 h44 q22 0 22 18 v70 h-88z" fill="${c}"/>
+  <path d="M8 18 q0-18 22-18 h44 q22 0 22 18 v4 h-88z" fill="#d9c7a7"/>
+  <rect x="0" y="40" width="10" height="56" rx="4" fill="#5a0716"/><rect x="94" y="40" width="10" height="56" rx="4" fill="#5a0716"/>
+  <path d="M14 88 h76" stroke="#141816" stroke-opacity=".25" stroke-width="4"/></g>`;
 const [back, front] = field({ step: 118, offset: false, width: 1300, colours: C, shape: block, seed: 11 });
-const extra = [[1500, 300, "#c8102e"], [2150, 820, "#141816"], [1380, 120, "#8f8a84"], [1960, 1040, "#7d0a1d"], [1240, 860, "#d9c7a7"], [1380, 520, "#e7d9cf"]]
+const extra = [[1500, 300, "#c8102e"], [2150, 820, "#7d0a1d"], [1380, 120, "#a50d26"], [1240, 860, "#c8102e"], [1380, 520, "#a50d26"]]
   .map(([x, y, c]) => block(x, y, c)).join("");
 document.getElementById("back").innerHTML = back + extra;
 document.getElementById("front").innerHTML = front;
