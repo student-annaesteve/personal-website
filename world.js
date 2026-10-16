@@ -288,7 +288,7 @@
         (L.screen.link ? '<p class="p-docs p-docs--inline">' + linkPhrase(L.screen.link, L.screen.linkLabel || "Open the screen") + ".</p>" : "") + "</div>" : "") +
       (L.frames ? '<div class="stop-frames" style="--cols:' + (L.frames.length % 3 ? Math.min(L.frames.length, 4) : 3) + '">' + L.frames.map((f) => '<figure><img src="' + esc(f.src) + '" alt="' + esc(f.alt || f.caption) + '" loading="lazy"><figcaption>' + esc(f.caption) + "</figcaption></figure>").join("") + "</div>" : "") +
       "</section>").join("") + "</div>";
-    if (d.awards && d.awards.length) h += '<section class="case-awards"><h3 class="stop-title">The result</h3>' +
+    if (d.awards && d.awards.length) h += '<section class="case-awards"><h3 class="stop-title">Award</h3>' +
       d.awards.map((w) => '<figure><img src="' + esc(w.src) + '" alt="' + esc(w.alt || w.caption) + '" loading="lazy"><figcaption>' + esc(w.caption) + "</figcaption></figure>").join("") + "</section>";
     if (d.link) h += '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">' + esc(d.linkLabel || "Open the simulator →") + "</a>";
     if (d.extraLinks) h += d.extraLinks.map((l) => '<a class="panel-link panel-link--alt" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a>").join("");
