@@ -46,7 +46,7 @@
     h += chapter("irr-study",
       '<div>' + heading("#3e917e", "Study of the region") + '<p class="irr-text irr-rv">' + esc(st.text) + "</p>" +
       '<div class="irr-nums irr-rv">' + st.numbers.map(([n, label], k) =>
-        '<div class="irr-num" style="--c:' + ["#134f5c", "#45818e", "#88d671"][k % 3] + '"><b>' + esc(n) + "</b><span>" + esc(label) + "</span></div>").join("") +
+        '<div class="irr-num" style="--v:' + parseFloat(n) + '%"><b>' + esc(n) + "</b><span>" + esc(label) + '</span><i aria-hidden="true"></i></div>').join("") +
       "</div></div>");
 
     // Prototype: text beside the working prototype, then the row of photos
