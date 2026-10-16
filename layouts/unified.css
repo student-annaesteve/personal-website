@@ -197,3 +197,10 @@
 .panel[data-layout="cinebus"] .cb-demo { grid-template-columns: 1fr !important; gap: 10px !important; }
 .panel[data-layout="cinebus"] .cb-demo li { grid-template-columns: 9.5em 1fr; gap: 16px; padding: 0 !important; border: 0 !important; background: none !important; border-radius: 0 !important; }
 .panel[data-layout="cinebus"] .cb-facts > div { background: none !important; padding: 0 !important; border-radius: 0 !important; }
+/* A full stop in the project's colour closes each opening line */
+.panel .panel-body :is(.irr-cover .irr-chh h3, .cb-title, .ms-title, .case-title)::after {
+  content: "." !important; display: inline !important; width: auto !important; margin: 0 !important; border: 0 !important; color: var(--p-dot, #111); }
+.panel[data-layout="irrigation"] { --p-dot: #3e917e; }
+.panel[data-layout="cinebus"] { --p-dot: #c8102e; }
+.panel[data-layout="mysonar"] { --p-dot: #ffc20e; }
+.panel[data-layout="cupra"] { --p-dot: #c8783a; }
