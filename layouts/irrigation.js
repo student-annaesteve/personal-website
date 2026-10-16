@@ -65,7 +65,7 @@
 
     // Awards and the full report, the motto in the top right corner
     let aw = '<div class="irr-aw-head">' + heading("#134f5c", "Awards") +
-      '<span class="irr-piece irr-from-right irr-hand" aria-hidden="true">' + esc(d.headline) + "</span></div>" +
+      '<span class="irr-piece irr-from-right irr-hand" aria-hidden="true">' + esc(d.headline || "") + "</span></div>" +
       '<div class="irr-awards irr-rv">' + (d.awards || []).map((a) =>
         '<figure class="irr-award"><img src="' + esc(a.src) + '" alt="' + esc(a.alt || "") + '" loading="lazy"' +
         (a.position ? ' style="object-position:' + esc(a.position) + '"' : "") + "><figcaption>" + esc(a.name) + "</figcaption></figure>").join("") + "</div>";
