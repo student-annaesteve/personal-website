@@ -126,7 +126,7 @@
   const initials = (ABOUT.name || "").split(/\s+/).map((w) => w[0] || "").join("").slice(0, 2);
   if (ABOUT.photo) $("about-initials").outerHTML = '<img src="' + esc(ABOUT.photo) + '" alt="">';
   else $("about-initials").textContent = initials;
-  $("about-btn").addEventListener("click", () => openAbout());
+  $("about-btn").addEventListener("click", () => toggleAbout());
 
   const panel = $("panel");
   const panelBody = $("panel-body");
@@ -192,15 +192,7 @@
         "<p>" + esc(d.description) + "</p>" +
         (d.link ? '<a class="panel-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">View the full project →</a>' : "");
     } else {
-      // No photo here: the round photo button already shows it. Email, copy, GitHub and LinkedIn sit in one row.
-      const icon = (label) => /github/i.test(label) ? '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5a6.5 6.5 0 0 0-2.06 12.67c.33.06.44-.14.44-.31v-1.1c-1.8.39-2.18-.87-2.18-.87-.3-.75-.72-.95-.72-.95-.59-.4.04-.39.04-.39.65.05 1 .67 1 .67.58 1 1.52.71 1.89.54.06-.42.23-.71.41-.87-1.44-.16-2.95-.72-2.95-3.2 0-.71.25-1.29.67-1.74-.07-.17-.29-.83.06-1.72 0 0 .55-.18 1.79.66a6.2 6.2 0 0 1 3.26 0c1.24-.84 1.79-.66 1.79-.66.35.89.13 1.55.06 1.72.42.45.67 1.03.67 1.74 0 2.49-1.52 3.04-2.96 3.2.23.2.44.6.44 1.21v1.79c0 .17.11.38.45.31A6.5 6.5 0 0 0 8 1.5z"/></svg>' : /linkedin/i.test(label) ? '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 1.75a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM1.2 6h2.6v8.5H1.2zM6 6h2.5v1.2c.36-.66 1.24-1.4 2.56-1.4 2.7 0 3.2 1.78 3.2 4.1v4.6h-2.6v-4.1c0-1-.02-2.27-1.38-2.27-1.38 0-1.6 1.08-1.6 2.2v4.17H6z"/></svg>' : esc(label);
-      html +=
-        "<h2>About me</h2>" +
-        (d.bio || []).map((p) => "<p>" + esc(p) + "</p>").join("") +
-        '<div class="contact-row"><span class="email">' + esc(d.email) + "</span>" +
-        '<button type="button" class="copy-btn" id="copy-email" aria-label="Copy email" title="Copy email"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="2"/><path d="M10.5 3.2 V3 a1.5 1.5 0 0 0-1.5-1.5 H4 A1.5 1.5 0 0 0 2.5 3 v5 A1.5 1.5 0 0 0 4 9.5 h.3"/></svg></button>' +
-        (d.links || []).map((l) => '<a class="social-ico" href="' + esc(l.url) + '" target="_blank" rel="noopener" aria-label="' + esc(l.label) + '" title="' + esc(l.label) + '">' + icon(l.label) + "</a>").join("") +
-        "</div>";
+      html += aboutHTML(d);
     }
     // The project's banner heads the panel (Smart irrigation draws its own, with the travelling sketch).
     const banner = s.kind === "project" && d.banner && d.layout !== "irrigation";
@@ -217,16 +209,32 @@
     if (intro && d.layout === "irrigation") html = html.replace('<!--intro-->', intro);
     else html = intro + html;
     panelBody.innerHTML = html;
+    wireCopy(d);
+  }
+  function wireCopy(d) {
     const copy = $("copy-email");
-    if (copy) {
-      copy.addEventListener("click", () => {
-        try {
-          navigator.clipboard.writeText(d.email).then(() => (copy.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5 l3 3 6-7"/></svg>', copy.title = "Copied"), selectEmail);
-        } catch (e) {
-          selectEmail();
-        }
-      });
-    }
+    if (!copy) return;
+    copy.addEventListener("click", () => {
+      try {
+        navigator.clipboard.writeText(d.email).then(() => (copy.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5 l3 3 6-7"/></svg>', copy.title = "Copied"), selectEmail);
+      } catch (e) {
+        selectEmail();
+      }
+    });
+  }
+  // About me: text, then email · copy · GitHub · LinkedIn in one row.
+  function aboutHTML(d) {
+    let html = "";
+    // No photo here: the round photo button already shows it. Email, copy, GitHub and LinkedIn sit in one row.
+    const icon = (label) => /github/i.test(label) ? '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5a6.5 6.5 0 0 0-2.06 12.67c.33.06.44-.14.44-.31v-1.1c-1.8.39-2.18-.87-2.18-.87-.3-.75-.72-.95-.72-.95-.59-.4.04-.39.04-.39.65.05 1 .67 1 .67.58 1 1.52.71 1.89.54.06-.42.23-.71.41-.87-1.44-.16-2.95-.72-2.95-3.2 0-.71.25-1.29.67-1.74-.07-.17-.29-.83.06-1.72 0 0 .55-.18 1.79.66a6.2 6.2 0 0 1 3.26 0c1.24-.84 1.79-.66 1.79-.66.35.89.13 1.55.06 1.72.42.45.67 1.03.67 1.74 0 2.49-1.52 3.04-2.96 3.2.23.2.44.6.44 1.21v1.79c0 .17.11.38.45.31A6.5 6.5 0 0 0 8 1.5z"/></svg>' : /linkedin/i.test(label) ? '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 1.75a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM1.2 6h2.6v8.5H1.2zM6 6h2.5v1.2c.36-.66 1.24-1.4 2.56-1.4 2.7 0 3.2 1.78 3.2 4.1v4.6h-2.6v-4.1c0-1-.02-2.27-1.38-2.27-1.38 0-1.6 1.08-1.6 2.2v4.17H6z"/></svg>' : esc(label);
+    html +=
+    "<h2>About me</h2>" +
+    (d.bio || []).map((p) => "<p>" + esc(p) + "</p>").join("") +
+    '<div class="contact-row"><span class="email">' + esc(d.email) + "</span>" +
+    '<button type="button" class="copy-btn" id="copy-email" aria-label="Copy email" title="Copy email"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="2"/><path d="M10.5 3.2 V3 a1.5 1.5 0 0 0-1.5-1.5 H4 A1.5 1.5 0 0 0 2.5 3 v5 A1.5 1.5 0 0 0 4 9.5 h.3"/></svg></button>' +
+    (d.links || []).map((l) => '<a class="social-ico" href="' + esc(l.url) + '" target="_blank" rel="noopener" aria-label="' + esc(l.label) + '" title="' + esc(l.label) + '">' + icon(l.label) + "</a>").join("") +
+    "</div>";
+    return html;
   }
   // ---- Case study layout (projects with `levels`) ---------------------------
   // A device mockup holding an image or a looping video. A video shows its poster
@@ -321,23 +329,17 @@
     hideHint();
     if (world) world.flyTo(i);
   }
-  // About me opens in the same panel, from the round button; the map goes back to the overview.
-  const aboutStop = { kind: "about", data: ABOUT, id: "about" };
-  function openAbout() {
-    clearTimeout(closeTimer);
-    current = -1;
-    aboutOpen = true;
-    renderPanel(-1);
-    panel.hidden = false;
-    panel.classList.remove("closing");
-    document.body.classList.add("panel-open");
-    panel.scrollTop = 0;
-    stops.forEach((s) => s.signEl.setAttribute("aria-current", "false"));
-    $("about-btn").setAttribute("aria-current", "true");
-    try { history.replaceState(null, "", "#about"); } catch (e) {}
-    hideHint();
-    if (world) world.overview();
+  // About me drops down right under the round photo button; pressing it again folds it away.
+  const aboutPop = $("about-pop");
+  function toggleAbout(force) {
+    const show = force === undefined ? aboutPop.hidden : force;
+    if (show && !aboutPop.dataset.ready) { aboutPop.innerHTML = aboutHTML(ABOUT); wireCopy(ABOUT); aboutPop.dataset.ready = "1"; }
+    aboutPop.hidden = !show;
+    $("about-btn").setAttribute("aria-expanded", String(show));
+    if (show) $("about-btn").setAttribute("aria-current", "true"); else $("about-btn").removeAttribute("aria-current");
   }
+  function openAbout() { toggleAbout(true); }
+  const aboutStop = { kind: "about", data: ABOUT, id: "about" };
   function close() {
     if (current < 0 && !aboutOpen) return;
     current = -1;
@@ -352,7 +354,7 @@
   }
   $("panel-close").addEventListener("click", close);
   addEventListener("keydown", (e) => {
-    if (e.key === "Escape") close();
+    if (e.key === "Escape") { close(); toggleAbout(false); }
     if (current >= 0 && (e.key === "ArrowRight" || e.key === "ArrowUp") && current < stops.length - 1) open(current + 1);
     if (current >= 0 && (e.key === "ArrowLeft" || e.key === "ArrowDown") && current > 0) open(current - 1);
   });

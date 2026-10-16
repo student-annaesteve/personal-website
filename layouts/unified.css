@@ -319,3 +319,16 @@
 @media (max-width: 720px) { .about-label { top: calc(env(safe-area-inset-top, 0px) + 84px); width: 64px; right: 16px; font-size: 11px; } }
 /* In the About panel, GitHub and LinkedIn sit at the right end of the email row */
 .contact-row .copy-btn + .social-ico { margin-left: auto; }
+/* About me drops down under the photo button as floating text; the old label is gone */
+.about-label { display: none !important; }
+.about-pop { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 116px); right: 28px; width: min(380px, calc(100vw - 32px));
+  pointer-events: auto; padding: 14px 16px; border-radius: 14px; background: rgba(251, 251, 250, 0.82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  font-size: 13px; line-height: 1.65; color: #111; animation: about-in .25s ease; }
+.about-pop[hidden] { display: none; }
+.about-pop h2 { margin: 0 0 6px; font-size: 13px; font-weight: 600; }
+.about-pop p { margin: 0 0 8px; }
+.about-pop .contact-row { margin-top: 4px; }
+.about-pop .email { font-weight: 600; }
+@keyframes about-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@media (max-width: 720px) { .about-pop { top: calc(env(safe-area-inset-top, 0px) + 88px); right: 16px; } }
+@media (prefers-reduced-motion: reduce) { .about-pop { animation: none; } }
