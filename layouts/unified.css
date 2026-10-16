@@ -166,3 +166,6 @@
 .panel[data-layout="irrigation"] :is(.irr-cover, .irr-study, .irr-pr-top, .irr-concl) > * { grid-column: 1 !important; grid-row: auto !important; }
 /* MySónar results in rounded yellow boxes */
 .panel[data-layout="mysonar"] .ms-stats > div, .panel[data-layout="mysonar"] .ms-bar { border-radius: 12px !important; }
+/* Section titles: bigger, grey and bolder */
+.panel[data-layout] .panel-body :is(.irr-title, .cb-title, .ms-title, .case-title, .irr-chh h3, .cb-sec h3, .ms-sec h3, .stop-title, .case-awards h3),
+.panel .panel-body :is(.case-title, .case-awards h3) { font-size: 19px !important; font-weight: 700 !important; color: #6b6b6b !important; }
