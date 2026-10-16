@@ -166,7 +166,7 @@
   function renderPanel(i) {
     const s = i < 0 ? aboutStop : stops[i];
     const d = s.data;
-    const alt = s.metres ? "▲ " + fmt(s.metres) : "";
+    const alt = d.year ? esc(d.year) : ""; // the project's year instead of the altitude
     let html = "";
     // A project can bring its own look: `layout` names a renderer in window.CASE_LAYOUTS (see layouts/).
     const layout = s.kind === "project" && d.layout && (window.CASE_LAYOUTS || {})[d.layout];
@@ -657,7 +657,8 @@
       // Marker (always visible) + side label (only while active).
       const num = s.kind === "about" ? "▲" : String(i + 1);
       const name = s.kind === "about" ? "About me" : s.data.title;
-      const line1 = (s.kind === "about" ? "SUMMIT" : num) + " — " + fmt(s.metres).toUpperCase();
+      const yr = s.kind === "about" ? "" : (s.data.year || "");
+      const line1 = (s.kind === "about" ? "SUMMIT" : num) + (yr ? " — " + yr : ""); // the project's year instead of the altitude
       const tag = document.createElement("div");
       tag.className = "peak-tag hidden";
       tag.innerHTML =
