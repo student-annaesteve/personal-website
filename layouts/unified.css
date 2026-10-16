@@ -148,3 +148,8 @@
 }
 .panel[data-layout="mysonar"] .panel-body .ms-cards .ms-card { border: 0 !important; background: transparent !important; }
 .panel[data-layout="mysonar"] .panel-body .ms-cards .ms-card strong { font-family: var(--body) !important; font-size: 13px !important; text-transform: none !important; letter-spacing: normal !important; font-weight: 600 !important; line-height: 1.7 !important; }
+
+/* Clear step from the opening (origin + tags) into the project content */
+.panel[data-layout] .panel-body .p-intro, .panel .panel-body .p-intro { margin-bottom: 56px !important; }
+.panel[data-layout="irrigation"] .panel-body .p-intro { margin-top: 22px !important; }
+.panel[data-layout="mysonar"] .ms-hero { align-items: flex-start !important; text-align: left !important; padding-top: 0 !important; }
