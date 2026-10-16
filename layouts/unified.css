@@ -193,3 +193,7 @@
 .panel[data-layout="cinebus"] .cb-demo li { align-content: start; }
 .panel[data-layout="cinebus"] .panel-body .cb-facts dt { font-family: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif !important; font-weight: 700 !important; font-size: 26px !important; letter-spacing: -0.03em !important; text-transform: none !important; line-height: 1.1 !important; color: #111 !important; }
 .panel .stop-label::before, .panel[data-layout] .stop-label::before { display: none !important; }
+/* CineBus result, simplest: options as plain label/text rows, figures as plain numbers */
+.panel[data-layout="cinebus"] .cb-demo { grid-template-columns: 1fr !important; gap: 10px !important; }
+.panel[data-layout="cinebus"] .cb-demo li { grid-template-columns: 9.5em 1fr; gap: 16px; padding: 0 !important; border: 0 !important; background: none !important; border-radius: 0 !important; }
+.panel[data-layout="cinebus"] .cb-facts > div { background: none !important; padding: 0 !important; border-radius: 0 !important; }
