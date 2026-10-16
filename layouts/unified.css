@@ -263,3 +263,4 @@
 /* When a box opens onto its banner, its number sits whole in the middle of the taller box */
 .sign.has-banner:hover .sign-num, .sign.has-banner:focus-visible .sign-num { align-self: center !important; line-height: 1 !important; transform: none !important; }
 .trail .sign .sign-name { font-weight: 600 !important; }
+.trail .sign, .trail .sign:hover, .trail .sign[aria-current="true"] { border-color: transparent !important; }
