@@ -148,3 +148,19 @@
 }
 .panel[data-layout="mysonar"] .panel-body .ms-cards .ms-card { border: 0 !important; background: transparent !important; }
 .panel[data-layout="mysonar"] .panel-body .ms-cards .ms-card strong { font-family: var(--body) !important; font-size: 13px !important; text-transform: none !important; letter-spacing: normal !important; font-weight: 600 !important; line-height: 1.7 !important; }
+
+/* Clear step from the opening (origin + tags) into the project content */
+.panel[data-layout] .panel-body .p-intro, .panel .panel-body .p-intro { margin-bottom: 56px !important; }
+.panel[data-layout="irrigation"] .panel-body .p-intro { margin-top: 22px !important; }
+.panel[data-layout="mysonar"] .ms-hero { align-items: flex-start !important; text-align: left !important; padding-top: 0 !important; }
+/* Centred typed mark between the opening and the content */
+.panel[data-layout] .panel-body .p-intro, .panel .panel-body .p-intro { margin-bottom: 30px !important; }
+.panel .panel-body .p-intro::after { content: "· · ·"; justify-self: center; margin-top: 26px; font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; font-size: 18px; font-weight: 500; letter-spacing: .3em; line-height: 1; color: #111; }
+
+/* Text runs the full width of the subpage, whatever its size */
+.panel .panel-body :is(p, h1, h2, h3, h4, li, dd, dt, blockquote, figcaption, section, header, ul, ol, dl, article),
+.panel[data-layout] .panel-body :is(p, h1, h2, h3, h4, li, dd, dt, blockquote, figcaption, section, header, ul, ol, dl, article) { max-width: none !important; }
+.panel .panel-body .p-intro p.p-origin, .panel[data-layout] .panel-body .p-intro p.p-origin { max-width: none !important; }
+.panel[data-layout="mysonar"] .ms-hero > * { max-width: none !important; }
+.panel[data-layout="irrigation"] :is(.irr-cover, .irr-study, .irr-pr-top, .irr-concl) { grid-template-columns: 1fr !important; }
+.panel[data-layout="irrigation"] :is(.irr-cover, .irr-study, .irr-pr-top, .irr-concl) > * { grid-column: 1 !important; grid-row: auto !important; }
