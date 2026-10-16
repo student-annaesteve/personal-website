@@ -253,3 +253,10 @@
 .panel[data-layout="irrigation"] .irr-num i { display: block; height: 4px; border-radius: 2px; margin-top: 4px;
   background: linear-gradient(90deg, #3e917e var(--v), #1111111a var(--v)); }
 .panel[data-layout="irrigation"] .irr-num b { order: 0; } .panel[data-layout="irrigation"] .irr-num i { order: 1; margin: 2px 0 4px !important; } .panel[data-layout="irrigation"] .irr-num span { order: 2; }
+
+/* The arrow that hides the project list: like the close cross, just a soft white mark, half transparent, no box */
+.trail-fold { border: 0 !important; background: none !important; backdrop-filter: none !important; border-radius: 0 !important;
+  color: #fff !important; opacity: 0.6; filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 1px rgba(0, 0, 0, 0.7));
+  transition: transform 0.35s ease, opacity 0.2s ease !important; }
+.trail-fold svg { width: 18px !important; height: 18px !important; stroke-width: 2 !important; }
+.trail-fold:hover, .trail-fold:focus-visible { opacity: 1; color: #fff !important; }
