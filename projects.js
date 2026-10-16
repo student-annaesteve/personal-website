@@ -159,26 +159,12 @@ window.PROJECTS = [
         challenge: "The car drives itself until a roadworks zone, then hands control back. How do you make that handover without the driver feeling unsafe?",
         solution: "A fast, intuitive handover: a clear visual hierarchy, alerts that build up step by step, and only the essentials on screen.",
         media: { video: "videos/mar-i-muntanya/l3.mp4", poster: "images/mar-i-muntanya/l3-poster.jpg", device: "tablet", alt: "L3 simulation: the car hands control back before a roadworks zone" },
-        frames: [
-          { src: "images/mar-i-muntanya/l3-manual.jpg", caption: "Manual driving" },
-          { src: "images/mar-i-muntanya/l3-available.jpg", caption: "System available" },
-          { src: "images/mar-i-muntanya/l3-active.jpg", caption: "System active" },
-          { src: "images/mar-i-muntanya/l3-handback.jpg", caption: "Handing back control" },
-          { src: "images/mar-i-muntanya/l3-urgent.jpg", caption: "Urgent takeover" },
-          { src: "images/mar-i-muntanya/l3-safety.jpg", caption: "Safety protocol" },
-        ],
       },
       {
         code: "L4",
         challenge: "In the city the car handles everything, even giving way to an ambulance. How do you build trust without flooding the driver with information?",
         solution: "Show less, at the right moment: only the information that matters in each situation, plus extra comfort, like offering the wheel on a winding road.",
         media: { video: "videos/mar-i-muntanya/l4.mp4", poster: "images/mar-i-muntanya/l4-poster.jpg", device: "tablet", alt: "L4 simulation from the driver's seat: giving way to an ambulance" },
-        frames: [
-          { src: "images/mar-i-muntanya/l4-start.jpg", caption: "Trip start" },
-          { src: "images/mar-i-muntanya/l4-sport.jpg", caption: "Sport driving" },
-          { src: "images/mar-i-muntanya/l4-ambulance.jpg", caption: "Handling the unexpected" },
-          { src: "images/mar-i-muntanya/l4-autonomous.jpg", caption: "Autonomous driving" },
-        ],
       },
       {
         code: "L5",
