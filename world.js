@@ -108,7 +108,7 @@
     b.className = "sign" + (s.kind === "about" ? " summit" : "") + (banner ? " has-banner" : "");
     if (banner) b.style.setProperty("--banner", "url('" + esc(banner.src) + "')");
     b.innerHTML =
-      '<span class="sign-num">' + (s.kind === "about" ? "▲" : String(i + 1).padStart(2, "0")) + "</span>" +
+      '<span class="sign-num">' + (s.kind === "about" ? "▲" : String(i + 1)) + "</span>" +
       '<span class="sign-name">' + esc(s.kind === "about" ? "About me" : s.data.title) + "</span>";
     b.addEventListener("click", () => open(i));
     s.signEl = b;
@@ -655,7 +655,7 @@
       s.labelPos = new T.Vector3(s.top.x, s.top.y, s.top.z);
 
       // Marker (always visible) + side label (only while active).
-      const num = s.kind === "about" ? "▲" : String(i + 1).padStart(2, "0");
+      const num = s.kind === "about" ? "▲" : String(i + 1);
       const name = s.kind === "about" ? "About me" : s.data.title;
       const line1 = (s.kind === "about" ? "SUMMIT" : num) + " — " + fmt(s.metres).toUpperCase();
       const tag = document.createElement("div");
