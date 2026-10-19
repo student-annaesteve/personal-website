@@ -129,3 +129,11 @@
 .cb-concepts dt { font-weight: 600; font-size: 13px; color: #111; }
 .cb-concepts dd { margin: 0; font-size: 13px; line-height: 1.6; color: #111; }
 @media (max-width: 560px) { .cb-concepts dl { grid-template-columns: 1fr; } }
+
+/* The problem: the bus from the banner on the left, the text on the right */
+.panel[data-layout="cinebus"] { overflow-x: hidden; }
+.cb-problem { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr); gap: 32px; align-items: center; }
+.cb-problem > div { display: flex; flex-direction: column; gap: 16px; }
+.cb-bus-piece { position: relative; z-index: 3; width: 100%; max-width: 260px; justify-self: start; transform-origin: 0 0; will-change: transform;
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.3)); }
+@media (max-width: 760px) { .cb-problem { grid-template-columns: 1fr; gap: 24px; } .cb-bus-piece { max-width: 220px; } }

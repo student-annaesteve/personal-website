@@ -199,7 +199,7 @@
     // The project's banner heads the panel (Smart irrigation draws its own, with the travelling sketch).
     const banner = s.kind === "project" && d.banner && d.layout !== "irrigation";
     panelBanner.hidden = !banner;
-    if (banner) { panelBanner.src = d.banner.src; panelBanner.alt = d.banner.alt || ""; }
+    if (banner) { panelBanner.src = d.bannerPlain || d.banner.src; panelBanner.alt = d.banner.alt || ""; }
     // Every project opens the same way: its tags in grey, a soft line on where it comes from, then the content.
     const intro = s.kind === "project" && (d.origin || (d.tags || []).length)
       ? '<div class="p-intro"><div class="p-tags">' + (d.tags || []).map((t) => "<span>" + esc(t) + "</span>").join("") + "</div>" +

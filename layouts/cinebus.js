@@ -1,6 +1,6 @@
 /*
   "CineBus" has its own look: a cinema ticket for the header and a drawn bus map of the route,
-  in TMB red, night blue and paper; the solution opens with a photo of a TMB bus on a Barcelona avenue. Texts come from projects.js; this file only draws them.
+  in TMB red, night blue and paper; the bus from the banner drives down to beside the problem. Texts come from projects.js; this file only draws them.
 */
 (function () {
   const head = (n, title) => '<header class="cb-head"><span class="cb-num">' + n + "</span><h3>" + title + "</h3></header>";
@@ -44,6 +44,48 @@
     );
   }
 
+  // Where the bus sits in the banner: [left, top, width] as fractions of the banner (billboard/cinebus.html: .bus).
+  const BUS = [-40 / 2400, 330 / 1200, 700 / 2400];
+  const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+  // The bus starts at its place in the banner (the panel shows the banner without it) and drives down
+  // to beside the problem as the page scrolls, like the sprinkler sketch in Smart irrigation.
+  function busFlight() {
+    const scroller = document.getElementById("panel");
+    const banner = document.getElementById("panel-banner");
+    const bus = document.querySelector(".cb-bus-piece");
+    if (!scroller || !banner || !bus) return;
+    if (scroller._cbOff) scroller._cbOff();
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let fly = null, queued = false;
+    function measure() {
+      bus.style.transform = "none";
+      const b = banner.getBoundingClientRect(), n = bus.getBoundingClientRect();
+      fly = banner.hidden || !b.width || !n.width ? null :
+        { dx: b.left + b.width * BUS[0] - n.left, dy: b.top + b.height * BUS[1] - n.top, s: (b.width * BUS[2]) / n.width };
+    }
+    function flyTo() {
+      queued = false;
+      if (!bus.isConnected) return off();
+      if (!fly) { bus.style.transform = "none"; return; }
+      const t = ease(Math.min(1, Math.max(0, scroller.scrollTop / (scroller.clientHeight * 0.4)))), k = 1 - t;
+      bus.style.transform = "translate(" + (fly.dx * k).toFixed(1) + "px," + (fly.dy * k).toFixed(1) + "px) scale(" +
+        (fly.s + (1 - fly.s) * t).toFixed(3) + ") rotate(" + (6 * Math.sin(Math.PI * t)).toFixed(2) + "deg)";
+    }
+    const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(flyTo); } };
+    const onResize = () => { measure(); flyTo(); };
+    function off() {
+      scroller.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      scroller._cbOff = null;
+    }
+    if (!bus.complete) bus.addEventListener("load", onResize, { once: true });
+    scroller.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    scroller._cbOff = off;
+    onResize();
+  }
+
   window.CASE_LAYOUTS = window.CASE_LAYOUTS || {};
   window.CASE_LAYOUTS.cinebus = function (d, esc) {
     let h =
@@ -56,12 +98,13 @@
       '<div class="cb-tags">' + (d.tags || []).map((t) => "<span>" + esc(t) + "</span>").join("") + "</div>" +
       '</div><div class="cb-stub" aria-hidden="true"><span>CINE</span><b>BUS</b><span>' + esc(d.credit || "") + "</span></div></section>";
 
-    h += '<section class="cb-sec">' + head("01", "The problem") +
-      '<p class="cb-lead">' + esc(d.problem) + "</p>" +
-      '<p class="cb-text">' + esc(d.goal) + "</p></section>";
+    // The problem, with the bus from the banner beside it
+    h += '<section class="cb-sec">' + head("01", "The problem") + '<div class="cb-problem">' +
+      (d.bus ? '<img class="cb-bus-piece" src="' + esc(d.bus.src) + '" alt="' + esc(d.bus.alt || "") + '">' : "") +
+      '<div><p class="cb-lead">' + esc(d.problem) + "</p>" +
+      '<p class="cb-text">' + esc(d.goal) + "</p></div></div></section>";
 
     h += '<section class="cb-sec">' + head("02", "The solution") +
-      '<img class="cb-photo" src="images/cinebus/bus-street.webp" alt="A red and white articulated TMB bus on a wide Barcelona avenue with a red bus lane, seen from above" loading="lazy">' +
       '<ol class="cb-steps">' + (d.steps || []).map(([t, x, tool], k) =>
         '<li><span class="cb-step-n">' + (k + 1) + '</span><div><strong>' + esc(t) + "</strong><p>" + esc(x) + '</p><em>' + esc(tool) + "</em></div></li>").join("") +
       "</ol>" +
@@ -74,6 +117,7 @@
       '<dl class="cb-facts">' + (d.facts || []).map(([v, k]) => "<div><dt>" + esc(v) + "</dt><dd>" + esc(k) + "</dd></div>").join("") + "</dl></section>";
 
     if (d.link) h += '<a class="panel-link cb-link" href="' + esc(d.link) + '" target="_blank" rel="noopener">' + esc(d.linkLabel || "View the code →") + "</a>";
+    requestAnimationFrame(busFlight);
     return h + "</div>";
   };
 })();

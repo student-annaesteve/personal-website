@@ -106,6 +106,10 @@ h1 { font-size: 270px; }
 </main>
 <script src="board.js"></script>
 <script>
+// cinebus.html?plain draws the board without the bus: the project page shows that one and lets the bus fly out of it
+if (/plain/.test(location.search)) document.querySelector(".bus").style.visibility = "hidden";
+</script>
+<script>
 // The city: stops scattered irregularly (no grid), dense on the left and thinning to the middle like the other banners' tiles,
 // each joined to its nearest neighbours like streets
 const rnd = seeded(23), N = [];
