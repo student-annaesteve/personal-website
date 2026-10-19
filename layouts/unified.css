@@ -120,7 +120,6 @@
   .panel[data-layout="cinebus"] .cb-steps li > div { grid-template-columns: 1fr; }
   .panel[data-layout="cinebus"] .cb-steps li strong { grid-row: auto; }
 }
-.panel[data-layout="cinebus"] .cb-photo { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; margin: 4px 0 28px; }
 
 /* No horizontal lines between sections; space alone separates them */
 .panel[data-layout] :is(.irr-ch, .cb-sec, .ms-sec, .stop, .case-awards, .irr-report) { border-top: 0 !important; border-bottom: 0 !important; }

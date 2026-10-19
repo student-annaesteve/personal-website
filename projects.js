@@ -75,6 +75,9 @@ window.PROJECTS = [
     title: "CineBus", // short name for the map and the route list
     origin: "Python project at the UPC, made with Cristina Teixidó, 2023.", // where the project comes from: a soft line above the tags
     banner: { src: "images/cinebus/banner.webp", alt: "CineBus collage: a network of Barcelona bus stops, a real TMB bus driving along a red route through it to a cinema pin, a clapperboard, a ticket and a row of red velvet cinema seats" },
+    // The page shows the banner without the bus; the bus then travels from its place in the banner to beside the problem
+    bannerPlain: "images/cinebus/banner-plain.webp",
+    bus: { src: "images/cinebus/bus.webp", alt: "A red and white articulated TMB bus" },
     layout: "cinebus",
     headline: "From the billboard to your seat",
     subtitle: "CineBus · find a film in Barcelona and the fastest way to get there by bus and on foot",
