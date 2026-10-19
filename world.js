@@ -84,7 +84,6 @@
   // DOM: trail sign, header, panel. Works even if WebGL is unavailable.
   // ---------------------------------------------------------------------------
   const $ = (id) => document.getElementById(id);
-  $("name").textContent = ABOUT.name || "";
   $("tagline").textContent = ABOUT.tagline || "";
   const hintText = isTouch
     ? "Drag to explore · Tap a summit"
@@ -93,6 +92,9 @@
 
   const esc = (s) =>
     String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  // The name in lowercase, the first letter of each word bigger (styled in unified.css)
+  $("name").innerHTML = (ABOUT.name || "").split(/\s+/).filter(Boolean)
+    .map((w) => '<span class="ini">' + esc(w[0]) + "</span>" + esc(w.slice(1))).join(" ");
 
   const list = $("trail-list");
   stops.forEach((s, i) => {
