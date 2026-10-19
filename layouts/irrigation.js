@@ -28,19 +28,20 @@
     h += '<div class="irr-banner-wrap"><img class="irr-banner" src="' + esc(d.banner.src) + '" alt="' + esc(d.banner.alt || "") + '">' +
       '<span class="irr-hole" aria-hidden="true"></span></div><!--intro-->';
 
-    // Cover: the goal, the pencil sketch beside it
+    // Cover: the title across, then the goal with the pencil sketch beside it
     h += chapter("irr-cover",
-      '<div>' + (d.introTitle ? heading("#134f5c", esc(d.introTitle)) : "") +
-      '<div class="irr-rv"><p class="irr-lead">' + esc(d.goal) + "</p></div></div>" +
+      (d.introTitle ? heading("#134f5c", esc(d.introTitle)) : "") +
+      '<div class="irr-rv"><p class="irr-lead">' + esc(d.goal) + "</p></div>" +
       '<img class="irr-sketch" src="' + esc(d.sketch.src) + '" alt="' + esc(d.sketch.alt || "") + '">');
 
-    // Theory: text across, the diagram left, the four factors right
+    // Theory: the text with the four factors under it on the left, the diagram beside them on the right
     h += chapter("irr-theory",
-      heading("#45818e", "Theory") + '<p class="irr-text irr-rv">' + esc(th.text) + "</p>" +
-      '<div class="irr-th-grid">' + fig(th.main, esc, "irr-piece irr-from-left") +
+      heading("#45818e", "Theory") +
+      '<div class="irr-th-grid"><div><p class="irr-text irr-rv">' + esc(th.text) + "</p>" +
       '<figure class="irr-fig irr-rv"><div class="irr-quad">' +
       th.factors.map((f) => '<img src="' + esc(f.src) + '" alt="' + esc(f.alt) + '" loading="lazy">').join("") +
-      "</div><figcaption>" + esc(th.factorsCaption) + "</figcaption></figure></div>");
+      "</div><figcaption>" + esc(th.factorsCaption) + "</figcaption></figure></div>" +
+      fig(th.main, esc, "irr-piece irr-from-right") + "</div>");
 
     // Study of the region: text and big numbers
     h += chapter("irr-study",

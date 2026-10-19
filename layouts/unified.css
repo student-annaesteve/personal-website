@@ -162,8 +162,7 @@
 .panel[data-layout] .panel-body :is(p, h1, h2, h3, h4, li, dd, dt, blockquote, figcaption, section, header, ul, ol, dl, article) { max-width: none !important; }
 .panel .panel-body .p-intro p.p-origin, .panel[data-layout] .panel-body .p-intro p.p-origin { max-width: none !important; }
 .panel[data-layout="mysonar"] .ms-hero > * { max-width: none !important; }
-.panel[data-layout="irrigation"] :is(.irr-cover, .irr-study, .irr-pr-top, .irr-concl) { grid-template-columns: 1fr !important; }
-.panel[data-layout="irrigation"] :is(.irr-cover, .irr-study, .irr-pr-top, .irr-concl) > * { grid-column: 1 !important; grid-row: auto !important; }
+/* Smart irrigation: text and images side by side (irrigation.css stacks them on narrow windows) */
 /* MySónar results in rounded yellow boxes */
 .panel[data-layout="mysonar"] .ms-stats > div, .panel[data-layout="mysonar"] .ms-bar { border-radius: 12px !important; }
 /* Section titles: bigger, grey and bolder */
@@ -345,3 +344,9 @@
 .about-pop .email { font-size: 11.5px; }
 /* Tags first, in grey */
 .panel .panel-body .p-tags span, .panel[data-layout] .panel-body .p-tags span { color: #8a8a8a !important; border-color: #11111126 !important; }
+
+/* The name in lowercase, with the first letter of each word bigger */
+.brand h1#name { text-transform: lowercase; }
+.brand h1#name .ini { font-size: 1.4em; line-height: 0; }
+.panel[data-layout="irrigation"] .irr-study { grid-template-columns: 1fr; }
+.panel[data-layout="irrigation"] .irr-cover > .irr-chh { grid-column: 1 / -1; }
