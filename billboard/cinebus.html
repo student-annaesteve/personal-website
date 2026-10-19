@@ -1,32 +1,32 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><title>CineBus billboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter+Tight:wght@700&family=Caveat:wght@500&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700&family=Caveat:wght@500&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="board.css">
 <style>
-/* Idea: from the billboard to your seat. The tiles are Barcelona's Eixample blocks; the clapperboard is the film you
-   picked; a TMB bus drives the dotted route out of the city, and the route ends at your ticket. */
+/* Idea: from the billboard to your seat. The field on the left is Barcelona's streets as the project's graph of stops,
+   dense at the edge and thinning to the middle; the real TMB bus drives out of it and its route winds through the stops
+   to the cinema pin. The clapperboard and the ticket wait by the cinema, and one short row of velvet seats sits at the bottom. */
 .board { --ghost: #c8102e; }
-h1 { font-size: 300px; top: 60px; bottom: auto; }
 .red { color: #c8102e; }
-.ticket { left: 1880px; top: 760px; z-index: 8; transform: rotate(7deg); }
-.bus { left: 10px; top: 400px; width: 660px; z-index: 9; }
-.hand { left: 1180px; top: 600px; color: #7d0a1d; transform: rotate(-3deg); }
+h1 { font-size: 270px; }
+.bus { left: -40px; top: 330px; width: 700px; z-index: 9; }
+.ticket { left: 1420px; top: 540px; z-index: 8; transform: rotate(-7deg); }
+.fold { display: none; }   /* no paper fold on this board: the streets run across the middle without a seam */
+.hand { right: 120px; top: 64px; color: #7d0a1d; transform: rotate(-3deg); }
 </style></head><body>
 <main class="board">
   <svg class="lines" viewBox="0 0 2400 1200">
-    <path stroke="#fff" stroke-width="2.5" d="M-40 980 C 240 900, 420 990, 600 900 S 860 760, 1000 820 S 1200 960, 1320 1240"/>
-    <!-- the bus route: stops along the way, ending at the cinema pin -->
-    <path stroke="#c8102e" stroke-width="2.5" stroke-dasharray="1 14" stroke-width="6" d="M670 760 C 900 900, 1200 1000, 1500 900 S 1800 860, 1900 900"/>
-  </svg>
-  <svg class="tiles" id="back" viewBox="0 0 2400 1200" style="z-index:2"></svg>
-  <svg class="tiles" id="front" viewBox="0 0 2400 1200" style="z-index:5"></svg>
-  <svg class="tiles" viewBox="0 0 2400 1200" style="z-index:3">
-    <g fill="#c8102e" stroke="#efece4" stroke-width="5">
-      <circle cx="1500" cy="900" r="11"/><circle cx="1900" cy="900" r="11"/>
-    </g>
+    <path stroke="#fff" stroke-width="2.5" d="M-40 1000 C 260 930, 380 990, 540 900 S 780 760, 920 820 S 1100 930, 1200 1020 S 1320 1180, 1360 1240"/>
   </svg>
 
-  <!-- ticket -->
+  <!-- the streets of the city as a graph of stops, and the bus route from the bus to the cinema -->
+  <svg class="tiles" id="map" viewBox="0 0 2400 1200" style="z-index:2"></svg>
+  <svg class="tiles" id="route" viewBox="0 0 2400 1200" style="z-index:8"></svg>
+
+  <!-- one short row of velvet cinema seats along the bottom -->
+  <svg class="tiles" id="seats" viewBox="0 0 2400 1200" style="z-index:6"><defs id="velvet"></defs></svg>
+
+  <!-- ticket, by the cinema -->
   <svg class="ticket shadow" width="420" height="190" viewBox="0 0 420 190">
     <path d="M0 0h420v70a25 25 0 0 0 0 50v70H0v-70a25 25 0 0 0 0-50z" fill="#e7d9cf"/>
     <path d="M300 10v170" stroke="#7d0a1d" stroke-width="3" stroke-dasharray="8 8"/>
@@ -38,64 +38,165 @@ h1 { font-size: 300px; top: 60px; bottom: auto; }
     </g>
   </svg>
 
-  <svg class="pieces" viewBox="0 0 2400 1200" style="left:0;top:0;width:2400px;height:1200px;z-index:7">
+  <!-- clapperboard: a black slate with chalk entries, striped clapper sticks with real thickness, a hinge plate, the top stick lifted -->
+  <svg viewBox="0 0 2400 1200" style="left:0;top:0;width:2400px;height:1200px;z-index:7">
   <defs>
-    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#fffdf6" stop-opacity=".85"/><stop offset="1" stop-color="#fffdf6" stop-opacity="0"/>
-    </linearGradient>
-    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#000" flood-opacity=".33"/></filter>
-    <filter id="soft"><feGaussianBlur stdDeviation="10"/></filter>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#000" flood-opacity=".38"/></filter>
+    <filter id="chalk"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.4"/></filter>
+    <filter id="smudge"><feGaussianBlur stdDeviation="9"/></filter>
+    <filter id="grit" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="3" seed="8"/>
+      <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .09 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>
+    <linearGradient id="slate" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f3130"/><stop offset=".6" stop-color="#1b1c1c"/><stop offset="1" stop-color="#0f1010"/></linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset=".4" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></linearGradient>
+    <linearGradient id="drop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
+    <linearGradient id="plate" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9eae8"/><stop offset=".5" stop-color="#9c9e9d"/><stop offset="1" stop-color="#5d5f5e"/></linearGradient>
+    <radialGradient id="screw" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#fafaf8"/><stop offset="1" stop-color="#6a6c6b"/></radialGradient>
+    <clipPath id="stick"><rect x="0" y="0" width="300" height="40" rx="3"/></clipPath>
+    <!-- one clapper stick: stripes on the face, a darker edge below for its thickness -->
+    <g id="stripes">
+      <rect x="0" y="6" width="300" height="40" rx="3" fill="#050505"/>
+      <g clip-path="url(#stick)">
+        <rect width="300" height="40" fill="#141515"/>
+        <g fill="#f1efe8"><path d="M10 0h34l-24 40h-34z"/><path d="M78 0h34l-24 40h-34z"/><path d="M146 0h34l-24 40h-34z"/><path d="M214 0h34l-24 40h-34z"/><path d="M282 0h34l-24 40h-34z"/></g>
+        <rect width="300" height="40" fill="url(#gloss)"/>
+        <path d="M0 1.5 H300" stroke="#fff" stroke-opacity=".35" stroke-width="1.5"/>
+      </g>
+    </g>
   </defs>
-  <!-- clapperboard -->
-  <g transform="translate(1020 230) rotate(-6)" filter="url(#sh)">
-    <rect x="0" y="62" width="250" height="170" rx="8" fill="#141816"/>
-    <g transform="rotate(-16 0 58)">
-      <rect x="0" y="22" width="250" height="40" rx="5" fill="#141816"/>
-      <g fill="#efece4"><path d="M24 22 h30 l-22 40 h-30z"/><path d="M84 22 h30 l-22 40 h-30z"/><path d="M144 22 h30 l-22 40 h-30z"/><path d="M204 22 h30 l-22 40 h-30z"/></g>
+  <g transform="translate(600 40) rotate(-16) scale(.8)" filter="url(#sh)">
+    <!-- slate, with a worn lighter rim and a fine grain -->
+    <rect x="0" y="66" width="300" height="214" rx="7" fill="url(#slate)"/>
+    <rect x="0" y="66" width="300" height="214" rx="7" fill="#000" filter="url(#grit)"/>
+    <rect x="1.5" y="67.5" width="297" height="211" rx="6" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="2"/>
+    <!-- chalk dust left from earlier takes -->
+    <g fill="#fff" filter="url(#smudge)"><ellipse cx="210" cy="250" rx="60" ry="16" opacity=".07"/><ellipse cx="80" cy="190" rx="40" ry="12" opacity=".05"/><ellipse cx="240" cy="140" rx="34" ry="10" opacity=".05"/></g>
+    <!-- bottom stick, fixed to the slate, darkened by the shadow of the lifted stick -->
+    <use href="#stripes" transform="translate(0 62)"/>
+    <path d="M24 62 L300 62 L300 80 Q160 66 24 62z" fill="url(#drop)" opacity=".7"/>
+    <!-- top stick, lifted on the hinge -->
+    <g transform="rotate(-18 12 62)"><use href="#stripes" transform="translate(0 20)"/></g>
+    <!-- hinge plate with two screws -->
+    <rect x="-2" y="48" width="34" height="40" rx="4" fill="url(#plate)" stroke="#3b3d3c" stroke-width="1.2"/>
+    <circle cx="14" cy="62" r="8" fill="#4d4f4e"/><circle cx="14" cy="62" r="5.5" fill="url(#screw)"/><path d="M10.5 62 h7" stroke="#4d4f4e" stroke-width="1.6"/>
+    <circle cx="14" cy="80" r="3.6" fill="url(#screw)" stroke="#4d4f4e" stroke-width=".8"/>
+    <!-- printed fields -->
+    <g stroke="#f1efe8" stroke-opacity=".5" stroke-width="2"><path d="M10 160 H290 M10 214 H290 M100 160 V214 M200 160 V214 M150 214 V270"/></g>
+    <g font-family="JetBrains Mono, monospace" font-weight="600" font-size="12" letter-spacing="1.5" fill="#f1efe8" fill-opacity=".55">
+      <text x="14" y="132">PROD.</text><text x="14" y="176">ROLL</text><text x="106" y="176">SCENE</text><text x="206" y="176">TAKE</text>
+      <text x="14" y="230">DIRECTOR</text><text x="156" y="230">DATE</text>
     </g>
-    <rect x="0" y="62" width="250" height="38" fill="#141816"/>
-    <g fill="#efece4"><path d="M24 62 h30 l-22 38 h-30z"/><path d="M84 62 h30 l-22 38 h-30z"/><path d="M144 62 h30 l-22 38 h-30z"/><path d="M204 62 h30 l-22 38 h-30z"/></g>
-    <g stroke="#efece4" stroke-width="2" opacity=".8"><path d="M14 148 h222 M14 190 h222 M125 110 v120"/></g>
-    <g font-family="DejaVu Sans Mono, monospace" font-weight="700" fill="#efece4">
-      <text x="20" y="138" font-size="20" letter-spacing="2">SCENE</text><text x="138" y="138" font-size="20" letter-spacing="2">TAKE</text>
-      <text x="20" y="180" font-size="28" fill="#c8102e">H12</text><text x="138" y="180" font-size="28">01</text>
-      <text x="20" y="220" font-size="16" letter-spacing="2" opacity=".8">CINEBUS · BCN</text>
+    <!-- chalk, with the old take rubbed out under the new one -->
+    <text x="220" y="204" font-family="Caveat, cursive" font-size="34" fill="#fff" opacity=".1" filter="url(#smudge)">03</text>
+    <g font-family="Caveat, cursive" font-weight="500" fill="#f7f5ef" filter="url(#chalk)" opacity=".9">
+      <text x="72" y="152" font-size="40">CineBus</text>
+      <text x="22" y="206" font-size="34">A7</text><text x="118" y="206" font-size="34" fill="#ff5d6e">H12</text><text x="222" y="206" font-size="34">01</text>
+      <text x="16" y="264" font-size="28">A. Esteve</text><text x="160" y="264" font-size="28">BCN 2023</text>
     </g>
+    <!-- a soft sheen across the slate -->
+    <path d="M0 110 Q150 96 300 104 V150 Q150 140 0 180z" fill="#fff" opacity=".035"/>
   </g>
-
-  </svg>
-
-  <!-- a row of cinema seats rising from the bottom edge: the trip ends in your seat -->
-  <svg class="seats" viewBox="0 0 2400 1200" style="left:0;top:0;width:2400px;height:1200px;z-index:8">
-    <g transform="translate(932 1050)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
-    <g transform="translate(1056 1050)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
-    <g transform="translate(1180 1050)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
-    <g transform="translate(1304 1050)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
-    <g transform="translate(1428 1050)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
-    <g transform="translate(1552 1050)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
-    <g transform="translate(1676 1050)"><path d="M6 0 h88 q10 0 10 10 v50 h-108 v-50 q0-10 10-10z" fill="#c8102e"/><rect x="-8" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="94" y="34" width="14" height="60" rx="5" fill="#7d0a1d"/><rect x="2" y="58" width="96" height="40" rx="6" fill="#a50d26"/></g>
   </svg>
 
   <!-- the real TMB bus from the photo, cut out, driving in from the left edge -->
   <img class="bus shadow" src="cinebus-bus.png" alt="">
 
   <p class="hand">From the billboard to your seat</p>
-  <h1>Cine<br>B<span class="red">u</span><span class="ghost">s</span></h1>
+  <h1>CineB<span class="red">u</span><span class="ghost">s</span></h1>
   <div class="fold"></div><div class="grain"></div>
 </main>
 <script src="board.js"></script>
 <script>
-// Cinema seats seen from behind, in rows, some of them missing: they fill the left like the theatre
-const C = ["#c8102e", "#c8102e", "#a50d26", "#7d0a1d", "#c8102e", "#a50d26"];
-const block = (x, y, c) => `<g transform="translate(${x - 52} ${y - 50})">
-  <path d="M8 18 q0-18 22-18 h44 q22 0 22 18 v70 h-88z" fill="${c}"/>
-  <path d="M8 18 q0-18 22-18 h44 q22 0 22 18 v4 h-88z" fill="#d9c7a7"/>
-  <rect x="0" y="40" width="10" height="56" rx="4" fill="#5a0716"/><rect x="94" y="40" width="10" height="56" rx="4" fill="#5a0716"/>
-  <path d="M14 88 h76" stroke="#141816" stroke-opacity=".25" stroke-width="4"/></g>`;
-const [back, front] = field({ step: 118, offset: false, width: 1300, colours: C, shape: block, seed: 11 });
-const extra = [[1500, 300, "#c8102e"], [2150, 820, "#7d0a1d"], [1380, 120, "#a50d26"], [1240, 860, "#c8102e"], [1380, 520, "#a50d26"]]
-  .map(([x, y, c]) => block(x, y, c)).join("");
-document.getElementById("back").innerHTML = back + extra;
-document.getElementById("front").innerHTML = front;
+// The city: stops scattered irregularly (no grid), dense on the left and thinning to the middle like the other banners' tiles,
+// each joined to its nearest neighbours like streets
+const rnd = seeded(23), N = [];
+const thin = (x, y) => Math.min(1, Math.max(0, x - 300) / 1000) + Math.max(0, Math.abs(y - 560) - 420) / 900;
+// a few empty patches (squares, parks) and uneven spacing so it reads like a real city, not a mesh
+const holes = [[330, 150, 170], [900, 840, 170], [120, 1000, 130], [1000, 230, 130], [700, 330, 110]];
+for (let tries = 0; tries < 20000; tries++) {
+  const x = -60 + rnd() * 1460, y = -60 + rnd() * 1320, t = thin(x, y);
+  if (rnd() < t * t * 1.1 + t * .2) continue;
+  if (holes.some(([hx, hy, hr]) => Math.hypot(x - hx, y - hy) < hr * (.8 + rnd() * .4))) continue;
+  const gap = 62 + (Math.sin(x / 170) + Math.cos(y / 130)) * 10 + rnd() * 16;
+  if (N.every(([a, b]) => Math.hypot(a - x, b - y) > gap)) N.push([x, y]);
+}
+// stepping stones: stops that carry on from the city across the middle and grow sparser to the right,
+// keeping clear of the clapperboard, the cinema pin, the ticket, the motto and the title
+const R = N.length;
+const free = (x, y) => !(x > 1150 && x < 1480 && y > 60 && y < 390) && !(x > 1200 && x < 1370 && y > 420 && y < 610)
+  && !(x > 1380 && x < 1940 && y > 480 && y < 800) && !(x > 1560 && y < 170) && !(x > 1300 && y > 860);
+for (let tries = 0; tries < 6000; tries++) {
+  const x = 1050 + rnd() * 1310, y = 60 + rnd() * 1080, far = (x - 1050) / 1310;
+  if (!free(x, y) || rnd() < far * .75) continue;
+  if (N.every(([a, b]) => Math.hypot(a - x, b - y) > 110 + far * 110)) N.push([x, y]);
+}
+const op = (x, y) => Math.max(.5, 1 - Math.pow(thin(x, y), 1.4)).toFixed(2);
+const near = i => N.map((p, j) => [Math.hypot(p[0] - N[i][0], p[1] - N[i][1]), j]).filter(d => d[1] !== i).sort((a, b) => a[0] - b[0]);
+const E = new Set();
+N.forEach((_, i) => near(i).slice(0, i >= R ? 2 : 3).forEach(([d, j]) => d < (i >= R ? 280 : 160) && E.add(Math.min(i, j) + "-" + Math.max(i, j))));
+// every lone stop on the right also links back to its nearest stop further left, so chains of streets lead into the city
+for (let i = R; i < N.length; i++) {
+  const back = near(i).find(([d, j]) => N[j][0] < N[i][0] - 40);
+  if (back) E.add(Math.min(i, back[1]) + "-" + Math.max(i, back[1]));
+}
+let m = `<g stroke="#141816" stroke-width="2.5" stroke-linecap="round">`;
+for (const e of E) { const [i, j] = e.split("-").map(Number); m += `<line x1="${N[i][0]}" y1="${N[i][1]}" x2="${N[j][0]}" y2="${N[j][1]}" stroke-opacity="${(op((N[i][0] + N[j][0]) / 2, (N[i][1] + N[j][1]) / 2) * .26).toFixed(3)}"/>`; }
+m += `</g>`;
+// stops: mostly ink, some in the CineBus reds and a few greys, so the field has tones like the other banners' tiles
+const tones = ["#141816", "#141816", "#141816", "#141816", "#5e5e5e", "#c9c4b8", "#c8102e"];
+m += N.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="${4 + rnd() * 5}" fill="${tones[Math.floor(rnd() * tones.length)]}" opacity="${(op(x, y) * .8).toFixed(2)}"/>`).join("");
+document.getElementById("map").innerHTML = m;
+
+// The route: from the stop nearest the bus, hop along the streets towards the cinema
+const cinema = [1290, 560];
+const nearest = ([x, y]) => N.reduce((b, p, i) => Math.hypot(p[0] - x, p[1] - y) < Math.hypot(N[b][0] - x, N[b][1] - y) ? i : b, 0);
+const links = i => [...E].map(e => e.split("-").map(Number)).filter(e => e.includes(i)).map(e => e[0] === i ? e[1] : e[0]);
+const goal = nearest([1300, 480]), path = [nearest([760, 680])];
+while (path.at(-1) !== goal && path.length < 40) {
+  const cur = path.at(-1), d = j => Math.hypot(N[j][0] - N[goal][0], N[j][1] - N[goal][1]);
+  const next = links(cur).filter(j => !path.includes(j)).sort((a, b) => d(a) - d(b))[0];
+  if (next === undefined) break; path.push(next);
+}
+// a smooth curve through the stops (Catmull-Rom), starting at the front of the bus
+const pts = [[650, 690], ...path.map(i => N[i])];
+let d = `M${pts[0]}`;
+for (let i = 0; i < pts.length - 1; i++) {
+  const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+  d += ` C${p1[0] + (p2[0] - p0[0]) / 6} ${p1[1] + (p2[1] - p0[1]) / 6}, ${p2[0] - (p3[0] - p1[0]) / 6} ${p2[1] - (p3[1] - p1[1]) / 6}, ${p2[0]} ${p2[1]}`;
+}
+const last = N[path.at(-1)];
+document.getElementById("route").innerHTML = `<path d="${d}" fill="none" stroke="#efece4" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>
+  <path d="${d}" fill="none" stroke="#c8102e" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M${last} L${cinema}" stroke="#c8102e" stroke-width="5" stroke-dasharray="1 13" stroke-linecap="round"/>
+  <g fill="#c8102e" stroke="#efece4" stroke-width="4">${path.map(i => `<circle cx="${N[i][0]}" cy="${N[i][1]}" r="11"/>`).join("")}</g>
+  <g transform="translate(${cinema})"><ellipse cx="0" cy="2" rx="14" ry="5" fill="#000" opacity=".25"/>
+  <path d="M0 0 C -6 -22, -32 -36, -32 -62 A 32 32 0 1 1 32 -62 C 32 -36, 6 -22, 0 0z" fill="#141816"/>
+  <rect x="-17" y="-76" width="34" height="22" rx="3" fill="#c8102e"/><path d="M-11 -48 h22" stroke="#efece4" stroke-width="3"/></g>`;
+
+// Velvet cinema seats seen from the front: a tufted backrest, the seat cushion folded down and two armrests
+const fabrics = { r: ["#e0233f", "#b50f29", "#7e0a1c"], d: ["#b8152e", "#8d0c21", "#560614"], w: ["#8f1426", "#650a19", "#3d0510"] };
+let defs = "";
+for (const [id, [hi, mid, lo]] of Object.entries(fabrics)) {
+  defs += `<linearGradient id="back-${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${hi}"/><stop offset=".55" stop-color="${mid}"/><stop offset="1" stop-color="${lo}"/></linearGradient>
+  <linearGradient id="cush-${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${hi}"/><stop offset="1" stop-color="${lo}"/></linearGradient>`;
+}
+defs += `<linearGradient id="side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset=".18" stop-color="#000" stop-opacity="0"/><stop offset=".82" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".28"/></linearGradient>
+  <linearGradient id="arm" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a1a14"/><stop offset=".5" stop-color="#4a2f22"/><stop offset="1" stop-color="#22140f"/></linearGradient>
+  <radialGradient id="floor"><stop offset="0" stop-color="#000" stop-opacity=".32"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>`;
+document.getElementById("velvet").innerHTML = defs;
+const seat = (x, y, c, s = 1.5) => `<g transform="translate(${x} ${y}) scale(${s})">
+  <ellipse cx="52" cy="98" rx="56" ry="9" fill="url(#floor)"/>
+  <path d="M15 22 Q15 0 38 0 H66 Q89 0 89 22 V70 H15z" fill="url(#back-${c})"/>
+  <path d="M15 22 Q15 0 38 0 H66 Q89 0 89 22 V70 H15z" fill="url(#side)"/>
+  <path d="M33 10 V64 M52 6 V64 M71 10 V64" stroke="#000" stroke-opacity=".22" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M34 9 V60 M53 5 V60 M72 9 V60" stroke="#fff" stroke-opacity=".08" stroke-width="1.5"/>
+  <path d="M24 3.5 Q38 0.5 52 1 Q66 0.5 80 3.5" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M12 66 Q12 60 18 60 H86 Q92 60 92 66 V80 Q92 86 86 86 H18 Q12 86 12 80z" fill="url(#cush-${c})"/>
+  <path d="M16 84 H88" stroke="#000" stroke-opacity=".3" stroke-width="3"/>
+  <path d="M18 63 H86" stroke="#fff" stroke-opacity=".2" stroke-width="2" stroke-linecap="round"/>
+  <rect x="0" y="40" width="13" height="56" rx="4" fill="url(#arm)"/><rect x="91" y="40" width="13" height="56" rx="4" fill="url(#arm)"/>
+  <rect x="-1" y="38" width="15" height="7" rx="3.5" fill="#5c3b2b"/><rect x="90" y="38" width="15" height="7" rx="3.5" fill="#5c3b2b"/></g>`;
+// one short row, standing on the bottom edge: six seats side by side, sharing their armrests
+const row = ["r", "d", "r", "w", "r", "d"];
+document.getElementById("seats").insertAdjacentHTML("beforeend", row.map((c, i) => seat(420 + i * 136, 1085, c)).join(""));
 </script>
 </body></html>

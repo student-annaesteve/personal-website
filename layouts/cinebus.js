@@ -64,7 +64,9 @@
       '<img class="cb-photo" src="images/cinebus/bus-street.webp" alt="A red and white articulated TMB bus on a wide Barcelona avenue with a red bus lane, seen from above" loading="lazy">' +
       '<ol class="cb-steps">' + (d.steps || []).map(([t, x, tool], k) =>
         '<li><span class="cb-step-n">' + (k + 1) + '</span><div><strong>' + esc(t) + "</strong><p>" + esc(x) + '</p><em>' + esc(tool) + "</em></div></li>").join("") +
-      "</ol></section>";
+      "</ol>" +
+      (d.concepts ? '<div class="cb-concepts"><h4>Key concepts</h4><dl>' + d.concepts.map(([t, x]) => "<div><dt>" + esc(t) + "</dt><dd>" + esc(x) + "</dd></div>").join("") + "</dl></div>" : "") +
+      "</section>";
 
     h += '<section class="cb-sec">' + head("03", "The result") +
       '<p class="cb-text">' + esc(d.result) + "</p>" +

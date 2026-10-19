@@ -74,7 +74,7 @@ window.PROJECTS = [
     // Python project (UPC). Its own look (layouts/cinebus.js + .css): a cinema ticket and a bus map.
     title: "CineBus", // short name for the map and the route list
     origin: "Python project at the UPC, made with Cristina Teixidó, 2023.", // where the project comes from: a soft line above the tags
-    banner: { src: "images/cinebus/banner.webp", alt: "CineBus collage: rows of red cinema seats with gaps, a clapperboard, and a real TMB bus driving in from the left along a dotted route to a cinema ticket" },
+    banner: { src: "images/cinebus/banner.webp", alt: "CineBus collage: a network of Barcelona bus stops, a real TMB bus driving along a red route through it to a cinema pin, a clapperboard, a ticket and a row of red velvet cinema seats" },
     layout: "cinebus",
     headline: "From the billboard to your seat",
     subtitle: "CineBus · find a film in Barcelona and the fastest way to get there by bus and on foot",
@@ -85,13 +85,20 @@ window.PROJECTS = [
     problem: "Barcelona has dozens of cinemas and hundreds of screenings a day. Choosing a film is one search; working out which cinema you can reach first, and how, is another.",
     goal: "So the goal was one tool that does both: pick a film you like and get the quickest route to the next screening, walking and taking buses.",
     steps: [
-      ["Billboard", "Scrapes today's Barcelona billboard: films, cinemas, times and languages.", "BeautifulSoup"],
-      ["Bus graph", "Turns every TMB line and stop into a graph of stops joined by bus routes.", "NetworkX"],
-      ["City graph", "Merges the bus graph with Barcelona's street map, so a trip can mix walking and buses.", "OSMnx"],
-      ["Shortest path", "Finds the fastest route from where you are to the cinema, with as many changes as needed.", "staticmap"],
+      ["Billboard", "Scrapes today's Barcelona listings from Sensacine. Each screening's film, cinema and time are read from the JSON embedded in the page and stored as Film, Cinema and Projection objects.", "BeautifulSoup"],
+      ["Bus graph", "Builds a graph from the AMB open data: every stop is a node and consecutive stops on a line are joined by an edge. A stop served by several lines is one node, which is where you change bus.", "NetworkX"],
+      ["City graph", "Adds Barcelona's street network from OpenStreetMap, with crossings as nodes and street segments as edges. Each bus stop is linked to its nearest crossing, so one graph covers walking and buses.", "OSMnx"],
+      ["Shortest path", "Weights every edge by travel time, its length divided by the speed, and runs Dijkstra's algorithm from where you are to the cinema. The route is drawn over the map of the city.", "Dijkstra · staticmap"],
+    ],
+    // A few technical ideas behind the steps, shown as small cards under them
+    concepts: [
+      ["Graph", "Nodes joined by edges. Here the nodes are stops and street crossings, and the edges are bus links and streets."],
+      ["Edge weight", "The cost of crossing an edge. Weighting by time instead of distance makes a metre on foot cost four times a metre by bus."],
+      ["Dijkstra's algorithm", "Finds the cheapest path in a graph with non-negative weights by always expanding the nearest node not yet visited."],
+      ["Haversine distance", "The distance between two points on the Earth from their latitude and longitude, used for the length between stops."],
     ],
     facts: [["5 km/h", "walking"], ["20 km/h", "on the bus"], ["4", "Python modules"]],
-    result: "A menu-driven demo that builds the billboard, searches it by title, draws the bus and city graphs over Barcelona, and plots the fastest path to the cinema.",
+    result: "A menu-driven demo that builds the billboard, searches it by title, draws the bus and city graphs over Barcelona, and plots the fastest path to the cinema. The street graph is saved to disk with pickle, so OpenStreetMap is downloaded only once.",
     images: [],
     link: "https://github.com/annaesteve/CineBus",
     linkLabel: "View the code on GitHub →",
