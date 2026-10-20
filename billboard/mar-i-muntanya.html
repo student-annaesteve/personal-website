@@ -59,6 +59,10 @@ h1 { left: 80px; right: auto; top: 60px; bottom: auto; text-align: left; font-si
 </main>
 <script src="board.js"></script>
 <script>
+// mar-i-muntanya.html?plain draws the board without the laptop: the project page shows that one and lets the laptop fly out of it
+if (/plain/.test(location.search)) document.querySelector(".laptop").style.visibility = "hidden";
+</script>
+<script>
 // Place the pieces along the road: [fraction of the road, image or label, width, dx, dy]
 const road = document.getElementById("road"), L = road.getTotalLength();
 const at = (f) => road.getPointAtLength(L * f);
