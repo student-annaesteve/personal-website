@@ -105,6 +105,10 @@ window.PROJECTS = [
     title: "MySónar", // short name for the map and the route list
     origin: "Team project for a university course: a mobile app designed for the Sónar Festival in Barcelona.", // where the project comes from: a soft line above the tags
     banner: { src: "images/mysonar/banner.webp", alt: "MySónar collage: festival timetable slots, the app screens, the Barcelona skyline and the taste space" },
+    // The page shows the banner without the taste space; the taste space then travels from the banner to beside the problem
+    bannerPlain: "images/mysonar/banner-plain.webp",
+    taste: { src: "images/mysonar/taste-space.webp", alt: "The taste space: artists as dots, the ones you like picked out in yellow and joined" },
+    flight: { piece: ".ms-taste", at: [1420 / 2400, 140 / 1200, 660 / 2400], tilt: -5 }, // where the taste space sits in billboard/mysonar.html
     layout: "mysonar",
     headline: "Your Sónar, planned for you",
     subtitle: "MySónar · a mobile app that builds a personal Sónar Festival schedule from your taste",

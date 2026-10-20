@@ -38,9 +38,12 @@
       (d.subtitle ? '<p class="ms-sub">' + esc(d.subtitle) + "</p>" : "") +
       "</section>";
 
-    h += '<section class="ms-sec">' + head("01", "The problem") +
+    // The problem, with the taste space from the banner beside it (it flies there: world.js, flyFromBanner)
+    h += '<section class="ms-sec">' + head("01", "The problem") + '<div class="ms-problem"><div>' +
       '<ol class="ms-cards">' + (d.problems || []).map((p, k) => card(p, k, esc)).join("") + "</ol>" +
-      '<p class="ms-lead">' + esc(d.goal) + "</p></section>";
+      '<p class="ms-lead">' + esc(d.goal) + "</p></div>" +
+      (d.taste ? '<img class="ms-taste" src="' + esc(d.taste.src) + '" alt="' + esc(d.taste.alt || "") + '">' : "") +
+      "</div></section>";
 
     h += '<section class="ms-sec">' + head("02", "The solution") +
       '<p class="ms-lead">' + esc(d.solution) + "</p>" +

@@ -108,3 +108,8 @@
   .ms-flow { grid-auto-columns: 128px; }
 }
 .panel .ms .panel-link { align-self: flex-start; background: var(--ms-y); border-color: var(--ms-y); color: #000; }
+
+/* The problem: the cards and the goal on the left, the taste space from the banner on the right */
+.ms-problem { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 32px; align-items: center; }
+.ms-taste { width: 100%; max-width: 240px; justify-self: end; }
+@media (max-width: 760px) { .ms-problem { grid-template-columns: 1fr; gap: 24px; } .ms-taste { max-width: 200px; justify-self: center; } }
