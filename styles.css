@@ -689,6 +689,9 @@ img.about-photo { background: #fff; }
 .panel-banner { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: cover; flex: none;
   -webkit-mask-image: linear-gradient(to bottom, #000 88%, transparent); mask-image: linear-gradient(to bottom, #000 88%, transparent); }
 .panel-banner[hidden] { display: none; }
+/* A piece that flies out of the banner to its place (world.js: flyFromBanner) */
+.flying-piece { position: relative; z-index: 3; transform-origin: 0 0; will-change: transform; }
+.panel:has(.flying-piece) { overflow-x: hidden; }
 
 /* ---------- No WebGL: the trail sign becomes the whole page ---------- */
 .no-webgl {

@@ -212,6 +212,48 @@
     else html = intro + html;
     panelBody.innerHTML = html;
     wireCopy(d);
+    requestAnimationFrame(() => flyFromBanner(s.kind === "project" && banner ? d.flight : null));
+  }
+
+  // A piece of the page (the CineBus bus, the Trusting autonomy laptop) starts at its place in the banner,
+  // which the panel shows without it, and travels down to its own place as the page scrolls,
+  // like the sprinkler sketch in Smart irrigation. `flight.at` is [left, top, width] as fractions of the banner.
+  const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  function flyFromBanner(flight) {
+    if (panel._flyOff) panel._flyOff();
+    const el = flight && panelBody.querySelector(flight.piece);
+    if (!el || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+    el.classList.add("flying-piece");
+    const [L, T, W] = flight.at, tilt = flight.tilt || 5;
+    let fly = null, queued = false;
+    function measure() {
+      el.style.transform = "none";
+      const b = panelBanner.getBoundingClientRect(), n = el.getBoundingClientRect();
+      fly = panelBanner.hidden || !b.width || !n.width ? null :
+        { dx: b.left + b.width * L - n.left, dy: b.top + b.height * T - n.top, s: (b.width * W) / n.width };
+    }
+    function step() {
+      queued = false;
+      if (!el.isConnected) return off();
+      if (!fly) { el.style.transform = "none"; return; }
+      const t = easeInOut(Math.min(1, Math.max(0, panel.scrollTop / (panel.clientHeight * 0.4)))), k = 1 - t;
+      el.style.transform = "translate(" + (fly.dx * k).toFixed(1) + "px," + (fly.dy * k).toFixed(1) + "px) scale(" +
+        (fly.s + (1 - fly.s) * t).toFixed(3) + ") rotate(" + (tilt * Math.sin(Math.PI * t)).toFixed(2) + "deg)";
+    }
+    const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(step); } };
+    const onResize = () => { measure(); step(); };
+    function off() {
+      panel.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      el.style.transform = "";
+      panel._flyOff = null;
+    }
+    el.querySelectorAll("img").forEach((im) => { if (!im.complete) im.addEventListener("load", onResize, { once: true }); });
+    if (el.tagName === "IMG" && !el.complete) el.addEventListener("load", onResize, { once: true });
+    panel.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    panel._flyOff = off;
+    onResize();
   }
   function wireCopy(d) {
     const copy = $("copy-email");

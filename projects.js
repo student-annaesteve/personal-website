@@ -78,6 +78,7 @@ window.PROJECTS = [
     // The page shows the banner without the bus; the bus then travels from its place in the banner to beside the problem
     bannerPlain: "images/cinebus/banner-plain.webp",
     bus: { src: "images/cinebus/bus.webp", alt: "A red and white articulated TMB bus" },
+    flight: { piece: ".cb-bus-piece", at: [-40 / 2400, 330 / 1200, 700 / 2400], tilt: 6 }, // where the bus sits in billboard/cinebus.html
     layout: "cinebus",
     headline: "From the billboard to your seat",
     subtitle: "CineBus · find a film in Barcelona and the fastest way to get there by bus and on foot",
@@ -144,6 +145,9 @@ window.PROJECTS = [
     title: "Trusting autonomy", // short name for the map and the route list (the simulator itself is called Mar i Muntanya)
     origin: "SEAT–UPC Design Thinking challenge, made with Aleix Albaiges, 2026.", // where the project comes from: a soft line above the tags
     banner: { src: "images/mar-i-muntanya/banner.webp", alt: "Trusting autonomy collage: a winding road from L3 roadworks to the L4 city with an ambulance and the L5 restaurant and viewpoint, with the simulator on a laptop" },
+    // The page shows the banner without the laptop; the simulator's laptop then travels from the banner to its place under the intro
+    bannerPlain: "images/mar-i-muntanya/banner-plain.webp",
+    flight: { piece: ".mock-hero .device--laptop", at: [-50 / 2400, 839 / 1200, 560 / 2400], tilt: 4 }, // where the laptop sits in billboard/mar-i-muntanya.html
     theme: "cupra", // copper orange accents, as in the presentation (styles.css)
     headline: "Designing trust in a car that drives itself", // the project's goal, shown as the panel title
     year: "2026",
