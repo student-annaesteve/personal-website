@@ -121,14 +121,6 @@
 .cb-facts dt { font-family: var(--display); font-weight: 400; font-size: 2rem; color: var(--cb-red); }
 .panel .cb-link { border-radius: 2px; padding: 12px 20px; }
 
-/* Key concepts: small cards under the steps, like the demo cards in the result */
-.cb-concepts { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
-.panel .cb-concepts h4 { margin: 0; font-family: var(--label); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(17, 17, 17, 0.55); }
-.cb-concepts dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 0; }
-.cb-concepts dl > div { display: grid; gap: 4px; padding: 14px 16px; border-radius: 12px; background: #fff; border: 1px solid #1111111f; }
-.cb-concepts dt { font-weight: 600; font-size: 13px; color: #111; }
-.cb-concepts dd { margin: 0; font-size: 13px; line-height: 1.6; color: #111; }
-@media (max-width: 560px) { .cb-concepts dl { grid-template-columns: 1fr; } }
 
 /* The problem: the bus from the banner on the left, the text on the right */
 .panel[data-layout="cinebus"] { overflow-x: hidden; }

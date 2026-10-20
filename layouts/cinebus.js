@@ -107,9 +107,7 @@
     h += '<section class="cb-sec">' + head("02", "The solution") +
       '<ol class="cb-steps">' + (d.steps || []).map(([t, x, tool], k) =>
         '<li><span class="cb-step-n">' + (k + 1) + '</span><div><strong>' + esc(t) + "</strong><p>" + esc(x) + '</p><em>' + esc(tool) + "</em></div></li>").join("") +
-      "</ol>" +
-      (d.concepts ? '<div class="cb-concepts"><h4>Key concepts</h4><dl>' + d.concepts.map(([t, x]) => "<div><dt>" + esc(t) + "</dt><dd>" + esc(x) + "</dd></div>").join("") + "</dl></div>" : "") +
-      "</section>";
+      "</ol></section>";
 
     h += '<section class="cb-sec">' + head("03", "The result") +
       '<p class="cb-text">' + esc(d.result) + "</p>" +
