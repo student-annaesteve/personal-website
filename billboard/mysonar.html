@@ -24,7 +24,7 @@ h1 { left: 1180px; right: auto; bottom: 60px; text-align: left; font-size: 250px
   <svg class="tiles" id="back" viewBox="0 0 2400 1200" style="z-index:2"></svg>
   <svg class="tiles" id="front" viewBox="0 0 2400 1200" style="z-index:5"></svg>
   <!-- the taste space: artists as dots, the ones you like joined -->
-  <svg class="tiles" viewBox="0 0 2400 1200" style="z-index:3">
+  <svg class="tiles" id="taste" viewBox="0 0 2400 1200" style="z-index:3">
     <g fill="#141816" opacity=".85" id="dots"></g>
     <path d="M1560 260 L1700 360 L1660 520 L1830 470 L1960 600" fill="none" stroke="#141816" stroke-width="2" stroke-dasharray="2 9" stroke-linecap="round"/>
     <g fill="#f2b40c" stroke="#141816" stroke-width="3"><circle cx="1560" cy="260" r="13"/><circle cx="1700" cy="360" r="13"/><circle cx="1660" cy="520" r="13"/><circle cx="1830" cy="470" r="13"/><circle cx="1960" cy="600" r="13"/></g>
@@ -38,6 +38,16 @@ h1 { left: 1180px; right: auto; bottom: 60px; text-align: left; font-size: 250px
   <div class="fold"></div><div class="grain"></div>
 </main>
 <script src="board.js"></script>
+<script>
+// mysonar.html?plain draws the board without the taste space (the project page shows that one and lets the
+// taste space fly out of it); mysonar.html?piece draws only the taste space, on a transparent board
+if (/plain/.test(location.search)) document.getElementById("taste").style.visibility = "hidden";
+if (/piece/.test(location.search)) {
+  document.body.style.background = "transparent";
+  document.querySelector(".board").style.background = "transparent";
+  for (const el of document.querySelector(".board").children) if (el.id !== "taste") el.style.visibility = "hidden";
+}
+</script>
 <script>
 // Timetable slots: rounded bars of one, two or three hours on rows like a festival schedule
 const C = ["#f2b40c", "#141816", "#5e5e5e", "#f7e3a1", "#e8833a", "#c9c4b8", "#f2b40c"];
