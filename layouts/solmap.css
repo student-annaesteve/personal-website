@@ -1,0 +1,47 @@
+/* "SolMap": set in the site's shared look (white page, typewriter section titles, black text),
+   with Mars rust from the app as its one accent and the app's mission patch at the top. */
+.sm {
+  --sm-rust: #80341f;
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
+  color: #111;
+}
+.sm-hero { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.sm-logo { width: 96px; height: 96px; margin-bottom: 6px; }
+.panel .sm-title { margin: 0; }
+.sm-sec { display: flex; flex-direction: column; gap: 14px; }
+.sm-head { display: block; }
+.sm-num { display: none; }
+.sm-head h3 { margin: 0; }
+
+/* challenge, steps and data layers: a plain two-column list, like the other projects */
+.sm-cards, .sm-steps, .sm-layers { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.sm-cards li, .sm-steps li { display: block; }
+.sm-cards li > div, .sm-steps li > div, .sm-layers li { display: grid; grid-template-columns: 9.5em 1fr; column-gap: 20px; }
+.sm-cards strong, .sm-steps strong { grid-row: span 2; }
+.panel .sm-cards p, .panel .sm-steps p { margin: 0; }
+.sm-dot, .sm-step-n { display: none; }
+.sm-layers li { padding-left: 14px; border-left: 4px solid var(--sm-rust); }
+
+.sm-shot { margin: 4px 0 8px; }
+.sm-shot img { display: block; width: 100%; height: auto; }
+.panel .sm-note { margin: 0; }
+
+/* results: big numbers on a rust rule, as MySónar's sit on yellow */
+.sm-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 6px 0 0; }
+.sm-stats > div { display: grid; gap: 6px; padding-left: 14px; border-left: 4px solid var(--sm-rust); }
+.sm-stats dd { margin: 0; }
+
+/* shared type rules, the same as the other layouts get in unified.css */
+.panel[data-layout="solmap"] .panel-body :is(.sm-title, .sm-sec h3, .sm-stats dt) {
+  font-family: var(--u-mono) !important; font-weight: 500 !important; font-size: 15px !important; line-height: 1.45 !important;
+  letter-spacing: .02em !important; text-transform: uppercase !important;
+}
+.panel[data-layout="solmap"] .panel-body .sm-sub { color: rgba(17, 17, 17, 0.6) !important; }
+
+@media (max-width: 720px) {
+  .sm { gap: 56px; }
+  .sm-cards li > div, .sm-steps li > div, .sm-layers li { grid-template-columns: 1fr; }
+  .sm-stats { grid-template-columns: 1fr; gap: 12px; }
+}
