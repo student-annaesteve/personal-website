@@ -204,14 +204,43 @@ window.PROJECTS = [
     ],
   },
   {
-    title: "…", // the next project: still under construction
-    year: "",
-    tags: [],
-    construction: "In construction…", // its page shows only this line
-    description: "",
+    // NASA Space Apps Challenge 2026, Toronto. Its own renderer (layouts/solmap.js + .css), Mars rust accents.
+    title: "SolMap", // short name for the map and the route list
+    origin: "NASA Space Apps Challenge hackathon in Toronto, team Project Red Horizon, 2026.", // where the project comes from: a soft line above the tags
+    // banner: { src: "images/solmap/banner.webp", alt: "…" }, // head banner, to be added
+    layout: "solmap",
+    headline: "Planning a safe path across Mars",
+    subtitle: "SolMap · a 3D map of Mars to plan the safest route for a rover or a crew",
+    year: "2026",
+    tags: ["Hackathon", "Planetary mapping", "3D web app"],
+    color: "#80341f",
+    goal: "During the hackathon, our team built a tool to help plan missions on the Martian surface: pick a landing area and find the safest route a rover or crew can travel, using real NASA data.",
+    problems: [
+      ["Rough terrain", "Steep slopes and craters can stop a rover or put a crew at risk."],
+      ["Scattered data", "Elevation, imagery, minerals and rover tracks live in different NASA archives."],
+      ["Where to go", "The most interesting places, old lake shores and sample sites, are not always the easy ones to reach."],
+    ],
+    solution: "SolMap is a 3D web map of Mars. Choose a landing area, Jezero or Gale crater, stack the data layers you need, and follow the safest route from the driver's seat of the rover.",
+    landing: { src: "images/solmap/landing.jpg", alt: "SolMap start screen: Select the landing area, Jezero Crater or Gale Crater, next to the rocket" },
+    steps: [
+      ["Land", "Pick Jezero Crater (Perseverance) or Gale Crater (Curiosity), and the 3D terrain loads around it."],
+      ["Stack the layers", "Turn on imagery, elevation, slope, minerals, samples and radiation, one on top of the other."],
+      ["Plan the route", "Slope classes from the 20 m terrain model mark where it is safe to walk or drive; the route avoids the steep ground."],
+      ["Ride along", "Ride on the rover along its route, with the elevation profile, the radio line of sight to base and the minerals nearby."],
+    ],
+    layers: [
+      ["CTX imagery", "MRO Context Camera mosaic, ~5 m/px close up"],
+      ["Elevation & slope", "20 m terrain model, slope in walking classes"],
+      ["Minerals", "CRISM spectrometer: carbonates, clays, silica, olivine"],
+      ["Samples", "28 sealed Perseverance samples and the 10-tube depot"],
+      ["Radiation", "Curiosity RAD readings at 1,317 rover stops"],
+    ],
+    results: {
+      stats: [["2", "craters to land in"], ["5", "NASA data layers stacked"], ["1", "live web app"]],
+    },
     images: [],
-    link: "",
-    color: "#6b6b6b",
+    link: "https://solmap-nu.vercel.app/",
+    linkLabel: "Open SolMap",
   },
 ];
 
