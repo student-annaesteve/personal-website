@@ -204,10 +204,10 @@ window.PROJECTS = [
     ],
   },
   {
-    // NASA Space Apps Challenge 2026, Toronto. Its own renderer (layouts/solmap.js + .css), Mars rust accents.
+    // NASA Space Apps Challenge 2026, Toronto. Drawn by layouts/solmap.js with the same page parts as MySónar, in Mars rust.
     title: "SolMap", // short name for the map and the route list
     origin: "NASA Space Apps Challenge hackathon in Toronto, team Project Red Horizon, 2026.", // where the project comes from: a soft line above the tags
-    // banner: { src: "images/solmap/banner.webp", alt: "…" }, // head banner, to be added
+    banner: { src: "images/solmap/banner.webp", alt: "SolMap banner: a rocket and the Perseverance rover beside Mars, the app's data layers stacked over the terrain, the mission patch and the two landing sites, Jezero Crater and Gale Crater" },
     layout: "solmap",
     headline: "Planning a safe path across Mars",
     subtitle: "SolMap · a 3D map of Mars to plan the safest route for a rover or a crew",
